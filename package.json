@@ -6,9 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -21,6 +27,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
+    "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "zod": "^4.1.8",
     "zustand": "^5.0.8"

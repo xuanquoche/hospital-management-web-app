@@ -40,7 +40,7 @@ const ButtonVariants: Record<ButtonVariantKey, string> = {
     'text-white bg-red-700 hover:bg-red-800 border border-red-800 focus:outline-none',
 };
 
-export function Button({
+export default function Button({
   children,
   variant = 'primary',
   loading = false,
@@ -72,12 +72,12 @@ export function Button({
       {children}
       {loading && (
         <svg
-          className="w-5 h-5 ml-2 fill-current animate-spin"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
+          className='w-5 h-5 ml-2 fill-current animate-spin'
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 24 24'
         >
-          <path fill="none" d="M0 0h24v24H0z" />
-          <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />
+          <path fill='none' d='M0 0h24v24H0z' />
+          <path d='M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z' />
         </svg>
       )}
     </button>

@@ -1,6 +1,6 @@
 import { LogoIcon } from '@/public/icon/index';
 import { LoginImage } from '@/public/images/index';
-import LoginForm from '@/src/components/form/login-form';
+import RegisterForm from '@/src/components/form/register-form';
 
 export default function Login() {
   return (
@@ -9,7 +9,7 @@ export default function Login() {
         <div>
           <LogoIcon />
         </div>
-        <LoginForm />
+        <RegisterForm />
       </div>
       <div className='h-[40%] w-[50%] justify-center items-center hidden md:flex'>
         <LoginImage height={500} />
