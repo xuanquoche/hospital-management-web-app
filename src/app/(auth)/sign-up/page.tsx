@@ -3,10 +3,10 @@ import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
 import { SiFacebook } from 'react-icons/si';
 
-import RegisterForm from '@/src/components/form/register-form';
-import { ROUTES } from '@/src/const/routes';
+import RegisterForm from '@/components/form/register-form';
+import { ROUTES } from '@/const/routes';
 
-export default function SignUp() {
+export default async function SignUp() {
   return (
     <div className='w-full max-w-md mx-auto'>
       <div className='bg-white rounded-2xl shadow-lg p-8'>
