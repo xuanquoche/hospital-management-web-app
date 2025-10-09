@@ -12,5 +12,9 @@
     "signIn": "サインイン",
     "securedBy": "セキュリティ提供",
     "welcome": "ようこそ！始めるために詳細を入力してください。"
+  },
+  "SidebarHeader": {
+    "logoName": "Trustcare Clinic",
+    "location": "Hanoi, Vietnam"
   }
 }
