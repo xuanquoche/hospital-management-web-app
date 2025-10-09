@@ -1,0 +1,16 @@
+{
+  "SignInPage": {
+    "welcome": "おかえりなさい",
+    "welcomeMessage": "続行するにはアカウントにサインインしてください",
+    "dontHaveAccount": "アカウントをお持ちでない場合",
+    "signUp": "サインアップ",
+    "securedBy": "セキュリティ提供"
+  },
+  "SignUpPage": {
+    "createAccount": "アカウントを作成",
+    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+    "signIn": "サインイン",
+    "securedBy": "セキュリティ提供",
+    "welcome": "ようこそ！始めるために詳細を入力してください。"
+  }
+}

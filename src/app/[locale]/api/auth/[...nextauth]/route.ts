@@ -29,7 +29,7 @@ async function refreshAccessToken(token: any) {
       ...token,
       accessToken: refreshedTokens.data.accessToken,
       refreshToken: refreshedTokens.data.refreshToken,
-      accessTokenExpires: Date.now() + 60 * 1000,
+      accessTokenExpires: Date.now() + 60 * 1000 * 60 * 24,
       error: undefined,
     };
   } catch (error) {
@@ -97,7 +97,7 @@ const authOptions: NextAuthOptions = {
           ...token,
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
-          accessTokenExpires: Date.now() + 60 * 1000, // 1 phút (60 giây)
+          accessTokenExpires: Date.now() + 60 * 1000 * 60 * 24,
           user: {
             id: user.id,
             email: user.email,

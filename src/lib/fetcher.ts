@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next';
 import { getSession, signOut } from 'next-auth/react';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/[locale]/api/auth/[...nextauth]/route';
 
 class APIClient {
   private baseURL: string;

@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { useLocale } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -11,13 +12,15 @@ import { z } from 'zod';
 import Button from '@/components/common/button';
 import CustomInput from '@/components/common/input';
 import { Form } from '@/components/ui/form';
-import { ROUTES } from '@/const';
+import { LOCALIZED_ROUTES } from '@/const';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const locale = useLocale();
 
+  console.log('locale: ', locale);
   const formSchema = z.object({
     email: z.string().email({
       message: 'email is invalid',
@@ -52,13 +55,12 @@ export default function LoginForm() {
       password: values.password,
     });
 
-    console.log('res:', res);
     if (res?.status === 401) {
       toast.error('Invalid email or password');
       setIsLoading(false);
     } else {
       setIsLoading(false);
-      router.push(ROUTES.DASHBOARD);
+      router.push(LOCALIZED_ROUTES.DASHBOARD(locale));
     }
   };
 

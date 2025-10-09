@@ -1,0 +1,16 @@
+{
+  "SignInPage": {
+    "welcome": "Welcome back",
+    "welcomeMessage": "Sign in to your account to continue",
+    "dontHaveAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "securedBy": "Secured by"
+  },
+  "SignUpPage": {
+    "createAccount": "Create an account",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "securedBy": "Secured by",
+    "welcome": "Welcome! Please fill in the details to get started."
+  }
+}

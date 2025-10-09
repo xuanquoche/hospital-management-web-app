@@ -10,3 +10,9 @@ export const PUBLIC_ENDPOINT = [
   '/auth/register',
   '/auth/refresh',
 ];
+
+export const LOCALIZED_ROUTES = {
+  LOGIN: (locale: string = 'en') => `/${locale}/sign-in`,
+  REGISTER: (locale: string = 'en') => `/${locale}/sign-up`,
+  DASHBOARD: (locale: string = 'en') => `/${locale}/dashboard`,
+};
