@@ -22,5 +22,26 @@
     "language": "言語",
     "profile": "プロフィール",
     "logout": "ログアウト"
+  },
+  "department": {
+    "name": "部門名",
+    "status": "ステータス",
+    "addDeparment": "部門を追加",
+    "editDepartment": "部門を編集",
+    "addBtn": "追加",
+    "editBtn": "変更を保存",
+    "active": "アクティブ",
+    "inactive": "非アクティブ",
+    "selectStatus": "ステータスを選択",
+    "enterDepartmentName": "部門名を入力"
+  },
+  "departmentTable": {
+    "deparmentList": "部門リスト",
+    "name": "名前",
+    "status": "ステータス",
+    "actions": "アクション",
+    "updateBtn": "更新",
+    "deleteBtn": "削除",
+    "notHaveData": "利用可能なデータがありません"
   }
 }

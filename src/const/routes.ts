@@ -14,6 +14,7 @@ export const PRIVATE_ROUTES = {
   DASHBOARD: '/dashboard',
   PROFILE: '/profile',
   SETTINGS: '/settings',
+  DEPARTMENT: '/department',
 };
 
 export const PUBLIC_ENDPOINT = [

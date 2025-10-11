@@ -3,7 +3,6 @@
 import {
   LayoutDashboard,
   Users,
-  CalendarDays,
   MapPin,
   Briefcase,
   Layers,
@@ -22,6 +21,7 @@ import {
   SidebarHeader,
   SidebarSection,
 } from '@/components/modules/sidebar/index';
+import { PRIVATE_ROUTES } from '@/const/routes';
 
 export default function Sidebar() {
   const [openMenu, setOpenMenu] = useState<string | null>('Patients');
@@ -61,7 +61,11 @@ export default function Sidebar() {
             label='Applications'
           />
           <MenuItem icon={<Layers className='h-4 w-4' />} label='Front End' />
-          <MenuItem icon={<Box className='h-4 w-4' />} label='Layouts' />
+          <MenuItem
+            icon={<Box className='h-4 w-4' />}
+            label='Department'
+            link={PRIVATE_ROUTES.DEPARTMENT}
+          />
         </SidebarSection>
 
         <SidebarSection title='Clinic'>
@@ -79,13 +83,6 @@ export default function Sidebar() {
             onToggle={() => toggleMenu('Patients')}
             items={itemMenu}
           />
-          {/* <DropdownMenu
-            label='Appointments'
-            icon={<CalendarDays className='h-4 w-4' />}
-            open={openMenu === 'Appointments'}
-            onToggle={() => toggleMenu('Appointments')}
-            items={itemMenu}
-          /> */}
           <MenuItem icon={<MapPin className='h-4 w-4' />} label='Locations' />
           <MenuItem icon={<Briefcase className='h-4 w-4' />} label='Services' />
           <MenuItem

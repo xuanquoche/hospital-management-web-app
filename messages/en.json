@@ -22,5 +22,26 @@
     "language": "Language",
     "profile": "Profile",
     "logout": "Logout"
+  },
+  "department": {
+    "name": "Name of Department",
+    "status": "Status",
+    "addDeparment": "Add Department",
+    "editDepartment": "Edit Department",
+    "addBtn": "Add",
+    "editBtn": "Save Changes",
+    "active": "Active",
+    "inactive": "Inactive",
+    "selectStatus": "Select status",
+    "enterDepartmentName": "Enter department name"
+  },
+  "departmentTable": {
+    "deparmentList": "Department List",
+    "name": "Name",
+    "status": "Status",
+    "actions": "Actions",
+    "updateBtn": "Update",
+    "deleteBtn": "Delete",
+    "notHaveData": "No data available"
   }
 }
