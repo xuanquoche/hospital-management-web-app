@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 
+import Header from '@/components/modules/header/header';
 import Sidebar from '@/components/modules/sidebar/sidebar';
 import { routing } from '@/i18n/routing';
 import '../../app/globals.css';
@@ -47,7 +48,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <main className='flex'>
             <Sidebar />
-            {children}
+            <div className='w-full'>
+              <Header />
+              {children}
+            </div>
           </main>
         </NextIntlClientProvider>
       </body>

@@ -16,5 +16,11 @@
   "SidebarHeader": {
     "logoName": "Trustcare Clinic",
     "location": "Hanoi, Vietnam"
+  },
+  "setting": {
+    "account": "Account",
+    "language": "Language",
+    "profile": "Profile",
+    "logout": "Logout"
   }
 }

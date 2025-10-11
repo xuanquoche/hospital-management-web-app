@@ -6,4 +6,10 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: 'en',
+
+  pathnames: {
+    '/sign-in': '/sign-in',
+    '/sign-up': '/sign-up',
+    // Add other non-localized routes here
+  },
 });

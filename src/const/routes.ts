@@ -5,6 +5,17 @@ export const ROUTES = {
   DASHBOARD: '/dashboard',
 };
 
+export const PUBLIC_ROUTES = {
+  LOGIN: '/sign-in',
+  REGISTER: '/sign-up',
+};
+
+export const PRIVATE_ROUTES = {
+  DASHBOARD: '/dashboard',
+  PROFILE: '/profile',
+  SETTINGS: '/settings',
+};
+
 export const PUBLIC_ENDPOINT = [
   '/auth/login',
   '/auth/register',
@@ -12,7 +23,7 @@ export const PUBLIC_ENDPOINT = [
 ];
 
 export const LOCALIZED_ROUTES = {
-  LOGIN: (locale: string = 'en') => `/${locale}/sign-in`,
-  REGISTER: (locale: string = 'en') => `/${locale}/sign-up`,
+  LOGIN: () => '/sign-in',
+  REGISTER: () => '/sign-up',
   DASHBOARD: (locale: string = 'en') => `/${locale}/dashboard`,
 };

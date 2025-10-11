@@ -4,7 +4,6 @@ export default async function DashboardPage() {
   return (
     <div className='w-full max-w-md mx-auto'>
       <h1>Dashboard</h1>
-      <Header />
     </div>
   );
 }
