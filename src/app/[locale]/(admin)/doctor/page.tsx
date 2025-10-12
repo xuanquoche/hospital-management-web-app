@@ -1,7 +1,11 @@
-import * as React from 'react';
+import { DoctorHeader } from '@/components/modules/admin/doctor/doctor-header';
+import { DoctorList } from '@/components/modules/admin/doctor/doctor-list';
 
-export interface IDoctorProps {}
-
-export default function Patient(props: IDoctorProps) {
-  return <div>Doctor</div>;
+export default function DoctorsPage() {
+  return (
+    <div className='p-6'>
+      <DoctorHeader />
+      <DoctorList />
+    </div>
+  );
 }
