@@ -24,7 +24,7 @@ import {
 import { PRIVATE_ROUTES } from '@/const/routes';
 
 export default function Sidebar() {
-  const [openMenu, setOpenMenu] = useState<string | null>('Patients');
+  const [openMenu, setOpenMenu] = useState<string | null>('');
 
   const toggleMenu = (menu: string) => {
     setOpenMenu(openMenu === menu ? null : menu);
@@ -36,7 +36,7 @@ export default function Sidebar() {
   ];
   const itemMenu2 = [
     { link: '/doctor', label: 'Doctor' },
-    { link: '#', label: 'Create patient' },
+    { link: '#', label: 'Create doctor' },
   ];
 
   return (

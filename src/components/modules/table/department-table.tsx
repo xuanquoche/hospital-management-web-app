@@ -61,9 +61,6 @@ export default function DepartmentTable({
 
   const { items, pagination } = departments;
 
-  useEffect(() => {
-    console.log('departments in table:', departments);
-  }, [departments]);
   return (
     <Card className='shadow-md'>
       <CardHeader>

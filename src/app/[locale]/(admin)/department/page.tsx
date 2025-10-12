@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { DepartmentStatus } from '@/const/enum';
+import { useDebounceSearch } from '@/hooks/use-debounce-search';
 import { clientFetcher } from '@/lib/fetcher';
 
 type DepartmentItem = {
@@ -44,9 +45,13 @@ export default function DepartmentPage() {
   const [status, setStatus] = useState<DepartmentStatus | ''>('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const [searchName, setSearchName] = useState('');
   const [searchStatus, setSearchStatus] = useState<DepartmentStatus | ''>('');
+
+  const debouncedSearchName = useDebounceSearch(searchName, 600);
+  const debouncedSearchStatus = useDebounceSearch(searchStatus, 600);
 
   const fetchDepartments = async (
     page: number = 1,
@@ -73,8 +78,8 @@ export default function DepartmentPage() {
   };
 
   useEffect(() => {
-    fetchDepartments(1, 5);
-  }, []);
+    fetchDepartments(1, 5, debouncedSearchName, debouncedSearchStatus);
+  }, [debouncedSearchName, debouncedSearchStatus]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +109,12 @@ export default function DepartmentPage() {
       setName('');
       setStatus('');
       setEditingId(null);
-      fetchDepartments(departments.pagination.page);
+      fetchDepartments(
+        departments.pagination.page,
+        5,
+        debouncedSearchName,
+        debouncedSearchStatus
+      );
     } catch (err: any) {
       console.error('Error submitting department:', err.message);
       alert(err.message || 'Failed to save department.');
@@ -133,7 +143,12 @@ export default function DepartmentPage() {
         setLoading(true);
         await clientFetcher.delete(`/departments/${id}`);
         toast.success('Department deleted successfully.');
-        fetchDepartments();
+        fetchDepartments(
+          departments.pagination.page,
+          5,
+          debouncedSearchName,
+          debouncedSearchStatus
+        );
       } catch (err: any) {
         console.error('Error deleting department:', err.message);
         alert('Failed to delete department.');
@@ -143,17 +158,13 @@ export default function DepartmentPage() {
     }
   };
 
-  const handleSearch = () => {
-    fetchDepartments(1, 5, searchName, searchStatus);
-  };
-
   const handlePageChange = (newPage: number) => {
     if (
       newPage >= 1 &&
       newPage <= departments.pagination.totalPages &&
       newPage !== departments.pagination.page
     ) {
-      fetchDepartments(newPage, 5, searchName, searchStatus);
+      fetchDepartments(newPage, 5, debouncedSearchName, debouncedSearchStatus);
     }
   };
 
@@ -193,22 +204,30 @@ export default function DepartmentPage() {
                 </SelectContent>
               </Select>
             </div>
-
-            <div className='pt-6'>
-              <Button onClick={handleSearch}>Search</Button>
-            </div>
           </div>
         </CardContent>
       </Card>
-      <DepartmentForm
-        name={name}
-        status={status}
-        editingId={editingId}
-        onNameChange={setName}
-        onStatusChange={setStatus}
-        onSubmit={handleSubmit}
-      />
 
+      {/* Add Button */}
+      <div className='flex justify-end'>
+        <Button onClick={() => setShowForm((prev) => !prev)}>
+          {showForm ? 'Hide Form' : 'Add Department'}
+        </Button>
+      </div>
+
+      {/* Department Form (toggle show/hide) */}
+      {showForm && (
+        <DepartmentForm
+          name={name}
+          status={status}
+          editingId={editingId}
+          onNameChange={setName}
+          onStatusChange={setStatus}
+          onSubmit={handleSubmit}
+        />
+      )}
+
+      {/* Department Table */}
       <DepartmentTable
         departments={departments || []}
         onEdit={handleEdit}
