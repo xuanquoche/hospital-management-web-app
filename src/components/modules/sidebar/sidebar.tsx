@@ -40,7 +40,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className='w-[20%] bg-white border-r border-gray-200 h-screen flex flex-col p-2'>
+    <aside className='w-[20%] bg-white border-r border-gray-200 h-screen flex flex-col p-2 sticky top-0'>
       {/* Header */}
       <SidebarHeader />
 

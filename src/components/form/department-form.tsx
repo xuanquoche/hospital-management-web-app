@@ -14,8 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
-type DepartmentStatus = 'Active' | 'Inactive';
+import { DepartmentStatus } from '@/const/enum';
 
 type DepartmentFormProps = {
   name: string;
@@ -35,11 +34,12 @@ export default function DepartmentForm({
   onSubmit,
 }: DepartmentFormProps) {
   const t = useTranslations('department');
+
   return (
     <Card className='max-w-xl shadow-md'>
       <CardHeader>
         <CardTitle>
-          {editingId ? `${t('editDepartment')}` : `${t('addDeparment')}`}
+          {editingId ? t('editDepartment') : t('addDeparment')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -57,21 +57,27 @@ export default function DepartmentForm({
             <Label className='mb-2'>{t('status')}</Label>
             <Select
               value={status}
-              onValueChange={(value: DepartmentStatus) => onStatusChange(value)}
+              onValueChange={(value) =>
+                onStatusChange(value as DepartmentStatus)
+              }
             >
               <SelectTrigger>
                 <SelectValue placeholder={t('selectStatus')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='Active'>{t('active')}</SelectItem>
-                <SelectItem value='Inactive'>{t('inactive')}</SelectItem>
+                <SelectItem value={DepartmentStatus.ACTIVE}>
+                  {t('active')}
+                </SelectItem>
+                <SelectItem value={DepartmentStatus.INACTIVE}>
+                  {t('inactive')}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className='flex justify-end'>
             <Button type='submit'>
-              {editingId ? `${t('editBtn')}` : `${t('addBtn')}`}
+              {editingId ? t('editBtn') : t('addBtn')}
             </Button>
           </div>
         </form>
