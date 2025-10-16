@@ -31,7 +31,7 @@ export default function Sidebar() {
   };
 
   const itemMenu = [
-    { link: '/patient', label: 'Patients detail' },
+    { link: '/patient', label: 'Patients' },
     { link: '#', label: 'Create patient' },
   ];
   const itemMenu2 = [

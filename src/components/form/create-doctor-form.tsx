@@ -108,7 +108,7 @@ export function CreateDoctorForm() {
         <Separator />
         <EducationInfo control={form.control} />
         <Separator />
-        <AwardsCertifications form={form} />
+        <AwardsCertifications control={form.control} />
       </Card>
 
       <div className='flex justify-end gap-2'>
