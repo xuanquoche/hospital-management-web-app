@@ -1,6 +1,14 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -45,6 +53,7 @@
   --color-background-login: var(--background-login);
   --color-white: var(--white);
   --color-blackL: var(--blackL);
+  --color-doctor-primary: var(--doctor-primary);
 }
 
 :root {
@@ -84,6 +93,7 @@
   --background-login: oklch(0.629 0.1149 220.48);
   --white: oklch(1 0 0);
   --black: oklch(0 0 0);
+  --doctor-primary: oklch(0.6429 0.098 222.51);
 }
 
 .dark {

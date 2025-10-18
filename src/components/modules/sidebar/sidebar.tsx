@@ -45,12 +45,7 @@ export default function Sidebar() {
       <SidebarHeader />
 
       {/* Scrollable Menu */}
-      <nav
-        className='flex-1 overflow-y-auto p-3 text-sm  [&::-webkit-scrollbar]:w-2 
-                [&::-webkit-scrollbar-thumb]:bg-blue-200 
-                [&::-webkit-scrollbar-thumb]:rounded-full 
-                [&::-webkit-scrollbar-track]:bg-gray-200'
-      >
+      <nav className='flex-1 overflow-y-auto p-3 text-sm no-scrollbar'>
         <SidebarSection title='Main Menu'>
           <MenuItem
             icon={<LayoutDashboard className='h-4 w-4' />}

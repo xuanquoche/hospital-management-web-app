@@ -16,6 +16,11 @@ export const PRIVATE_ROUTES = {
   SETTINGS: '/settings',
   DEPARTMENT: '/department',
   CREATE_DOCTOR: '/doctor/create',
+  CREATE_PATIENT: '/patient/create',
+  DOCTOR_DASHBOARD: '/doctor/dashboard',
+  PATIENT_DASHBOARD: '/patient/dashboard',
+  DOCTOR_PROFILE: '/doctor/profile',
+  PATIENT_PROFILE: '/patient/profile',
 };
 
 export const PUBLIC_ENDPOINT = [
