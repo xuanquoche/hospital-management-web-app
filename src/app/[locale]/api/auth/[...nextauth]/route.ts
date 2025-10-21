@@ -57,11 +57,12 @@ const authOptions: NextAuthOptions = {
 
         const data = await res.json();
         const { user, accessToken, refreshToken } = data.data;
-
+        console.log('authorize: ', data);
         return {
           id: user.id,
           email: user.email,
           name: user.fullName,
+          role: user.role,
           accessToken,
           refreshToken,
         };
@@ -74,6 +75,7 @@ const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
+      console.log('user in route ', user);
       if (user) {
         return {
           ...token,
@@ -84,6 +86,7 @@ const authOptions: NextAuthOptions = {
             id: user.id,
             email: user.email,
             name: user.name,
+            role: user.role,
           },
         };
       }
@@ -100,6 +103,7 @@ const authOptions: NextAuthOptions = {
         id: token.user?.id as string,
         email: token.user?.email as string,
         name: token.user?.name as string,
+        role: token.user?.role as string,
       };
       (session as any).accessToken = token.accessToken;
       (session as any).refreshToken = token.refreshToken;
@@ -111,6 +115,5 @@ const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-// ✅ Phải export như thế này (NextAuth v5+)
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST, authOptions };

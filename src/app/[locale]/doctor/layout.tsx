@@ -5,7 +5,7 @@ import { ClientSidebar } from '@/components/modules/client-sidebar/client-sideba
 const DoctorLayout = ({ children }: { children: React.ReactNode }) => (
   <div className='flex h-screen'>
     <ClientSidebar />
-    <div className='w-[80%]'>{children}</div>
+    <div className='w-[100%] overflow-scroll'>{children}</div>
   </div>
 );
 

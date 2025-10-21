@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import createMiddleware from 'next-intl/middleware';
 
+import { Role } from './const/enum';
 import {
   ROUTES,
   PUBLIC_ROUTES,
@@ -26,7 +27,8 @@ export async function middleware(request: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET,
   });
   const isAuthenticated = !!token;
-
+  // const userRole = token?.role as Role;
+  // console.log('role token middleware:', token);
   // Kiểm tra public route
   const isPublicRoute = publicRouteValues.some((route) =>
     pathname.startsWith(route)

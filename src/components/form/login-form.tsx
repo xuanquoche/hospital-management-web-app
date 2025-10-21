@@ -57,6 +57,7 @@ export default function LoginForm() {
       setIsLoading(false);
     } else {
       setIsLoading(false);
+      console.log(res);
       router.push(ROUTES.DASHBOARD);
     }
   };

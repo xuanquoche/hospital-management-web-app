@@ -54,6 +54,7 @@
   --color-white: var(--white);
   --color-blackL: var(--blackL);
   --color-doctor-primary: var(--doctor-primary);
+  --color-doctor-tab: var(--doctor-tab);
 }
 
 :root {
@@ -94,6 +95,7 @@
   --white: oklch(1 0 0);
   --black: oklch(0 0 0);
   --doctor-primary: oklch(0.6429 0.098 222.51);
+  --doctor-tab: oklch(0.8674 0.0554 280.67);
 }
 
 .dark {
