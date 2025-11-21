@@ -57,20 +57,27 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
   }
 
   return (
-    <div className="flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
+      <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Educational information</h2>
-          <p className="text-sm text-slate-500">Add your educational background.</p>
+          <h2 className='text-lg font-semibold text-slate-900'>
+            Educational information
+          </h2>
+          <p className='text-sm text-slate-500'>
+            Add your educational background.
+          </p>
         </div>
-        <span className="text-xs font-medium text-slate-400">Required</span>
+        <span className='text-xs font-medium text-slate-400'>Required</span>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div key={field.id} className="relative grid grid-cols-3 gap-4 rounded-lg border border-slate-100 bg-slate-50/50 p-4">
+              <div
+                key={field.id}
+                className='relative grid grid-cols-3 gap-4 rounded-lg border border-slate-100 bg-slate-50/50 p-4'
+              >
                 <FormField
                   control={form.control}
                   name={`educations.${index}.school`}
@@ -78,7 +85,10 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                     <FormItem>
                       <FormLabel>School / University</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. University of Medicine" {...field} />
+                        <Input
+                          placeholder='e.g. University of Medicine'
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -91,7 +101,7 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                     <FormItem>
                       <FormLabel>Degree</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. MD, Cardiology" {...field} />
+                        <Input placeholder='e.g. MD, Cardiology' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -104,22 +114,22 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                     <FormItem>
                       <FormLabel>Graduation year</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. 2015" {...field} />
+                        <Input placeholder='e.g. 2015' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 {fields.length > 1 && (
                   <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-slate-200 text-slate-500 hover:bg-red-100 hover:text-red-600"
+                    type='button'
+                    variant='ghost'
+                    size='icon'
+                    className='absolute -right-2 -top-2 h-6 w-6 rounded-full bg-slate-200 text-slate-500 hover:bg-red-100 hover:text-red-600'
                     onClick={() => remove(index)}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className='h-3 w-3' />
                   </Button>
                 )}
               </div>
@@ -127,28 +137,32 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
           </div>
 
           <Button
-            type="button"
-            variant="secondary"
-            className="w-full bg-teal-50 text-teal-700 hover:bg-teal-100"
+            type='button'
+            variant='secondary'
+            className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
             onClick={() => append({ school: '', degree: '', year: '' })}
           >
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className='mr-2 h-4 w-4' />
             Add education
           </Button>
 
-          <div className="flex items-center justify-between border-t border-slate-100 pt-6">
-            <div className="text-sm text-slate-500">
-              <p className="font-medium text-slate-900">Unsaved changes</p>
+          <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
+            <div className='text-sm text-slate-500'>
+              <p className='font-medium text-slate-900'>Unsaved changes</p>
               <p>Review education history before saving.</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Button type="button" variant="ghost" className="text-slate-600">
+            <div className='flex items-center gap-3'>
+              <Button type='button' variant='ghost' className='text-slate-600'>
                 Discard
               </Button>
-              <Button type="button" variant="outline" className="bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100">
+              <Button
+                type='button'
+                variant='outline'
+                className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
+              >
                 Save as draft
               </Button>
-              <Button type="submit" className="bg-teal-600 hover:bg-teal-700">
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
                 Save & activate
               </Button>
             </div>
