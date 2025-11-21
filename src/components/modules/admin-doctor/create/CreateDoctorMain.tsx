@@ -5,6 +5,7 @@ import { DoctorCreationHeader } from './DoctorCreationHeader';
 import { DoctorCreationSteps } from './DoctorCreationSteps';
 import { PersonalInfoForm } from './PersonalInfoForm';
 import { ProfessionalInfoForm } from './ProfessionalInfoForm';
+import { EducationInfoForm } from './EducationInfoForm';
 
 export const CreateDoctorMain = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -42,7 +43,10 @@ export const CreateDoctorMain = () => {
         {currentStep === 2 && (
           <ProfessionalInfoForm onComplete={handleStepComplete} />
         )}
-        {currentStep > 2 && (
+        {currentStep === 3 && (
+          <EducationInfoForm onComplete={handleStepComplete} />
+        )}
+        {currentStep > 3 && (
           <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm flex items-center justify-center text-slate-400'>
             Step {currentStep} content placeholder
           </div>
@@ -51,3 +55,4 @@ export const CreateDoctorMain = () => {
     </div>
   );
 };
+
