@@ -62,36 +62,43 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
   }
 
   return (
-    <div className="flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
+      <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Professional details</h2>
-          <p className="text-sm text-slate-500">Specialty, experience, and fee information.</p>
+          <h2 className='text-lg font-semibold text-slate-900'>
+            Professional details
+          </h2>
+          <p className='text-sm text-slate-500'>
+            Specialty, experience, and fee information.
+          </p>
         </div>
-        <span className="text-xs font-medium text-slate-400">Required</span>
+        <span className='text-xs font-medium text-slate-400'>Required</span>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="grid grid-cols-2 gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <div className='grid grid-cols-2 gap-6'>
             <FormField
               control={form.control}
-              name="primarySpecialty"
+              name='primarySpecialty'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Primary specialty</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select specialty" />
+                        <SelectValue placeholder='Select specialty' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="cardiology">Cardiology</SelectItem>
-                      <SelectItem value="dermatology">Dermatology</SelectItem>
-                      <SelectItem value="neurology">Neurology</SelectItem>
-                      <SelectItem value="orthopedics">Orthopedics</SelectItem>
-                      <SelectItem value="pediatrics">Pediatrics</SelectItem>
+                      <SelectItem value='cardiology'>Cardiology</SelectItem>
+                      <SelectItem value='dermatology'>Dermatology</SelectItem>
+                      <SelectItem value='neurology'>Neurology</SelectItem>
+                      <SelectItem value='orthopedics'>Orthopedics</SelectItem>
+                      <SelectItem value='pediatrics'>Pediatrics</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -100,12 +107,15 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="subSpecialty"
+              name='subSpecialty'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sub-specialty (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Interventional cardiology" {...field} />
+                    <Input
+                      placeholder='e.g. Interventional cardiology'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,12 +123,12 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="professionalTitle"
+              name='professionalTitle'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Professional title (optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Senior Consultant" {...field} />
+                    <Input placeholder='e.g. Senior Consultant' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,12 +136,12 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="experience"
+              name='experience'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Years of experience</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter years" type="number" {...field} />
+                    <Input placeholder='Enter years' type='number' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,12 +149,12 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="consultationFee"
+              name='consultationFee'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Consultation fee</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. 80" type="number" {...field} />
+                    <Input placeholder='e.g. 80' type='number' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,21 +162,24 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="currency"
+              name='currency'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Billing currency</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select currency" />
+                        <SelectValue placeholder='Select currency' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="USD">USD ($)</SelectItem>
-                      <SelectItem value="EUR">EUR (€)</SelectItem>
-                      <SelectItem value="GBP">GBP (£)</SelectItem>
-                      <SelectItem value="VND">VND (₫)</SelectItem>
+                      <SelectItem value='USD'>USD ($)</SelectItem>
+                      <SelectItem value='EUR'>EUR (€)</SelectItem>
+                      <SelectItem value='GBP'>GBP (£)</SelectItem>
+                      <SelectItem value='VND'>VND (₫)</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -175,19 +188,23 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between border-t border-slate-100 pt-6">
-            <div className="text-sm text-slate-500">
-              <p className="font-medium text-slate-900">Unsaved changes</p>
+          <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
+            <div className='text-sm text-slate-500'>
+              <p className='font-medium text-slate-900'>Unsaved changes</p>
               <p>Review specialty, experience and fee before saving.</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Button type="button" variant="ghost" className="text-slate-600">
+            <div className='flex items-center gap-3'>
+              <Button type='button' variant='ghost' className='text-slate-600'>
                 Discard
               </Button>
-              <Button type="button" variant="outline" className="bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100">
+              <Button
+                type='button'
+                variant='outline'
+                className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
+              >
                 Save as draft
               </Button>
-              <Button type="submit" className="bg-teal-600 hover:bg-teal-700">
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
                 Save & activate
               </Button>
             </div>

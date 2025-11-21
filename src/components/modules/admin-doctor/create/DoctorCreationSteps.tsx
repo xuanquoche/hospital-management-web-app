@@ -46,8 +46,8 @@ export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
                 currentStep === step.id
                   ? 'bg-teal-600 text-white'
                   : isDisabled
-                  ? 'text-slate-300 cursor-not-allowed'
-                  : 'text-slate-600 hover:bg-slate-100'
+                    ? 'text-slate-300 cursor-not-allowed'
+                    : 'text-slate-600 hover:bg-slate-100'
               )}
             >
               <span
@@ -56,8 +56,8 @@ export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
                   currentStep === step.id
                     ? 'bg-white/20 text-white'
                     : isDisabled
-                    ? 'bg-slate-100 text-slate-300'
-                    : 'bg-slate-200 text-slate-600'
+                      ? 'bg-slate-100 text-slate-300'
+                      : 'bg-slate-200 text-slate-600'
                 )}
               >
                 {step.id}

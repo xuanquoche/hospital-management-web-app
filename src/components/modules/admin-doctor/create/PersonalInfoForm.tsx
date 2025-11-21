@@ -150,4 +150,3 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
     </div>
   );
 };
-
