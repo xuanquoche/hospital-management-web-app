@@ -6,18 +6,36 @@ import { DoctorCreationSteps } from './DoctorCreationSteps';
 import { PersonalInfoForm } from './PersonalInfoForm';
 import { ProfessionalInfoForm } from './ProfessionalInfoForm';
 import { EducationInfoForm } from './EducationInfoForm';
+import { AwardsInfoForm } from './AwardsInfoForm';
+import { CertificationsInfoForm } from './CertificationsInfoForm';
+import { DoctorCreationComplete } from './DoctorCreationComplete';
 
 export const CreateDoctorMain = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [maxStep, setMaxStep] = useState(1);
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleStepComplete = () => {
     const nextStep = currentStep + 1;
-    if (nextStep > maxStep) {
-      setMaxStep(nextStep);
+    if (nextStep > 5) {
+      // All steps completed
+      setIsComplete(true);
+    } else {
+      if (nextStep > maxStep) {
+        setMaxStep(nextStep);
+      }
+      setCurrentStep(nextStep);
     }
-    setCurrentStep(nextStep);
   };
+
+  // If completed, show completion screen
+  if (isComplete) {
+    return (
+      <div className='flex min-h-screen flex-col bg-slate-50 p-6'>
+        <DoctorCreationComplete />
+      </div>
+    );
+  }
 
   return (
     <div className='flex min-h-screen flex-col bg-slate-50 p-6'>
@@ -46,10 +64,11 @@ export const CreateDoctorMain = () => {
         {currentStep === 3 && (
           <EducationInfoForm onComplete={handleStepComplete} />
         )}
-        {currentStep > 3 && (
-          <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm flex items-center justify-center text-slate-400'>
-            Step {currentStep} content placeholder
-          </div>
+        {currentStep === 4 && (
+          <AwardsInfoForm onComplete={handleStepComplete} />
+        )}
+        {currentStep === 5 && (
+          <CertificationsInfoForm onComplete={handleStepComplete} />
         )}
       </div>
     </div>
