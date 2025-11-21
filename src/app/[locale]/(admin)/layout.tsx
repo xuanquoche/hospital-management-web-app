@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Header from '@/components/modules/header/header';
-import Sidebar from '@/components/modules/sidebar/sidebar';
+import PortalHeader from '@/components/modules/Header/PortalHeader';
+import PortalSidebar from '@/components/modules/Sidebar/PortalSidebar';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => (
   <div className='flex'>
-    <Sidebar />
+    <PortalSidebar />
     <div className='w-[80%] overflow-y-auto'>
-      <Header />
+      <PortalHeader />
       {children}
     </div>
   </div>
