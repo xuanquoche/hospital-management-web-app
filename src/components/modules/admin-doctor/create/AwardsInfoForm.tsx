@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from '@/components/ui/textarea';
 
 const awardSchema = z.object({
   title: z.string().min(1, { message: 'Title is required' }),
@@ -58,21 +58,28 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
   }
 
   return (
-    <div className="flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
+      <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Awards & achievements</h2>
-          <p className="text-sm text-slate-500">Add important awards and medical achievements.</p>
+          <h2 className='text-lg font-semibold text-slate-900'>
+            Awards & achievements
+          </h2>
+          <p className='text-sm text-slate-500'>
+            Add important awards and medical achievements.
+          </p>
         </div>
-        <span className="text-xs font-medium text-slate-400">Optional</span>
+        <span className='text-xs font-medium text-slate-400'>Optional</span>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div key={field.id} className="relative rounded-lg border border-slate-100 bg-slate-50/50 p-4">
-                <div className="grid grid-cols-3 gap-4 mb-4">
+              <div
+                key={field.id}
+                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4'
+              >
+                <div className='grid grid-cols-3 gap-4 mb-4'>
                   <FormField
                     control={form.control}
                     name={`awards.${index}.title`}
@@ -80,7 +87,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Award / Title</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. National Clinical Excellence Award" {...field} />
+                          <Input
+                            placeholder='e.g. National Clinical Excellence Award'
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -93,7 +103,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Organization / Issuer</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. Vietnam Medical Association" {...field} />
+                          <Input
+                            placeholder='e.g. Vietnam Medical Association'
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -106,14 +119,14 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Year</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. 2021" {...field} />
+                          <Input placeholder='e.g. 2021' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
-                
+
                 <FormField
                   control={form.control}
                   name={`awards.${index}.description`}
@@ -121,10 +134,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                     <FormItem>
                       <FormLabel>Description (optional)</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="e.g. Recognized for outstanding contributions in cardiology and patient care." 
-                          className="resize-none"
-                          {...field} 
+                        <Textarea
+                          placeholder='e.g. Recognized for outstanding contributions in cardiology and patient care.'
+                          className='resize-none'
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -134,10 +147,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
 
                 {fields.length > 0 && (
                   <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-4 bottom-4 text-red-500 hover:bg-red-50 hover:text-red-600"
+                    type='button'
+                    variant='ghost'
+                    size='sm'
+                    className='absolute right-4 bottom-4 text-red-500 hover:bg-red-50 hover:text-red-600'
                     onClick={() => remove(index)}
                   >
                     Remove
@@ -148,28 +161,34 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
           </div>
 
           <Button
-            type="button"
-            variant="secondary"
-            className="w-full bg-teal-50 text-teal-700 hover:bg-teal-100"
-            onClick={() => append({ title: '', organization: '', year: '', description: '' })}
+            type='button'
+            variant='secondary'
+            className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
+            onClick={() =>
+              append({ title: '', organization: '', year: '', description: '' })
+            }
           >
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className='mr-2 h-4 w-4' />
             Add award
           </Button>
 
-          <div className="flex items-center justify-between border-t border-slate-100 pt-6">
-            <div className="text-sm text-slate-500">
-              <p className="font-medium text-slate-900">Unsaved changes</p>
+          <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
+            <div className='text-sm text-slate-500'>
+              <p className='font-medium text-slate-900'>Unsaved changes</p>
               <p>Review awards list before saving.</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Button type="button" variant="ghost" className="text-slate-600">
+            <div className='flex items-center gap-3'>
+              <Button type='button' variant='ghost' className='text-slate-600'>
                 Discard
               </Button>
-              <Button type="button" variant="outline" className="bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100">
+              <Button
+                type='button'
+                variant='outline'
+                className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
+              >
                 Save as draft
               </Button>
-              <Button type="submit" className="bg-teal-600 hover:bg-teal-700">
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
                 Save & activate
               </Button>
             </div>

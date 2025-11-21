@@ -65,26 +65,28 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
   }
 
   return (
-    <div className="flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
+      <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Practice certifications</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className='text-lg font-semibold text-slate-900'>
+            Practice certifications
+          </h2>
+          <p className='text-sm text-slate-500'>
             Upload professional certifications and practice licenses.
           </p>
         </div>
-        <span className="text-xs font-medium text-slate-400">Required</span>
+        <span className='text-xs font-medium text-slate-400'>Required</span>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <div className='space-y-4'>
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4"
+                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4'
               >
-                <div className="grid grid-cols-3 gap-4">
+                <div className='grid grid-cols-3 gap-4'>
                   <FormField
                     control={form.control}
                     name={`certifications.${index}.name`}
@@ -93,7 +95,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                         <FormLabel>Certificate / License name</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="e.g. Medical Practice License"
+                            placeholder='e.g. Medical Practice License'
                             {...field}
                           />
                         </FormControl>
@@ -109,7 +111,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                         <FormLabel>Issuing authority</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="e.g. Vietnam Ministry of Health"
+                            placeholder='e.g. Vietnam Ministry of Health'
                             {...field}
                           />
                         </FormControl>
@@ -124,7 +126,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>License number</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g. HN-12345" {...field} />
+                          <Input placeholder='e.g. HN-12345' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,7 +134,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className='grid grid-cols-2 gap-4'>
                   <FormField
                     control={form.control}
                     name={`certifications.${index}.issueDate`}
@@ -140,7 +142,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Issue date</FormLabel>
                         <FormControl>
-                          <Input placeholder="DD/MM/YYYY" {...field} />
+                          <Input placeholder='DD/MM/YYYY' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -153,7 +155,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Expiry date</FormLabel>
                         <FormControl>
-                          <Input placeholder="DD/MM/YYYY" {...field} />
+                          <Input placeholder='DD/MM/YYYY' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -161,25 +163,25 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                   />
                 </div>
 
-                <div className="border-2 border-dashed border-slate-200 rounded-lg p-6 text-center hover:border-teal-300 transition-colors">
-                  <Upload className="mx-auto h-8 w-8 text-slate-400 mb-2" />
-                  <p className="text-sm font-medium text-slate-600 mb-1">
+                <div className='border-2 border-dashed border-slate-200 rounded-lg p-6 text-center hover:border-teal-300 transition-colors'>
+                  <Upload className='mx-auto h-8 w-8 text-slate-400 mb-2' />
+                  <p className='text-sm font-medium text-slate-600 mb-1'>
                     Click to upload or drag & drop
                   </p>
-                  <p className="text-xs text-slate-400">PDF, PNG, JPG</p>
+                  <p className='text-xs text-slate-400'>PDF, PNG, JPG</p>
                   <input
-                    type="file"
-                    className="hidden"
-                    accept=".pdf,.png,.jpg,.jpeg"
+                    type='file'
+                    className='hidden'
+                    accept='.pdf,.png,.jpg,.jpeg'
                   />
                 </div>
 
                 {fields.length > 1 && (
                   <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-4 top-4 text-red-500 hover:bg-red-50 hover:text-red-600"
+                    type='button'
+                    variant='ghost'
+                    size='sm'
+                    className='absolute right-4 top-4 text-red-500 hover:bg-red-50 hover:text-red-600'
                     onClick={() => remove(index)}
                   >
                     Remove
@@ -190,9 +192,9 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
           </div>
 
           <Button
-            type="button"
-            variant="secondary"
-            className="w-full bg-teal-50 text-teal-700 hover:bg-teal-100"
+            type='button'
+            variant='secondary'
+            className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
             onClick={() =>
               append({
                 name: '',
@@ -203,21 +205,21 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
               })
             }
           >
-            <Plus className="mr-2 h-4 w-4" />
+            <Plus className='mr-2 h-4 w-4' />
             Add certification
           </Button>
 
           <div>
             <FormField
               control={form.control}
-              name="verificationNotes"
+              name='verificationNotes'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Verification notes (optional)</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="e.g. Verified with licensing board on 05/03/2024. Next check in 12 months."
-                      className="resize-none"
+                      placeholder='e.g. Verified with licensing board on 05/03/2024. Next check in 12 months.'
+                      className='resize-none'
                       {...field}
                     />
                   </FormControl>
@@ -227,23 +229,23 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between border-t border-slate-100 pt-6">
-            <div className="text-sm text-slate-500">
-              <p className="font-medium text-slate-900">Unsaved changes</p>
+          <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
+            <div className='text-sm text-slate-500'>
+              <p className='font-medium text-slate-900'>Unsaved changes</p>
               <p>Review all certifications before completing setup.</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Button type="button" variant="ghost" className="text-slate-600">
+            <div className='flex items-center gap-3'>
+              <Button type='button' variant='ghost' className='text-slate-600'>
                 Discard
               </Button>
               <Button
-                type="button"
-                variant="outline"
-                className="bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100"
+                type='button'
+                variant='outline'
+                className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
               >
                 Save as draft
               </Button>
-              <Button type="submit" className="bg-teal-600 hover:bg-teal-700">
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
                 Save & activate
               </Button>
             </div>
