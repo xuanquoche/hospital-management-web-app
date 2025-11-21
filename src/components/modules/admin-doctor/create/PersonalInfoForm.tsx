@@ -29,7 +29,13 @@ const formSchema = z.object({
   }),
 });
 
-export const PersonalInfoForm = () => {
+interface PersonalInfoFormProps {
+  onComplete: () => void;
+}
+
+export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
+  onComplete,
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,6 +48,7 @@ export const PersonalInfoForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    onComplete();
   }
 
   return (
@@ -143,3 +150,4 @@ export const PersonalInfoForm = () => {
     </div>
   );
 };
+

@@ -16,11 +16,13 @@ const steps: Step[] = [
 
 interface DoctorCreationStepsProps {
   currentStep: number;
+  maxStep: number;
   onStepClick: (stepId: number) => void;
 }
 
 export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
   currentStep,
+  maxStep,
   onStepClick,
 }) => {
   return (
@@ -32,30 +34,38 @@ export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
         </p>
       </div>
       <nav className='flex flex-col space-y-1'>
-        {steps.map((step) => (
-          <button
-            key={step.id}
-            onClick={() => onStepClick(step.id)}
-            className={cn(
-              'flex items-center rounded-md px-4 py-3 text-sm font-medium transition-colors',
-              currentStep === step.id
-                ? 'bg-teal-600 text-white'
-                : 'text-slate-600 hover:bg-slate-100'
-            )}
-          >
-            <span
+        {steps.map((step) => {
+          const isDisabled = step.id > maxStep;
+          return (
+            <button
+              key={step.id}
+              onClick={() => !isDisabled && onStepClick(step.id)}
+              disabled={isDisabled}
               className={cn(
-                'mr-3 flex h-6 w-6 items-center justify-center rounded text-xs font-bold',
+                'flex items-center rounded-md px-4 py-3 text-sm font-medium transition-colors w-full text-left',
                 currentStep === step.id
-                  ? 'bg-white/20 text-white'
-                  : 'bg-slate-200 text-slate-600'
+                  ? 'bg-teal-600 text-white'
+                  : isDisabled
+                  ? 'text-slate-300 cursor-not-allowed'
+                  : 'text-slate-600 hover:bg-slate-100'
               )}
             >
-              {step.id}
-            </span>
-            {step.label}
-          </button>
-        ))}
+              <span
+                className={cn(
+                  'mr-3 flex h-6 w-6 items-center justify-center rounded text-xs font-bold',
+                  currentStep === step.id
+                    ? 'bg-white/20 text-white'
+                    : isDisabled
+                    ? 'bg-slate-100 text-slate-300'
+                    : 'bg-slate-200 text-slate-600'
+                )}
+              >
+                {step.id}
+              </span>
+              {step.label}
+            </button>
+          );
+        })}
       </nav>
     </div>
   );
