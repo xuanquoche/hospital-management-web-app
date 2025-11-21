@@ -45,28 +45,32 @@ export const PersonalInfoForm = () => {
   }
 
   return (
-    <div className="flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
+    <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
+      <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Personal information</h2>
-          <p className="text-sm text-slate-500">Basic details used across the system.</p>
+          <h2 className='text-lg font-semibold text-slate-900'>
+            Personal information
+          </h2>
+          <p className='text-sm text-slate-500'>
+            Basic details used across the system.
+          </p>
         </div>
-        <span className="text-xs font-medium text-slate-400">Required</span>
+        <span className='text-xs font-medium text-slate-400'>Required</span>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <ImageUpload />
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className='grid grid-cols-2 gap-6'>
             <FormField
               control={form.control}
-              name="fullName"
+              name='fullName'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Full name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter full name" {...field} />
+                    <Input placeholder='Enter full name' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -74,12 +78,12 @@ export const PersonalInfoForm = () => {
             />
             <FormField
               control={form.control}
-              name="email"
+              name='email'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="name@example.com" {...field} />
+                    <Input placeholder='name@example.com' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,12 +91,12 @@ export const PersonalInfoForm = () => {
             />
             <FormField
               control={form.control}
-              name="phone"
+              name='phone'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="+1 (000) 000-0000" {...field} />
+                    <Input placeholder='+1 (000) 000-0000' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -100,12 +104,12 @@ export const PersonalInfoForm = () => {
             />
             <FormField
               control={form.control}
-              name="address"
+              name='address'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input placeholder="Street, city, state, ZIP" {...field} />
+                    <Input placeholder='Street, city, state, ZIP' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,19 +117,23 @@ export const PersonalInfoForm = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between border-t border-slate-100 pt-6">
-            <div className="text-sm text-slate-500">
-              <p className="font-medium text-slate-900">Unsaved changes</p>
+          <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
+            <div className='text-sm text-slate-500'>
+              <p className='font-medium text-slate-900'>Unsaved changes</p>
               <p>Make sure required fields are completed before saving.</p>
             </div>
-            <div className="flex items-center gap-3">
-              <Button type="button" variant="ghost" className="text-slate-600">
+            <div className='flex items-center gap-3'>
+              <Button type='button' variant='ghost' className='text-slate-600'>
                 Discard
               </Button>
-              <Button type="button" variant="outline" className="bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100">
+              <Button
+                type='button'
+                variant='outline'
+                className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
+              >
                 Save as draft
               </Button>
-              <Button type="submit" className="bg-teal-600 hover:bg-teal-700">
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
                 Save & activate
               </Button>
             </div>

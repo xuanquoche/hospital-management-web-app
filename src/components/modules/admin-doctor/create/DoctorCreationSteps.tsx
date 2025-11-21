@@ -24,14 +24,14 @@ export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
   onStepClick,
 }) => {
   return (
-    <div className="w-64 shrink-0 space-y-1">
-      <div className="mb-4">
-        <h3 className="font-semibold text-slate-900">Doctor profile setup</h3>
-        <p className="text-sm text-slate-500">
+    <div className='w-64 shrink-0 space-y-1'>
+      <div className='mb-4'>
+        <h3 className='font-semibold text-slate-900'>Doctor profile setup</h3>
+        <p className='text-sm text-slate-500'>
           Only basic personal information is required on this step.
         </p>
       </div>
-      <nav className="flex flex-col space-y-1">
+      <nav className='flex flex-col space-y-1'>
         {steps.map((step) => (
           <button
             key={step.id}
