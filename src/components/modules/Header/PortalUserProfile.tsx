@@ -15,7 +15,9 @@ const PortalUserProfile = () => {
           <AvatarFallback>AD</AvatarFallback>
         </Avatar>
         <div className='flex flex-col'>
-          <span className='text-sm font-semibold text-slate-900'>Dr. Admin</span>
+          <span className='text-sm font-semibold text-slate-900'>
+            Dr. Admin
+          </span>
           <span className='text-xs text-slate-500'>System Administrator</span>
         </div>
         <ChevronDown className='ml-2 h-4 w-4 text-slate-400' />

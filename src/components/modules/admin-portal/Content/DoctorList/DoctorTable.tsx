@@ -103,11 +103,21 @@ const DoctorTable = () => {
       <Table>
         <TableHeader className='bg-teal-50/50'>
           <TableRow className='hover:bg-teal-50/50'>
-            <TableHead className='w-[300px] font-semibold text-teal-900'>Doctor</TableHead>
-            <TableHead className='font-semibold text-teal-900'>Specialty</TableHead>
-            <TableHead className='font-semibold text-teal-900'>Status</TableHead>
-            <TableHead className='font-semibold text-teal-900'>Experience</TableHead>
-            <TableHead className='text-right font-semibold text-teal-900'>Actions</TableHead>
+            <TableHead className='w-[300px] font-semibold text-teal-900'>
+              Doctor
+            </TableHead>
+            <TableHead className='font-semibold text-teal-900'>
+              Specialty
+            </TableHead>
+            <TableHead className='font-semibold text-teal-900'>
+              Status
+            </TableHead>
+            <TableHead className='font-semibold text-teal-900'>
+              Experience
+            </TableHead>
+            <TableHead className='text-right font-semibold text-teal-900'>
+              Actions
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -120,12 +130,16 @@ const DoctorTable = () => {
                     <AvatarFallback>{doctor.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className='font-medium text-slate-900'>{doctor.name}</div>
+                    <div className='font-medium text-slate-900'>
+                      {doctor.name}
+                    </div>
                     <div className='text-xs text-slate-500'>{doctor.email}</div>
                   </div>
                 </div>
               </TableCell>
-              <TableCell className='text-slate-600'>{doctor.specialty}</TableCell>
+              <TableCell className='text-slate-600'>
+                {doctor.specialty}
+              </TableCell>
               <TableCell>
                 <Badge
                   variant='secondary'
@@ -134,7 +148,9 @@ const DoctorTable = () => {
                   {doctor.status}
                 </Badge>
               </TableCell>
-              <TableCell className='text-slate-600'>{doctor.experience}</TableCell>
+              <TableCell className='text-slate-600'>
+                {doctor.experience}
+              </TableCell>
               <TableCell className='text-right'>
                 <div className='flex justify-end gap-2'>
                   <Button

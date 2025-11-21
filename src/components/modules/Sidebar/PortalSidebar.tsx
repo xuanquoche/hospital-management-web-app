@@ -1,13 +1,7 @@
 'use client';
 
 import React from 'react';
-import {
-  Stethoscope,
-  Users,
-  Calendar,
-  CreditCard,
-  Pill,
-} from 'lucide-react';
+import { Stethoscope, Users, Calendar, CreditCard, Pill } from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 
