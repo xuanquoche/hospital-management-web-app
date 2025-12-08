@@ -43,6 +43,7 @@ export interface Doctor {
 interface DoctorTableProps {
   doctors: Doctor[];
   loading: boolean;
+  onAddSchedule: (doctor: Doctor) => void;
 }
 
 const getStatusColor = (status: string) => {
@@ -56,7 +57,7 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const DoctorTable: React.FC<DoctorTableProps> = ({ doctors, loading }) => {
+const DoctorTable: React.FC<DoctorTableProps> = ({ doctors, loading, onAddSchedule }) => {
   return (
     <div className='rounded-lg border border-slate-100 bg-white shadow-sm'>
       <div className='flex items-center justify-between border-b border-slate-100 px-6 py-4'>
@@ -153,6 +154,14 @@ const DoctorTable: React.FC<DoctorTableProps> = ({ doctors, loading }) => {
                 </TableCell>
                 <TableCell className='text-right'>
                   <div className='flex justify-end gap-2'>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      className='text-teal-600 hover:text-teal-700 hover:bg-teal-50'
+                      onClick={() => onAddSchedule(doctor)}
+                    >
+                      Add time
+                    </Button>
                     <Button
                       variant='link'
                       className='h-auto p-0 text-teal-600 hover:text-teal-700'

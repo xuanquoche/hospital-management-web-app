@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/const/routes';
 import { clientFetcher } from '@/lib/fetcher';
 import { toast } from 'react-toastify';
+import { CreateScheduleModal } from './CreateScheduleModal';
 
 const DoctorList = () => {
   const router = useRouter();
@@ -18,6 +19,10 @@ const DoctorList = () => {
   const [specialtyId, setSpecialtyId] = useState('all');
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
+
+  // Schedule Modal State
+  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [selectedDoctorForSchedule, setSelectedDoctorForSchedule] = useState<Doctor | null>(null);
 
   const fetchDoctors = async () => {
     setLoading(true);
@@ -61,6 +66,11 @@ const DoctorList = () => {
     setPage(1);
   };
 
+  const handleAddSchedule = (doctor: Doctor) => {
+    setSelectedDoctorForSchedule(doctor);
+    setIsScheduleModalOpen(true);
+  };
+
   return (
     <div className='flex flex-col gap-6'>
       <div className='flex items-center justify-between'>
@@ -92,7 +102,17 @@ const DoctorList = () => {
         onSearch={handleSearch}
         onSpecialtyChange={handleSpecialtyChange}
       />
-      <DoctorTable doctors={doctors} loading={loading} />
+      <DoctorTable 
+        doctors={doctors} 
+        loading={loading} 
+        onAddSchedule={handleAddSchedule}
+      />
+
+      <CreateScheduleModal
+        isOpen={isScheduleModalOpen}
+        onClose={() => setIsScheduleModalOpen(false)}
+        doctor={selectedDoctorForSchedule}
+      />
     </div>
   );
 };
