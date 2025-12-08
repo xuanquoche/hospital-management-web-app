@@ -26,9 +26,24 @@ const mockPatients: Patient[] = [
     insuranceProvider: 'BaoViet Care',
     insuranceNumber: 'BV-9988-1122',
     visitHistory: [
-      { date: '12 Aug 2025', type: 'Cardiology', doctor: 'Dr. Sarah Thompson', status: 'Completed' },
-      { date: '20 May 2025', type: 'General', doctor: 'Dr. Minh', status: 'Completed' },
-      { date: '03 Feb 2025', type: 'Telehealth', doctor: 'Online', status: 'Completed' },
+      {
+        date: '12 Aug 2025',
+        type: 'Cardiology',
+        doctor: 'Dr. Sarah Thompson',
+        status: 'Completed',
+      },
+      {
+        date: '20 May 2025',
+        type: 'General',
+        doctor: 'Dr. Minh',
+        status: 'Completed',
+      },
+      {
+        date: '03 Feb 2025',
+        type: 'Telehealth',
+        doctor: 'Online',
+        status: 'Completed',
+      },
     ],
     avatarUrl: 'https://github.com/shadcn.png',
   },
@@ -115,8 +130,12 @@ const mockPatients: Patient[] = [
 ];
 
 export function PatientList() {
-  const [activeTab, setActiveTab] = useState<'all' | 'active' | 'inactive'>('all');
-  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(mockPatients[0]);
+  const [activeTab, setActiveTab] = useState<'all' | 'active' | 'inactive'>(
+    'all'
+  );
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(
+    mockPatients[0]
+  );
 
   const filteredPatients = mockPatients.filter((patient) => {
     if (activeTab === 'all') return true;
@@ -126,11 +145,11 @@ export function PatientList() {
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className='flex flex-col gap-6'>
       <PatientListHeader />
       <PatientFilter activeTab={activeTab} onTabChange={setActiveTab} />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
+        <div className='lg:col-span-2'>
           <PatientTable
             patients={filteredPatients}
             selectedPatientId={selectedPatient?.id}
