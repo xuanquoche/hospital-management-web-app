@@ -1,7 +1,14 @@
 'use client';
 
 import React from 'react';
-import { Stethoscope, Users, Calendar, CreditCard, Pill, Server } from 'lucide-react';
+import {
+  Stethoscope,
+  Users,
+  Calendar,
+  CreditCard,
+  Pill,
+  Server,
+} from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 import { useRouter, usePathname } from 'next/navigation';

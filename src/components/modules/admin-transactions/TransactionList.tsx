@@ -107,10 +107,10 @@ const mockTransactions: Transaction[] = [
 
 export function TransactionList() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className='flex flex-col gap-6'>
       <TransactionListHeader />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
-        <div className="lg:col-span-3 space-y-6">
+      <div className='grid grid-cols-1 gap-6 lg:grid-cols-4'>
+        <div className='lg:col-span-3 space-y-6'>
           <TransactionFilter />
           <TransactionTable transactions={mockTransactions} />
         </div>

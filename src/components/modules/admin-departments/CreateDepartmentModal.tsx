@@ -65,8 +65,8 @@ const CreateDepartmentModal = ({
                   Create department (Khoa)
                 </DialogTitle>
                 <p className='text-sm text-slate-500'>
-                  Enter basic information to create a new khoa for scheduling and
-                  routing.
+                  Enter basic information to create a new khoa for scheduling
+                  and routing.
                 </p>
               </div>
             </div>

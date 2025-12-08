@@ -2,7 +2,7 @@ import { TransactionList } from '@/components/modules/admin-transactions/Transac
 
 export default function TransactionsPage() {
   return (
-    <div className="p-6">
+    <div className='p-6'>
       <TransactionList />
     </div>
   );

@@ -22,10 +22,7 @@ const DepartmentFilters = () => {
           </label>
           <div className='relative'>
             <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-slate-400' />
-            <Input
-              placeholder='Type department name...'
-              className='pl-9'
-            />
+            <Input placeholder='Type department name...' className='pl-9' />
           </div>
         </div>
         <div className='md:col-span-3'>

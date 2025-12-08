@@ -72,11 +72,19 @@ const DepartmentList = () => {
           Department List • Showing 1–6 of 24
         </div>
         <div className='flex items-center gap-2'>
-          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
+          <Button
+            variant='outline'
+            size='sm'
+            className='h-8 gap-2 text-slate-600'
+          >
             <Columns className='h-4 w-4' />
             Columns
           </Button>
-          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
+          <Button
+            variant='outline'
+            size='sm'
+            className='h-8 gap-2 text-slate-600'
+          >
             <Download className='h-4 w-4' />
             Export
           </Button>
@@ -87,12 +95,24 @@ const DepartmentList = () => {
         <Table>
           <TableHeader className='bg-teal-50/50'>
             <TableRow>
-              <TableHead className='font-semibold text-teal-900'>Department</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Code</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Head of Department</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Status</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Doctors</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Actions</TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Department
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Code
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Head of Department
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Status
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Doctors
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -131,11 +151,17 @@ const DepartmentList = () => {
                 <TableCell className='text-slate-600'>{dept.doctors}</TableCell>
                 <TableCell>
                   <div className='flex items-center gap-2 text-xs font-medium'>
-                    <button className='text-teal-600 hover:underline'>View</button>
+                    <button className='text-teal-600 hover:underline'>
+                      View
+                    </button>
                     <span className='text-slate-300'>•</span>
-                    <button className='text-teal-600 hover:underline'>Edit</button>
+                    <button className='text-teal-600 hover:underline'>
+                      Edit
+                    </button>
                     <span className='text-slate-300'>•</span>
-                    <button className='text-teal-600 hover:underline'>Delete</button>
+                    <button className='text-teal-600 hover:underline'>
+                      Delete
+                    </button>
                   </div>
                 </TableCell>
               </TableRow>
