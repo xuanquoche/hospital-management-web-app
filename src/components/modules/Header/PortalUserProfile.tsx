@@ -100,7 +100,7 @@ const PortalUserProfile = () => {
           {/* Item Logout */}
           <DropdownMenuItem
             className='cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50'
-            onSelect={handleLogout} // Sử dụng onSelect thay vì onClick trong Dropdown của Shadcn để quản lý tốt hơn
+            onSelect={handleLogout}
             disabled={isLoggingOut}
           >
             {isLoggingOut ? (
