@@ -1,10 +1,16 @@
+'use client'
+
 import React from 'react';
 import { Plus, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DoctorFilters from './DoctorFilters';
 import DoctorTable from './DoctorTable';
+import { useRouter } from 'next/navigation';
+import { PRIVATE_ROUTES } from '@/const/routes';
 
 const DoctorList = () => {
+  const router = useRouter();
+
   return (
     <div className='flex flex-col gap-6'>
       <div className='flex items-center justify-between'>
@@ -22,7 +28,7 @@ const DoctorList = () => {
             <Calendar className='mr-2 h-4 w-4' />
             Schedule
           </Button>
-          <Button className='bg-teal-600 hover:bg-teal-700'>
+          <Button className='bg-teal-600 hover:bg-teal-700 ' onClick={() => router.push(PRIVATE_ROUTES.ADMIN_DOCTOR_CREATE)}>
             <Plus className='mr-2 h-4 w-4' />
             Create Doctor
           </Button>

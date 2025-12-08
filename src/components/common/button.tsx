@@ -30,7 +30,7 @@ const ButtonSize: Record<ButtonSizeKey, string> = {
 
 const ButtonVariants: Record<ButtonVariantKey, string> = {
   primary:
-    'text-white border-indigo-700 bg-indigo-700 hover:bg-indigo-800 hover:border-indigo-800 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700',
+    'text-white border-indigo-700 bg-teal-600 hover:bg-indigo-800 hover:border-indigo-800 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-teal-600 active:border-indigo-700',
   secondary:
     'border-pink-200 bg-pink-200 text-pink-700 hover:text-pink-700 hover:bg-pink-300 hover:border-pink-300 focus:ring focus:ring-pink-500 focus:ring-opacity-50 active:bg-pink-200 active:border-pink-200',
   white:

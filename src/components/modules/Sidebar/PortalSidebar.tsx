@@ -4,8 +4,16 @@ import React from 'react';
 import { Stethoscope, Users, Calendar, CreditCard, Pill } from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
+import { useRouter } from 'next/navigation';
+import { PRIVATE_ROUTES } from '@/const/routes';
 
 const PortalSidebar = () => {
+  const router = useRouter();
+
+  function navigateLink(link: string) {
+    router.push(link);
+  }
+
   return (
     <div className='sticky top-0 flex h-screen w-[20%] flex-col border-r bg-[#F0FDF9]'>
       <div className='p-6'>
@@ -17,7 +25,7 @@ const PortalSidebar = () => {
           Management
         </h2>
         <div className='space-y-1'>
-          <PortalSidebarItem icon={Stethoscope} label='Doctors' isActive />
+          <PortalSidebarItem icon={Stethoscope} label='Doctors' isActive onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DOCTOR)}/>
           <PortalSidebarItem icon={Users} label='Patients' />
           <PortalSidebarItem icon={Calendar} label='Appointments' />
           <PortalSidebarItem icon={CreditCard} label='Transactions' />

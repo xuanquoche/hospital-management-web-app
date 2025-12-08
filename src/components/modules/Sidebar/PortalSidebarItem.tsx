@@ -19,7 +19,7 @@ const PortalSidebarItem: React.FC<PortalSidebarItemProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        'flex w-full items-center gap-3 rounded-md px-4 py-3 text-sm font-medium transition-colors',
+        'flex w-full items-center cursor-pointer gap-3 rounded-md px-4 py-3 text-sm font-medium transition-colors',
         isActive
           ? 'bg-teal-600 text-white'
           : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'

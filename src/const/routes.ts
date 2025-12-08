@@ -26,6 +26,8 @@ export const PRIVATE_ROUTES = {
   PATIENT_DASHBOARD: '/patient/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',
   PATIENT_PROFILE: '/patient/profile',
+  ADMIN_DOCTOR_CREATE: '/admin-doctor/create',
+  ADMIN_DOCTOR: '/admin-doctor',
 };
 export const ADMIN_ROUTES = {
   DASHBOARD: ROUTES.ADMIN_DASHBOARD,
