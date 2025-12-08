@@ -1,12 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Stethoscope, Users, Calendar, CreditCard, Pill } from 'lucide-react';
+import { Stethoscope, Users, Calendar, CreditCard, Pill, Server } from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 import { useRouter, usePathname } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/const/routes';
-import { log } from 'console';
 
 const PortalSidebar = () => {
   const router = useRouter();
@@ -41,9 +40,30 @@ const PortalSidebar = () => {
             isActive={isActive(PRIVATE_ROUTES.ADMIN_PATIENT)}
             onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_PATIENT)}
           />
-          <PortalSidebarItem icon={Calendar} label='Appointments' />
-          <PortalSidebarItem icon={CreditCard} label='Transactions' />
-          <PortalSidebarItem icon={Pill} label='Medicines' />
+          <PortalSidebarItem
+            icon={Calendar}
+            label='Appointments'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_APPOINTMENTS)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_APPOINTMENTS)}
+          />
+          <PortalSidebarItem
+            icon={CreditCard}
+            label='Transactions'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_TRANSACTIONS)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_TRANSACTIONS)}
+          />
+          <PortalSidebarItem
+            icon={Pill}
+            label='Medicines'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_MEDICINES)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_MEDICINES)}
+          />
+          <PortalSidebarItem
+            icon={Server}
+            label='Departments'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
+          />
         </div>
       </div>
 
