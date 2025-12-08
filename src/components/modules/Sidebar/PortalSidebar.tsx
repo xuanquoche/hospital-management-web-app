@@ -4,15 +4,19 @@ import React from 'react';
 import { Stethoscope, Users, Calendar, CreditCard, Pill } from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/const/routes';
+import { log } from 'console';
 
 const PortalSidebar = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   function navigateLink(link: string) {
     router.push(link);
   }
+
+  const isActive = (path: string) => pathname.startsWith(`/en${path}`);
 
   return (
     <div className='sticky top-0 flex h-screen w-[20%] flex-col border-r bg-[#F0FDF9]'>
@@ -28,10 +32,15 @@ const PortalSidebar = () => {
           <PortalSidebarItem
             icon={Stethoscope}
             label='Doctors'
-            isActive
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_DOCTOR)}
             onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DOCTOR)}
           />
-          <PortalSidebarItem icon={Users} label='Patients' />
+          <PortalSidebarItem
+            icon={Users}
+            label='Patients'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_PATIENT)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_PATIENT)}
+          />
           <PortalSidebarItem icon={Calendar} label='Appointments' />
           <PortalSidebarItem icon={CreditCard} label='Transactions' />
           <PortalSidebarItem icon={Pill} label='Medicines' />
