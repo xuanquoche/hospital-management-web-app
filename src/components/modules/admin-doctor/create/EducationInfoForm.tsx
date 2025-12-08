@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,11 +13,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { DoctorFormData } from './CreateDoctorMain';
 
 const educationSchema = z.object({
   school: z.string().min(1, { message: 'School is required' }),
   degree: z.string().min(1, { message: 'Degree is required' }),
-  year: z.string().min(4, { message: 'Year is required' }),
+  graduationYear: z.string().min(4, { message: 'Year is required' }),
 });
 
 const formSchema = z.object({
@@ -27,24 +28,47 @@ const formSchema = z.object({
 });
 
 interface EducationInfoFormProps {
+  initialData: DoctorFormData;
+  onUpdate: (data: Partial<DoctorFormData>) => void;
   onComplete: () => void;
 }
 
 export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
+  initialData,
+  onUpdate,
   onComplete,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      educations: [
-        {
-          school: '',
-          degree: '',
-          year: '',
-        },
-      ],
+      educations:
+        initialData.educations.length > 0
+          ? initialData.educations.map((e) => ({
+              school: e.school,
+              degree: e.degree,
+              graduationYear: String(e.graduationYear),
+            }))
+          : [
+              {
+                school: '',
+                degree: '',
+                graduationYear: '',
+              },
+            ],
     },
   });
+
+  useEffect(() => {
+    if (initialData.educations.length > 0) {
+      form.reset({
+        educations: initialData.educations.map((e) => ({
+          school: e.school,
+          degree: e.degree,
+          graduationYear: String(e.graduationYear),
+        })),
+      });
+    }
+  }, [initialData, form]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -52,7 +76,12 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    onUpdate({
+      educations: values.educations.map((e) => ({
+        ...e,
+        graduationYear: Number(e.graduationYear),
+      })),
+    });
     onComplete();
   }
 
@@ -109,7 +138,7 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                 />
                 <FormField
                   control={form.control}
-                  name={`educations.${index}.year`}
+                  name={`educations.${index}.graduationYear`}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Graduation year</FormLabel>
@@ -140,7 +169,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
             type='button'
             variant='secondary'
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-            onClick={() => append({ school: '', degree: '', year: '' })}
+            onClick={() =>
+              append({ school: '', degree: '', graduationYear: '' })
+            }
           >
             <Plus className='mr-2 h-4 w-4' />
             Add education

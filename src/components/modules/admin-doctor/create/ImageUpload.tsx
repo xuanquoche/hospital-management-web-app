@@ -1,18 +1,36 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { User } from 'lucide-react';
 
-export const ImageUpload = () => {
-  const [preview, setPreview] = useState<string | null>(null);
+interface ImageUploadProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
+export const ImageUpload: React.FC<ImageUploadProps> = ({
+  value,
+  onChange,
+}) => {
+  const [preview, setPreview] = useState<string | null>(value || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (value) {
+      setPreview(value);
+    }
+  }, [value]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result as string);
+        const result = reader.result as string;
+        setPreview(result);
+        if (onChange) {
+          onChange(result); // Passing base64 for now
+        }
       };
       reader.readAsDataURL(file);
     }

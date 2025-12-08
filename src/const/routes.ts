@@ -33,6 +33,7 @@ export const PRIVATE_ROUTES = {
   ADMIN_TRANSACTIONS: '/admin-transactions',
   ADMIN_MEDICINES: '/admin-medicines',
   ADMIN_DEPARTMENTS: '/admin-departments',
+  ADMIN_SPECIALTIES: '/admin-specialties',
 };
 export const ADMIN_ROUTES = {
   DASHBOARD: ROUTES.ADMIN_DASHBOARD,

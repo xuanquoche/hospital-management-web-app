@@ -8,6 +8,7 @@ import {
   CreditCard,
   Pill,
   Server,
+  Activity,
 } from 'lucide-react';
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
@@ -70,6 +71,12 @@ const PortalSidebar = () => {
             label='Departments'
             isActive={isActive(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
             onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
+          />
+          <PortalSidebarItem
+            icon={Activity}
+            label='Specialties'
+            isActive={isActive(PRIVATE_ROUTES.ADMIN_SPECIALTIES)}
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_SPECIALTIES)}
           />
         </div>
       </div>

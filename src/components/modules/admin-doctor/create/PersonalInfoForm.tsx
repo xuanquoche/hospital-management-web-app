@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -12,7 +12,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { ImageUpload } from './ImageUpload';
+import { DoctorFormData } from './CreateDoctorMain';
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -27,27 +29,51 @@ const formSchema = z.object({
   address: z.string().min(5, {
     message: 'Address must be at least 5 characters.',
   }),
+  username: z.string().min(3, {
+    message: 'Username must be at least 3 characters.',
+  }),
+  bio: z.string().optional(),
+  avatar: z.string().optional(),
 });
 
 interface PersonalInfoFormProps {
+  initialData: DoctorFormData;
+  onUpdate: (data: Partial<DoctorFormData>) => void;
   onComplete: () => void;
 }
 
 export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
+  initialData,
+  onUpdate,
   onComplete,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: '',
-      email: '',
-      phone: '',
-      address: '',
+      fullName: initialData.fullName,
+      email: initialData.email,
+      phone: initialData.phone,
+      address: initialData.address,
+      username: initialData.username,
+      bio: initialData.bio,
+      avatar: initialData.avatar,
     },
   });
 
+  useEffect(() => {
+    form.reset({
+      fullName: initialData.fullName,
+      email: initialData.email,
+      phone: initialData.phone,
+      address: initialData.address,
+      username: initialData.username,
+      bio: initialData.bio,
+      avatar: initialData.avatar,
+    });
+  }, [initialData, form]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    onUpdate(values);
     onComplete();
   }
 
@@ -67,7 +93,18 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-          <ImageUpload />
+          <FormField
+            control={form.control}
+            name='avatar'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <ImageUpload value={field.value} onChange={field.onChange} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <div className='grid grid-cols-2 gap-6'>
             <FormField
@@ -78,6 +115,19 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                   <FormLabel>Full name</FormLabel>
                   <FormControl>
                     <Input placeholder='Enter full name' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='username'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder='dr.john' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,10 +163,23 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               control={form.control}
               name='address'
               render={({ field }) => (
-                <FormItem>
+                <FormItem className='col-span-2'>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
                     <Input placeholder='Street, city, state, ZIP' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='bio'
+              render={({ field }) => (
+                <FormItem className='col-span-2'>
+                  <FormLabel>Bio (Optional)</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder='Short biography...' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

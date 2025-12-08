@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
@@ -8,8 +8,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { clientFetcher } from '@/lib/fetcher';
+import { toast } from 'react-toastify';
 
-const DoctorFilters = () => {
+interface DoctorFiltersProps {
+  onSearch: (query: string) => void;
+  onSpecialtyChange: (value: string) => void;
+}
+
+interface Specialty {
+  id: string;
+  name: string;
+}
+
+const DoctorFilters: React.FC<DoctorFiltersProps> = ({
+  onSearch,
+  onSpecialtyChange,
+}) => {
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const fetchSpecialties = async () => {
+      setLoading(true);
+      try {
+        const response = await clientFetcher.get(
+          '/specialties?page=1&limit=100'
+        );
+        if (response.data) {
+          setSpecialties(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching specialties:', error);
+        toast.error('Failed to load specialties');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSpecialties();
+  }, []);
+
+  // Debounce search input locally
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm, onSearch]);
+
   return (
     <div className='mb-6 rounded-lg border border-slate-100 bg-white p-4 shadow-sm'>
       <div className='mb-4'>
@@ -25,6 +74,8 @@ const DoctorFilters = () => {
             <Input
               placeholder='Type doctor name...'
               className='h-10 w-full border-slate-200 pl-10 focus-visible:ring-teal-500'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
@@ -32,15 +83,19 @@ const DoctorFilters = () => {
           <label className='mb-1.5 block text-xs font-medium text-slate-500'>
             Specialty
           </label>
-          <Select defaultValue='all'>
+          <Select defaultValue='all' onValueChange={onSpecialtyChange}>
             <SelectTrigger className='h-10 border-slate-200 focus:ring-teal-500'>
-              <SelectValue placeholder='Select specialty' />
+              <SelectValue
+                placeholder={loading ? 'Loading...' : 'Select specialty'}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value='all'>All specialties</SelectItem>
-              <SelectItem value='cardiology'>Cardiology</SelectItem>
-              <SelectItem value='orthopedics'>Orthopedics</SelectItem>
-              <SelectItem value='pediatrics'>Pediatrics</SelectItem>
+              {specialties.map((specialty) => (
+                <SelectItem key={specialty.id} value={specialty.id}>
+                  {specialty.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

@@ -1,15 +1,65 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Plus, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DoctorFilters from './DoctorFilters';
-import DoctorTable from './DoctorTable';
+import DoctorTable, { Doctor } from './DoctorTable';
 import { useRouter } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/const/routes';
+import { clientFetcher } from '@/lib/fetcher';
+import { toast } from 'react-toastify';
 
 const DoctorList = () => {
   const router = useRouter();
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [specialtyId, setSpecialtyId] = useState('all');
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+
+  const fetchDoctors = async () => {
+    setLoading(true);
+    try {
+      const queryParams = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString(),
+        ...(searchQuery && { name: searchQuery }),
+        ...(specialtyId && specialtyId !== 'all' && { specialtyId }),
+      });
+
+      const response = await clientFetcher.get(
+        `/admin/doctors?${queryParams.toString()}`
+      );
+      if (response.data) {
+        setDoctors(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      toast.error('Failed to load doctors');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchDoctors();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, specialtyId, page]);
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    setPage(1); // Reset to first page on search
+  };
+
+  const handleSpecialtyChange = (value: string) => {
+    setSpecialtyId(value);
+    setPage(1);
+  };
 
   return (
     <div className='flex flex-col gap-6'>
@@ -38,8 +88,11 @@ const DoctorList = () => {
         </div>
       </div>
 
-      <DoctorFilters />
-      <DoctorTable />
+      <DoctorFilters
+        onSearch={handleSearch}
+        onSpecialtyChange={handleSpecialtyChange}
+      />
+      <DoctorTable doctors={doctors} loading={loading} />
     </div>
   );
 };

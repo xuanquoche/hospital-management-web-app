@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -19,45 +19,99 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { DoctorFormData } from './CreateDoctorMain';
+import { clientFetcher } from '@/lib/fetcher';
+import { toast } from 'react-toastify';
 
 const formSchema = z.object({
-  primarySpecialty: z.string().min(1, {
+  primarySpecialtyId: z.string().min(1, {
     message: 'Please select a primary specialty.',
   }),
   subSpecialty: z.string().optional(),
   professionalTitle: z.string().optional(),
-  experience: z.string().min(1, {
+  yearsOfExperience: z.string().min(1, {
     message: 'Please enter years of experience.',
   }),
   consultationFee: z.string().min(1, {
     message: 'Please enter consultation fee.',
   }),
-  currency: z.string().min(1, {
-    message: 'Please select a currency.',
-  }),
 });
 
 interface ProfessionalInfoFormProps {
+  initialData: DoctorFormData;
+  onUpdate: (data: Partial<DoctorFormData>) => void;
   onComplete: () => void;
 }
 
+interface Specialty {
+  id: string;
+  name: string;
+}
+
 export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
+  initialData,
+  onUpdate,
   onComplete,
 }) => {
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
+  const [isLoadingSpecialties, setIsLoadingSpecialties] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      primarySpecialty: '',
-      subSpecialty: '',
-      professionalTitle: '',
-      experience: '',
-      consultationFee: '',
-      currency: 'USD',
+      primarySpecialtyId: initialData.primarySpecialtyId,
+      subSpecialty: initialData.subSpecialty,
+      professionalTitle: initialData.professionalTitle,
+      yearsOfExperience: initialData.yearsOfExperience
+        ? String(initialData.yearsOfExperience)
+        : '',
+      consultationFee: initialData.consultationFee
+        ? String(initialData.consultationFee)
+        : '',
     },
   });
 
+  useEffect(() => {
+    const fetchSpecialties = async () => {
+      setIsLoadingSpecialties(true);
+      try {
+        const response = await clientFetcher.get(
+          '/specialties?page=1&limit=100'
+        ); // Fetch enough specialties
+        if (response.data) {
+          setSpecialties(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching specialties:', error);
+        toast.error('Failed to load specialties');
+      } finally {
+        setIsLoadingSpecialties(false);
+      }
+    };
+
+    fetchSpecialties();
+  }, []);
+
+  useEffect(() => {
+    form.reset({
+      primarySpecialtyId: initialData.primarySpecialtyId,
+      subSpecialty: initialData.subSpecialty,
+      professionalTitle: initialData.professionalTitle,
+      yearsOfExperience: initialData.yearsOfExperience
+        ? String(initialData.yearsOfExperience)
+        : '',
+      consultationFee: initialData.consultationFee
+        ? String(initialData.consultationFee)
+        : '',
+    });
+  }, [initialData, form]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    onUpdate({
+      ...values,
+      yearsOfExperience: Number(values.yearsOfExperience),
+      consultationFee: Number(values.consultationFee),
+    });
     onComplete();
   }
 
@@ -80,25 +134,33 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
           <div className='grid grid-cols-2 gap-6'>
             <FormField
               control={form.control}
-              name='primarySpecialty'
+              name='primarySpecialtyId'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Primary specialty</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    value={field.value}
+                    disabled={isLoadingSpecialties}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Select specialty' />
+                        <SelectValue
+                          placeholder={
+                            isLoadingSpecialties
+                              ? 'Loading...'
+                              : 'Select specialty'
+                          }
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value='cardiology'>Cardiology</SelectItem>
-                      <SelectItem value='dermatology'>Dermatology</SelectItem>
-                      <SelectItem value='neurology'>Neurology</SelectItem>
-                      <SelectItem value='orthopedics'>Orthopedics</SelectItem>
-                      <SelectItem value='pediatrics'>Pediatrics</SelectItem>
+                      {specialties.map((specialty) => (
+                        <SelectItem key={specialty.id} value={specialty.id}>
+                          {specialty.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -136,7 +198,7 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
             />
             <FormField
               control={form.control}
-              name='experience'
+              name='yearsOfExperience'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Years of experience</FormLabel>
@@ -154,34 +216,8 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
                 <FormItem>
                   <FormLabel>Consultation fee</FormLabel>
                   <FormControl>
-                    <Input placeholder='e.g. 80' type='number' {...field} />
+                    <Input placeholder='e.g. 500000' type='number' {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='currency'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Billing currency</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select currency' />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value='USD'>USD ($)</SelectItem>
-                      <SelectItem value='EUR'>EUR (€)</SelectItem>
-                      <SelectItem value='GBP'>GBP (£)</SelectItem>
-                      <SelectItem value='VND'>VND (₫)</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

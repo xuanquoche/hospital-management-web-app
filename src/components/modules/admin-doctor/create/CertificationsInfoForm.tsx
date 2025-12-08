@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Plus, Upload, Trash2 } from 'lucide-react';
+import { Plus, Upload, Trash2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,14 +14,19 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { DoctorFormData } from './CreateDoctorMain';
 
 const certificationSchema = z.object({
-  name: z.string().min(1, { message: 'Certificate name is required' }),
-  authority: z.string().min(1, { message: 'Issuing authority is required' }),
+  certificateName: z
+    .string()
+    .min(1, { message: 'Certificate name is required' }),
+  issuingAuthority: z
+    .string()
+    .min(1, { message: 'Issuing authority is required' }),
   licenseNumber: z.string().min(1, { message: 'License number is required' }),
   issueDate: z.string().min(1, { message: 'Issue date is required' }),
   expiryDate: z.string().optional(),
-  file: z.any().optional(),
+  documentUrl: z.string().optional(),
 });
 
 const formSchema = z.object({
@@ -32,27 +37,60 @@ const formSchema = z.object({
 });
 
 interface CertificationsInfoFormProps {
+  initialData: DoctorFormData;
+  onUpdate: (data: Partial<DoctorFormData>) => void;
   onComplete: () => void;
+  isLoading?: boolean;
 }
 
 export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
+  initialData,
+  onUpdate,
   onComplete,
+  isLoading = false,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      certifications: [
-        {
-          name: '',
-          authority: '',
-          licenseNumber: '',
-          issueDate: '',
-          expiryDate: '',
-        },
-      ],
+      certifications:
+        initialData.certifications.length > 0
+          ? initialData.certifications.map((c) => ({
+              certificateName: c.certificateName,
+              issuingAuthority: c.issuingAuthority,
+              licenseNumber: c.licenseNumber,
+              issueDate: c.issueDate,
+              expiryDate: c.expiryDate,
+              documentUrl: c.documentUrl,
+            }))
+          : [
+              {
+                certificateName: '',
+                issuingAuthority: '',
+                licenseNumber: '',
+                issueDate: '',
+                expiryDate: '',
+                documentUrl: '',
+              },
+            ],
       verificationNotes: '',
     },
   });
+
+  useEffect(() => {
+    if (initialData.certifications.length > 0) {
+      form.reset({
+        certifications: initialData.certifications.map((c) => ({
+          certificateName: c.certificateName,
+          issuingAuthority: c.issuingAuthority,
+          licenseNumber: c.licenseNumber,
+          issueDate: c.issueDate,
+          expiryDate: c.expiryDate,
+          documentUrl: c.documentUrl,
+        })),
+        verificationNotes: '',
+      });
+    }
+  }, [initialData, form]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -60,7 +98,13 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    onUpdate({
+      certifications: values.certifications.map((c) => ({
+        ...c,
+        expiryDate: c.expiryDate || '',
+        documentUrl: c.documentUrl || '',
+      })),
+    });
     onComplete();
   }
 
@@ -89,7 +133,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                 <div className='grid grid-cols-3 gap-4'>
                   <FormField
                     control={form.control}
-                    name={`certifications.${index}.name`}
+                    name={`certifications.${index}.certificateName`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Certificate / License name</FormLabel>
@@ -105,7 +149,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                   />
                   <FormField
                     control={form.control}
-                    name={`certifications.${index}.authority`}
+                    name={`certifications.${index}.issuingAuthority`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Issuing authority</FormLabel>
@@ -142,7 +186,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Issue date</FormLabel>
                         <FormControl>
-                          <Input placeholder='DD/MM/YYYY' {...field} />
+                          <Input type='date' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -155,7 +199,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Expiry date</FormLabel>
                         <FormControl>
-                          <Input placeholder='DD/MM/YYYY' {...field} />
+                          <Input type='date' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -197,11 +241,12 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
             onClick={() =>
               append({
-                name: '',
-                authority: '',
+                certificateName: '',
+                issuingAuthority: '',
                 licenseNumber: '',
                 issueDate: '',
                 expiryDate: '',
+                documentUrl: '',
               })
             }
           >
@@ -245,8 +290,19 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
               >
                 Save as draft
               </Button>
-              <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
-                Save & activate
+              <Button
+                type='submit'
+                className='bg-teal-600 hover:bg-teal-700'
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    Saving...
+                  </>
+                ) : (
+                  'Save & activate'
+                )}
               </Button>
             </div>
           </div>

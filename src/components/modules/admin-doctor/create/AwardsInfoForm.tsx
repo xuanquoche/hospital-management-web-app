@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { DoctorFormData } from './CreateDoctorMain';
 
 const awardSchema = z.object({
   title: z.string().min(1, { message: 'Title is required' }),
@@ -27,25 +28,50 @@ const formSchema = z.object({
 });
 
 interface AwardsInfoFormProps {
+  initialData: DoctorFormData;
+  onUpdate: (data: Partial<DoctorFormData>) => void;
   onComplete: () => void;
 }
 
 export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
+  initialData,
+  onUpdate,
   onComplete,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      awards: [
-        {
-          title: '',
-          organization: '',
-          year: '',
-          description: '',
-        },
-      ],
+      awards:
+        initialData.awards.length > 0
+          ? initialData.awards.map((a) => ({
+              title: a.title,
+              organization: a.organization,
+              year: String(a.year),
+              description: a.description,
+            }))
+          : [
+              {
+                title: '',
+                organization: '',
+                year: '',
+                description: '',
+              },
+            ],
     },
   });
+
+  useEffect(() => {
+    if (initialData.awards.length > 0) {
+      form.reset({
+        awards: initialData.awards.map((a) => ({
+          title: a.title,
+          organization: a.organization,
+          year: String(a.year),
+          description: a.description,
+        })),
+      });
+    }
+  }, [initialData, form]);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -53,7 +79,14 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    onUpdate({
+      awards:
+        values.awards?.map((a) => ({
+          ...a,
+          year: Number(a.year),
+          description: a.description || '',
+        })) || [],
+    });
     onComplete();
   }
 

@@ -22,25 +22,19 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import CreateDepartmentModal from './CreateDepartmentModal';
+import CreateSpecialtyModal from './CreateSpecialtyModal';
 
-interface Department {
+interface Specialty {
   id: string;
   name: string;
-  code: string;
   description: string;
-  headId: string | null;
+  departmentId: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
-  head: {
+  department: {
     id: string;
-    userId: string;
-    user: {
-      id: string;
-      fullName: string;
-      email: string;
-    };
+    name: string;
   } | null;
 }
 
@@ -53,18 +47,18 @@ interface PaginationMeta {
   hasPreviousPage: boolean;
 }
 
-interface DepartmentResponse {
+interface SpecialtyResponse {
   success: boolean;
   statusCode: number;
   message: string;
-  data: Department[];
+  data: Specialty[];
   meta: PaginationMeta;
 }
 
 const ITEMS_PER_PAGE = 10;
 
-const DepartmentList = () => {
-  const [departments, setDepartments] = useState<Department[]>([]);
+const SpecialtyList = () => {
+  const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Pagination state
@@ -80,33 +74,34 @@ const DepartmentList = () => {
 
   // Edit modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] =
-    useState<Department | null>(null);
+  const [selectedSpecialty, setSelectedSpecialty] = useState<Specialty | null>(
+    null
+  );
 
-  const fetchDepartments = async (page: number) => {
+  const fetchSpecialties = async (page: number) => {
     try {
       setIsLoading(true);
 
       const res = await clientFetcher.get(
-        `/departments?page=${page}&limit=${ITEMS_PER_PAGE}`
+        `/specialties?page=${page}&limit=${ITEMS_PER_PAGE}`
       );
 
-      const responseData = res as DepartmentResponse;
+      const responseData = res as SpecialtyResponse;
 
       if (responseData.success) {
-        setDepartments(responseData.data);
+        setSpecialties(responseData.data);
         setMeta(responseData.meta);
       }
     } catch (error) {
-      console.error('Error fetching departments:', error);
-      toast.error('Failed to fetch departments');
+      console.error('Error fetching specialties:', error);
+      toast.error('Failed to fetch specialties');
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchDepartments(currentPage);
+    fetchSpecialties(currentPage);
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
@@ -115,26 +110,24 @@ const DepartmentList = () => {
     }
   };
 
-  const handleEdit = (department: Department) => {
-    setSelectedDepartment(department);
+  const handleEdit = (specialty: Specialty) => {
+    setSelectedSpecialty(specialty);
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (departmentId: string) => {
+  const handleDelete = async (specialtyId: string) => {
+    if (!confirm('Are you sure you want to delete this specialty?')) return;
     try {
       setIsLoading(true);
-
-      const res = await clientFetcher.delete(`/departments/${departmentId}`);
-
-      const responseData = res as DepartmentResponse;
-
+      const res = await clientFetcher.delete(`/specialties/${specialtyId}`);
+      const responseData = res as SpecialtyResponse;
       if (responseData.success) {
-        toast.success('Department deleted successfully');
-        fetchDepartments(currentPage);
+        toast.success('Specialty deleted successfully');
+        fetchSpecialties(currentPage);
       }
     } catch (error) {
-      console.error('Error deleting department:', error);
-      toast.error('Failed to delete department');
+      console.error('Error deleting specialty:', error);
+      toast.error('Failed to delete specialty');
     } finally {
       setIsLoading(false);
     }
@@ -142,19 +135,19 @@ const DepartmentList = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    setSelectedDepartment(null);
+    setSelectedSpecialty(null);
   };
 
   const handleModalSuccess = () => {
-    fetchDepartments(currentPage);
+    fetchSpecialties(currentPage);
   };
 
   return (
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
         <div className='text-sm text-slate-500'>
-          Department List • Showing{' '}
-          {departments.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
+          Specialty List • Showing{' '}
+          {specialties.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
           {Math.min(meta.page * meta.limit, meta.totalItems)} of{' '}
           {meta.totalItems}
         </div>
@@ -183,19 +176,16 @@ const DepartmentList = () => {
           <TableHeader className='bg-teal-50/50'>
             <TableRow>
               <TableHead className='font-semibold text-teal-900'>
+                Name
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Description
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
                 Department
               </TableHead>
               <TableHead className='font-semibold text-teal-900'>
-                Code
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Head of Department
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
                 Status
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Doctors
               </TableHead>
               <TableHead className='font-semibold text-teal-900'>
                 Actions
@@ -205,63 +195,67 @@ const DepartmentList = () => {
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={6} className='h-24 text-center'>
+                <TableCell colSpan={5} className='h-24 text-center'>
                   <div className='flex justify-center items-center gap-2'>
                     <Loader2 className='h-6 w-6 animate-spin text-teal-600' />
                     <span className='text-slate-500'>
-                      Loading departments...
+                      Loading specialties...
                     </span>
                   </div>
                 </TableCell>
               </TableRow>
-            ) : departments.length === 0 ? (
+            ) : specialties.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className='h-24 text-center'>
-                  No departments found.
+                <TableCell colSpan={5} className='h-24 text-center'>
+                  No specialties found.
                 </TableCell>
               </TableRow>
             ) : (
-              departments.map((dept) => (
-                <TableRow key={dept.id}>
+              specialties.map((specialty) => (
+                <TableRow key={specialty.id}>
                   <TableCell className='font-medium text-slate-900'>
-                    {dept.name}
+                    {specialty.name}
                   </TableCell>
-                  <TableCell className='text-slate-600'>{dept.code}</TableCell>
                   <TableCell className='text-slate-600'>
-                    {dept.head?.user?.fullName || '—'}
+                    {specialty.description || '—'}
+                  </TableCell>
+                  <TableCell className='text-slate-600'>
+                    {specialty.department?.name || '—'}
                   </TableCell>
                   <TableCell>
                     <Badge
                       variant='secondary'
                       className={`
                         ${
-                          dept.isActive
+                          specialty.isActive
                             ? 'bg-green-100 text-green-700 hover:bg-green-100'
                             : 'bg-slate-100 text-slate-500 hover:bg-slate-100'
                         }
                         rounded-full px-3 font-normal
                       `}
                     >
-                      {dept.isActive ? 'Active' : 'Inactive'}
+                      {specialty.isActive ? 'Active' : 'Inactive'}
                     </Badge>
                   </TableCell>
-                  <TableCell className='text-slate-600'>—</TableCell>
                   <TableCell>
                     <div className='flex items-center gap-2 text-xs font-medium'>
-                      <Button className='text-teal-600 hover:underline hover:text-white bg-transparent'>
+                      <Button
+                        className='text-teal-600 hover:underline hover:text-white bg-transparent'
+                        onClick={() => {}}
+                      >
                         View
                       </Button>
                       <span className='text-slate-300'>•</span>
                       <Button
                         className='text-teal-600 hover:underline hover:text-white bg-transparent'
-                        onClick={() => handleEdit(dept)}
+                        onClick={() => handleEdit(specialty)}
                       >
                         Edit
                       </Button>
                       <span className='text-slate-300'>•</span>
                       <Button
                         className='text-teal-600 hover:underline hover:text-white bg-transparent'
-                        onClick={() => handleDelete(dept.id)}
+                        onClick={() => handleDelete(specialty.id)}
                       >
                         Delete
                       </Button>
@@ -320,14 +314,14 @@ const DepartmentList = () => {
       )}
 
       {/* Edit Modal */}
-      <CreateDepartmentModal
+      <CreateSpecialtyModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
-        initialData={selectedDepartment}
+        initialData={selectedSpecialty}
         onSuccess={handleModalSuccess}
       />
     </div>
   );
 };
 
-export default DepartmentList;
+export default SpecialtyList;
