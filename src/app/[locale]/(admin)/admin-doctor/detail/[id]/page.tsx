@@ -64,12 +64,12 @@ const scheduleData = [
 
 export default function DoctorDetailPage() {
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className='flex flex-col gap-6 p-6'>
       <DoctorDetailHeader doctor={doctorData} />
       <DoctorDetailTabs
         professionalInfo={professionalInfoData}
         schedule={scheduleData}
-        dateRange="12 Aug – 18 Aug 2025"
+        dateRange='12 Aug – 18 Aug 2025'
       />
     </div>
   );

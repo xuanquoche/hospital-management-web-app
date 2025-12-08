@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { Plus, Calendar } from 'lucide-react';
@@ -28,7 +28,10 @@ const DoctorList = () => {
             <Calendar className='mr-2 h-4 w-4' />
             Schedule
           </Button>
-          <Button className='bg-teal-600 hover:bg-teal-700 ' onClick={() => router.push(PRIVATE_ROUTES.ADMIN_DOCTOR_CREATE)}>
+          <Button
+            className='bg-teal-600 hover:bg-teal-700 '
+            onClick={() => router.push(PRIVATE_ROUTES.ADMIN_DOCTOR_CREATE)}
+          >
             <Plus className='mr-2 h-4 w-4' />
             Create Doctor
           </Button>

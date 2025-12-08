@@ -25,7 +25,12 @@ const PortalSidebar = () => {
           Management
         </h2>
         <div className='space-y-1'>
-          <PortalSidebarItem icon={Stethoscope} label='Doctors' isActive onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DOCTOR)}/>
+          <PortalSidebarItem
+            icon={Stethoscope}
+            label='Doctors'
+            isActive
+            onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DOCTOR)}
+          />
           <PortalSidebarItem icon={Users} label='Patients' />
           <PortalSidebarItem icon={Calendar} label='Appointments' />
           <PortalSidebarItem icon={CreditCard} label='Transactions' />
