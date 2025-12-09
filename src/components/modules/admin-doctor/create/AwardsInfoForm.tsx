@@ -1,8 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Plus } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Plus } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,6 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+
 import { DoctorFormData } from './CreateDoctorMain';
 
 const awardSchema = z.object({

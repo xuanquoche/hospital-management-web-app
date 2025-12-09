@@ -1,5 +1,6 @@
-import { Button } from '@/components/ui/button';
 import { Calendar, Sparkles } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 
 export function AppointmentListHeader() {
   return (

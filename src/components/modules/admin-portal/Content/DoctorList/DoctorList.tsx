@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { Plus, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import DoctorFilters from './DoctorFilters';
-import DoctorTable, { Doctor } from './DoctorTable';
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { Button } from '@/components/ui/button';
 import { PRIVATE_ROUTES } from '@/const/routes';
 import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
+
 import { CreateScheduleModal } from './CreateScheduleModal';
+import DoctorFilters from './DoctorFilters';
+import DoctorTable, { Doctor } from './DoctorTable';
 
 const DoctorList = () => {
   const router = useRouter();

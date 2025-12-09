@@ -1,8 +1,8 @@
 'use client';
 
+import { TransactionFilter } from './TransactionFilter';
 import { TransactionListHeader } from './TransactionListHeader';
 import { TransactionStats } from './TransactionStats';
-import { TransactionFilter } from './TransactionFilter';
 import { TransactionTable, Transaction } from './TransactionTable';
 
 // Mock data

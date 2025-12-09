@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 import { ProfessionalInfo } from './ProfessionalInfo';
 import { WeeklySchedule } from './WeeklySchedule';
 

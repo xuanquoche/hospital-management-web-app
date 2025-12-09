@@ -1,7 +1,7 @@
 'use client';
 
-import { AppointmentListHeader } from './AppointmentListHeader';
 import { AppointmentFilter } from './AppointmentFilter';
+import { AppointmentListHeader } from './AppointmentListHeader';
 import { AppointmentTable, Appointment } from './AppointmentTable';
 
 // Mock data

@@ -1,19 +1,11 @@
 'use client';
 
+import { Columns, Download, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { toast } from 'react-toastify';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Columns, Download, Loader2 } from 'lucide-react';
-import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
 import {
   Pagination,
   PaginationContent,
@@ -22,6 +14,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { clientFetcher } from '@/lib/fetcher';
+
 import CreateSpecialtyModal from './CreateSpecialtyModal';
 
 interface Specialty {

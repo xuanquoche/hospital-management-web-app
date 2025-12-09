@@ -1,16 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DoctorCreationHeader } from './DoctorCreationHeader';
-import { DoctorCreationSteps } from './DoctorCreationSteps';
-import { PersonalInfoForm } from './PersonalInfoForm';
-import { ProfessionalInfoForm } from './ProfessionalInfoForm';
-import { EducationInfoForm } from './EducationInfoForm';
+import { toast } from 'react-toastify';
+
+import { clientFetcher } from '@/lib/fetcher';
+
 import { AwardsInfoForm } from './AwardsInfoForm';
 import { CertificationsInfoForm } from './CertificationsInfoForm';
 import { DoctorCreationComplete } from './DoctorCreationComplete';
-import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
+import { DoctorCreationHeader } from './DoctorCreationHeader';
+import { DoctorCreationSteps } from './DoctorCreationSteps';
+import { EducationInfoForm } from './EducationInfoForm';
+import { PersonalInfoForm } from './PersonalInfoForm';
+import { ProfessionalInfoForm } from './ProfessionalInfoForm';
 
 export interface DoctorFormData {
   email: string;

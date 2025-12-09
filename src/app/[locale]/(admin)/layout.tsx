@@ -1,8 +1,7 @@
+import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 
 import PortalHeader from '@/components/modules/Header/PortalHeader';
-import { SessionProvider } from "next-auth/react"
-
 import PortalSidebar from '@/components/modules/Sidebar/PortalSidebar';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => (

@@ -1,7 +1,8 @@
 import React from 'react';
-import PortalLayout from '@/components/modules/admin-portal/PortalLayout';
+
 import DoctorList from '@/components/modules/admin-portal/Content/DoctorList/DoctorList';
 import Widgets from '@/components/modules/admin-portal/Content/Widgets/Widgets';
+import PortalLayout from '@/components/modules/admin-portal/PortalLayout';
 
 const AdminPortalPage = () => {
   return (

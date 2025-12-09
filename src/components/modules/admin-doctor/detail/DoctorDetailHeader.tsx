@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Edit, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 interface DoctorDetailHeaderProps {
   doctor: {

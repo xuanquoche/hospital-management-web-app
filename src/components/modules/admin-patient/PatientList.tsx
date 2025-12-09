@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { PatientListHeader } from './PatientListHeader';
-import { PatientFilter } from './PatientFilter';
-import { PatientTable, Patient } from './PatientTable';
+
 import { PatientDetailPanel } from './PatientDetailPanel';
+import { PatientFilter } from './PatientFilter';
+import { PatientListHeader } from './PatientListHeader';
+import { PatientTable, Patient } from './PatientTable';
 
 // Mock data
 const mockPatients: Patient[] = [

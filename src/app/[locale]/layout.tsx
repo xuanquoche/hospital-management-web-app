@@ -46,9 +46,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToastContainer />
-          <NextIntlClientProvider messages={messages}>
-            <main>{children}</main>
-          </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <main>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

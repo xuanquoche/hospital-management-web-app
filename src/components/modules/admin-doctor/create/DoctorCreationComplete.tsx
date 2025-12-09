@@ -1,8 +1,9 @@
-import React from 'react';
 import { CheckCircle2, Calendar, Clock, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
+import React from 'react';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export const DoctorCreationComplete = () => {
   const router = useRouter();

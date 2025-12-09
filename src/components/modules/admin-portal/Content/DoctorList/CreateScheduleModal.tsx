@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock, Plus, Trash2, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import * as z from 'zod';
+
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Dialog,
   DialogContent,
@@ -21,22 +24,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { cn } from '@/lib/utils';
-import { Doctor } from './DoctorTable';
 import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
+import { cn } from '@/lib/utils';
+
+import { Doctor } from './DoctorTable';
 
 const timeSlotSchema = z.object({
   startTime: z.string().min(1, 'Start time is required'),
@@ -179,7 +181,6 @@ export const CreateScheduleModal: React.FC<CreateScheduleModalProps> = ({
                     </h3>
 
                     <div className='flex gap-2'>
-                      {/* Simplified for now, focusing on Custom Range as per image */}
                       <Button
                         type='button'
                         variant='outline'

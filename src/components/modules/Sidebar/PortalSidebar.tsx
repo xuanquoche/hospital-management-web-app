@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   Stethoscope,
   Users,
@@ -10,16 +9,19 @@ import {
   Server,
   Activity,
 } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import React from 'react';
+
+import { PRIVATE_ROUTES } from '@/const/routes';
+
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
-import { useRouter, usePathname } from 'next/navigation';
-import { PRIVATE_ROUTES } from '@/const/routes';
-import { useSession } from "next-auth/react"
 
 const PortalSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
- const { data: session } = useSession()
+  const { data: session } = useSession();
 
   console.log(session);
 

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import React, { useState } from 'react';
+
+import CreateSpecialtyModal from '@/components/modules/admin-specialties/CreateSpecialtyModal';
 import SpecialtyFilters from '@/components/modules/admin-specialties/SpecialtyFilters';
 import SpecialtyList from '@/components/modules/admin-specialties/SpecialtyList';
-import CreateSpecialtyModal from '@/components/modules/admin-specialties/CreateSpecialtyModal';
+import { Button } from '@/components/ui/button';
 
 const AdminSpecialtiesPage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

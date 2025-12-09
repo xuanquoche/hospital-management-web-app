@@ -1,7 +1,8 @@
-import React from 'react';
 import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import React from 'react';
+
+import { Button } from '@/components/ui/button';
 
 export const DoctorCreationHeader = () => {
   const router = useRouter();

@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Plus, LayoutGrid } from 'lucide-react';
+import React, { useState } from 'react';
+
+import CreateDepartmentModal from '@/components/modules/admin-departments/CreateDepartmentModal';
 import DepartmentFilters from '@/components/modules/admin-departments/DepartmentFilters';
 import DepartmentList from '@/components/modules/admin-departments/DepartmentList';
 import UsageSnapshot from '@/components/modules/admin-departments/UsageSnapshot';
-import CreateDepartmentModal from '@/components/modules/admin-departments/CreateDepartmentModal';
+import { Button } from '@/components/ui/button';
 
 const AdminDepartmentsPage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

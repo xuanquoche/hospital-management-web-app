@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Badge } from '@/components/ui/badge';
+
 import PortalSearchBar from './PortalSearchBar';
 import PortalUserProfile from './PortalUserProfile';
 

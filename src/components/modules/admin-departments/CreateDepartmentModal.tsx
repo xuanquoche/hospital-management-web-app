@@ -1,6 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Check } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import * as z from 'zod';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,7 +15,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -18,12 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Check } from 'lucide-react';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
 
 interface Department {
   id: string;

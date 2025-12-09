@@ -1,7 +1,8 @@
 import React from 'react';
+
+import DataQuality from './DataQuality';
 import QuickFilters from './QuickFilters';
 import ScheduleSnapshot from './ScheduleSnapshot';
-import DataQuality from './DataQuality';
 
 const Widgets = () => {
   return (

@@ -1,5 +1,6 @@
-import { auth } from '@/auth';
 import { getSession, signOut } from 'next-auth/react';
+
+import { auth } from '@/auth';
 
 class APIClient {
   private baseURL: string;

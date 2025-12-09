@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -9,7 +11,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
 
 interface DoctorFiltersProps {
   onSearch: (query: string) => void;

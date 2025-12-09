@@ -1,7 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'react-toastify';
 import * as z from 'zod';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -19,9 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { DoctorFormData } from './CreateDoctorMain';
 import { clientFetcher } from '@/lib/fetcher';
-import { toast } from 'react-toastify';
+
+import { DoctorFormData } from './CreateDoctorMain';
 
 const formSchema = z.object({
   primarySpecialtyId: z.string().min(1, {
