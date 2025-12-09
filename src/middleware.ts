@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import createMiddleware from 'next-intl/middleware';
 
-import { Role } from './const/enum';
 import {
   ROUTES,
   PUBLIC_ROUTES,
@@ -106,6 +105,6 @@ export const config = {
   matcher: [
     '/', // Root
     '/(ja|en)/:path*', // Locale prefix
-    '/((?!_next|_vercel|.*\\..*).*)', // Các route khác, bỏ qua tĩnh
+    '/((?!api|_next|_vercel|.*\\..*).*)', // Các route khác, bỏ qua tĩnh
   ],
 };

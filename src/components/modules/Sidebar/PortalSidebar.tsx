@@ -14,10 +14,14 @@ import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 import { useRouter, usePathname } from 'next/navigation';
 import { PRIVATE_ROUTES } from '@/const/routes';
+import { useSession } from "next-auth/react"
 
 const PortalSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
+ const { data: session } = useSession()
+
+  console.log(session);
 
   function navigateLink(link: string) {
     router.push(link);

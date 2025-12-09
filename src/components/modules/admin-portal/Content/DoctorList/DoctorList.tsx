@@ -22,7 +22,8 @@ const DoctorList = () => {
 
   // Schedule Modal State
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
-  const [selectedDoctorForSchedule, setSelectedDoctorForSchedule] = useState<Doctor | null>(null);
+  const [selectedDoctorForSchedule, setSelectedDoctorForSchedule] =
+    useState<Doctor | null>(null);
 
   const fetchDoctors = async () => {
     setLoading(true);
@@ -102,9 +103,9 @@ const DoctorList = () => {
         onSearch={handleSearch}
         onSpecialtyChange={handleSpecialtyChange}
       />
-      <DoctorTable 
-        doctors={doctors} 
-        loading={loading} 
+      <DoctorTable
+        doctors={doctors}
+        loading={loading}
         onAddSchedule={handleAddSchedule}
       />
 

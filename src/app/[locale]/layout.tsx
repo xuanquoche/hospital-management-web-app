@@ -5,8 +5,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 
-import Header from '@/components/modules/header/header';
-import Sidebar from '@/components/modules/sidebar/sidebar';
 import { routing } from '@/i18n/routing';
 import '../../app/globals.css';
 
@@ -48,9 +46,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToastContainer />
-        <NextIntlClientProvider messages={messages}>
-          <main>{children}</main>
-        </NextIntlClientProvider>
+          <NextIntlClientProvider messages={messages}>
+            <main>{children}</main>
+          </NextIntlClientProvider>
       </body>
     </html>
   );

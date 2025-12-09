@@ -3,9 +3,9 @@ export enum UserStatus {
   INACTIVE = 'Inactive',
 }
 export enum Role {
-  Admin = 'Admin',
-  Doctor = 'Doctor',
-  Patient = 'Patient',
+  ADMIN = 'Admin',
+  DOCTOR = 'Doctor',
+  PATIENT = 'Patient',
 }
 export enum DepartmentStatus {
   ACTIVE = 'Active',

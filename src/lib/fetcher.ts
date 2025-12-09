@@ -1,7 +1,5 @@
-import { getServerSession } from 'next-auth/next';
+import { auth } from '@/auth';
 import { getSession, signOut } from 'next-auth/react';
-
-import { authOptions } from '@/app/[locale]/api/auth/[...nextauth]/route';
 
 class APIClient {
   private baseURL: string;
@@ -16,7 +14,7 @@ class APIClient {
     if (this.isClient) {
       return await getSession();
     } else {
-      return await getServerSession(authOptions);
+      return await auth();
     }
   }
 

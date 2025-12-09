@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
-import type { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import Credentials from 'next-auth/providers/credentials';
 
 async function refreshAccessToken(token: any) {
   try {
@@ -30,15 +29,15 @@ async function refreshAccessToken(token: any) {
   }
 }
 
-const authOptions: NextAuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
-    CredentialsProvider({
+    Credentials({
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials) return null;
 
         const res = await fetch(
@@ -79,14 +78,14 @@ const authOptions: NextAuthOptions = {
       if (user) {
         return {
           ...token,
-          accessToken: user.accessToken,
-          refreshToken: user.refreshToken,
+          accessToken: (user as any).accessToken,
+          refreshToken: (user as any).refreshToken,
           accessTokenExpires: Date.now() + 60 * 60 * 1000 * 24,
           user: {
             id: user.id,
             email: user.email,
             name: user.name,
-            role: user.role,
+            role: (user as any).role,
           },
         };
       }
@@ -104,7 +103,7 @@ const authOptions: NextAuthOptions = {
         email: token.user?.email as string,
         name: token.user?.name as string,
         role: token.user?.role as string,
-      };
+      } as any;
       (session as any).accessToken = token.accessToken;
       (session as any).refreshToken = token.refreshToken;
       (session as any).error = token.error;
@@ -113,7 +112,4 @@ const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST, authOptions };
+});

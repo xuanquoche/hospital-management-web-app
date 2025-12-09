@@ -57,7 +57,11 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const DoctorTable: React.FC<DoctorTableProps> = ({ doctors, loading, onAddSchedule }) => {
+const DoctorTable: React.FC<DoctorTableProps> = ({
+  doctors,
+  loading,
+  onAddSchedule,
+}) => {
   return (
     <div className='rounded-lg border border-slate-100 bg-white shadow-sm'>
       <div className='flex items-center justify-between border-b border-slate-100 px-6 py-4'>
