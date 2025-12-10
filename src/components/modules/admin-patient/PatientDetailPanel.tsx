@@ -83,7 +83,7 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
           </div>
           <div>
             <p className='text-muted-foreground'>Người liên hệ khẩn cấp</p>
-            <p className='font-medium'>Vợ · 0912 000 999</p>
+            <p className='font-medium'>{patient.emergencyContact || 'N/A'}</p>
           </div>
           <div>
             <p className='text-muted-foreground'>Bảo hiểm</p>
