@@ -1,4 +1,5 @@
 import { Download, LayoutGrid, Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -63,6 +64,12 @@ const DoctorTable: React.FC<DoctorTableProps> = ({
   loading,
   onAddSchedule,
 }) => {
+  const router = useRouter();
+
+  const handleViewDoctor = (doctorId: string) => {
+    router.push(`/admin-doctor/detail/${doctorId}`);
+  };
+
   return (
     <div className='rounded-lg border border-slate-100 bg-white shadow-sm'>
       <div className='flex items-center justify-between border-b border-slate-100 px-6 py-4'>
@@ -170,6 +177,7 @@ const DoctorTable: React.FC<DoctorTableProps> = ({
                     <Button
                       variant='link'
                       className='h-auto p-0 text-teal-600 hover:text-teal-700'
+                      onClick={() => handleViewDoctor(doctor.id)}
                     >
                       View
                     </Button>

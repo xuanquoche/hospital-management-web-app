@@ -186,7 +186,7 @@ export const CreateDoctorMain = () => {
           <CertificationsInfoForm
             initialData={formData}
             onUpdate={handleUpdateFormData}
-            onComplete={handleSubmit} // Final step calls submit directly
+            onComplete={handleSubmit}
             isLoading={isLoading}
           />
         )}

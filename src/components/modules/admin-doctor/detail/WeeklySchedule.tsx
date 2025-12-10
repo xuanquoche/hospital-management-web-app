@@ -1,6 +1,19 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+'use client';
+
+import {
+  format,
+  startOfWeek,
+  addDays,
+  isWithinInterval,
+  parseISO,
+  endOfDay,
+  startOfDay,
+} from 'date-fns';
+import { CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Card,
   CardContent,
@@ -8,26 +21,39 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-
-interface ScheduleSlot {
-  start: string;
-  end: string;
-  type: 'In-person' | 'Telehealth';
-}
-
-interface DaySchedule {
-  date: string; // e.g., "Mon 12"
-  slots: ScheduleSlot[];
-  isOff?: boolean;
-}
+import { Schedule } from '@/types/doctor';
 
 interface WeeklyScheduleProps {
-  schedule: DaySchedule[];
-  dateRange: string;
+  schedules: Schedule[];
 }
 
-export function WeeklySchedule({ schedule, dateRange }: WeeklyScheduleProps) {
+export function WeeklySchedule({ schedules }: WeeklyScheduleProps) {
+  const [date, setDate] = React.useState<Date>(new Date());
+
+  // Get the start of the week for the selected date (Monday start)
+  const weekStart = startOfWeek(date, { weekStartsOn: 1 });
+
+  // Generate array of 7 days for the current week view
+  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+
+  const handlePreviousWeek = () => {
+    setDate((prev) => addDays(prev, -7));
+  };
+
+  const handleNextWeek = () => {
+    setDate((prev) => addDays(prev, 7));
+  };
+
+  const handleToday = () => {
+    setDate(new Date());
+  };
+
   return (
     <Card>
       <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
@@ -37,11 +63,34 @@ export function WeeklySchedule({ schedule, dateRange }: WeeklyScheduleProps) {
         </div>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-2'>
-            <Button variant='ghost' size='icon-sm'>
+            <Button variant='ghost' size='icon-sm' onClick={handlePreviousWeek}>
               <ChevronLeft className='size-4' />
             </Button>
-            <span className='text-sm font-medium'>{dateRange}</span>
-            <Button variant='ghost' size='icon-sm'>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant='ghost'
+                  className={cn(
+                    'justify-start text-left font-normal',
+                    !date && 'text-muted-foreground'
+                  )}
+                >
+                  <CalendarIcon className='mr-2 h-4 w-4' />
+                  {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='w-auto p-0' align='start'>
+                <Calendar
+                  mode='single'
+                  selected={date}
+                  onSelect={(day) => day && setDate(day)}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+
+            <Button variant='ghost' size='icon-sm' onClick={handleNextWeek}>
               <ChevronRight className='size-4' />
             </Button>
           </div>
@@ -52,54 +101,81 @@ export function WeeklySchedule({ schedule, dateRange }: WeeklyScheduleProps) {
             variant='ghost'
             size='sm'
             className='text-primary hidden md:flex'
+            onClick={handleToday}
           >
             Today
-          </Button>
-          <Button
-            variant='outline'
-            size='sm'
-            className='bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hover:text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800'
-          >
-            Khoảng ngày tùy chỉnh
           </Button>
         </div>
       </CardHeader>
       <CardContent className='pt-6'>
         <div className='grid grid-cols-1 gap-4 md:grid-cols-5'>
-          {schedule.map((day, index) => (
-            <div key={index} className='space-y-3'>
-              <div className='text-sm font-medium text-muted-foreground'>
-                {day.date}
-              </div>
-              {day.isOff ? (
-                <div className='bg-muted/50 rounded-md p-3 text-xs text-muted-foreground h-12 flex items-center'>
-                  Off
+          {weekDays.map((day, index) => {
+            // Find active schedules for this day
+            const activeSlots = schedules.flatMap((schedule) => {
+              const scheduleStart = parseISO(schedule.startDate);
+              const scheduleEnd = parseISO(schedule.endDate);
+
+              // Check if the current day is within the schedule's date range
+              // We compare day boundaries to be inclusive
+              const isDateInRange = isWithinInterval(day, {
+                start: startOfDay(scheduleStart),
+                end: endOfDay(scheduleEnd),
+              });
+
+              if (!isDateInRange || !schedule.isActive) return [];
+
+              // Get day of week string (e.g., "MONDAY")
+              const dayOfWeek = format(day, 'EEEE').toUpperCase();
+
+              // Filter slots for this day of week
+              return schedule.timeSlots.filter(
+                (slot) => slot.dayOfWeek === dayOfWeek
+              );
+            });
+
+            // Sort slots by start time
+            activeSlots.sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+            const isOff = activeSlots.length === 0;
+
+            return (
+              <div key={index} className='space-y-3'>
+                <div className='text-sm font-medium text-muted-foreground'>
+                  {format(day, 'EEE d')}
                 </div>
-              ) : (
-                <div className='space-y-2'>
-                  {day.slots.map((slot, slotIndex) => (
-                    <div
-                      key={slotIndex}
-                      className={cn(
-                        'rounded-md p-2 text-xs text-white font-medium',
-                        slot.type === 'In-person'
-                          ? 'bg-emerald-600'
-                          : 'bg-emerald-600' // Using same color for now based on image, can differentiate if needed
-                      )}
-                    >
-                      <div>
-                        {slot.start} - {slot.end} · {slot.type}
+                {isOff ? (
+                  <div className='bg-muted/50 rounded-md p-3 text-xs text-muted-foreground h-12 flex items-center'>
+                    Off
+                  </div>
+                ) : (
+                  <div className='space-y-2'>
+                    {activeSlots.map((slot, slotIndex) => (
+                      <div
+                        key={`${slot.id}-${slotIndex}`}
+                        className={cn(
+                          'rounded-md p-2 text-xs text-white font-medium',
+                          slot.examinationType === 'IN_PERSON'
+                            ? 'bg-emerald-600'
+                            : 'bg-blue-600'
+                        )}
+                      >
+                        <div>
+                          {slot.startTime} - {slot.endTime} ·{' '}
+                          {slot.examinationType === 'IN_PERSON'
+                            ? 'In-person'
+                            : 'Online'}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
         <div className='mt-6 text-xs text-muted-foreground'>
-          Use "Khoảng ngày tùy chỉnh" to define custom date ranges and time
-          slots for this doctor. Existing appointments remain unchanged.
+          This view shows the doctor's schedule based on the configured time
+          slots.
         </div>
       </CardContent>
     </Card>

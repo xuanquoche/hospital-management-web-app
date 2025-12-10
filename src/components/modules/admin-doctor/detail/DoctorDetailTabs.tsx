@@ -1,19 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Doctor } from '@/types/doctor';
 
 import { ProfessionalInfo } from './ProfessionalInfo';
 import { WeeklySchedule } from './WeeklySchedule';
 
 interface DoctorDetailTabsProps {
-  professionalInfo: React.ComponentProps<typeof ProfessionalInfo>['info'];
-  schedule: React.ComponentProps<typeof WeeklySchedule>['schedule'];
-  dateRange: string;
+  doctor: Doctor;
 }
 
-export function DoctorDetailTabs({
-  professionalInfo,
-  schedule,
-  dateRange,
-}: DoctorDetailTabsProps) {
+export function DoctorDetailTabs({ doctor }: DoctorDetailTabsProps) {
   return (
     <Tabs defaultValue='overview' className='w-full'>
       <TabsList className='bg-transparent p-0 gap-6 border-b w-full justify-start rounded-none h-auto'>
@@ -43,8 +38,8 @@ export function DoctorDetailTabs({
         </TabsTrigger>
       </TabsList>
       <TabsContent value='overview' className='mt-6 space-y-6'>
-        <ProfessionalInfo info={professionalInfo} />
-        <WeeklySchedule schedule={schedule} dateRange={dateRange} />
+        <ProfessionalInfo doctor={doctor} />
+        <WeeklySchedule schedules={doctor.schedules} />
       </TabsContent>
       <TabsContent value='schedule' className='mt-6'>
         <div className='text-muted-foreground text-sm'>
