@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 interface DoctorProps {
+  id: number;
   name: string;
   specialty: string;
   experience: string;
@@ -19,18 +20,33 @@ interface DoctorProps {
   isFemale?: boolean;
 }
 
-export const DoctorCard = ({ doctor }: { doctor: DoctorProps }) => {
+interface DoctorCardProps {
+  doctor: DoctorProps;
+  isSelected?: boolean;
+  onSelect?: () => void;
+}
+
+export const DoctorCard = ({
+  doctor,
+  isSelected,
+  onSelect,
+}: DoctorCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -2 }}
-      className='flex flex-col gap-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:shadow-md sm:flex-row sm:items-center'
+      onClick={onSelect}
+      className={`flex cursor-pointer flex-col gap-4 rounded-xl border p-4 shadow-sm transition-all hover:shadow-md sm:flex-row sm:items-center ${
+        isSelected
+          ? 'border-teal-500 bg-teal-50 ring-1 ring-teal-500'
+          : 'border-slate-100 bg-white hover:border-teal-200'
+      }`}
     >
       <div className='relative'>
         <Avatar className='h-20 w-20 border-2 border-white shadow-sm'>
           <AvatarImage src={doctor.image} alt={doctor.name} />
-          <AvatarFallback className='bg-teal-100 text-teal-700 font-bold text-xl'>
+          <AvatarFallback className='bg-teal-100 text-xl font-bold text-teal-700'>
             {doctor.name.split(' ').pop()?.charAt(0)}
           </AvatarFallback>
         </Avatar>
@@ -47,7 +63,7 @@ export const DoctorCard = ({ doctor }: { doctor: DoctorProps }) => {
           {doctor.isFemale && (
             <Badge
               variant='outline'
-              className='border-pink-200 bg-pink-50 text-pink-600 text-[10px] h-5'
+              className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'
             >
               Bác sĩ nữ
             </Badge>
@@ -61,7 +77,7 @@ export const DoctorCard = ({ doctor }: { doctor: DoctorProps }) => {
         <div className='flex flex-wrap gap-2 pt-1'>
           <Badge
             variant='secondary'
-            className='bg-slate-100 text-slate-600 font-normal'
+            className='bg-slate-100 font-normal text-slate-600'
           >
             {doctor.location}
           </Badge>
@@ -71,7 +87,7 @@ export const DoctorCard = ({ doctor }: { doctor: DoctorProps }) => {
               <Badge
                 key={i}
                 variant='outline'
-                className='border-slate-200 text-slate-500 font-normal'
+                className='border-slate-200 font-normal text-slate-500'
               >
                 {tag}
               </Badge>
@@ -88,9 +104,13 @@ export const DoctorCard = ({ doctor }: { doctor: DoctorProps }) => {
         </div>
         <Button
           size='sm'
-          className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100 shadow-none border border-teal-100'
+          className={`w-full shadow-none ${
+            isSelected
+              ? 'bg-teal-600 text-white hover:bg-teal-700'
+              : 'border border-teal-100 bg-teal-50 text-teal-700 hover:bg-teal-100'
+          }`}
         >
-          Chọn
+          {isSelected ? 'Đã chọn' : 'Chọn'}
         </Button>
       </div>
     </motion.div>

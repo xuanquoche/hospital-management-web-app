@@ -43,7 +43,15 @@ const doctors = [
   },
 ];
 
-export const DoctorList = () => {
+interface DoctorListProps {
+  selectedDoctorId?: number | null;
+  onSelectDoctor?: (doctor: any) => void;
+}
+
+export const DoctorList = ({
+  selectedDoctorId,
+  onSelectDoctor,
+}: DoctorListProps) => {
   return (
     <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
@@ -60,7 +68,12 @@ export const DoctorList = () => {
 
       <div className='space-y-4'>
         {doctors.map((doctor) => (
-          <DoctorCard key={doctor.id} doctor={doctor} />
+          <DoctorCard
+            key={doctor.id}
+            doctor={doctor}
+            isSelected={selectedDoctorId === doctor.id}
+            onSelect={() => onSelectDoctor?.(doctor)}
+          />
         ))}
       </div>
     </div>

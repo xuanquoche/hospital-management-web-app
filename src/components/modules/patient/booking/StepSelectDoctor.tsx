@@ -7,7 +7,15 @@ import { DoctorList } from './DoctorList';
 import { DoctorSearch } from './DoctorSearch';
 import { SpecialtyList } from './SpecialtyList';
 
-export const StepSelectDoctor = () => {
+interface StepSelectDoctorProps {
+  selectedDoctorId?: number | null;
+  onSelectDoctor?: (doctor: any) => void;
+}
+
+export const StepSelectDoctor = ({
+  selectedDoctorId,
+  onSelectDoctor,
+}: StepSelectDoctorProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -24,7 +32,10 @@ export const StepSelectDoctor = () => {
 
         {/* Right Column: Doctor List */}
         <div className='lg:col-span-7'>
-          <DoctorList />
+          <DoctorList
+            selectedDoctorId={selectedDoctorId}
+            onSelectDoctor={onSelectDoctor}
+          />
         </div>
       </div>
     </motion.div>

@@ -38,7 +38,7 @@ const specialties = [
 
 export const SpecialtyList = () => {
   return (
-    <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm h-full'>
+    <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
       <div className='mb-4'>
         <h3 className='text-lg font-bold text-slate-900'>
           Chọn theo chuyên khoa
