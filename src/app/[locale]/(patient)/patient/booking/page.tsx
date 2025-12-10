@@ -6,6 +6,7 @@ import { BookingStepper } from '@/components/modules/patient/booking/BookingStep
 import { BookingSummary } from '@/components/modules/patient/booking/BookingSummary';
 import { BookingTips } from '@/components/modules/patient/booking/BookingTips';
 import { NearestAppointment } from '@/components/modules/patient/booking/NearestAppointment';
+import { StepEnterInfo } from '@/components/modules/patient/booking/StepEnterInfo';
 import { StepSelectDate } from '@/components/modules/patient/booking/StepSelectDate';
 import { StepSelectDoctor } from '@/components/modules/patient/booking/StepSelectDoctor';
 
@@ -76,6 +77,14 @@ export default function PatientBookingPage() {
             </div>
           </div>
         </div>
+      ) : currentStep === 3 ? (
+        <StepEnterInfo
+          selectedDoctor={selectedDoctor}
+          selectedDate={new Date()}
+          selectedTime='09:30 - 10:00'
+          onNext={handleNext}
+          onBack={handleBack}
+        />
       ) : null}
     </div>
   );
