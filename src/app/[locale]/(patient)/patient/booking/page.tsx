@@ -6,20 +6,28 @@ import { BookingStepper } from '@/components/modules/patient/booking/BookingStep
 import { BookingSummary } from '@/components/modules/patient/booking/BookingSummary';
 import { BookingTips } from '@/components/modules/patient/booking/BookingTips';
 import { NearestAppointment } from '@/components/modules/patient/booking/NearestAppointment';
+import { StepConfirmation } from '@/components/modules/patient/booking/StepConfirmation';
 import { StepEnterInfo } from '@/components/modules/patient/booking/StepEnterInfo';
 import { StepSelectDate } from '@/components/modules/patient/booking/StepSelectDate';
 import { StepSelectDoctor } from '@/components/modules/patient/booking/StepSelectDoctor';
+import { useAppointmentStore } from '@/store/use-appointment-store';
 
 export default function PatientBookingPage() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
+  const {
+    currentStep,
+    selectedDoctor,
+    selectedDate,
+    selectedTime,
+    setCurrentStep,
+    setSelectedDoctor,
+  } = useAppointmentStore();
 
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 4));
+    setCurrentStep(Math.min(currentStep + 1, 4));
   };
 
   const handleBack = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
+    setCurrentStep(Math.max(currentStep - 1, 1));
   };
 
   return (
@@ -31,7 +39,9 @@ export default function PatientBookingPage() {
             ? 'Bước 1/4 - Chọn bác sĩ hoặc chuyên khoa phù hợp.'
             : currentStep === 2
               ? 'Bước 2/4 - Chọn ngày, khung giờ & mô tả triệu chứng ban đầu.'
-              : `Bước ${currentStep}/4`}
+              : currentStep === 3
+                ? 'Bước 3/4 - Nhập thông tin.'
+                : 'Bước 4/4 - Xác nhận thông tin cuộc hẹn và chọn hình thức thanh toán.'}
         </p>
       </div>
 
@@ -44,7 +54,9 @@ export default function PatientBookingPage() {
           {/* Main Content Area */}
           <div className='space-y-8 xl:col-span-9'>
             <StepSelectDoctor
-              selectedDoctorId={selectedDoctor?.id}
+              selectedDoctorId={
+                selectedDoctor?.id ? Number(selectedDoctor.id) : null
+              }
               onSelectDoctor={setSelectedDoctor}
             />
 
@@ -80,11 +92,13 @@ export default function PatientBookingPage() {
       ) : currentStep === 3 ? (
         <StepEnterInfo
           selectedDoctor={selectedDoctor}
-          selectedDate={new Date()}
-          selectedTime='09:30 - 10:00'
+          selectedDate={selectedDate || new Date()}
+          selectedTime={selectedTime || '09:30 - 10:00'}
           onNext={handleNext}
           onBack={handleBack}
         />
+      ) : currentStep === 4 ? (
+        <StepConfirmation onBack={handleBack} />
       ) : null}
     </div>
   );
