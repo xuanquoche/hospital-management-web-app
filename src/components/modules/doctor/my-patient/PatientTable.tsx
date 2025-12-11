@@ -103,6 +103,11 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                   <Button
                     variant='ghost'
                     className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 p-0 h-auto font-medium text-xs flex items-center gap-1 ml-auto'
+                    onClick={() => {
+                      if (patient.status === 'examined') {
+                        window.location.href = `/doctor/my-patient/detail/${patient.id}`;
+                      }
+                    }}
                   >
                     {patient.status === 'waiting'
                       ? 'Tiếp tục khám'
