@@ -22,12 +22,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-// Import hàm logout từ file bạn vừa tạo ở Bước 1
+import { useMe } from '@/hooks/use-me';
 import { logout } from '@/utils/logout';
 
 const PortalUserProfile = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { user, loading } = useMe();
 
   const handleLogout = async (e: Event) => {
     e.preventDefault();
@@ -55,15 +55,20 @@ const PortalUserProfile = () => {
         <DropdownMenuTrigger asChild>
           <button className='flex items-center gap-3 rounded-full border border-slate-200 bg-white p-1 pr-4 transition-all hover:bg-slate-50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2 data-[state=open]:bg-slate-50'>
             <Avatar className='h-8 w-8 border border-slate-100'>
-              <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-              <AvatarFallback>AD</AvatarFallback>
+              <AvatarImage
+                src={user?.avatar || 'https://github.com/shadcn.png'}
+                alt={user?.fullName || 'User'}
+              />
+              <AvatarFallback>
+                {user?.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}
+              </AvatarFallback>
             </Avatar>
             <div className='flex flex-col items-start'>
               <span className='text-sm font-semibold text-slate-900'>
-                Dr. Admin
+                {loading ? 'Loading...' : user?.fullName || 'User'}
               </span>
               <span className='text-xs text-slate-500'>
-                System Administrator
+                {loading ? '...' : user?.role || 'Member'}
               </span>
             </div>
             <ChevronDown className='ml-2 h-4 w-4 text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180' />
@@ -73,9 +78,11 @@ const PortalUserProfile = () => {
         <DropdownMenuContent className='w-56' align='end' forceMount>
           <DropdownMenuLabel className='font-normal'>
             <div className='flex flex-col space-y-1'>
-              <p className='text-sm font-medium leading-none'>Dr. Admin</p>
+              <p className='text-sm font-medium leading-none'>
+                {user?.fullName || 'User'}
+              </p>
               <p className='text-xs leading-none text-muted-foreground'>
-                admin@example.com
+                {user?.email || 'email@example.com'}
               </p>
             </div>
           </DropdownMenuLabel>

@@ -23,9 +23,7 @@ export const PRIVATE_ROUTES = {
   CREATE_DOCTOR: '/doctor/create',
   CREATE_PATIENT: '/patient/create',
   DOCTOR_DASHBOARD: '/doctor/dashboard',
-  PATIENT_DASHBOARD: '/patient/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',
-  PATIENT_PROFILE: '/patient/profile',
   ADMIN_DOCTOR_CREATE: '/admin-doctor/create',
   ADMIN_DOCTOR: '/admin-doctor',
   ADMIN_PATIENT: '/admin-patient',
@@ -34,6 +32,9 @@ export const PRIVATE_ROUTES = {
   ADMIN_MEDICINES: '/admin-medicines',
   ADMIN_DEPARTMENTS: '/admin-departments',
   ADMIN_SPECIALTIES: '/admin-specialties',
+  // patient
+  PATIENT_DASHBOARD: '/patient/dashboard',
+  PATIENT_PROFILE: '/patient/profile',
 };
 export const ADMIN_ROUTES = {
   DASHBOARD: ROUTES.ADMIN_DASHBOARD,
@@ -75,9 +76,9 @@ export const LOCALIZED_ROUTES = {
 };
 
 export const ROLE_ALLOWED_ROUTES = {
-  [Role.Admin]: Object.values(ADMIN_ROUTES),
-  [Role.Doctor]: Object.values(DOCTOR_ROUTES),
-  [Role.Patient]: Object.values(PATIENT_ROUTES),
+  [Role.ADMIN]: Object.values(ADMIN_ROUTES),
+  [Role.DOCTOR]: Object.values(DOCTOR_ROUTES),
+  [Role.PATIENT]: Object.values(PATIENT_ROUTES),
 } as const;
 
 export const isRouteAllowedForRole = (

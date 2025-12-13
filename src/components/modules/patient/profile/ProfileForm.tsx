@@ -1,12 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { useMe } from '@/hooks/use-me';
 import { profileSchema, ProfileFormValues } from '@/types/profile';
 
 import { ContactSettingsSection } from './ContactSettingsSection';
@@ -16,26 +17,54 @@ import { ProfileHeader } from './ProfileHeader';
 import { ProfileSidebar } from './ProfileSidebar';
 
 export const ProfileForm = () => {
+  const { user, profile, loading } = useMe();
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      fullName: 'Nguyễn Minh Anh',
-      gender: 'female',
-      dateOfBirth: new Date('1995-03-12'),
-      idNumber: '079195001234',
-      address: 'Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh',
-      insuranceType: 'bhyt',
-      insuranceNumber: 'DN479023456789',
-      height: 160,
-      weight: 52,
-      bloodType: 'O',
+      fullName: '',
+      gender: 'other',
+      dateOfBirth: new Date(),
+      idNumber: '',
+      address: '',
+      insuranceType: '',
+      insuranceNumber: '',
+      height: 0,
+      weight: 0,
+      bloodType: '',
       smoking: false,
-      phone: '0912 345 678',
-      email: 'minh.anh@example.com',
-      notificationSms: true,
-      notificationEmail: true,
+      phone: '',
+      email: '',
+      notificationSms: false,
+      notificationEmail: false,
     },
   });
+
+  useEffect(() => {
+    if (user && profile) {
+      form.reset({
+        fullName: user.fullName || '',
+        gender: (profile.gender?.toLowerCase() as any) || 'other',
+        dateOfBirth: profile.dateOfBirth
+          ? new Date(profile.dateOfBirth)
+          : new Date(),
+        idNumber: '', // API doesn't return idNumber yet
+        address: user.address || '',
+        insuranceType: 'bhyt', // Default
+        insuranceNumber: profile.healthInsuranceNumber || '',
+        height: profile.height || 0,
+        weight: profile.weight || 0,
+        bloodType: profile.bloodType || '',
+        smoking: false,
+        allergies: profile.allergies || '',
+        chronicDiseases: '',
+        phone: user.phone || '',
+        email: user.email || '',
+        notificationSms: true,
+        notificationEmail: true,
+      });
+    }
+  }, [user, profile, form]);
 
   const onSubmit = (data: ProfileFormValues) => {
     console.log(data);
