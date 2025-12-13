@@ -20,9 +20,31 @@ export const profileSchema = z.object({
 
   // Contact
   phone: z.string().min(10, 'Số điện thoại không hợp lệ'),
+  emergencyContact: z
+    .string()
+    .min(10, 'Số điện thoại khẩn cấp không hợp lệ')
+    .optional()
+    .or(z.literal('')),
   email: z.string().email('Email không hợp lệ'),
   notificationSms: z.boolean(),
   notificationEmail: z.boolean(),
 });
+
+export enum BloodType {
+  A_POS = 'A+',
+  A_NEG = 'A-',
+  B_POS = 'B+',
+  B_NEG = 'B-',
+  AB_POS = 'AB+',
+  AB_NEG = 'AB-',
+  O_POS = 'O+',
+  O_NEG = 'O-',
+}
+
+export enum HealthInsuranceType {
+  BHYT = 'bhyt',
+  PRIVATE = 'private',
+  NONE = 'none',
+}
 
 export type ProfileFormValues = z.infer<typeof profileSchema>;

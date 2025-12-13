@@ -52,6 +52,20 @@ export const ContactSettingsSection = () => {
           )}
         />
 
+        <FormField
+          control={control}
+          name='emergencyContact'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Số điện thoại khẩn cấp</FormLabel>
+              <FormControl>
+                <Input placeholder='(+84) 987 654 321' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className='md:col-span-2 space-y-4'>
           <FormField
             control={control}

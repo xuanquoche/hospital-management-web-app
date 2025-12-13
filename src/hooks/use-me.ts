@@ -25,6 +25,8 @@ export interface ProfileData {
   gender: string;
   healthInsuranceNumber: string;
   emergencyContact: string;
+  identityNumber: string;
+  chronicDisease: string;
 }
 
 export interface GetMeResponse {

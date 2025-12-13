@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -8,7 +9,12 @@ import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useMe } from '@/hooks/use-me';
-import { profileSchema, ProfileFormValues } from '@/types/profile';
+import { clientFetcher } from '@/lib/fetcher';
+import {
+  profileSchema,
+  ProfileFormValues,
+  HealthInsuranceType,
+} from '@/types/profile';
 
 import { ContactSettingsSection } from './ContactSettingsSection';
 import { HealthStatsSection } from './HealthStatsSection';
@@ -17,7 +23,7 @@ import { ProfileHeader } from './ProfileHeader';
 import { ProfileSidebar } from './ProfileSidebar';
 
 export const ProfileForm = () => {
-  const { user, profile, loading } = useMe();
+  const { user, profile, loading, refetch } = useMe();
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -27,7 +33,7 @@ export const ProfileForm = () => {
       dateOfBirth: new Date(),
       idNumber: '',
       address: '',
-      insuranceType: '',
+      insuranceType: HealthInsuranceType.BHYT,
       insuranceNumber: '',
       height: 0,
       weight: 0,
@@ -35,6 +41,7 @@ export const ProfileForm = () => {
       smoking: false,
       phone: '',
       email: '',
+      emergencyContact: '',
       notificationSms: false,
       notificationEmail: false,
     },
@@ -48,27 +55,56 @@ export const ProfileForm = () => {
         dateOfBirth: profile.dateOfBirth
           ? new Date(profile.dateOfBirth)
           : new Date(),
-        idNumber: '', // API doesn't return idNumber yet
+        idNumber: profile.identityNumber || '',
         address: user.address || '',
-        insuranceType: 'bhyt', // Default
+        insuranceType: HealthInsuranceType.BHYT, // Default
         insuranceNumber: profile.healthInsuranceNumber || '',
         height: profile.height || 0,
         weight: profile.weight || 0,
         bloodType: profile.bloodType || '',
         smoking: false,
         allergies: profile.allergies || '',
-        chronicDiseases: '',
+        chronicDiseases: profile.chronicDisease || '',
         phone: user.phone || '',
         email: user.email || '',
+        emergencyContact: profile.emergencyContact || '',
         notificationSms: true,
         notificationEmail: true,
       });
     }
   }, [user, profile, form]);
 
-  const onSubmit = (data: ProfileFormValues) => {
-    console.log(data);
-    toast.success('Cập nhật hồ sơ thành công!');
+  const onSubmit = async (data: ProfileFormValues) => {
+    try {
+      const payload = {
+        fullName: data.fullName,
+        phone: data.phone,
+        address: data.address,
+        avatar: user?.avatar || '', // Preserve existing avatar
+        height: data.height,
+        weight: data.weight,
+        bloodType: data.bloodType,
+        allergies: data.allergies,
+        dateOfBirth: format(data.dateOfBirth, 'yyyy-MM-dd'),
+        gender: data.gender.toUpperCase(),
+        healthInsuranceNumber: data.insuranceNumber,
+        emergencyContact: data.emergencyContact,
+        identityNumber: data.idNumber,
+        chronicDisease: data.chronicDiseases,
+      };
+
+      const response = await clientFetcher.patch('/patients/me', payload);
+
+      if (response.success) {
+        toast.success('Cập nhật hồ sơ thành công!');
+        refetch();
+      } else {
+        toast.error(response.message || 'Cập nhật hồ sơ thất bại');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error('Có lỗi xảy ra khi cập nhật hồ sơ');
+    }
   };
 
   return (

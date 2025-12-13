@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { BloodType } from '@/types/profile';
 
 export const HealthStatsSection = () => {
   const { control } = useFormContext();
@@ -90,17 +91,18 @@ export const HealthStatsSection = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nhóm máu</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Chọn nhóm máu...' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='A'>A</SelectItem>
-                  <SelectItem value='B'>B</SelectItem>
-                  <SelectItem value='AB'>AB</SelectItem>
-                  <SelectItem value='O'>O</SelectItem>
+                  {Object.values(BloodType).map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

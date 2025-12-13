@@ -27,6 +27,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { HealthInsuranceType } from '@/types/profile';
 
 export const PersonalInfoSection = () => {
   const { control } = useFormContext();
@@ -71,7 +72,7 @@ export const PersonalInfoSection = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Giới tính</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Chọn giới tính' />
@@ -169,18 +170,22 @@ export const PersonalInfoSection = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Bảo hiểm y tế</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder='Chọn loại bảo hiểm' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='bhyt'>
+                  <SelectItem value={HealthInsuranceType.BHYT}>
                     BHYT - Bảo hiểm y tế nhà nước
                   </SelectItem>
-                  <SelectItem value='private'>Bảo hiểm tư nhân</SelectItem>
-                  <SelectItem value='none'>Không có</SelectItem>
+                  <SelectItem value={HealthInsuranceType.PRIVATE}>
+                    Bảo hiểm tư nhân
+                  </SelectItem>
+                  <SelectItem value={HealthInsuranceType.NONE}>
+                    Không có
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
