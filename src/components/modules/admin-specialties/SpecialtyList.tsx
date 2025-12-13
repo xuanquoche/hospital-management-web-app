@@ -85,7 +85,7 @@ const SpecialtyList = () => {
       setIsLoading(true);
 
       const res = await clientFetcher.get(
-        `/specialties?page=${page}&limit=${ITEMS_PER_PAGE}`
+        `/admin/specialties?page=${page}&limit=${ITEMS_PER_PAGE}`
       );
 
       const responseData = res as SpecialtyResponse;

@@ -35,7 +35,7 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
       setLoading(true);
       try {
         const response = await clientFetcher.get(
-          '/specialties?page=1&limit=100'
+          '/admin/specialties?page=1&limit=100'
         );
         if (response.data) {
           setSpecialties(response.data);

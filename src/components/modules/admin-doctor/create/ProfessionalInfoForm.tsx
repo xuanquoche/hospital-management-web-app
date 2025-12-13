@@ -78,7 +78,7 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
       setIsLoadingSpecialties(true);
       try {
         const response = await clientFetcher.get(
-          '/specialties?page=1&limit=100'
+          '/admin/specialties?page=1&limit=100'
         ); // Fetch enough specialties
         if (response.data) {
           setSpecialties(response.data);
