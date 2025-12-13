@@ -90,7 +90,7 @@ const DepartmentList = () => {
       setIsLoading(true);
 
       const res = await clientFetcher.get(
-        `/departments?page=${page}&limit=${ITEMS_PER_PAGE}`
+        `/admin/departments?page=${page}&limit=${ITEMS_PER_PAGE}`
       );
 
       const responseData = res as DepartmentResponse;

@@ -30,6 +30,9 @@ export const PRIVATE_ROUTES = {
   ADMIN_APPOINTMENTS: '/admin-appointments',
   ADMIN_TRANSACTIONS: '/admin-transactions',
   ADMIN_MEDICINES: '/admin-medicines',
+  ADMIN_MEDICINES_IMPORT: '/admin-medicines/import',
+  ADMIN_MEDICINES_CREATE_CATEGORY: '/admin-medicines/create-category',
+  ADMIN_MEDICINES_CREATE_MEDICINE: '/admin-medicines/create-medicine',
   ADMIN_DEPARTMENTS: '/admin-departments',
   ADMIN_SPECIALTIES: '/admin-specialties',
   // patient

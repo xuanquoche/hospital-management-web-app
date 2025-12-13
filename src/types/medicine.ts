@@ -81,3 +81,50 @@ export interface QueryMedicineBatchDto {
   expiryDateAfter?: string;
   search?: string;
 }
+
+export interface CreateMedicineBatchDto {
+  categoryId: string;
+  medicineId: string;
+  batchNumber: string;
+  quantity: number;
+  unitPrice: number;
+  sellingPrice: number;
+  manufactureDate: string;
+  expiryDate: string;
+  manufacturer: string;
+  supplier: string;
+  status: BatchStatus;
+  notes?: string;
+}
+
+export interface CreateCategoryDto {
+  name: string;
+  code: string;
+  description: string;
+  isActive: boolean;
+}
+
+export interface CreateMedicineDto {
+  name: string;
+  code: string;
+  activeIngredient: string;
+  description: string;
+  unit: string;
+  dosage: string;
+  manufacturer: string;
+  categoryId: string;
+  lowStockThreshold: number;
+  requiresPrescription: boolean;
+  isActive: boolean;
+}
+
+export enum MedicineUnit {
+  TABLET = 'TABLET',
+  CAPSULE = 'CAPSULE',
+  SACHET = 'SACHET',
+  BOTTLE = 'BOTTLE',
+  TUBE = 'TUBE',
+  AMPOULE = 'AMPOULE',
+  VIAL = 'VIAL',
+  BOX = 'BOX',
+}

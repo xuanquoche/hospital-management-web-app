@@ -1,5 +1,12 @@
 import { format } from 'date-fns';
-import { Columns, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Columns,
+  Download,
+  Loader2,
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,8 +18,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { PRIVATE_ROUTES } from '@/const/routes';
 import { cn } from '@/lib/utils';
-import { MedicineBatch, Meta, BatchStatus } from '@/types/medicine';
+import { BatchStatus, MedicineBatch, Meta } from '@/types/medicine';
 
 interface MedicineTableProps {
   data: MedicineBatch[];
@@ -27,6 +35,8 @@ export function MedicineTable({
   meta,
   onPageChange,
 }: MedicineTableProps) {
+  const router = useRouter();
+
   if (loading) {
     return <div className='p-8 text-center'>Loading medicines...</div>;
   }
@@ -113,7 +123,7 @@ export function MedicineTable({
                       variant='secondary'
                       className='bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
                     >
-                      {batch.currentStock.toLocaleString()}
+                      {batch.quantity}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -154,9 +164,38 @@ export function MedicineTable({
                   </TableCell>
                   <TableCell className='text-right'>
                     <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
-                      <button className='hover:underline'>View</button>
+                      <button
+                        className='hover:underline'
+                        onClick={() =>
+                          router.push(
+                            `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=view`
+                          )
+                        }
+                      >
+                        View
+                      </button>
                       <span className='text-muted-foreground'>•</span>
-                      <button className='hover:underline'>
+                      <button
+                        className='hover:underline'
+                        onClick={() => {
+                          if (batch.status === BatchStatus.LOW_STOCK) {
+                            router.push(
+                              `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
+                            );
+                          } else if (batch.status === BatchStatus.EXPIRED) {
+                            // Dispose logic?
+                            // For now, let's map "Adjust" case.
+                            router.push(
+                              `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
+                            );
+                          } else {
+                            // "Adjust" case
+                            router.push(
+                              `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
+                            );
+                          }
+                        }}
+                      >
                         {batch.status === BatchStatus.LOW_STOCK
                           ? 'Nhập thêm'
                           : batch.status === BatchStatus.EXPIRED

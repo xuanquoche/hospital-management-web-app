@@ -1,8 +1,12 @@
 import { History, Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import { PRIVATE_ROUTES } from '@/const/routes';
 
 export function MedicineListHeader() {
+  const router = useRouter();
+
   return (
     <div className='flex flex-col gap-4 md:flex-row md:items-start md:justify-between'>
       <div>
@@ -20,10 +24,35 @@ export function MedicineListHeader() {
           <History className='mr-2 size-4' />
           Import history
         </Button>
-        <Button size='sm' className='bg-emerald-600 hover:bg-emerald-700'>
-          <Plus className='mr-2 size-4' />
-          Nhập lô thuốc
-        </Button>
+        <div className='flex items-center gap-3'>
+          <Button
+            variant='outline'
+            className='border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800'
+            onClick={() =>
+              router.push(PRIVATE_ROUTES.ADMIN_MEDICINES_CREATE_CATEGORY)
+            }
+          >
+            <Plus className='mr-2 h-4 w-4' />
+            Tạo danh mục
+          </Button>
+          <Button
+            variant='outline'
+            className='border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800'
+            onClick={() =>
+              router.push(PRIVATE_ROUTES.ADMIN_MEDICINES_CREATE_MEDICINE)
+            }
+          >
+            <Plus className='mr-2 h-4 w-4' />
+            Tạo thuốc
+          </Button>
+          <Button
+            className='bg-emerald-600 hover:bg-emerald-700'
+            onClick={() => router.push(PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT)}
+          >
+            <Plus className='mr-2 h-4 w-4' />
+            Nhập lô thuốc
+          </Button>
+        </div>
       </div>
     </div>
   );
