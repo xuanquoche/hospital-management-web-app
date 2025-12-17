@@ -4,12 +4,12 @@ import { Calendar } from '@/components/ui/calendar';
 import { useAppointmentStore } from '@/store/use-appointment-store';
 
 export default function StepSelectDate() {
-  const { setDate, setStep } = useAppointmentStore();
+  const { setSelectedDate, setCurrentStep } = useAppointmentStore();
 
   const handleSelect = (date: Date | undefined) => {
     if (date) {
-      setDate(date);
-      setStep('time');
+      setSelectedDate(date);
+      setCurrentStep(2);
     }
   };
 

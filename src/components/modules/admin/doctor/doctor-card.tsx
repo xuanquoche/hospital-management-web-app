@@ -16,8 +16,8 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
     <Card className='flex flex-row items-center justify-between gap-4 p-4 rounded-xl border hover:shadow-md transition-all h-[170px]'>
       <div className='relative w-[35%] h-[95%] flex-shrink-0'>
         <Image
-          src={doctor.image}
-          alt={doctor.name}
+          src={doctor?.image || '/placeholder.png'}
+          alt={doctor.user.fullName}
           fill
           className='object-cover rounded-lg'
         />
@@ -26,9 +26,9 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
       <CardContent className='p-0 flex-1'>
         <div className='flex justify-between items-start'>
           <div>
-            <h3 className='text-lg font-semibold'>{doctor.name}</h3>
+            <h3 className='text-lg font-semibold'>{doctor.user.fullName}</h3>
             <p className='text-base text-muted-foreground'>
-              {doctor.specialty}
+              {doctor.primarySpecialty.name}
             </p>
           </div>
 
@@ -55,11 +55,13 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
 
         <p className='text-base mt-2'>
           <span className='text-muted-foreground'>Available :</span>{' '}
-          <span className='font-medium'>{doctor.available}</span>
+          <span className='font-medium'>Available</span>
         </p>
         <p className='text-base mt-1'>
           <span className='text-muted-foreground'>Starts From :</span>{' '}
-          <span className='text-blue-600 font-semibold'>${doctor.price}</span>
+          <span className='text-blue-600 font-semibold'>
+            ${doctor.consultationFee ?? 0}
+          </span>
         </p>
       </CardContent>
     </Card>

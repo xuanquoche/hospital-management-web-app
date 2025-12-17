@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAppointmentStore } from '@/store/use-appointment-store';
 
 export default function StepSelectTime() {
-  const { setStep } = useAppointmentStore();
+  const { setCurrentStep } = useAppointmentStore();
   const times = ['5:30 PM', '6:30 PM', '7:30 PM', '8:30 PM', '9:30 PM'];
 
   return (
@@ -16,7 +16,7 @@ export default function StepSelectTime() {
             key={time}
             variant='outline'
             className='justify-center'
-            onClick={() => setStep('info')}
+            onClick={() => setCurrentStep(3)}
           >
             {time}
           </Button>

@@ -24,6 +24,7 @@ export interface Schedule {
 }
 
 export interface Doctor {
+  image?: string;
   id: string | number;
   userId: string;
   primarySpecialtyId: string;

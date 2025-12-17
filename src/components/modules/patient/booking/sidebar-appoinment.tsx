@@ -12,7 +12,7 @@ import Image from 'next/image';
 import { useAppointmentStore } from '@/store/use-appointment-store';
 
 export default function Sidebar() {
-  const { step } = useAppointmentStore();
+  const { currentStep } = useAppointmentStore();
 
   const steps = [
     { key: 'date', label: 'Datum wählen', icon: CalendarIcon },
@@ -41,8 +41,8 @@ export default function Sidebar() {
         <div className='absolute left-[22px] top-6 bottom-6 w-[2px] bg-gray-200'></div>
         <div className='flex flex-col space-y-8'>
           {steps.map(({ key, label, icon: Icon }, index) => {
-            const isActive = step === key;
-            const isCompleted = steps.findIndex((s) => s.key === step) > index;
+            const isActive = currentStep === index + 1;
+            const isCompleted = currentStep > index + 1;
 
             return (
               <motion.div

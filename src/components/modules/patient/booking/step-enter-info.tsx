@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useAppointmentStore } from '@/store/use-appointment-store';
 
 export default function StepEnterInfo() {
-  const { setStep } = useAppointmentStore();
+  const { setCurrentStep } = useAppointmentStore();
 
   return (
     <div className='max-w-sm space-y-4'>
@@ -13,7 +13,7 @@ export default function StepEnterInfo() {
       <Input placeholder='Name' />
       <Input placeholder='Adresse' />
       <Input placeholder='Ärztin/Arzt' />
-      <Button className='w-full' onClick={() => setStep('complete')}>
+      <Button className='w-full' onClick={() => setCurrentStep(4)}>
         Termin buchen
       </Button>
     </div>
