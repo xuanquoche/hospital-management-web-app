@@ -12,7 +12,10 @@ interface StepSelectDoctorProps {
   onSelectDoctor?: (doctor: any) => void;
 }
 
-export const StepSelectDoctor = ({ selectedDoctorId, onSelectDoctor }: StepSelectDoctorProps) => {
+export const StepSelectDoctor = ({
+  selectedDoctorId,
+  onSelectDoctor,
+}: StepSelectDoctorProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -29,7 +32,10 @@ export const StepSelectDoctor = ({ selectedDoctorId, onSelectDoctor }: StepSelec
 
         {/* Right Column: Doctor List */}
         <div className='lg:col-span-7'>
-          <DoctorList selectedDoctorId={selectedDoctorId} onSelectDoctor={onSelectDoctor} />
+          <DoctorList
+            selectedDoctorId={selectedDoctorId}
+            onSelectDoctor={onSelectDoctor}
+          />
         </div>
       </div>
     </motion.div>

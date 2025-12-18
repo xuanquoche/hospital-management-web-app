@@ -12,7 +12,10 @@ interface DoctorListProps {
   onSelectDoctor?: (doctor: Doctor) => void;
 }
 
-export const DoctorList = ({ selectedDoctorId, onSelectDoctor }: DoctorListProps) => {
+export const DoctorList = ({
+  selectedDoctorId,
+  onSelectDoctor,
+}: DoctorListProps) => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectingId, setSelectingId] = useState<string | number | null>(null);
@@ -62,9 +65,13 @@ export const DoctorList = ({ selectedDoctorId, onSelectDoctor }: DoctorListProps
       <div className='mb-6 flex items-center justify-between'>
         <div>
           <h3 className='text-lg font-bold text-slate-900'>Select Doctor</h3>
-          <p className='text-slate-500'>List of doctors based on selected specialty.</p>
+          <p className='text-slate-500'>
+            List of doctors based on selected specialty.
+          </p>
         </div>
-        <button className='text-sm font-medium text-slate-500 hover:text-teal-600'>Sort</button>
+        <button className='text-sm font-medium text-slate-500 hover:text-teal-600'>
+          Sort
+        </button>
       </div>
 
       <div className='space-y-4'>
@@ -76,7 +83,11 @@ export const DoctorList = ({ selectedDoctorId, onSelectDoctor }: DoctorListProps
             experience: `${doctor.yearsOfExperience} years experience`,
             location: doctor.user.address || 'Main Hospital',
             availability: 'Check availability',
-            slots: doctor.schedules?.reduce((acc, s) => acc + s.timeSlots.length, 0) || 0,
+            slots:
+              doctor.schedules?.reduce(
+                (acc, s) => acc + s.timeSlots.length,
+                0
+              ) || 0,
             tags: [],
             image: doctor.image || '/images/doctor.png',
             isFemale: false,

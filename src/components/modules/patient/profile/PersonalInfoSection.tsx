@@ -5,10 +5,26 @@ import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { HealthInsuranceType } from '@/types/profile';
 
@@ -19,10 +35,17 @@ export const PersonalInfoSection = () => {
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-6'>
       <div className='flex justify-between items-center'>
         <div>
-          <h3 className='text-lg font-bold text-slate-900'>Thông tin cá nhân</h3>
-          <p className='text-sm text-slate-500'>Chỉnh sửa thông tin cơ bản được dùng trong tất cả cuộc hẹn.</p>
+          <h3 className='text-lg font-bold text-slate-900'>
+            Thông tin cá nhân
+          </h3>
+          <p className='text-sm text-slate-500'>
+            Chỉnh sửa thông tin cơ bản được dùng trong tất cả cuộc hẹn.
+          </p>
         </div>
-        <Button variant='ghost' className='text-teal-600 hover:text-teal-700 hover:bg-teal-50'>
+        <Button
+          variant='ghost'
+          className='text-teal-600 hover:text-teal-700 hover:bg-teal-50'
+        >
           Đặt lại
         </Button>
       </div>
@@ -76,9 +99,16 @@ export const PersonalInfoSection = () => {
                   <FormControl>
                     <Button
                       variant={'outline'}
-                      className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
+                      className={cn(
+                        'w-full pl-3 text-left font-normal',
+                        !field.value && 'text-muted-foreground'
+                      )}
                     >
-                      {field.value ? format(field.value, 'dd/MM/yyyy') : <span>Chọn ngày sinh</span>}
+                      {field.value ? (
+                        format(field.value, 'dd/MM/yyyy')
+                      ) : (
+                        <span>Chọn ngày sinh</span>
+                      )}
                       <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                     </Button>
                   </FormControl>
@@ -88,7 +118,9 @@ export const PersonalInfoSection = () => {
                     mode='single'
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date('1900-01-01')
+                    }
                     initialFocus
                   />
                 </PopoverContent>
@@ -120,7 +152,10 @@ export const PersonalInfoSection = () => {
               <FormItem>
                 <FormLabel>Địa chỉ hiện tại</FormLabel>
                 <FormControl>
-                  <Input placeholder='Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố...' {...field} />
+                  <Input
+                    placeholder='Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố...'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,9 +176,15 @@ export const PersonalInfoSection = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={HealthInsuranceType.BHYT}>BHYT - Bảo hiểm y tế nhà nước</SelectItem>
-                  <SelectItem value={HealthInsuranceType.PRIVATE}>Bảo hiểm tư nhân</SelectItem>
-                  <SelectItem value={HealthInsuranceType.NONE}>Không có</SelectItem>
+                  <SelectItem value={HealthInsuranceType.BHYT}>
+                    BHYT - Bảo hiểm y tế nhà nước
+                  </SelectItem>
+                  <SelectItem value={HealthInsuranceType.PRIVATE}>
+                    Bảo hiểm tư nhân
+                  </SelectItem>
+                  <SelectItem value={HealthInsuranceType.NONE}>
+                    Không có
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

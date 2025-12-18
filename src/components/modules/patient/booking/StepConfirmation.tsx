@@ -25,8 +25,15 @@ interface StepConfirmationProps {
 
 export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
   const router = useRouter();
-  const { selectedDoctor, timeSlotId, selectedDate, examinationType, symptoms, notes, paymentMethod } =
-    useAppointmentStore();
+  const {
+    selectedDoctor,
+    timeSlotId,
+    selectedDate,
+    examinationType,
+    symptoms,
+    notes,
+    paymentMethod,
+  } = useAppointmentStore();
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
@@ -82,7 +89,12 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
         <TermsAgreement />
 
         <div className='flex items-center justify-end gap-4 pt-4'>
-          <Button variant='ghost' className='text-slate-500 hover:text-slate-900' onClick={onBack} disabled={loading}>
+          <Button
+            variant='ghost'
+            className='text-slate-500 hover:text-slate-900'
+            onClick={onBack}
+            disabled={loading}
+          >
             Quay lại — Bước 3
           </Button>
           <Button

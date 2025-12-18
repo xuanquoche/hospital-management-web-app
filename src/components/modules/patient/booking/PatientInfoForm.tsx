@@ -6,9 +6,18 @@ import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useAppointmentStore, PatientInfo } from '@/store/use-appointment-store';
+import {
+  useAppointmentStore,
+  PatientInfo,
+} from '@/store/use-appointment-store';
 export const PatientInfoForm = () => {
   const { patientInfo, setPatientInfo } = useAppointmentStore();
 
@@ -40,20 +49,34 @@ export const PatientInfoForm = () => {
   return (
     <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
       <div className='mb-6'>
-        <h3 className='text-lg font-bold text-slate-900'>Thông tin bệnh nhân</h3>
-        <p className='text-sm text-slate-500'>Chọn đúng người sẽ đi khám để bệnh viện chuẩn bị hồ sơ.</p>
+        <h3 className='text-lg font-bold text-slate-900'>
+          Thông tin bệnh nhân
+        </h3>
+        <p className='text-sm text-slate-500'>
+          Chọn đúng người sẽ đi khám để bệnh viện chuẩn bị hồ sơ.
+        </p>
       </div>
 
       <div className='mb-6 flex items-center justify-between'>
-        <Label className='text-sm font-medium text-slate-700'>Đối tượng khám</Label>
-        <span className='text-xs text-slate-400'>Bạn có thể đặt giúp người thân</span>
+        <Label className='text-sm font-medium text-slate-700'>
+          Đối tượng khám
+        </Label>
+        <span className='text-xs text-slate-400'>
+          Bạn có thể đặt giúp người thân
+        </span>
       </div>
 
       <div className='mb-8 flex gap-3'>
-        <Button variant='default' className='bg-teal-600 text-white hover:bg-teal-700'>
+        <Button
+          variant='default'
+          className='bg-teal-600 text-white hover:bg-teal-700'
+        >
           Tôi
         </Button>
-        <Button variant='outline' className='border-slate-200 text-slate-600 hover:bg-slate-50'>
+        <Button
+          variant='outline'
+          className='border-slate-200 text-slate-600 hover:bg-slate-50'
+        >
           Người thân
         </Button>
       </div>
@@ -61,7 +84,9 @@ export const PatientInfoForm = () => {
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         <div className='space-y-2'>
           <div className='flex justify-between'>
-            <Label className='text-sm font-medium text-slate-700'>Họ và tên</Label>
+            <Label className='text-sm font-medium text-slate-700'>
+              Họ và tên
+            </Label>
             <span className='text-xs text-slate-400'>Bắt buộc</span>
           </div>
           <Input
@@ -72,8 +97,13 @@ export const PatientInfoForm = () => {
         </div>
 
         <div className='space-y-2'>
-          <Label className='text-sm font-medium text-slate-700'>Giới tính</Label>
-          <Select value={patientInfo?.gender || 'MALE'} onValueChange={(value) => handleChange('gender', value)}>
+          <Label className='text-sm font-medium text-slate-700'>
+            Giới tính
+          </Label>
+          <Select
+            value={patientInfo?.gender || 'MALE'}
+            onValueChange={(value) => handleChange('gender', value)}
+          >
             <SelectTrigger className='border-slate-200 focus:ring-teal-500'>
               <SelectValue placeholder='Chọn giới tính' />
             </SelectTrigger>
@@ -86,7 +116,9 @@ export const PatientInfoForm = () => {
         </div>
 
         <div className='space-y-2'>
-          <Label className='text-sm font-medium text-slate-700'>Ngày sinh</Label>
+          <Label className='text-sm font-medium text-slate-700'>
+            Ngày sinh
+          </Label>
           <div className='relative'>
             <Input
               value={patientInfo?.dateOfBirth || ''}
@@ -100,7 +132,9 @@ export const PatientInfoForm = () => {
 
         <div className='space-y-2'>
           <div className='flex justify-between'>
-            <Label className='text-sm font-medium text-slate-700'>Số điện thoại</Label>
+            <Label className='text-sm font-medium text-slate-700'>
+              Số điện thoại
+            </Label>
             <span className='text-xs text-slate-400'>Bắt buộc</span>
           </div>
           <Input
@@ -123,7 +157,9 @@ export const PatientInfoForm = () => {
 
         <div className='space-y-2'>
           <div className='flex justify-between'>
-            <Label className='text-sm font-medium text-slate-700'>Địa chỉ</Label>
+            <Label className='text-sm font-medium text-slate-700'>
+              Địa chỉ
+            </Label>
           </div>
           <Input
             value={patientInfo?.address || ''}

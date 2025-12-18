@@ -15,8 +15,15 @@ import { useAppointmentStore } from '@/store/use-appointment-store';
 import { UserProfileResponse } from '@/types/user';
 
 export default function PatientBookingPage() {
-  const { currentStep, selectedDoctor, selectedDate, selectedTime, setCurrentStep, setSelectedDoctor, setPatientInfo } =
-    useAppointmentStore();
+  const {
+    currentStep,
+    selectedDoctor,
+    selectedDate,
+    selectedTime,
+    setCurrentStep,
+    setSelectedDoctor,
+    setPatientInfo,
+  } = useAppointmentStore();
 
   const fetchMe = async () => {
     try {
@@ -75,7 +82,10 @@ export default function PatientBookingPage() {
         <div className='grid grid-cols-1 gap-8 xl:grid-cols-12'>
           {/* Main Content Area */}
           <div className='space-y-8 xl:col-span-9'>
-            <StepSelectDoctor selectedDoctorId={selectedDoctor?.id || null} onSelectDoctor={setSelectedDoctor} />
+            <StepSelectDoctor
+              selectedDoctorId={selectedDoctor?.id || null}
+              onSelectDoctor={setSelectedDoctor}
+            />
 
             <BookingSummary
               selectedDoctor={selectedDoctor}

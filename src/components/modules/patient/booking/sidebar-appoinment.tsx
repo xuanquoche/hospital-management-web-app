@@ -1,7 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CalendarIcon, ClockIcon, UserIcon, CheckCircle2Icon } from 'lucide-react';
+import {
+  CalendarIcon,
+  ClockIcon,
+  UserIcon,
+  CheckCircle2Icon,
+} from 'lucide-react';
 import Image from 'next/image';
 
 import { useAppointmentStore } from '@/store/use-appointment-store';
@@ -20,7 +25,13 @@ export default function Sidebar() {
     <aside className='w-80 bg-white border-r h-screen p-6 flex flex-col items-center'>
       <div className='flex flex-col items-center mb-10'>
         <div className='w-16 h-16 rounded-full overflow-hidden border'>
-          <Image src='/images/doctor.png' alt='Doctor' className='object-cover w-full h-full' width={64} height={64} />
+          <Image
+            src='/images/doctor.png'
+            alt='Doctor'
+            className='object-cover w-full h-full'
+            width={64}
+            height={64}
+          />
         </div>
         <h2 className='font-semibold mt-3'>Alex Suprun</h2>
         <p className='text-sm text-gray-500'>Founder & Head of IT</p>
@@ -53,7 +64,11 @@ export default function Sidebar() {
                   <Icon size={18} />
                 </div>
                 <div>
-                  <p className={`font-medium ${isActive ? 'text-emerald-600' : 'text-gray-500'}`}>{label}</p>
+                  <p
+                    className={`font-medium ${isActive ? 'text-emerald-600' : 'text-gray-500'}`}
+                  >
+                    {label}
+                  </p>
                 </div>
               </motion.div>
             );

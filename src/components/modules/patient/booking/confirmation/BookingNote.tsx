@@ -9,8 +9,12 @@ export const BookingNote = () => {
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100'>
       <div className='flex justify-between items-center mb-4'>
-        <h3 className='text-lg font-bold text-slate-900'>Ghi chú cho lễ tân (tùy chọn)</h3>
-        <span className='text-xs text-slate-400'>Ví dụ: cần xuất hóa đơn công ty...</span>
+        <h3 className='text-lg font-bold text-slate-900'>
+          Ghi chú cho lễ tân (tùy chọn)
+        </h3>
+        <span className='text-xs text-slate-400'>
+          Ví dụ: cần xuất hóa đơn công ty...
+        </span>
       </div>
 
       <Textarea

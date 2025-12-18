@@ -85,7 +85,9 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
         <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
           <div className='mb-4'>
             <h3 className='text-lg font-bold text-slate-900'>Chọn ngày khám</h3>
-            <p className='text-sm text-slate-500'>Lịch khả dụng của {selectedDoctor?.user?.fullName}</p>
+            <p className='text-sm text-slate-500'>
+              Lịch khả dụng của {selectedDoctor?.user?.fullName}
+            </p>
           </div>
 
           <div className='flex justify-center'>
@@ -114,18 +116,26 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
           <div className='mb-4 flex items-center justify-between'>
             <h3 className='font-bold text-slate-900'>Chọn khung giờ</h3>
             <span className='text-sm font-medium text-slate-900'>
-              {selectedDate ? format(selectedDate, 'EEEE, dd/MM/yyyy', { locale: vi }) : ''}
+              {selectedDate
+                ? format(selectedDate, 'EEEE, dd/MM/yyyy', { locale: vi })
+                : ''}
             </span>
           </div>
-          <p className='mb-6 text-sm text-slate-500'>Khung giờ trống trong ngày</p>
+          <p className='mb-6 text-sm text-slate-500'>
+            Khung giờ trống trong ngày
+          </p>
 
           {availableTimeSlots.length === 0 ? (
-            <p className='text-center text-slate-500 py-4'>Không có lịch khám cho ngày này.</p>
+            <p className='text-center text-slate-500 py-4'>
+              Không có lịch khám cho ngày này.
+            </p>
           ) : (
             <div className='space-y-4'>
               {groupedTimeSlots.morning.length > 0 && (
                 <div>
-                  <h4 className='mb-3 text-sm font-medium text-slate-700'>Buổi sáng</h4>
+                  <h4 className='mb-3 text-sm font-medium text-slate-700'>
+                    Buổi sáng
+                  </h4>
                   <div className='flex flex-wrap gap-3'>
                     {groupedTimeSlots.morning.map((slot) => (
                       <button
@@ -146,7 +156,9 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
 
               {groupedTimeSlots.afternoon.length > 0 && (
                 <div>
-                  <h4 className='mb-3 text-sm font-medium text-slate-700'>Buổi chiều</h4>
+                  <h4 className='mb-3 text-sm font-medium text-slate-700'>
+                    Buổi chiều
+                  </h4>
                   <div className='flex flex-wrap gap-3'>
                     {groupedTimeSlots.afternoon.map((slot) => (
                       <button
@@ -167,7 +179,9 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
 
               {groupedTimeSlots.evening.length > 0 && (
                 <div>
-                  <h4 className='mb-3 text-sm font-medium text-slate-700'>Buổi tối</h4>
+                  <h4 className='mb-3 text-sm font-medium text-slate-700'>
+                    Buổi tối
+                  </h4>
                   <div className='flex flex-wrap gap-3'>
                     {groupedTimeSlots.evening.map((slot) => (
                       <button
@@ -196,9 +210,13 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
         <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
           <div className='mb-4 flex items-center justify-between'>
             <h3 className='font-bold text-slate-900'>Bác sĩ & cơ sở khám</h3>
-            <button className='text-xs font-medium text-slate-400 hover:text-teal-600'>Thay đổi</button>
+            <button className='text-xs font-medium text-slate-400 hover:text-teal-600'>
+              Thay đổi
+            </button>
           </div>
-          <p className='mb-4 text-xs text-slate-500'>Thông tin được chọn từ Bước 1.</p>
+          <p className='mb-4 text-xs text-slate-500'>
+            Thông tin được chọn từ Bước 1.
+          </p>
 
           <div className='flex items-start gap-3'>
             <Avatar className='h-12 w-12 border border-slate-100'>
@@ -208,12 +226,18 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
               </AvatarFallback>
             </Avatar>
             <div>
-              <h4 className='font-bold text-slate-900 text-sm'>{selectedDoctor?.user?.fullName}</h4>
+              <h4 className='font-bold text-slate-900 text-sm'>
+                {selectedDoctor?.user?.fullName}
+              </h4>
               <p className='text-xs text-slate-500 mb-1'>
-                {selectedDoctor?.primarySpecialty?.name} • {selectedDoctor?.yearsOfExperience} years
+                {selectedDoctor?.primarySpecialty?.name} •{' '}
+                {selectedDoctor?.yearsOfExperience} years
               </p>
               <div className='flex flex-wrap gap-1'>
-                <Badge variant='secondary' className='bg-slate-100 text-[10px] text-slate-600 h-5 px-1.5'>
+                <Badge
+                  variant='secondary'
+                  className='bg-slate-100 text-[10px] text-slate-600 h-5 px-1.5'
+                >
                   {selectedDoctor?.user?.address || 'Main Hospital'}
                 </Badge>
               </div>
@@ -225,32 +249,44 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
         <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
           <div className='mb-4'>
             <h3 className='font-bold text-slate-900'>Tóm tắt lịch hẹn</h3>
-            <p className='text-xs text-slate-500'>Kiểm tra lại trước khi sang Bước 3.</p>
+            <p className='text-xs text-slate-500'>
+              Kiểm tra lại trước khi sang Bước 3.
+            </p>
           </div>
 
           <div className='space-y-3 text-sm'>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Bác sĩ</span>
-              <span className='font-medium text-slate-900 text-right'>{selectedDoctor?.user?.fullName}</span>
+              <span className='font-medium text-slate-900 text-right'>
+                {selectedDoctor?.user?.fullName}
+              </span>
             </div>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Chuyên khoa</span>
-              <span className='font-medium text-slate-900 text-right'>{selectedDoctor?.primarySpecialty?.name}</span>
+              <span className='font-medium text-slate-900 text-right'>
+                {selectedDoctor?.primarySpecialty?.name}
+              </span>
             </div>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Ngày khám</span>
               <span className='font-medium text-slate-900 text-right'>
-                {selectedDate ? format(selectedDate, 'dd/MM/yyyy', { locale: vi }) : 'Chưa chọn'}
+                {selectedDate
+                  ? format(selectedDate, 'dd/MM/yyyy', { locale: vi })
+                  : 'Chưa chọn'}
               </span>
             </div>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Khung giờ</span>
-              <span className='font-bold text-slate-900 text-right'>{selectedTime || 'Chưa chọn'}</span>
+              <span className='font-bold text-slate-900 text-right'>
+                {selectedTime || 'Chưa chọn'}
+              </span>
             </div>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Hình thức</span>
               <span className='font-medium text-slate-900 text-right'>
-                {examinationType === 'IN_PERSON' ? 'Khám trực tiếp' : 'Khám online'}
+                {examinationType === 'IN_PERSON'
+                  ? 'Khám trực tiếp'
+                  : 'Khám online'}
               </span>
             </div>
           </div>
@@ -260,14 +296,20 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
         <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
           <div className='mb-4'>
             <h3 className='font-bold text-slate-900'>Triệu chứng & ghi chú</h3>
-            <p className='text-xs text-slate-500'>Giúp bác sĩ chuẩn bị trước cho buổi khám.</p>
+            <p className='text-xs text-slate-500'>
+              Giúp bác sĩ chuẩn bị trước cho buổi khám.
+            </p>
           </div>
 
           <div className='space-y-4'>
             <div className='space-y-2'>
               <div className='flex justify-between'>
-                <Label className='text-sm font-medium text-slate-700'>Triệu chứng chính</Label>
-                <span className='text-xs text-slate-400'>Ví dụ: sốt nhẹ, ho khan...</span>
+                <Label className='text-sm font-medium text-slate-700'>
+                  Triệu chứng chính
+                </Label>
+                <span className='text-xs text-slate-400'>
+                  Ví dụ: sốt nhẹ, ho khan...
+                </span>
               </div>
               <Textarea
                 placeholder='Mô tả ngắn các triệu chứng mà bạn đang gặp...'
@@ -279,7 +321,9 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
 
             <div className='space-y-2'>
               <div className='flex justify-between'>
-                <Label className='text-sm font-medium text-slate-700'>Ghi chú cho bác sĩ</Label>
+                <Label className='text-sm font-medium text-slate-700'>
+                  Ghi chú cho bác sĩ
+                </Label>
                 <span className='text-xs text-slate-400'>Không bắt buộc</span>
               </div>
               <Textarea
