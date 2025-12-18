@@ -10,11 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useMe } from '@/hooks/use-me';
 import { clientFetcher } from '@/lib/fetcher';
-import {
-  profileSchema,
-  ProfileFormValues,
-  HealthInsuranceType,
-} from '@/types/profile';
+import { profileSchema, ProfileFormValues, HealthInsuranceType } from '@/types/profile';
 
 import { ContactSettingsSection } from './ContactSettingsSection';
 import { HealthStatsSection } from './HealthStatsSection';
@@ -23,7 +19,7 @@ import { ProfileHeader } from './ProfileHeader';
 import { ProfileSidebar } from './ProfileSidebar';
 
 export const ProfileForm = () => {
-  const { user, profile, loading, refetch } = useMe();
+  const { user, profile, refetch } = useMe();
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -52,9 +48,7 @@ export const ProfileForm = () => {
       form.reset({
         fullName: user.fullName || '',
         gender: (profile.gender?.toLowerCase() as any) || 'other',
-        dateOfBirth: profile.dateOfBirth
-          ? new Date(profile.dateOfBirth)
-          : new Date(),
+        dateOfBirth: profile.dateOfBirth ? new Date(profile.dateOfBirth) : new Date(),
         idNumber: profile.identityNumber || '',
         address: user.address || '',
         insuranceType: HealthInsuranceType.BHYT, // Default
@@ -122,10 +116,7 @@ export const ProfileForm = () => {
               <Button type='button' variant='ghost' className='text-slate-500'>
                 Hủy thay đổi
               </Button>
-              <Button
-                type='submit'
-                className='bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-200'
-              >
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700 text-white shadow-lg shadow-teal-200'>
                 Lưu thay đổi hồ sơ
               </Button>
             </div>

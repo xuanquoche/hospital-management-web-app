@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,14 +14,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Spinner } from '@/components/ui/spinner';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DepartmentStatus } from '@/const/index';
 
 type Department = {
@@ -40,11 +33,7 @@ type Department = {
 
 type DepartmentTableProps = {
   departments: Department;
-  onEdit: (dept: {
-    id: number;
-    name: string;
-    status: DepartmentStatus;
-  }) => void;
+  onEdit: (dept: { id: number; name: string; status: DepartmentStatus }) => void;
   onDelete: (id: number) => void;
   onPageChange: (page: number) => void;
   isLoading: boolean;
@@ -92,27 +81,17 @@ export default function DepartmentTable({
                   <TableCell>
                     <span
                       className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        dept.status === 'Active'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-red-100 text-red-700'
+                        dept.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                       }`}
                     >
                       {dept.status}
                     </span>
                   </TableCell>
                   <TableCell className='text-right space-x-2'>
-                    <Button
-                      variant='outline'
-                      size='sm'
-                      onClick={() => onEdit(dept)}
-                    >
+                    <Button variant='outline' size='sm' onClick={() => onEdit(dept)}>
                       {t('updateBtn')}
                     </Button>
-                    <Button
-                      variant='destructive'
-                      size='sm'
-                      onClick={() => onDelete(dept.id)}
-                    >
+                    <Button variant='destructive' size='sm' onClick={() => onDelete(dept.id)}>
                       {t('deleteBtn')}
                     </Button>
                   </TableCell>
@@ -120,10 +99,7 @@ export default function DepartmentTable({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={4}
-                  className='text-center text-muted-foreground'
-                >
+                <TableCell colSpan={4} className='text-center text-muted-foreground'>
                   {t('notHaveData')}
                 </TableCell>
               </TableRow>
@@ -137,9 +113,7 @@ export default function DepartmentTable({
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => onPageChange(pagination.page - 1)}
-                className={
-                  pagination.page === 1 ? 'pointer-events-none opacity-50' : ''
-                }
+                className={pagination.page === 1 ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
 
@@ -147,10 +121,7 @@ export default function DepartmentTable({
               const page = index + 1;
               return (
                 <PaginationItem key={page}>
-                  <PaginationLink
-                    isActive={page === pagination.page}
-                    onClick={() => onPageChange(page)}
-                  >
+                  <PaginationLink isActive={page === pagination.page} onClick={() => onPageChange(page)}>
                     {page}
                   </PaginationLink>
                 </PaginationItem>
@@ -160,11 +131,7 @@ export default function DepartmentTable({
             <PaginationItem>
               <PaginationNext
                 onClick={() => onPageChange(pagination.page + 1)}
-                className={
-                  pagination.page === pagination.totalPages
-                    ? 'pointer-events-none opacity-50'
-                    : ''
-                }
+                className={pagination.page === pagination.totalPages ? 'pointer-events-none opacity-50' : ''}
               />
             </PaginationItem>
           </PaginationContent>

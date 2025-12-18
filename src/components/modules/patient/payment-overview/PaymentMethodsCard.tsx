@@ -1,4 +1,4 @@
-import { Plus, CreditCard, Landmark, Wallet, QrCode } from 'lucide-react';
+import { Plus, CreditCard, Landmark, QrCode } from 'lucide-react';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -27,33 +27,19 @@ export const PaymentMethodsCard = ({ methods }: PaymentMethodsCardProps) => {
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='mb-4'>
-        <h3 className='text-lg font-bold text-slate-900'>
-          Phương thức thanh toán
-        </h3>
-        <p className='text-sm text-slate-500'>
-          Chọn hoặc thêm phương thức bạn muốn sử dụng.
-        </p>
+        <h3 className='text-lg font-bold text-slate-900'>Phương thức thanh toán</h3>
+        <p className='text-sm text-slate-500'>Chọn hoặc thêm phương thức bạn muốn sử dụng.</p>
       </div>
 
       <div className='space-y-3 mb-4'>
         {methods.map((method) => (
-          <div
-            key={method.id}
-            className='flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100'
-          >
-            <div className='p-2 bg-white rounded-lg border border-slate-100'>
-              {getIcon(method.type)}
-            </div>
+          <div key={method.id} className='flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100'>
+            <div className='p-2 bg-white rounded-lg border border-slate-100'>{getIcon(method.type)}</div>
             <div className='flex-1'>
               <div className='flex justify-between items-start'>
-                <p className='text-sm font-bold text-slate-900'>
-                  {method.name}
-                </p>
+                <p className='text-sm font-bold text-slate-900'>{method.name}</p>
                 {method.isDefault && (
-                  <Badge
-                    variant='secondary'
-                    className='bg-teal-50 text-teal-700 hover:bg-teal-100 text-[10px] h-5'
-                  >
+                  <Badge variant='secondary' className='bg-teal-50 text-teal-700 hover:bg-teal-100 text-[10px] h-5'>
                     Mặc định
                   </Badge>
                 )}

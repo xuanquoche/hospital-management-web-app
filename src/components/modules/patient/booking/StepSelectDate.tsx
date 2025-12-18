@@ -3,7 +3,7 @@
 import { format, isSameDay } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import { motion } from 'framer-motion';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -33,11 +33,7 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
     setNotes,
   } = useAppointmentStore();
 
-  // Get available dates from doctor's schedule
-  const availableDates = useMemo(() => {
-    if (!selectedDoctor?.schedules) return [];
-    return selectedDoctor.schedules.filter((s) => s.isActive).map((s) => new Date(s.startDate)); // Simplified: assuming startDate represents the available day
-  }, [selectedDoctor]);
+  // Get time slots for the selected date
 
   // Get time slots for the selected date
   const availableTimeSlots = useMemo(() => {
