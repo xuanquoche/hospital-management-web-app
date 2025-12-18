@@ -1,14 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
-interface DoctorProps {
-  id: number;
+export interface DoctorProps {
+  id: string | number;
   name: string;
   specialty: string;
   experience: string;
@@ -26,11 +27,7 @@ interface DoctorCardProps {
   onSelect?: () => void;
 }
 
-export const DoctorCard = ({
-  doctor,
-  isSelected,
-  onSelect,
-}: DoctorCardProps) => {
+export const DoctorCard = ({ doctor, isSelected, onSelect }: DoctorCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -61,10 +58,7 @@ export const DoctorCard = ({
         <div className='flex items-center gap-2'>
           <h4 className='font-bold text-slate-900'>{doctor.name}</h4>
           {doctor.isFemale && (
-            <Badge
-              variant='outline'
-              className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'
-            >
+            <Badge variant='outline' className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'>
               Bác sĩ nữ
             </Badge>
           )}
@@ -75,20 +69,13 @@ export const DoctorCard = ({
         </p>
 
         <div className='flex flex-wrap gap-2 pt-1'>
-          <Badge
-            variant='secondary'
-            className='bg-slate-100 font-normal text-slate-600'
-          >
+          <Badge variant='secondary' className='bg-slate-100 font-normal text-slate-600'>
             {doctor.location}
           </Badge>
           {doctor.tags
             ?.filter((t) => t !== 'Được đánh giá cao')
             .map((tag, i) => (
-              <Badge
-                key={i}
-                variant='outline'
-                className='border-slate-200 font-normal text-slate-500'
-              >
+              <Badge key={i} variant='outline' className='border-slate-200 font-normal text-slate-500'>
                 {tag}
               </Badge>
             ))}
@@ -97,9 +84,7 @@ export const DoctorCard = ({
 
       <div className='flex flex-col items-end gap-2 sm:min-w-[140px]'>
         <div className='text-right'>
-          <p className='text-xs font-medium text-teal-600'>
-            {doctor.availability}
-          </p>
+          <p className='text-xs font-medium text-teal-600'>{doctor.availability}</p>
           <p className='text-xs text-slate-400'>{doctor.slots} khung giờ</p>
         </div>
         <Button
@@ -110,7 +95,14 @@ export const DoctorCard = ({
               : 'border border-teal-100 bg-teal-50 text-teal-700 hover:bg-teal-100'
           }`}
         >
-          {isSelected ? 'Đã chọn' : 'Chọn'}
+          {isSelected ? (
+            <>
+              <Check className='mr-2 h-4 w-4' />
+              Đã chọn
+            </>
+          ) : (
+            'Chọn'
+          )}
         </Button>
       </div>
     </motion.div>

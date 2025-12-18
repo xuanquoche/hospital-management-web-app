@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { Doctor } from '@/types/doctor';
+import { PaymentMethod } from '@/types/payment';
 
 export interface PatientInfo {
   fullName: string;
@@ -9,7 +10,6 @@ export interface PatientInfo {
   phone: string;
   email: string;
   address: string;
-  reason: string;
   insuranceNumber?: string;
 }
 
@@ -17,18 +17,24 @@ interface AppointmentState {
   currentStep: number;
   selectedDoctor: Doctor | null;
   selectedDate: Date | null;
-  selectedTime: string | null;
+  selectedTime: string | null; // Display time string
+  timeSlotId: string | null; // API field
+  examinationType: 'IN_PERSON' | 'ONLINE' | 'HOME' | null;
+  symptoms: string;
+  notes: string;
   patientInfo: PatientInfo | null;
-  paymentMethod: 'credit_card' | 'ewallet' | 'cash' | null;
-  note: string;
+  paymentMethod: PaymentMethod | null;
 
   setCurrentStep: (step: number) => void;
   setSelectedDoctor: (doctor: Doctor | null) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedTime: (time: string | null) => void;
+  setTimeSlotId: (id: string | null) => void;
+  setExaminationType: (type: 'IN_PERSON' | 'ONLINE' | 'HOME' | null) => void;
+  setSymptoms: (symptoms: string) => void;
+  setNotes: (notes: string) => void;
   setPatientInfo: (info: PatientInfo | null) => void;
-  setPaymentMethod: (method: 'credit_card' | 'ewallet' | 'cash' | null) => void;
-  setNote: (note: string) => void;
+  setPaymentMethod: (method: PaymentMethod | null) => void;
 }
 
 export const useAppointmentStore = create<AppointmentState>((set) => ({
@@ -36,24 +42,21 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
   selectedDoctor: null,
   selectedDate: null,
   selectedTime: null,
-  patientInfo: {
-    fullName: 'Nguyễn Minh Anh',
-    dateOfBirth: '1995-03-12',
-    gender: 'Nữ',
-    phone: '0912 345 678',
-    email: 'minh.anh@example.com',
-    address: 'Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh',
-    reason: 'Đau đầu, chóng mặt',
-    insuranceNumber: 'BHYT - Bảo hiểm y tế nhà nước',
-  },
+  timeSlotId: null,
+  examinationType: 'IN_PERSON',
+  symptoms: '',
+  notes: '',
+  patientInfo: null,
   paymentMethod: null,
-  note: '',
 
   setCurrentStep: (step) => set({ currentStep: step }),
   setSelectedDoctor: (doctor) => set({ selectedDoctor: doctor }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedTime: (time) => set({ selectedTime: time }),
+  setTimeSlotId: (id) => set({ timeSlotId: id }),
+  setExaminationType: (type) => set({ examinationType: type }),
+  setSymptoms: (symptoms) => set({ symptoms }),
+  setNotes: (notes) => set({ notes }),
   setPatientInfo: (info) => set({ patientInfo: info }),
   setPaymentMethod: (method) => set({ paymentMethod: method }),
-  setNote: (note) => set({ note }),
 }));

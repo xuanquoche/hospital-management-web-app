@@ -37,7 +37,7 @@ const eslintConfig = [
       'max-len': [
         'error',
         {
-          code: 80, // Giới hạn 80 ký tự mỗi dòng
+          code: 120, // Giới hạn 80 ký tự mỗi dòng
           tabWidth: 2,
           ignoreUrls: true, // Bỏ qua URLs dài
           ignoreStrings: true, // Bỏ qua strings dài

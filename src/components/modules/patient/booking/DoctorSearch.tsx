@@ -5,22 +5,18 @@ import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { useAppointmentStore } from '@/store/use-appointment-store';
 
-const filters = [
-  'Bác sĩ yêu thích',
-  'Bác sĩ nữ',
-  'Có lịch hôm nay',
-  'Bảo hiểm hỗ trợ',
-];
+const filters = ['Bác sĩ yêu thích', 'Bác sĩ nữ', 'Có lịch hôm nay', 'Bảo hiểm hỗ trợ'];
 
 export const DoctorSearch = () => {
+  const { symptoms, setSymptoms } = useAppointmentStore();
+
   return (
     <div className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'>
       <div className='mb-4'>
         <h3 className='text-lg font-bold text-slate-900'>Tìm kiếm bác sĩ</h3>
-        <p className='text-slate-500'>
-          Nhập tên bác sĩ hoặc triệu chứng bạn muốn khám.
-        </p>
+        <p className='text-slate-500'>Nhập tên bác sĩ hoặc triệu chứng bạn muốn khám.</p>
       </div>
 
       <div className='mb-6'>
@@ -33,6 +29,8 @@ export const DoctorSearch = () => {
           <Input
             placeholder='Nhập từ khóa...'
             className='pl-9 border-slate-200 focus-visible:ring-teal-500'
+            value={symptoms}
+            onChange={(e) => setSymptoms(e.target.value)}
           />
         </div>
       </div>

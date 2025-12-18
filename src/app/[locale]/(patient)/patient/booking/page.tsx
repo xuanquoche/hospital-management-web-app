@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { BookingStepper } from '@/components/modules/patient/booking/BookingStepper';
 import { BookingSummary } from '@/components/modules/patient/booking/BookingSummary';
@@ -10,19 +10,41 @@ import { StepConfirmation } from '@/components/modules/patient/booking/StepConfi
 import { StepEnterInfo } from '@/components/modules/patient/booking/StepEnterInfo';
 import { StepSelectDate } from '@/components/modules/patient/booking/StepSelectDate';
 import { StepSelectDoctor } from '@/components/modules/patient/booking/StepSelectDoctor';
+import { clientFetcher } from '@/lib/fetcher';
 import { useAppointmentStore } from '@/store/use-appointment-store';
+import { UserProfileResponse } from '@/types/user';
 
 export default function PatientBookingPage() {
-  const {
-    currentStep,
-    selectedDoctor,
-    selectedDate,
-    selectedTime,
-    setCurrentStep,
-    setSelectedDoctor,
-  } = useAppointmentStore();
+  const { currentStep, selectedDoctor, selectedDate, selectedTime, setCurrentStep, setSelectedDoctor, setPatientInfo } =
+    useAppointmentStore();
+
+  const fetchMe = async () => {
+    try {
+      const res = await clientFetcher.get('/users/me');
+      const data = res.data as UserProfileResponse['data'];
+
+      if (data) {
+        setPatientInfo({
+          fullName: data.user.fullName,
+          dateOfBirth: data.profile.dateOfBirth,
+          gender: data.profile.gender,
+          phone: data.user.phone,
+          email: data.user.email,
+          address: data.user.address,
+          insuranceNumber: data.profile.healthInsuranceNumber,
+        });
+      }
+    } catch (error) {
+      console.log('fail to get me in patient info form', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchMe();
+  }, []);
 
   const handleNext = () => {
+    console.log('currentStep', currentStep);
     setCurrentStep(Math.min(currentStep + 1, 4));
   };
 
@@ -53,12 +75,7 @@ export default function PatientBookingPage() {
         <div className='grid grid-cols-1 gap-8 xl:grid-cols-12'>
           {/* Main Content Area */}
           <div className='space-y-8 xl:col-span-9'>
-            <StepSelectDoctor
-              selectedDoctorId={
-                selectedDoctor?.id ? Number(selectedDoctor.id) : null
-              }
-              onSelectDoctor={setSelectedDoctor}
-            />
+            <StepSelectDoctor selectedDoctorId={selectedDoctor?.id || null} onSelectDoctor={setSelectedDoctor} />
 
             <BookingSummary
               selectedDoctor={selectedDoctor}
