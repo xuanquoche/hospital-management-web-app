@@ -37,7 +37,9 @@ class APIClient {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `API request failed with status ${res.status}`);
+        throw new Error(
+          err.message || `API request failed with status ${res.status}`
+        );
       }
 
       const contentType = res.headers.get('content-type');
@@ -64,7 +66,10 @@ class APIClient {
     }
 
     const accessToken = (session as any)?.accessToken;
-    console.log('Making request with token:', accessToken ? 'Token exists' : 'No token');
+    console.log(
+      'Making request with token:',
+      accessToken ? 'Token exists' : 'No token'
+    );
 
     const headers: Record<string, string> = {
       ...((options.headers as Record<string, string>) || {}),
@@ -96,7 +101,9 @@ class APIClient {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `API request failed with status ${res.status}`);
+      throw new Error(
+        err.message || `API request failed with status ${res.status}`
+      );
     }
 
     const contentType = res.headers.get('content-type');
@@ -108,7 +115,9 @@ class APIClient {
 
   private isPublicEndpoint(endpoint: string): boolean {
     const publicEndpoints = ['/auth/login', '/auth/register', '/auth/refresh'];
-    return publicEndpoints.some((publicEndpoint) => endpoint.startsWith(publicEndpoint));
+    return publicEndpoints.some((publicEndpoint) =>
+      endpoint.startsWith(publicEndpoint)
+    );
   }
 
   // Public methods
@@ -119,7 +128,11 @@ class APIClient {
     }) as Promise<T>;
   }
 
-  async post<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+  async post<T = any>(
+    endpoint: string,
+    data?: any,
+    options?: RequestInit
+  ): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'POST',
@@ -127,7 +140,11 @@ class APIClient {
     }) as Promise<T>;
   }
 
-  async put<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+  async put<T = any>(
+    endpoint: string,
+    data?: any,
+    options?: RequestInit
+  ): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'PUT',
@@ -135,7 +152,11 @@ class APIClient {
     }) as Promise<T>;
   }
 
-  async patch<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
+  async patch<T = any>(
+    endpoint: string,
+    data?: any,
+    options?: RequestInit
+  ): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'PATCH',
@@ -150,7 +171,11 @@ class APIClient {
     }) as Promise<T>;
   }
 
-  async postFormData(endpoint: string, formData: FormData, options?: RequestInit) {
+  async postFormData(
+    endpoint: string,
+    formData: FormData,
+    options?: RequestInit
+  ) {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'POST',

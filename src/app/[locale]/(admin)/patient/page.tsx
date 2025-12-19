@@ -6,7 +6,8 @@ import { ApiPatient, PatientListResponse } from '@/types/patient-api';
 export default async function PatientListPage() {
   let patients: ApiPatient[] = [];
   try {
-    const response = await serverFetcher.get<PatientListResponse>('/admin/patients');
+    const response =
+      await serverFetcher.get<PatientListResponse>('/admin/patients');
     if (response?.data) {
       patients = response.data;
     }

@@ -15,7 +15,9 @@ import {
 import { ApiPatient } from '@/types/patient-api';
 
 export function PatientCard({ patient }: { patient: ApiPatient }) {
-  const age = patient.dateOfBirth ? differenceInYears(new Date(), parseISO(patient.dateOfBirth)) : 'N/A';
+  const age = patient.dateOfBirth
+    ? differenceInYears(new Date(), parseISO(patient.dateOfBirth))
+    : 'N/A';
 
   return (
     <Card className='hover:shadow-md transition-shadow'>
@@ -38,13 +40,21 @@ export function PatientCard({ patient }: { patient: ApiPatient }) {
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='ghost' size='icon' className='h-8 w-8 p-0 text-gray-500 hover:text-gray-700'>
+              <Button
+                variant='ghost'
+                size='icon'
+                className='h-8 w-8 p-0 text-gray-500 hover:text-gray-700'
+              >
                 <EllipsisVertical className='h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              <DropdownMenuItem className='cursor-pointer'>Edit</DropdownMenuItem>
-              <DropdownMenuItem className='text-red-600 cursor-pointer hover:text-red-600'>Delete</DropdownMenuItem>
+              <DropdownMenuItem className='cursor-pointer'>
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem className='text-red-600 cursor-pointer hover:text-red-600'>
+                Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -56,7 +66,9 @@ export function PatientCard({ patient }: { patient: ApiPatient }) {
           </div>
           <div className='flex items-center gap-2'>
             <MapPin className='w-4 h-4 text-green-500' />
-            <span className='truncate max-w-[200px]'>{patient.user.address}</span>
+            <span className='truncate max-w-[200px]'>
+              {patient.user.address}
+            </span>
           </div>
         </div>
       </CardContent>

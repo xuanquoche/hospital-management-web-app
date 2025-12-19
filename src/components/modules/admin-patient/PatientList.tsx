@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { clientFetcher } from '@/lib/fetcher';
-import { ApiPatient, PatientListResponse } from '@/types/patient-api';
+import { PatientListResponse } from '@/types/patient-api';
 
 import { PatientDetailPanel } from './PatientDetailPanel';
 import { PatientFilter } from './PatientFilter';
