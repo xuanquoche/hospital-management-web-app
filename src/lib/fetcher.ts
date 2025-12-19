@@ -37,9 +37,7 @@ class APIClient {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(
-          err.message || `API request failed with status ${res.status}`
-        );
+        throw new Error(err.message || `API request failed with status ${res.status}`);
       }
 
       const contentType = res.headers.get('content-type');
@@ -66,10 +64,7 @@ class APIClient {
     }
 
     const accessToken = (session as any)?.accessToken;
-    console.log(
-      'Making request with token:',
-      accessToken ? 'Token exists' : 'No token'
-    );
+    console.log('Making request with token:', accessToken ? 'Token exists' : 'No token');
 
     const headers: Record<string, string> = {
       ...((options.headers as Record<string, string>) || {}),
@@ -101,9 +96,7 @@ class APIClient {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(
-        err.message || `API request failed with status ${res.status}`
-      );
+      throw new Error(err.message || `API request failed with status ${res.status}`);
     }
 
     const contentType = res.headers.get('content-type');
@@ -115,49 +108,49 @@ class APIClient {
 
   private isPublicEndpoint(endpoint: string): boolean {
     const publicEndpoints = ['/auth/login', '/auth/register', '/auth/refresh'];
-    return publicEndpoints.some((publicEndpoint) =>
-      endpoint.startsWith(publicEndpoint)
-    );
+    return publicEndpoints.some((publicEndpoint) => endpoint.startsWith(publicEndpoint));
   }
 
   // Public methods
-  async get(endpoint: string, options?: RequestInit) {
-    return this.handleRequest(endpoint, { ...options, method: 'GET' });
+  async get<T = any>(endpoint: string, options?: RequestInit): Promise<T> {
+    return this.handleRequest(endpoint, {
+      ...options,
+      method: 'GET',
+    }) as Promise<T>;
   }
 
-  async post(endpoint: string, data?: any, options?: RequestInit) {
+  async post<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'POST',
       body: data ? JSON.stringify(data) : undefined,
-    });
+    }) as Promise<T>;
   }
 
-  async put(endpoint: string, data?: any, options?: RequestInit) {
+  async put<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,
-    });
+    }) as Promise<T>;
   }
 
-  async patch(endpoint: string, data?: any, options?: RequestInit) {
+  async patch<T = any>(endpoint: string, data?: any, options?: RequestInit): Promise<T> {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'PATCH',
       body: data ? JSON.stringify(data) : undefined,
-    });
+    }) as Promise<T>;
   }
 
-  async delete(endpoint: string, options?: RequestInit) {
-    return this.handleRequest(endpoint, { ...options, method: 'DELETE' });
+  async delete<T = any>(endpoint: string, options?: RequestInit): Promise<T> {
+    return this.handleRequest(endpoint, {
+      ...options,
+      method: 'DELETE',
+    }) as Promise<T>;
   }
 
-  async postFormData(
-    endpoint: string,
-    formData: FormData,
-    options?: RequestInit
-  ) {
+  async postFormData(endpoint: string, formData: FormData, options?: RequestInit) {
     return this.handleRequest(endpoint, {
       ...options,
       method: 'POST',

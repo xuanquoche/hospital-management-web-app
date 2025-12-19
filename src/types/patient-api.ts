@@ -23,6 +23,8 @@ export interface ApiPatient {
   gender: string;
   healthInsuranceNumber: string;
   emergencyContact: string;
+  identityNumber: string | null;
+  chronicDisease: string | null;
   deletedAt: string | null;
   createdAt: string;
   updatedAt: string;

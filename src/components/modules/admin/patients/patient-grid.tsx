@@ -1,19 +1,9 @@
-'use client';
+import { ApiPatient } from '@/types/patient-api';
 
 import { PatientCard } from './patient-card';
 
-interface Patient {
-  id: number;
-  name: string;
-  age: number;
-  gender: string;
-  lastAppointment: string;
-  location: string;
-  avatar: string;
-}
-
 interface Props {
-  patients: Patient[];
+  patients: ApiPatient[];
 }
 
 export function PatientGrid({ patients }: Props) {

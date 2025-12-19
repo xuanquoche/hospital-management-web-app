@@ -1,13 +1,18 @@
-'use client';
-
-import { useState } from 'react';
-
 import { PatientGrid } from '@/components/modules/admin/patients/patient-grid';
 import { PatientHeader } from '@/components/modules/admin/patients/patient-header';
-import { mockPatients } from '@/const/mock-data';
+import { serverFetcher } from '@/lib/fetcher';
+import { ApiPatient, PatientListResponse } from '@/types/patient-api';
 
-export default function PatientListPage() {
-  const [patients] = useState(mockPatients);
+export default async function PatientListPage() {
+  let patients: ApiPatient[] = [];
+  try {
+    const response = await serverFetcher.get<PatientListResponse>('/admin/patients');
+    if (response?.data) {
+      patients = response.data;
+    }
+  } catch (error) {
+    console.error('Failed to fetch patients:', error);
+  }
 
   return (
     <div className='p-6 space-y-6'>
