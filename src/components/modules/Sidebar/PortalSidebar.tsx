@@ -1,38 +1,45 @@
 'use client';
 
-import {
-  Stethoscope,
-  Users,
-  Calendar,
-  CreditCard,
-  Pill,
-  Server,
-  Activity,
-  House,
-  UserRoundPen,
-} from 'lucide-react';
-import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { Role } from '@/const/enum';
-import { PRIVATE_ROUTES } from '@/const/routes';
+import { ADMIN_MENU, PATIENT_MENU } from '@/const/side-bar-menu';
 
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 
 const PortalSidebar = () => {
-  const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  console.log(session);
+  // 3. Logic check Active linh hoạt hơn (không hardcode /en)
+  // Logic này kiểm tra xem pathname hiện tại có chứa route đích hay không
+  const checkActive = (href: string) => {
+    // Xử lý trường hợp có locale prefix (vd: /en/admin/doctors vs /admin/doctors)
+    return pathname === href || pathname.endsWith(href);
+  };
 
-  function navigateLink(link: string) {
-    router.push(link);
+  const menuItems = useMemo(() => {
+    if (session?.user?.role === Role.ADMIN) return ADMIN_MENU;
+    if (session?.user?.role === Role.PATIENT) return PATIENT_MENU;
+    return [];
+  }, [session?.user?.role]);
+
+  if (status === 'loading') {
+    return (
+      <div className='sticky top-0 flex h-screen w-[20%] flex-col border-r bg-[#F0FDF9] p-6'>
+        <div className='h-8 w-32 animate-pulse rounded bg-teal-100/50 mb-8'></div>
+        <div className='space-y-4'>
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className='h-10 w-full animate-pulse rounded bg-slate-100'></div>
+          ))}
+        </div>
+      </div>
+    );
   }
-
-  const isActive = (path: string) => pathname.startsWith(`/en${path}`);
 
   return (
     <div className='sticky top-0 flex h-screen w-[20%] flex-col border-r bg-[#F0FDF9]'>
@@ -40,73 +47,16 @@ const PortalSidebar = () => {
         <h1 className='text-xl font-bold text-teal-800'>MediFlow Admin</h1>
       </div>
 
-      <div className='px-4 py-2'>
-        <h2 className='mb-2 px-2 text-xs font-semibold tracking-wider text-slate-400 uppercase'>
-          Management
-        </h2>
-        {session?.user?.role === Role.ADMIN ? (
-          <div className='space-y-1'>
-            <PortalSidebarItem
-              icon={Stethoscope}
-              label='Doctors'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_DOCTOR)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DOCTOR)}
-            />
-            <PortalSidebarItem
-              icon={Users}
-              label='Patients'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_PATIENT)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_PATIENT)}
-            />
-            <PortalSidebarItem
-              icon={Calendar}
-              label='Appointments'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_APPOINTMENTS)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_APPOINTMENTS)}
-            />
-            <PortalSidebarItem
-              icon={CreditCard}
-              label='Transactions'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_TRANSACTIONS)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_TRANSACTIONS)}
-            />
-            <PortalSidebarItem
-              icon={Pill}
-              label='Medicines'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_MEDICINES)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_MEDICINES)}
-            />
-            <PortalSidebarItem
-              icon={Server}
-              label='Departments'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_DEPARTMENTS)}
-            />
-            <PortalSidebarItem
-              icon={Activity}
-              label='Specialties'
-              isActive={isActive(PRIVATE_ROUTES.ADMIN_SPECIALTIES)}
-              onClick={() => navigateLink(PRIVATE_ROUTES.ADMIN_SPECIALTIES)}
-            />
-          </div>
-        ) : (
-          session?.user?.role === Role.PATIENT && (
-            <div className='space-y-1'>
-              <PortalSidebarItem
-                icon={House}
-                label='Dashboard'
-                isActive={isActive(PRIVATE_ROUTES.PATIENT_DASHBOARD)}
-                onClick={() => navigateLink(PRIVATE_ROUTES.PATIENT_DASHBOARD)}
-              />
-              <PortalSidebarItem
-                icon={UserRoundPen}
-                label='Profile'
-                isActive={isActive(PRIVATE_ROUTES.PATIENT_PROFILE)}
-                onClick={() => navigateLink(PRIVATE_ROUTES.PATIENT_PROFILE)}
-              />
-            </div>
-          )
-        )}
+      <div className='flex-1 px-4 py-2'>
+        <h2 className='mb-2 px-2 text-xs font-semibold tracking-wider text-slate-400 uppercase'>Management</h2>
+
+        <div className='space-y-1'>
+          {menuItems.map((item) => (
+            <Link key={item.href} href={item.href} className='block'>
+              <PortalSidebarItem icon={item.icon} label={item.label} isActive={checkActive(item.href)} />
+            </Link>
+          ))}
+        </div>
       </div>
 
       <PortalSidebarStats />

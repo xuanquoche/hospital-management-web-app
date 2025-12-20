@@ -8,22 +8,10 @@ import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 
 interface Department {
@@ -52,12 +40,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const CreateDepartmentModal = ({
-  isOpen,
-  onClose,
-  initialData,
-  onSuccess,
-}: CreateDepartmentModalProps) => {
+const CreateDepartmentModal = ({ isOpen, onClose, initialData, onSuccess }: CreateDepartmentModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -98,11 +81,11 @@ const CreateDepartmentModal = ({
     try {
       if (initialData) {
         // Update existing department
-        await clientFetcher.patch(`/departments/${initialData.id}`, data);
+        await clientFetcher.patch(`/admin/departments/${initialData.id}`, data);
         toast.success('Department updated successfully');
       } else {
         // Create new department
-        await clientFetcher.post('/departments', data);
+        await clientFetcher.post('/admin/departments', data);
         toast.success('Department created successfully');
       }
 
@@ -154,9 +137,7 @@ const CreateDepartmentModal = ({
                 </div>
                 <div>
                   <DialogTitle className='text-lg font-semibold text-slate-900'>
-                    {initialData
-                      ? 'Edit department (Khoa)'
-                      : 'Create department (Khoa)'}
+                    {initialData ? 'Edit department (Khoa)' : 'Create department (Khoa)'}
                   </DialogTitle>
                   <p className='text-sm text-slate-500'>
                     {initialData
@@ -172,9 +153,7 @@ const CreateDepartmentModal = ({
             {/* Department Details Section */}
             <div className='rounded-md bg-teal-50/50 p-3'>
               <div className='flex justify-between items-center mb-2'>
-                <h3 className='text-sm font-semibold text-teal-800'>
-                  Department details
-                </h3>
+                <h3 className='text-sm font-semibold text-teal-800'>Department details</h3>
                 <span className='text-xs text-slate-500'>Required fields</span>
               </div>
 
@@ -190,19 +169,10 @@ const CreateDepartmentModal = ({
                     name='name'
                     control={control}
                     render={({ field }) => (
-                      <Input
-                        {...field}
-                        id='name'
-                        placeholder='e.g. Cardiology'
-                        className='bg-white'
-                      />
+                      <Input {...field} id='name' placeholder='e.g. Cardiology' className='bg-white' />
                     )}
                   />
-                  {errors.name && (
-                    <p className='text-xs text-red-500'>
-                      {errors.name.message}
-                    </p>
-                  )}
+                  {errors.name && <p className='text-xs text-red-500'>{errors.name.message}</p>}
                 </div>
 
                 <div className='grid gap-1.5'>
@@ -217,23 +187,14 @@ const CreateDepartmentModal = ({
                       name='code'
                       control={control}
                       render={({ field }) => (
-                        <Input
-                          {...field}
-                          id='code'
-                          placeholder='e.g. CD-01'
-                          className='bg-white pr-24'
-                        />
+                        <Input {...field} id='code' placeholder='e.g. CD-01' className='bg-white pr-24' />
                       )}
                     />
                     <span className='absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400'>
                       Auto-check unique
                     </span>
                   </div>
-                  {errors.code && (
-                    <p className='text-xs text-red-500'>
-                      {errors.code.message}
-                    </p>
-                  )}
+                  {errors.code && <p className='text-xs text-red-500'>{errors.code.message}</p>}
                 </div>
 
                 <div className='grid gap-1.5'>
@@ -273,20 +234,13 @@ const CreateDepartmentModal = ({
                     name='headId'
                     control={control}
                     render={({ field }) => (
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <SelectTrigger className='bg-white'>
                           <SelectValue placeholder='Search or select doctor' />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value='string'>
-                            Dr. Sarah Thompson
-                          </SelectItem>
-                          <SelectItem value='dr-james'>
-                            Dr. James Lee
-                          </SelectItem>
+                          <SelectItem value='string'>Dr. Sarah Thompson</SelectItem>
+                          <SelectItem value='dr-james'>Dr. James Lee</SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -302,17 +256,13 @@ const CreateDepartmentModal = ({
                     control={control}
                     render={({ field }) => (
                       <Select
-                        onValueChange={(val) =>
-                          field.onChange(val === 'active')
-                        }
+                        onValueChange={(val) => field.onChange(val === 'active')}
                         defaultValue={field.value ? 'active' : 'inactive'}
                         value={field.value ? 'active' : 'inactive'}
                       >
                         <SelectTrigger className='bg-white'>
                           <div className='flex items-center gap-2'>
-                            <div
-                              className={`h-2 w-2 rounded-full ${field.value ? 'bg-green-500' : 'bg-slate-300'}`}
-                            />
+                            <div className={`h-2 w-2 rounded-full ${field.value ? 'bg-green-500' : 'bg-slate-300'}`} />
                             <SelectValue placeholder='Select status' />
                           </div>
                         </SelectTrigger>
@@ -342,9 +292,7 @@ const CreateDepartmentModal = ({
               <div className='grid gap-1.5'>
                 <div className='flex justify-between'>
                   <Label className='text-teal-800 font-semibold'>Doctor</Label>
-                  <span className='text-xs text-slate-400'>
-                    Bác sĩ trong khoa
-                  </span>
+                  <span className='text-xs text-slate-400'>Bác sĩ trong khoa</span>
                 </div>
                 <Button
                   type='button'
@@ -360,18 +308,13 @@ const CreateDepartmentModal = ({
 
           <div className='px-6 pb-6'>
             <p className='text-xs text-slate-500 mb-4'>
-              You can edit doctors and routing rules later from the department
-              details view.
+              You can edit doctors and routing rules later from the department details view.
             </p>
             <DialogFooter>
               <Button type='button' variant='ghost' onClick={handleClose}>
                 Cancel
               </Button>
-              <Button
-                type='submit'
-                className='bg-teal-600 hover:bg-teal-700 text-white gap-2'
-                disabled={isLoading}
-              >
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700 text-white gap-2' disabled={isLoading}>
                 {isLoading ? (
                   'Saving...'
                 ) : (

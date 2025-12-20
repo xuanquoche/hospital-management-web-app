@@ -1,50 +1,39 @@
 import { ChevronLeft, ChevronRight, Download, Columns } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { ApiAppointment } from '@/types/appointment-api';
 
-export interface Appointment {
-  id: string;
-  date: string;
-  time: string;
-  duration: string;
-  location: string;
-  type: 'In-person' | 'Telehealth';
-  patient: {
-    name: string;
-    phone: string;
-    avatarUrl?: string;
-  };
-  doctor: {
-    name: string;
-    specialty: string;
-    avatarUrl?: string;
-  };
-  status: 'Confirmed' | 'Pending' | 'Completed' | 'Cancelled';
-  createdFrom: 'Desk' | 'Web';
-}
+import { CancelAppointmentModal } from './CancelAppointmentModal';
 
 interface AppointmentTableProps {
-  appointments: Appointment[];
+  appointments: ApiAppointment[];
 }
 
 export function AppointmentTable({ appointments }: AppointmentTableProps) {
+  const router = useRouter();
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCancelClick = (id: string) => {
+    setSelectedAppointmentId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleSuccess = () => {
+    router.refresh();
+  };
+
   return (
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
-        <div className='text-sm text-muted-foreground'>
-          Appointment List • Showing 1–6 of 128
-        </div>
+        <div className='text-sm text-muted-foreground'>Appointment List • Showing {appointments.length} results</div>
         <div className='flex items-center gap-2'>
           <Button variant='ghost' size='sm' className='text-muted-foreground'>
             <Columns className='mr-2 size-4' />
@@ -75,54 +64,36 @@ export function AppointmentTable({ appointments }: AppointmentTableProps) {
                 <TableCell>
                   <div className='flex flex-col'>
                     <span className='font-medium'>
-                      {appointment.date} · {appointment.time}
+                      {appointment.appointmentDate} · {appointment.timeSlot.startTime}
                     </span>
                     <span className='text-muted-foreground text-xs'>
-                      {appointment.type === 'In-person'
-                        ? `${appointment.duration} · ${appointment.location}`
-                        : appointment.type}
+                      {appointment.examinationType === 'IN_PERSON'
+                        ? `In-person · ${appointment.timeSlot.endTime}`
+                        : appointment.examinationType}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className='flex items-center gap-3'>
                     <Avatar className='size-9'>
-                      <AvatarImage
-                        src={appointment.patient.avatarUrl}
-                        alt={appointment.patient.name}
-                      />
-                      <AvatarFallback>
-                        {appointment.patient.name.charAt(0)}
-                      </AvatarFallback>
+                      <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
+                      <AvatarFallback>{appointment.patient.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className='flex flex-col'>
-                      <span className='font-medium'>
-                        {appointment.patient.name}
-                      </span>
-                      <span className='text-muted-foreground text-xs'>
-                        {appointment.patient.phone}
-                      </span>
+                      <span className='font-medium'>{appointment.patient.name}</span>
+                      <span className='text-muted-foreground text-xs'>{appointment.patient.phone}</span>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className='flex items-center gap-3'>
                     <Avatar className='size-9'>
-                      <AvatarImage
-                        src={appointment.doctor.avatarUrl}
-                        alt={appointment.doctor.name}
-                      />
-                      <AvatarFallback>
-                        {appointment.doctor.name.charAt(0)}
-                      </AvatarFallback>
+                      <AvatarImage src={appointment.doctor.avatar} alt={appointment.doctor.name} />
+                      <AvatarFallback>{appointment.doctor.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className='flex flex-col'>
-                      <span className='font-medium'>
-                        {appointment.doctor.name}
-                      </span>
-                      <span className='text-muted-foreground text-xs'>
-                        {appointment.doctor.specialty}
-                      </span>
+                      <span className='font-medium'>{appointment.doctor.name}</span>
+                      <span className='text-muted-foreground text-xs'>{appointment.doctor.specialty.name}</span>
                     </div>
                   </div>
                 </TableCell>
@@ -131,29 +102,29 @@ export function AppointmentTable({ appointments }: AppointmentTableProps) {
                     variant='secondary'
                     className={cn(
                       'rounded-full font-normal',
-                      appointment.status === 'Confirmed' &&
-                        'bg-emerald-600 text-white hover:bg-emerald-700',
-                      appointment.status === 'Pending' &&
-                        'bg-amber-500 text-white hover:bg-amber-600',
-                      appointment.status === 'Completed' &&
-                        'bg-slate-100 text-slate-500 hover:bg-slate-200',
-                      appointment.status === 'Cancelled' &&
-                        'bg-red-500 text-white hover:bg-red-600'
+                      appointment.status === 'CONFIRMED' && 'bg-emerald-600 text-white hover:bg-emerald-700',
+                      appointment.status === 'PENDING' && 'bg-amber-500 text-white hover:bg-amber-600',
+                      appointment.status === 'COMPLETED' && 'bg-slate-100 text-slate-500 hover:bg-slate-200',
+                      appointment.status === 'CANCELLED' && 'bg-red-500 text-white hover:bg-red-600'
                     )}
                   >
                     {appointment.status}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>{appointment.createdFrom}</span>
+                  <span className='text-sm'>Web</span>
                 </TableCell>
                 <TableCell className='text-right'>
                   <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
-                    <button className='hover:underline'>View</button>
+                    <Link href={`/admin-appointments/${appointment.id}`} className='hover:underline'>
+                      View
+                    </Link>
                     <span className='text-muted-foreground'>•</span>
                     <button className='hover:underline'>Reschedule</button>
                     <span className='text-muted-foreground'>•</span>
-                    <button className='hover:underline'>Cancel</button>
+                    <button className='hover:underline' onClick={() => handleCancelClick(appointment.id)}>
+                      Cancel
+                    </button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -163,19 +134,26 @@ export function AppointmentTable({ appointments }: AppointmentTableProps) {
       </div>
 
       <div className='flex items-center justify-between px-2'>
-        <div className='text-muted-foreground text-sm'>
-          Showing 1–6 of 128 appointments
-        </div>
+        <div className='text-muted-foreground text-sm'>Showing {appointments.length} appointments</div>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='icon-sm' disabled>
             <ChevronLeft className='size-4' />
           </Button>
-          <div className='text-sm font-medium'>Page 1 of 22</div>
-          <Button variant='outline' size='icon-sm'>
+          <div className='text-sm font-medium'>Page 1 of 1</div>
+          <Button variant='outline' size='icon-sm' disabled>
             <ChevronRight className='size-4' />
           </Button>
         </div>
       </div>
+
+      {selectedAppointmentId && (
+        <CancelAppointmentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          appointmentId={selectedAppointmentId}
+          onSuccess={handleSuccess}
+        />
+      )}
     </div>
   );
 }

@@ -14,14 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { clientFetcher } from '@/lib/fetcher';
 
 import CreateDepartmentModal from './CreateDepartmentModal';
@@ -82,16 +75,13 @@ const DepartmentList = () => {
 
   // Edit modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] =
-    useState<Department | null>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
 
   const fetchDepartments = async (page: number) => {
     try {
       setIsLoading(true);
 
-      const res = await clientFetcher.get(
-        `/admin/departments?page=${page}&limit=${ITEMS_PER_PAGE}`
-      );
+      const res = await clientFetcher.get(`/admin/departments?page=${page}&limit=${ITEMS_PER_PAGE}`);
 
       const responseData = res as DepartmentResponse;
 
@@ -126,7 +116,7 @@ const DepartmentList = () => {
     try {
       setIsLoading(true);
 
-      const res = await clientFetcher.delete(`/departments/${departmentId}`);
+      const res = await clientFetcher.delete(`/admin/departments/${departmentId}`);
 
       const responseData = res as DepartmentResponse;
 
@@ -155,25 +145,15 @@ const DepartmentList = () => {
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
         <div className='text-sm text-slate-500'>
-          Department List • Showing{' '}
-          {departments.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
-          {Math.min(meta.page * meta.limit, meta.totalItems)} of{' '}
-          {meta.totalItems}
+          Department List • Showing {departments.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
+          {Math.min(meta.page * meta.limit, meta.totalItems)} of {meta.totalItems}
         </div>
         <div className='flex items-center gap-2'>
-          <Button
-            variant='outline'
-            size='sm'
-            className='h-8 gap-2 text-slate-600'
-          >
+          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
             <Columns className='h-4 w-4' />
             Columns
           </Button>
-          <Button
-            variant='outline'
-            size='sm'
-            className='h-8 gap-2 text-slate-600'
-          >
+          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
             <Download className='h-4 w-4' />
             Export
           </Button>
@@ -184,24 +164,12 @@ const DepartmentList = () => {
         <Table>
           <TableHeader className='bg-teal-50/50'>
             <TableRow>
-              <TableHead className='font-semibold text-teal-900'>
-                Department
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Code
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Head of Department
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Status
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Doctors
-              </TableHead>
-              <TableHead className='font-semibold text-teal-900'>
-                Actions
-              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>Department</TableHead>
+              <TableHead className='font-semibold text-teal-900'>Code</TableHead>
+              <TableHead className='font-semibold text-teal-900'>Head of Department</TableHead>
+              <TableHead className='font-semibold text-teal-900'>Status</TableHead>
+              <TableHead className='font-semibold text-teal-900'>Doctors</TableHead>
+              <TableHead className='font-semibold text-teal-900'>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -210,9 +178,7 @@ const DepartmentList = () => {
                 <TableCell colSpan={6} className='h-24 text-center'>
                   <div className='flex justify-center items-center gap-2'>
                     <Loader2 className='h-6 w-6 animate-spin text-teal-600' />
-                    <span className='text-slate-500'>
-                      Loading departments...
-                    </span>
+                    <span className='text-slate-500'>Loading departments...</span>
                   </div>
                 </TableCell>
               </TableRow>
@@ -225,13 +191,9 @@ const DepartmentList = () => {
             ) : (
               departments.map((dept) => (
                 <TableRow key={dept.id}>
-                  <TableCell className='font-medium text-slate-900'>
-                    {dept.name}
-                  </TableCell>
+                  <TableCell className='font-medium text-slate-900'>{dept.name}</TableCell>
                   <TableCell className='text-slate-600'>{dept.code}</TableCell>
-                  <TableCell className='text-slate-600'>
-                    {dept.head?.user?.fullName || '—'}
-                  </TableCell>
+                  <TableCell className='text-slate-600'>{dept.head?.user?.fullName || '—'}</TableCell>
                   <TableCell>
                     <Badge
                       variant='secondary'
@@ -250,9 +212,7 @@ const DepartmentList = () => {
                   <TableCell className='text-slate-600'>—</TableCell>
                   <TableCell>
                     <div className='flex items-center gap-2 text-xs font-medium'>
-                      <Button className='text-teal-600 hover:underline hover:text-white bg-transparent'>
-                        View
-                      </Button>
+                      <Button className='text-teal-600 hover:underline hover:text-white bg-transparent'>View</Button>
                       <span className='text-slate-300'>•</span>
                       <Button
                         className='text-teal-600 hover:underline hover:text-white bg-transparent'
@@ -284,36 +244,26 @@ const DepartmentList = () => {
               <PaginationItem>
                 <PaginationPrevious
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className={
-                    !meta.hasPreviousPage
-                      ? 'pointer-events-none opacity-50'
-                      : 'cursor-pointer'
-                  }
+                  className={!meta.hasPreviousPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                 />
               </PaginationItem>
 
-              {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      isActive={page === currentPage}
-                      onClick={() => handlePageChange(page)}
-                      className='cursor-pointer'
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                )
-              )}
+              {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    isActive={page === currentPage}
+                    onClick={() => handlePageChange(page)}
+                    className='cursor-pointer'
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
 
               <PaginationItem>
                 <PaginationNext
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className={
-                    !meta.hasNextPage
-                      ? 'pointer-events-none opacity-50'
-                      : 'cursor-pointer'
-                  }
+                  className={!meta.hasNextPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                 />
               </PaginationItem>
             </PaginationContent>

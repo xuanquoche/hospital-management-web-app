@@ -1,16 +1,15 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
+const baseURL = process.env.INTERNAL_BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+
 async function refreshAccessToken(token: any) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/auth/refresh-token`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refreshToken: token.refreshToken }),
-      }
-    );
+    const res = await fetch(`${baseURL}/auth/refresh-token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken: token.refreshToken }),
+    });
 
     const refreshedTokens = await res.json();
 
@@ -40,17 +39,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/auth/login`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          }
-        );
+        const res = await fetch(`${baseURL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+          }),
+        });
 
         if (!res.ok) return null;
 
@@ -109,5 +105,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
 });
