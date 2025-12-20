@@ -48,6 +48,11 @@ export const ADMIN_MENU: MenuItem[] = [
 export const PATIENT_MENU: MenuItem[] = [
   { icon: House, label: 'Dashboard', href: PRIVATE_ROUTES.PATIENT_DASHBOARD },
   {
+    icon: Calendar,
+    label: 'Booking',
+    href: PRIVATE_ROUTES.PATIENT_BOOKING,
+  },
+  {
     icon: UserRoundPen,
     label: 'Profile',
     href: PRIVATE_ROUTES.PATIENT_PROFILE,

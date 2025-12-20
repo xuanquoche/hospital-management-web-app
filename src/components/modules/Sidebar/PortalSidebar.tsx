@@ -18,8 +18,9 @@ const PortalSidebar = () => {
   // 3. Logic check Active linh hoạt hơn (không hardcode /en)
   // Logic này kiểm tra xem pathname hiện tại có chứa route đích hay không
   const checkActive = (href: string) => {
-    // Xử lý trường hợp có locale prefix (vd: /en/admin/doctors vs /admin/doctors)
-    return pathname === href || pathname.endsWith(href);
+    // Remove locale prefix (e.g., /en, /vi) from pathname to compare with href
+    const normalizedPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+    return normalizedPathname === href || normalizedPathname.startsWith(`${href}/`);
   };
 
   const menuItems = useMemo(() => {

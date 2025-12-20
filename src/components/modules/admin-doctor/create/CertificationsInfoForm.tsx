@@ -5,26 +5,15 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { DoctorFormData } from './CreateDoctorMain';
 
 const certificationSchema = z.object({
-  certificateName: z
-    .string()
-    .min(1, { message: 'Certificate name is required' }),
-  issuingAuthority: z
-    .string()
-    .min(1, { message: 'Issuing authority is required' }),
+  certificateName: z.string().min(1, { message: 'Certificate name is required' }),
+  issuingAuthority: z.string().min(1, { message: 'Issuing authority is required' }),
   licenseNumber: z.string().min(1, { message: 'License number is required' }),
   issueDate: z.string().min(1, { message: 'Issue date is required' }),
   expiryDate: z.string().optional(),
@@ -41,7 +30,7 @@ const formSchema = z.object({
 interface CertificationsInfoFormProps {
   initialData: DoctorFormData;
   onUpdate: (data: Partial<DoctorFormData>) => void;
-  onComplete: () => void;
+  onComplete: (data?: Partial<DoctorFormData>) => void;
   isLoading?: boolean;
 }
 
@@ -100,26 +89,26 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const updatedCertifications = values.certifications.map((c) => ({
+      ...c,
+      expiryDate: c.expiryDate || '',
+      documentUrl: c.documentUrl || '',
+    }));
+
     onUpdate({
-      certifications: values.certifications.map((c) => ({
-        ...c,
-        expiryDate: c.expiryDate || '',
-        documentUrl: c.documentUrl || '',
-      })),
+      certifications: updatedCertifications,
     });
-    onComplete();
+    onComplete({
+      certifications: updatedCertifications,
+    });
   }
 
   return (
     <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className='text-lg font-semibold text-slate-900'>
-            Practice certifications
-          </h2>
-          <p className='text-sm text-slate-500'>
-            Upload professional certifications and practice licenses.
-          </p>
+          <h2 className='text-lg font-semibold text-slate-900'>Practice certifications</h2>
+          <p className='text-sm text-slate-500'>Upload professional certifications and practice licenses.</p>
         </div>
         <span className='text-xs font-medium text-slate-400'>Required</span>
       </div>
@@ -128,10 +117,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div
-                key={field.id}
-                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4'
-              >
+              <div key={field.id} className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4'>
                 <div className='grid grid-cols-3 gap-4'>
                   <FormField
                     control={form.control}
@@ -140,10 +126,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Certificate / License name</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder='e.g. Medical Practice License'
-                            {...field}
-                          />
+                          <Input placeholder='e.g. Medical Practice License' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -156,10 +139,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>Issuing authority</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder='e.g. Vietnam Ministry of Health'
-                            {...field}
-                          />
+                          <Input placeholder='e.g. Vietnam Ministry of Health' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -211,15 +191,9 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
 
                 <div className='border-2 border-dashed border-slate-200 rounded-lg p-6 text-center hover:border-teal-300 transition-colors'>
                   <Upload className='mx-auto h-8 w-8 text-slate-400 mb-2' />
-                  <p className='text-sm font-medium text-slate-600 mb-1'>
-                    Click to upload or drag & drop
-                  </p>
+                  <p className='text-sm font-medium text-slate-600 mb-1'>Click to upload or drag & drop</p>
                   <p className='text-xs text-slate-400'>PDF, PNG, JPG</p>
-                  <input
-                    type='file'
-                    className='hidden'
-                    accept='.pdf,.png,.jpg,.jpeg'
-                  />
+                  <input type='file' className='hidden' accept='.pdf,.png,.jpg,.jpeg' />
                 </div>
 
                 {fields.length > 1 && (
@@ -292,11 +266,7 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
               >
                 Save as draft
               </Button>
-              <Button
-                type='submit'
-                className='bg-teal-600 hover:bg-teal-700'
-                disabled={isLoading}
-              >
+              <Button type='submit' className='bg-teal-600 hover:bg-teal-700' disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className='mr-2 h-4 w-4 animate-spin' />
