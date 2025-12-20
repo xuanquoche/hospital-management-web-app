@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ import { z } from 'zod';
 import Button from '@/components/common/button';
 import CustomInput from '@/components/common/input';
 import { Form } from '@/components/ui/form';
-import { ROUTES } from '@/const';
+import { ROUTES, Role } from '@/const';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +43,8 @@ export default function LoginForm() {
     },
   });
 
+  // Trong LoginForm.tsx
+
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
@@ -52,13 +54,17 @@ export default function LoginForm() {
       password: values.password,
     });
 
-    if (res?.status === 401) {
+    if (res?.error) {
       toast.error('Invalid email or password');
       setIsLoading(false);
     } else {
-      setIsLoading(false);
-      console.log(res);
-      router.push(ROUTES.DASHBOARD);
+      // TỐI ƯU: Không cần fetch session nữa.
+      // Cách 1: Refresh router để middleware chạy lại và tự điều hướng
+      router.refresh();
+      // Cách 2: Đẩy về root, middleware sẽ bắt và redirect về dashboard đúng role
+      router.push('/');
+
+      // Lưu ý: Không cần setIsLoading(false) ở đây vì trang sẽ chuyển đi ngay
     }
   };
 
@@ -66,12 +72,7 @@ export default function LoginForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-6'>
         <div className='space-y-2'>
-          <CustomInput
-            label={'Email'}
-            name='email'
-            control={form.control}
-            placeholder={'Enter your email address'}
-          />
+          <CustomInput label={'Email'} name='email' control={form.control} placeholder={'Enter your email address'} />
         </div>
 
         <div className='space-y-2'>

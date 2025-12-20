@@ -22,8 +22,6 @@ export const PRIVATE_ROUTES = {
   DEPARTMENT: '/department',
   CREATE_DOCTOR: '/doctor/create',
   CREATE_PATIENT: '/patient/create',
-  DOCTOR_DASHBOARD: '/doctor/dashboard',
-  DOCTOR_PROFILE: '/doctor/profile',
   ADMIN_DOCTOR_CREATE: '/admin-doctor/create',
   ADMIN_DOCTOR: '/admin-doctor',
   ADMIN_PATIENT: '/admin-patient',
@@ -39,6 +37,11 @@ export const PRIVATE_ROUTES = {
   PATIENT_DASHBOARD: '/patient/dashboard',
   PATIENT_PROFILE: '/patient/profile',
   PATIENT_BOOKING: '/patient/booking',
+  // doctor
+  DOCTOR_DASHBOARD: '/doctor/dashboard',
+  DOCTOR_PROFILE: '/doctor/profile',
+  // DOCTOR_APPOINTMENTS: '/doctor/appointments',
+  DOCTOR_PATIENTS: '/doctor/my-patient',
 };
 export const ADMIN_ROUTES = {
   DASHBOARD: ROUTES.ADMIN_DASHBOARD,
@@ -73,6 +76,18 @@ export const LOCALIZED_ROUTES = {
   LOGIN: () => '/sign-in',
   REGISTER: () => '/sign-up',
   DASHBOARD: (locale: string = 'en') => `/${locale}/dashboard`,
+  DASHBOARD_BY_ROLE: (role: Role, locale: string = 'en') => {
+    switch (role) {
+      case Role.ADMIN:
+        return `/${locale}/admin/dashboard`;
+      case Role.DOCTOR:
+        return `/${locale}/doctor/dashboard`;
+      case Role.PATIENT:
+        return `/${locale}/patient/dashboard`;
+      default:
+        return `/${locale}/dashboard`;
+    }
+  },
 };
 
 export const ROLE_ALLOWED_ROUTES = {

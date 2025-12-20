@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import React, { useMemo } from 'react';
 
 import { Role } from '@/const/enum';
-import { ADMIN_MENU, PATIENT_MENU } from '@/const/side-bar-menu';
+import { ADMIN_MENU, PATIENT_MENU, DOCTOR_MENU } from '@/const/side-bar-menu';
 
 import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
@@ -26,6 +26,7 @@ const PortalSidebar = () => {
   const menuItems = useMemo(() => {
     if (session?.user?.role === Role.ADMIN) return ADMIN_MENU;
     if (session?.user?.role === Role.PATIENT) return PATIENT_MENU;
+    if (session?.user?.role === Role.DOCTOR) return DOCTOR_MENU;
     return [];
   }, [session?.user?.role]);
 

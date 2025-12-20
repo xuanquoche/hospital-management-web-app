@@ -58,3 +58,17 @@ export const PATIENT_MENU: MenuItem[] = [
     href: PRIVATE_ROUTES.PATIENT_PROFILE,
   },
 ];
+
+export const DOCTOR_MENU: MenuItem[] = [
+  { icon: House, label: 'Dashboard', href: PRIVATE_ROUTES.DOCTOR_DASHBOARD },
+  {
+    icon: Users,
+    label: 'My patients',
+    href: PRIVATE_ROUTES.DOCTOR_PATIENTS,
+  },
+  {
+    icon: UserRoundPen,
+    label: 'Profile',
+    href: PRIVATE_ROUTES.DOCTOR_PROFILE,
+  },
+];

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
-import '../../app/globals.css';
+import '../../globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,13 +26,9 @@ type Props = {
 export default async function AuthLayout({ children }: Props) {
   return (
     <html lang='en' dir='ltr'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ToastContainer />
-        <main className='flex min-h-screen items-center justify-center bg-gray-50'>
-          {children}
-        </main>
+        <main className='flex min-h-screen items-center justify-center bg-gray-50'>{children}</main>
       </body>
     </html>
   );
