@@ -1,13 +1,15 @@
 'use client';
 
+import { format } from 'date-fns';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
-import { mockPatientDetail } from '@/components/modules/doctor/patient-detail/data';
+import { PatientDetail } from '@/components/modules/doctor/patient-detail/data';
 import { OverviewTab } from '@/components/modules/doctor/patient-detail/OverviewTab';
 import { PatientDetailHeader } from '@/components/modules/doctor/patient-detail/PatientDetailHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { clientFetcher } from '@/lib/fetcher';
+import { MyPatientDetailResponse } from '@/types/my-patient';
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,27 +26,118 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function PatientDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function PatientDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params);
   const [activeTab, setActiveTab] = useState('overview');
+  const [patient, setPatient] = useState<PatientDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPatientDetail = async () => {
+      try {
+        const response = await clientFetcher.get<MyPatientDetailResponse>(`/doctors/my-patients/${id}`);
+        if (response?.data) {
+          const apiData = response.data;
+          const todayVisit = apiData.appointments[0]; // Assuming first is latest/today for now
+
+          const mappedPatient: PatientDetail = {
+            id: apiData.id,
+            name: apiData.user.fullName,
+            age: apiData.dateOfBirth ? new Date().getFullYear() - new Date(apiData.dateOfBirth).getFullYear() : 0,
+            gender: apiData.gender || 'N/A',
+            dob: apiData.dateOfBirth ? format(new Date(apiData.dateOfBirth), 'dd/MM/yyyy') : 'N/A',
+            address: apiData.user.address || 'N/A',
+            avatar: apiData.user.avatar || '',
+            tags: [
+              apiData.allergies ? `Dị ứng: ${apiData.allergies}` : 'Không dị ứng',
+              apiData.chronicDisease ? `Bệnh mãn tính: ${apiData.chronicDisease}` : 'Không bệnh mãn tính',
+            ],
+            currentPlan: todayVisit?.notes || 'Chưa có kế hoạch',
+            personalInfo: {
+              height: apiData.height ? `${apiData.height} cm` : 'N/A',
+              weight: apiData.weight ? `${apiData.weight} kg` : 'N/A',
+              bmi: 'N/A', // Calculate if needed
+              job: 'N/A',
+              lifestyle: 'N/A',
+              familyHistory: [],
+            },
+            todayVisit: {
+              id: todayVisit?.id,
+              time: todayVisit?.timeSlot?.startTime || 'N/A',
+              room: 'N/A',
+              reason: todayVisit?.symptoms || 'N/A',
+              diagnosis: todayVisit?.diagnosis || 'Chưa có chẩn đoán',
+              plan: 'N/A',
+              prescription: todayVisit?.prescription || 'Chưa có đơn thuốc',
+              notes: todayVisit?.notes ? [todayVisit.notes] : [],
+            },
+            vitals: {
+              bp: 'N/A',
+              heartRate: 0,
+              temp: 0,
+              spO2: 0,
+              respRate: 0,
+              weight: apiData.weight || 0,
+              weightChange: 'N/A',
+            },
+            timeline: apiData.appointments.map((apt) => ({
+              date: format(new Date(apt.appointmentDate), 'dd/MM/yyyy'),
+              time: apt.timeSlot.startTime,
+              title: apt.symptoms || 'Khám bệnh',
+              type: apt.examinationType,
+              doctor: 'BS. Trần Quốc Huy', // Hardcoded for now or fetch from somewhere
+              status: apt.status,
+            })),
+            allergies: apiData.allergies
+              ? [
+                  {
+                    name: apiData.allergies,
+                    reaction: 'N/A',
+                    severity: 'medium',
+                  },
+                ]
+              : [],
+            medications: [], // Map if available
+            documents: [], // Map if available
+            doctorNotes: [], // Map if available
+            contact: {
+              phone: apiData.user.phone,
+              email: apiData.user.email,
+              fullAddress: apiData.user.address || 'N/A',
+            },
+            nextAppointment: {
+              date: 'N/A',
+              type: 'N/A',
+            },
+          };
+          setPatient(mappedPatient);
+        }
+      } catch (error) {
+        console.error('Error fetching patient detail:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPatientDetail();
+  }, [id]);
+
+  if (loading) {
+    return <div className='min-h-screen p-6 text-center'>Loading...</div>;
+  }
+
+  if (!patient) {
+    return <div className='min-h-screen p-6 text-center'>Patient not found</div>;
+  }
 
   return (
     <div className='min-h-screen bg-slate-50/50 p-6'>
-      <DashboardHeader />
-
       <motion.div variants={container} initial='hidden' animate='show'>
         <motion.div variants={item}>
-          <PatientDetailHeader patient={mockPatientDetail} />
+          <PatientDetailHeader patient={patient} />
         </motion.div>
 
-        <Tabs
-          defaultValue='overview'
-          className='w-full'
-          onValueChange={setActiveTab}
-        >
+        <Tabs defaultValue='overview' className='w-full' onValueChange={setActiveTab}>
           <motion.div variants={item} className='mb-6'>
             <TabsList className='bg-transparent p-0 h-auto gap-6 border-b border-slate-200 w-full justify-start rounded-none'>
               <TabsTrigger
@@ -81,7 +174,7 @@ export default function PatientDetailPage({
           </motion.div>
 
           <TabsContent value='overview' className='mt-0'>
-            <OverviewTab patient={mockPatientDetail} />
+            <OverviewTab patient={patient} />
           </TabsContent>
 
           <TabsContent value='history'>

@@ -1,16 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
-import { mockPatients } from '@/components/modules/doctor/my-patient/data';
 import { PatientFilters } from '@/components/modules/doctor/my-patient/PatientFilters';
 import { PatientListHeader } from '@/components/modules/doctor/my-patient/PatientListHeader';
 import { PatientSummaryCard } from '@/components/modules/doctor/my-patient/PatientSummaryCard';
 import { PatientTable } from '@/components/modules/doctor/my-patient/PatientTable';
 import { PreExamNotesCard } from '@/components/modules/doctor/my-patient/PreExamNotesCard';
 import { QuickAccessCard } from '@/components/modules/doctor/my-patient/QuickAccessCard';
+import { clientFetcher } from '@/lib/fetcher';
+import { MyPatient, MyPatientResponse } from '@/types/my-patient';
 
 const container = {
   hidden: { opacity: 0 },
@@ -28,13 +29,31 @@ const item = {
 };
 
 export default function MyPatientsPage() {
+  const [patients, setPatients] = useState<MyPatient[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await clientFetcher.get<MyPatientResponse>('/doctors/my-patients');
+        if (response?.data) {
+          setPatients(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching patients:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
   return (
     <div className='min-h-screen bg-slate-50/50 p-6'>
       <div className='mb-6'>
         <h1 className='text-xl font-bold text-slate-500'>My Patients</h1>
       </div>
-
-      <DashboardHeader />
 
       <motion.div
         variants={container}
@@ -50,7 +69,11 @@ export default function MyPatientsPage() {
 
           <motion.div variants={item} className='space-y-0'>
             <PatientFilters />
-            <PatientTable patients={mockPatients} />
+            {loading ? (
+              <div className='p-8 text-center text-slate-500'>Loading patients...</div>
+            ) : (
+              <PatientTable patients={patients} />
+            )}
           </motion.div>
         </div>
 

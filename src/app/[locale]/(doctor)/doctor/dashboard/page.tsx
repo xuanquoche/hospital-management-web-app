@@ -4,10 +4,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
-import {
-  mockAppointments,
-  mockRecentPatients,
-} from '@/components/modules/doctor/dashboard/data';
+import { mockAppointments, mockRecentPatients } from '@/components/modules/doctor/dashboard/data';
 import { DoctorProfileCard } from '@/components/modules/doctor/dashboard/DoctorProfileCard';
 import { DocumentStatusCard } from '@/components/modules/doctor/dashboard/DocumentStatusCard';
 import { QuickActions } from '@/components/modules/doctor/dashboard/QuickActions';
@@ -38,8 +35,6 @@ export default function DoctorDashboardPage() {
       <div className='mb-6'>
         <h1 className='text-xl font-bold text-slate-500'>Doctor Dashboard</h1>
       </div>
-
-      <DashboardHeader />
 
       <motion.div
         variants={container}
