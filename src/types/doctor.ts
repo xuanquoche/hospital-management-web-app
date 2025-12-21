@@ -1,13 +1,6 @@
 export interface TimeSlot {
   id: string;
-  dayOfWeek:
-    | 'MONDAY'
-    | 'TUESDAY'
-    | 'WEDNESDAY'
-    | 'THURSDAY'
-    | 'FRIDAY'
-    | 'SATURDAY'
-    | 'SUNDAY';
+  dayOfWeek: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
   startTime: string;
   endTime: string;
   examinationType: 'IN_PERSON' | 'ONLINE';
@@ -93,4 +86,35 @@ export interface Doctor {
   headOfDepartment: null;
   schedules: Schedule[];
   timestamp?: string;
+}
+
+export interface DoctorListItem {
+  id: string;
+  userId: string;
+  primarySpecialtyId: string;
+  subSpecialty: string;
+  professionalTitle: string;
+  yearsOfExperience: number;
+  consultationFee: number;
+  bio: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  user: {
+    id: string;
+    email: string;
+    username: string;
+    phone: string;
+    fullName: string;
+    avatar: string;
+    address: string;
+    role: string;
+  };
+  primarySpecialty: {
+    id: string;
+    name: string;
+    description: string;
+    isActive: boolean;
+  };
 }
