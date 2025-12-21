@@ -1,7 +1,10 @@
+'use client';
+
 import { Columns, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -16,6 +19,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { clientFetcher } from '@/lib/fetcher';
 import { cn } from '@/lib/utils';
 import { ApiAppointment } from '@/types/appointment-api';
 
@@ -84,6 +88,19 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
       }
     }
     return pageNumbers;
+  };
+
+  const handleConfirmClick = async (id: string) => {
+    try {
+      const response = await clientFetcher.patch(`/admin/appointments/${id}/status`, { status: 'CONFIRMED' });
+      if (response?.data) {
+        handleSuccess();
+      }
+      toast.success('Appointment confirmed successfully');
+    } catch (error) {
+      console.error('Failed to confirm appointment:', error);
+      toast.error('Failed to confirm appointment');
+    }
   };
 
   return (
@@ -183,14 +200,24 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                   <TableCell className='text-right'>
                     <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
                       <Link href={`/admin-appointments/${appointment.id}`} className='hover:underline'>
-                        View
+                        <Button className='bg-transparent text-blue-600 hover:bg-blue-600 hover:text-white'>
+                          View
+                        </Button>
                       </Link>
                       <span className='text-muted-foreground'>•</span>
-                      <button className='hover:underline'>Reschedule</button>
+                      <Button
+                        className='cursor-pointer hover:underline bg-transparent text-emerald-600 hover:bg-emerald-600 hover:text-white'
+                        onClick={() => handleConfirmClick(appointment.id)}
+                      >
+                        Confirm
+                      </Button>
                       <span className='text-muted-foreground'>•</span>
-                      <button className='hover:underline' onClick={() => handleCancelClick(appointment.id)}>
+                      <Button
+                        className='cursor-pointer hover:underline bg-transparent text-red-600 hover:bg-red-600 hover:text-white'
+                        onClick={() => handleCancelClick(appointment.id)}
+                      >
                         Cancel
-                      </button>
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>

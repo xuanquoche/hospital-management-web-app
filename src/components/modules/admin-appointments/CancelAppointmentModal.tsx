@@ -50,7 +50,7 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
   const onSubmit = async (values: CancelFormValues) => {
     try {
       setIsLoading(true);
-      await clientFetcher.patch(`/appointments/${appointmentId}/cancel`, values);
+      await clientFetcher.patch(`/admin/appointments/${appointmentId}/cancel`, values);
       toast.success('Appointment cancelled successfully');
       onSuccess?.();
       onClose();
