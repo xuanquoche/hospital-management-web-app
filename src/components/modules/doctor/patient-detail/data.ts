@@ -72,6 +72,21 @@ export interface PatientDetail {
     date: string;
     type: string;
   };
+  appointments: {
+    id: string;
+    appointmentDate: string;
+    status: string;
+    examinationType: string;
+    symptoms: string | null;
+    diagnosis: string | null;
+    prescription: string | null;
+    notes: string | null;
+    completedAt: string | null;
+    timeSlot: {
+      startTime: string;
+      endTime: string;
+    };
+  }[];
 }
 
 export const mockPatientDetail: PatientDetail = {
@@ -182,4 +197,5 @@ export const mockPatientDetail: PatientDetail = {
     date: 'Sau 14 ngày',
     type: 'Buổi sáng',
   },
+  appointments: [],
 };

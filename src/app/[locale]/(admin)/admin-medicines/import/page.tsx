@@ -60,45 +60,42 @@ export default function ImportMedicinePage() {
       notes: '',
     },
   });
-
+  const { reset } = methods;
   useEffect(() => {
-    if (id) {
-      const fetchBatch = async () => {
-        try {
-          setLoading(true);
-          const response = await clientFetcher.get(
-            `/admin/medicine-batches/${id}`
-          );
-          if (response.success && response.data) {
-            const batch = response.data;
-            methods.reset({
-              categoryId: batch.medicine.categoryId,
-              medicineId: batch.medicineId,
-              batchNumber: batch.batchNumber,
-              quantity: batch.quantity,
-              unitPrice: batch.unitPrice,
-              sellingPrice: batch.sellingPrice,
-              manufactureDate: batch.manufactureDate,
-              expiryDate: batch.expiryDate,
-              manufacturer: batch.manufacturer,
-              supplier: batch.supplier,
-              status: batch.status,
-              notes: batch.notes || '',
-            });
-          } else {
-            toast.error('Không tìm thấy thông tin lô thuốc');
-            router.push(PRIVATE_ROUTES.ADMIN_MEDICINES);
-          }
-        } catch (error) {
-          console.error('Error fetching batch:', error);
-          toast.error('Có lỗi xảy ra khi tải thông tin lô thuốc');
-        } finally {
-          setLoading(false);
+    if (!id) return;
+    const fetchBatch = async () => {
+      try {
+        setLoading(true);
+        const response = await clientFetcher.get(`/admin/medicine-batches/${id}`);
+        if (response.success && response.data) {
+          const batch = response.data;
+          methods.reset({
+            categoryId: batch.medicine.categoryId,
+            medicineId: batch.medicineId,
+            batchNumber: batch.batchNumber,
+            quantity: batch.quantity,
+            unitPrice: batch.unitPrice,
+            sellingPrice: batch.sellingPrice,
+            manufactureDate: batch.manufactureDate,
+            expiryDate: batch.expiryDate,
+            manufacturer: batch.manufacturer,
+            supplier: batch.supplier,
+            status: batch.status,
+            notes: batch.notes || '',
+          });
+        } else {
+          toast.error('Không tìm thấy thông tin lô thuốc');
+          router.push(PRIVATE_ROUTES.ADMIN_MEDICINES);
         }
-      };
-      fetchBatch();
-    }
-  }, [id, methods, router]);
+      } catch (error) {
+        console.error('Error fetching batch:', error);
+        toast.error('Có lỗi xảy ra khi tải thông tin lô thuốc');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBatch();
+  }, [id, reset]);
 
   const onSubmit = async (data: CreateBatchFormValues) => {
     if (isViewMode) return;
@@ -108,20 +105,13 @@ export default function ImportMedicinePage() {
       let response;
       const { categoryId, medicineId, ...restData } = data;
       if (isEditMode && id) {
-        response = await clientFetcher.patch(
-          `/admin/medicine-batches/${id}`,
-          restData
-        );
+        response = await clientFetcher.patch(`/admin/medicine-batches/${id}`, restData);
       } else {
         response = await clientFetcher.post('/admin/medicine-batches', data);
       }
 
       if (response.success) {
-        toast.success(
-          isEditMode
-            ? 'Cập nhật lô thuốc thành công'
-            : 'Nhập lô thuốc thành công'
-        );
+        toast.success(isEditMode ? 'Cập nhật lô thuốc thành công' : 'Nhập lô thuốc thành công');
         router.push(PRIVATE_ROUTES.ADMIN_MEDICINES);
       } else {
         toast.error(response.message || 'Có lỗi xảy ra');
@@ -135,31 +125,20 @@ export default function ImportMedicinePage() {
   };
 
   if (loading) {
-    return (
-      <div className='flex h-full items-center justify-center'>Loading...</div>
-    );
+    return <div className='flex h-full items-center justify-center'>Loading...</div>;
   }
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className='flex h-[calc(100vh-100px)] flex-col gap-6'
-      >
+      <form onSubmit={methods.handleSubmit(onSubmit)} className='flex h-[calc(100vh-100px)] flex-col gap-6'>
         {/* Header */}
         <div className='flex items-center justify-between rounded-xl bg-white p-6 shadow-sm'>
           <div>
             <h1 className='text-xl font-bold text-slate-800'>
-              {isViewMode
-                ? 'Chi tiết lô thuốc'
-                : isEditMode
-                  ? 'Cập nhật lô thuốc'
-                  : 'Nhập lô thuốc mới'}
+              {isViewMode ? 'Chi tiết lô thuốc' : isEditMode ? 'Cập nhật lô thuốc' : 'Nhập lô thuốc mới'}
             </h1>
             <p className='text-sm text-muted-foreground'>
-              {isViewMode
-                ? 'Xem thông tin chi tiết lô thuốc'
-                : 'Quản lý thông tin lô thuốc, số lượng và giá cả.'}
+              {isViewMode ? 'Xem thông tin chi tiết lô thuốc' : 'Quản lý thông tin lô thuốc, số lượng và giá cả.'}
             </p>
           </div>
           <div className='flex items-center gap-3'>
@@ -182,16 +161,8 @@ export default function ImportMedicinePage() {
               </Button>
             )}
             {!isViewMode && (
-              <Button
-                type='submit'
-                className='bg-emerald-600 hover:bg-emerald-700'
-                disabled={isSubmitting}
-              >
-                {isSubmitting
-                  ? 'Đang xử lý...'
-                  : isEditMode
-                    ? 'Cập nhật'
-                    : 'Nhập lô thuốc'}
+              <Button type='submit' className='bg-emerald-600 hover:bg-emerald-700' disabled={isSubmitting}>
+                {isSubmitting ? 'Đang xử lý...' : isEditMode ? 'Cập nhật' : 'Nhập lô thuốc'}
               </Button>
             )}
           </div>

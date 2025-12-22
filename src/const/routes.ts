@@ -5,7 +5,7 @@ export const ROUTES = {
   REGISTER: '/sign-up',
   REFRESH: '/auth/refresh',
   DASHBOARD: '/dashboard',
-  ADMIN_DASHBOARD: '/admin/dashboard',
+  ADMIN_DASHBOARD: '/dashboard',
   DOCTOR_DASHBOARD: '/doctor/dashboard',
   PATIENT_DASHBOARD: '/patient/dashboard',
 };

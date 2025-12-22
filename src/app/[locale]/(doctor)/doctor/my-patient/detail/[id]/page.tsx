@@ -5,12 +5,14 @@ import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 import { PatientDetail } from '@/components/modules/doctor/patient-detail/data';
+import { HistoryTab } from '@/components/modules/doctor/patient-detail/HistoryTab';
 import { OverviewTab } from '@/components/modules/doctor/patient-detail/OverviewTab';
 import { PatientDetailHeader } from '@/components/modules/doctor/patient-detail/PatientDetailHeader';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { clientFetcher } from '@/lib/fetcher';
 import { MyPatientDetailResponse } from '@/types/my-patient';
 
+// Animation cho trang load lần đầu
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -26,19 +28,26 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
+// ADD: Animation riêng cho nội dung Tab khi chuyển đổi
+const tabContentVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2 } },
+};
+
 export default function PatientDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('overview'); // State này thực tế không cần thiết nếu dùng Tabs defaultValue, nhưng giữ lại nếu bạn muốn control
   const [patient, setPatient] = useState<PatientDetail | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // ... (Giữ nguyên phần useEffect fetch data của bạn) ...
   useEffect(() => {
     const fetchPatientDetail = async () => {
       try {
         const response = await clientFetcher.get<MyPatientDetailResponse>(`/doctors/my-patients/${id}`);
         if (response?.data) {
           const apiData = response.data;
-          const todayVisit = apiData.appointments[0]; // Assuming first is latest/today for now
+          const todayVisit = apiData.appointments[0];
 
           const mappedPatient: PatientDetail = {
             id: apiData.id,
@@ -56,7 +65,7 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
             personalInfo: {
               height: apiData.height ? `${apiData.height} cm` : 'N/A',
               weight: apiData.weight ? `${apiData.weight} kg` : 'N/A',
-              bmi: 'N/A', // Calculate if needed
+              bmi: 'N/A',
               job: 'N/A',
               lifestyle: 'N/A',
               familyHistory: [],
@@ -85,7 +94,7 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
               time: apt.timeSlot.startTime,
               title: apt.symptoms || 'Khám bệnh',
               type: apt.examinationType,
-              doctor: 'BS. Trần Quốc Huy', // Hardcoded for now or fetch from somewhere
+              doctor: 'BS. Trần Quốc Huy',
               status: apt.status,
             })),
             allergies: apiData.allergies
@@ -97,9 +106,9 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
                   },
                 ]
               : [],
-            medications: [], // Map if available
-            documents: [], // Map if available
-            doctorNotes: [], // Map if available
+            medications: [],
+            documents: [],
+            doctorNotes: [],
             contact: {
               phone: apiData.user.phone,
               email: apiData.user.email,
@@ -109,6 +118,21 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
               date: 'N/A',
               type: 'N/A',
             },
+            appointments: apiData.appointments.map((apt) => ({
+              id: apt.id,
+              appointmentDate: apt.appointmentDate,
+              status: apt.status,
+              examinationType: apt.examinationType,
+              symptoms: apt.symptoms,
+              diagnosis: apt.diagnosis,
+              prescription: apt.prescription,
+              notes: apt.notes,
+              completedAt: apt.completedAt,
+              timeSlot: {
+                startTime: apt.timeSlot.startTime,
+                endTime: apt.timeSlot.endTime,
+              },
+            })),
           };
           setPatient(mappedPatient);
         }
@@ -140,6 +164,7 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
         <Tabs defaultValue='overview' className='w-full' onValueChange={setActiveTab}>
           <motion.div variants={item} className='mb-6'>
             <TabsList className='bg-transparent p-0 h-auto gap-6 border-b border-slate-200 w-full justify-start rounded-none'>
+              {/* Giữ nguyên TabsTrigger của bạn */}
               <TabsTrigger
                 value='overview'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
@@ -174,31 +199,39 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
           </motion.div>
 
           <TabsContent value='overview' className='mt-0'>
-            <OverviewTab patient={patient} />
+            <motion.div variants={tabContentVariants} initial='hidden' animate='show'>
+              <OverviewTab patient={patient} />
+            </motion.div>
           </TabsContent>
 
           <TabsContent value='history'>
-            <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-              Nội dung tab Lịch sử khám đang được cập nhật...
-            </div>
+            <motion.div variants={tabContentVariants} initial='hidden' animate='show'>
+              <HistoryTab patientId={patient.id} appointments={patient.appointments} />
+            </motion.div>
           </TabsContent>
 
           <TabsContent value='medications'>
-            <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-              Nội dung tab Thuốc & dị ứng đang được cập nhật...
-            </div>
+            <motion.div variants={tabContentVariants} initial='hidden' animate='show'>
+              <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
+                Nội dung tab Thuốc & dị ứng đang được cập nhật...
+              </div>
+            </motion.div>
           </TabsContent>
 
           <TabsContent value='labs'>
-            <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-              Nội dung tab Xét nghiệm & tài liệu đang được cập nhật...
-            </div>
+            <motion.div variants={tabContentVariants} initial='hidden' animate='show'>
+              <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
+                Nội dung tab Xét nghiệm & tài liệu đang được cập nhật...
+              </div>
+            </motion.div>
           </TabsContent>
 
           <TabsContent value='notes'>
-            <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-              Nội dung tab Ghi chú của bác sĩ đang được cập nhật...
-            </div>
+            <motion.div variants={tabContentVariants} initial='hidden' animate='show'>
+              <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
+                Nội dung tab Ghi chú của bác sĩ đang được cập nhật...
+              </div>
+            </motion.div>
           </TabsContent>
         </Tabs>
       </motion.div>

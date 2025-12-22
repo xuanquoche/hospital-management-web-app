@@ -7,26 +7,10 @@ import { useFormContext } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { clientFetcher } from '@/lib/fetcher';
 import { cn } from '@/lib/utils';
@@ -77,16 +61,12 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
     setValue('medicineId', medicineId);
   };
 
-  const filteredMedicines = selectedCategoryId
-    ? medicines.filter((m) => m.categoryId === selectedCategoryId)
-    : [];
+  const filteredMedicines = selectedCategoryId ? medicines.filter((m) => m.categoryId === selectedCategoryId) : [];
 
   return (
     <div className='rounded-xl border bg-white p-6 shadow-sm'>
       <h3 className='mb-4 font-semibold'>Thông tin thuốc & lô</h3>
-      <p className='mb-6 text-xs text-muted-foreground'>
-        Chọn thuốc và khai báo thông tin lô nhập kho
-      </p>
+      <p className='mb-6 text-xs text-muted-foreground'>Chọn thuốc và khai báo thông tin lô nhập kho</p>
 
       <div className='grid gap-6'>
         {/* Row 1: Category, Medicine and Batch Number */}
@@ -100,11 +80,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                   <FormLabel>
                     Danh mục <span className='text-red-500'>*</span>
                   </FormLabel>
-                  <Select
-                    onValueChange={handleCategoryChange}
-                    value={field.value}
-                    disabled={readOnly}
-                  >
+                  <Select onValueChange={handleCategoryChange} value={field.value} disabled={readOnly}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder='Chọn danh mục' />
@@ -139,13 +115,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue
-                          placeholder={
-                            selectedCategoryId
-                              ? 'Chọn thuốc'
-                              : 'Vui lòng chọn danh mục trước'
-                          }
-                        />
+                        <SelectValue placeholder={selectedCategoryId ? 'Chọn thuốc' : 'Vui lòng chọn danh mục trước'} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -171,11 +141,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                     Mã lô <span className='text-red-500'>*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='VD: BATCH-2025-01'
-                      {...field}
-                      disabled={readOnly}
-                    />
+                    <Input placeholder='VD: BATCH-2025-01' {...field} disabled={readOnly} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -199,7 +165,10 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                     type='number'
                     placeholder='VD: 500'
                     {...field}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === '' ? 0 : Number(value));
+                    }}
                     disabled={readOnly}
                   />
                 </FormControl>
@@ -210,11 +179,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
           <FormItem>
             <FormLabel>Đơn vị</FormLabel>
             <FormControl>
-              <Input
-                placeholder='Viên, hộp, chai...'
-                disabled
-                value='(Theo thuốc)'
-              />
+              <Input placeholder='Viên, hộp, chai...' disabled value='(Theo thuốc)' />
             </FormControl>
           </FormItem>
           <FormField
@@ -276,17 +241,10 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                     <FormControl>
                       <Button
                         variant={'outline'}
-                        className={cn(
-                          'w-full pl-3 text-left font-normal',
-                          !field.value && 'text-muted-foreground'
-                        )}
+                        className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
                         disabled={readOnly}
                       >
-                        {field.value ? (
-                          format(new Date(field.value), 'dd/MM/yyyy')
-                        ) : (
-                          <span>DD/MM/YYYY</span>
-                        )}
+                        {field.value ? format(new Date(field.value), 'dd/MM/yyyy') : <span>DD/MM/YYYY</span>}
                         <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                       </Button>
                     </FormControl>
@@ -318,17 +276,10 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                     <FormControl>
                       <Button
                         variant={'outline'}
-                        className={cn(
-                          'w-full pl-3 text-left font-normal',
-                          !field.value && 'text-muted-foreground'
-                        )}
+                        className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
                         disabled={readOnly}
                       >
-                        {field.value ? (
-                          format(new Date(field.value), 'dd/MM/yyyy')
-                        ) : (
-                          <span>DD/MM/YYYY</span>
-                        )}
+                        {field.value ? format(new Date(field.value), 'dd/MM/yyyy') : <span>DD/MM/YYYY</span>}
                         <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                       </Button>
                     </FormControl>
@@ -338,9 +289,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                       mode='single'
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => field.onChange(date?.toISOString())}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date('1900-01-01')
-                      }
+                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                       initialFocus
                     />
                   </PopoverContent>
@@ -362,11 +311,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                   Nhà sản xuất <span className='text-red-500'>*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder='Tên hãng sản xuất'
-                    {...field}
-                    disabled={readOnly}
-                  />
+                  <Input placeholder='Tên hãng sản xuất' {...field} disabled={readOnly} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -381,11 +326,7 @@ export function ImportMedicineForm({ readOnly }: ImportMedicineFormProps) {
                   Nhà cung cấp <span className='text-red-500'>*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder='Tên đơn vị cung cấp'
-                    {...field}
-                    disabled={readOnly}
-                  />
+                  <Input placeholder='Tên đơn vị cung cấp' {...field} disabled={readOnly} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

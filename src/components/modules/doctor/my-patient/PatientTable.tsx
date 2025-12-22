@@ -1,11 +1,13 @@
+'use client';
+
 import { format } from 'date-fns';
 import { ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { MyPatient } from '@/types/my-patient';
 
 interface PatientTableProps {
@@ -13,6 +15,7 @@ interface PatientTableProps {
 }
 
 export const PatientTable = ({ patients }: PatientTableProps) => {
+  const router = useRouter();
   return (
     <div className='bg-white rounded-b-2xl shadow-sm border border-t-0 border-slate-100 overflow-hidden'>
       <div className='overflow-x-auto'>
@@ -98,16 +101,32 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                     )}
                   </td>
                   <td className='px-6 py-4 text-right'>
-                    <Button
-                      variant='ghost'
-                      className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 p-0 h-auto font-medium text-xs flex items-center gap-1 ml-auto'
-                      onClick={() => {
-                        window.location.href = `/doctor/my-patient/detail/${patient.id}`;
-                      }}
-                    >
-                      Xem hồ sơ
-                      <ChevronRight className='w-4 h-4' />
-                    </Button>
+                    <div className='flex items-center justify-end gap-2'>
+                      <Button
+                        variant='ghost'
+                        className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 p-0 h-auto font-medium text-xs flex items-center gap-1'
+                        disabled={!patient.lastAppointment}
+                        onClick={() => {
+                          if (patient.lastAppointment) {
+                            router.push(
+                              `/doctor/my-patient/detail/${patient.id}/consultation/${patient.lastAppointment.id}`
+                            );
+                          }
+                        }}
+                      >
+                        Kê đơn thuốc
+                      </Button>
+                      <Button
+                        variant='ghost'
+                        className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 p-0 h-auto font-medium text-xs flex items-center gap-1'
+                        onClick={() => {
+                          router.push(`/doctor/my-patient/detail/${patient.id}`);
+                        }}
+                      >
+                        Xem hồ sơ
+                        <ChevronRight className='w-4 h-4' />
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               );
