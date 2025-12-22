@@ -8,6 +8,7 @@ import {
   Activity,
   House,
   UserRoundPen,
+  MessageCircle,
   LucideIcon,
 } from 'lucide-react';
 
@@ -43,6 +44,11 @@ export const ADMIN_MENU: MenuItem[] = [
     label: 'Specialties',
     href: PRIVATE_ROUTES.ADMIN_SPECIALTIES,
   },
+  {
+    icon: MessageCircle,
+    label: 'Support',
+    href: PRIVATE_ROUTES.ADMIN_SUPPORT,
+  },
 ];
 
 export const PATIENT_MENU: MenuItem[] = [
@@ -56,6 +62,11 @@ export const PATIENT_MENU: MenuItem[] = [
     icon: UserRoundPen,
     label: 'Profile',
     href: PRIVATE_ROUTES.PATIENT_PROFILE,
+  },
+  {
+    icon: MessageCircle,
+    label: 'Support',
+    href: PRIVATE_ROUTES.PATIENT_SUPPORT,
   },
 ];
 

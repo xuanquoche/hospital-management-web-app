@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
-const baseURL = process.env.INTERNAL_BACKEND_URL || process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 async function refreshAccessToken(token: any) {
   try {
