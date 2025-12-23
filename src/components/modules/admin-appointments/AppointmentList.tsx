@@ -1,5 +1,3 @@
-'use client';
-
 import { Suspense } from 'react';
 
 import { ApiAppointment } from '@/types/appointment-api';
@@ -20,7 +18,7 @@ interface AppointmentListProps {
   };
 }
 
-export function AppointmentList({ appointments, meta }: AppointmentListProps) {
+export async function AppointmentList({ appointments, meta }: AppointmentListProps) {
   return (
     <div className='flex flex-col gap-6'>
       <AppointmentListHeader />
