@@ -75,19 +75,31 @@ export const PaymentQRModal = ({
         <div className='grid grid-cols-1 md:grid-cols-2'>
           {/* Left Column: Payment Details */}
           <div className='p-8 bg-white'>
-            <DialogTitle className='text-2xl font-bold text-slate-900 mb-2'>Thanh toán đơn khám</DialogTitle>
-            <p className='text-slate-500 mb-8'>Vui lòng hoàn tất thanh toán để xác nhận lịch hẹn.</p>
+            <DialogTitle className='text-2xl font-bold text-slate-900 mb-2'>
+              Thanh toán đơn khám
+            </DialogTitle>
+            <p className='text-slate-500 mb-8'>
+              Vui lòng hoàn tất thanh toán để xác nhận lịch hẹn.
+            </p>
 
             <div className='space-y-6'>
               <div>
-                <p className='text-sm text-slate-500 mb-1'>Số tiền cần thanh toán</p>
-                <p className='text-3xl font-bold text-teal-600'>{formatCurrency(amount)}</p>
+                <p className='text-sm text-slate-500 mb-1'>
+                  Số tiền cần thanh toán
+                </p>
+                <p className='text-3xl font-bold text-teal-600'>
+                  {formatCurrency(amount)}
+                </p>
               </div>
 
               <div>
-                <p className='text-sm text-slate-500 mb-1'>Nội dung chuyển khoản</p>
+                <p className='text-sm text-slate-500 mb-1'>
+                  Nội dung chuyển khoản
+                </p>
                 <div className='flex items-center gap-2'>
-                  <span className='font-bold text-slate-900'>{description}</span>
+                  <span className='font-bold text-slate-900'>
+                    {description}
+                  </span>
                   <button
                     onClick={() => handleCopy(description)}
                     className='text-xs text-teal-600 font-medium hover:underline flex items-center gap-1'
@@ -104,7 +116,9 @@ export const PaymentQRModal = ({
               </div>
 
               <div>
-                <p className='text-sm text-slate-500 mb-1'>Thông tin đơn khám</p>
+                <p className='text-sm text-slate-500 mb-1'>
+                  Thông tin đơn khám
+                </p>
                 <p className='font-medium text-slate-900'>BS. {doctorName}</p>
                 <p className='text-sm text-slate-500'>
                   {timeSlot}, {format(appointmentDate, 'dd/MM/yyyy')}
@@ -156,16 +170,21 @@ export const PaymentQRModal = ({
             <div className='w-full max-w-xs space-y-3 text-sm'>
               <div className='flex justify-between'>
                 <span className='text-slate-500'>Chủ tài khoản:</span>
-                <span className='font-bold text-slate-900 uppercase'>{accountName}</span>
+                <span className='font-bold text-slate-900 uppercase'>
+                  {accountName}
+                </span>
               </div>
               <div className='flex justify-between'>
                 <span className='text-slate-500'>Số tài khoản:</span>
-                <span className='font-bold text-slate-900'>{accountNumber}</span>
+                <span className='font-bold text-slate-900'>
+                  {accountNumber}
+                </span>
               </div>
             </div>
 
             <p className='text-xs text-slate-500 mt-8 max-w-xs'>
-              Mở ứng dụng ngân hàng bất kỳ trên điện thoại của bạn để quét mã QR.
+              Mở ứng dụng ngân hàng bất kỳ trên điện thoại của bạn để quét mã
+              QR.
             </p>
           </div>
         </div>

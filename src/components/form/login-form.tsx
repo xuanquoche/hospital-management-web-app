@@ -43,8 +43,6 @@ export default function LoginForm() {
     },
   });
 
-  // Trong LoginForm.tsx
-
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
@@ -58,13 +56,8 @@ export default function LoginForm() {
       toast.error('Invalid email or password');
       setIsLoading(false);
     } else {
-      // TỐI ƯU: Không cần fetch session nữa.
-      // Cách 1: Refresh router để middleware chạy lại và tự điều hướng
       router.refresh();
-      // Cách 2: Đẩy về root, middleware sẽ bắt và redirect về dashboard đúng role
       router.push('/');
-
-      // Lưu ý: Không cần setIsLoading(false) ở đây vì trang sẽ chuyển đi ngay
     }
   };
 

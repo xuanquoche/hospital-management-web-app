@@ -20,7 +20,9 @@ interface AppointmentDetailResponse {
 
 export default async function AppointmentDetailPage({ params }: PageProps) {
   try {
-    const response = await serverFetcher.get<AppointmentDetailResponse>(`/appointments/${params.id}`);
+    const response = await serverFetcher.get<AppointmentDetailResponse>(
+      `/appointments/${params.id}`
+    );
 
     if (!response?.data) {
       notFound();

@@ -35,7 +35,9 @@ export default function MyPatientsPage() {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await clientFetcher.get<MyPatientResponse>('/doctors/my-patients');
+        const response = await clientFetcher.get<MyPatientResponse>(
+          '/doctors/my-patients'
+        );
         if (response?.data) {
           setPatients(response.data);
         }
@@ -70,7 +72,9 @@ export default function MyPatientsPage() {
           <motion.div variants={item} className='space-y-0'>
             <PatientFilters />
             {loading ? (
-              <div className='p-8 text-center text-slate-500'>Loading patients...</div>
+              <div className='p-8 text-center text-slate-500'>
+                Loading patients...
+              </div>
             ) : (
               <PatientTable patients={patients} />
             )}

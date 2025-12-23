@@ -9,8 +9,18 @@ import { DateRange } from 'react-day-picker';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 import { cn } from '@/lib/utils';
 import { Doctor } from '@/types/doctor';
@@ -30,9 +40,13 @@ export function AppointmentFilter() {
   const searchParams = useSearchParams();
 
   // State for filters
-  const [patientSearch, setPatientSearch] = useState(searchParams.get('patientSearch') || '');
+  const [patientSearch, setPatientSearch] = useState(
+    searchParams.get('patientSearch') || ''
+  );
   const [status, setStatus] = useState(searchParams.get('status') || 'all');
-  const [doctorId, setDoctorId] = useState(searchParams.get('doctorId') || 'all');
+  const [doctorId, setDoctorId] = useState(
+    searchParams.get('doctorId') || 'all'
+  );
 
   // Fix initialization to return undefined if no start date
   const [date, setDate] = useState<DateRange | undefined>(() => {
@@ -155,7 +169,10 @@ export function AppointmentFilter() {
     <div className='bg-card rounded-xl border p-4 shadow-sm'>
       <div className='mb-4 flex items-center justify-between'>
         <div className='text-sm font-medium text-muted-foreground'>Filters</div>
-        {(patientSearch || status !== 'all' || doctorId !== 'all' || date?.from) && (
+        {(patientSearch ||
+          status !== 'all' ||
+          doctorId !== 'all' ||
+          date?.from) && (
           <Button
             variant='ghost'
             size='sm'
@@ -169,18 +186,24 @@ export function AppointmentFilter() {
       </div>
       <div className='grid grid-cols-1 gap-4 md:grid-cols-4'>
         <div className='space-y-1.5'>
-          <label className='text-xs font-medium text-muted-foreground'>Date range</label>
+          <label className='text-xs font-medium text-muted-foreground'>
+            Date range
+          </label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant='outline'
-                className={cn('w-full justify-start text-left font-normal', !date && 'text-muted-foreground')}
+                className={cn(
+                  'w-full justify-start text-left font-normal',
+                  !date && 'text-muted-foreground'
+                )}
               >
                 <CalendarIcon className='mr-2 size-4' />
                 {date?.from ? (
                   date.to ? (
                     <>
-                      {format(date.from, 'LLL dd, y')} - {format(date.to, 'LLL dd, y')}
+                      {format(date.from, 'LLL dd, y')} -{' '}
+                      {format(date.to, 'LLL dd, y')}
                     </>
                   ) : (
                     format(date.from, 'LLL dd, y')
@@ -203,7 +226,9 @@ export function AppointmentFilter() {
           </Popover>
         </div>
         <div className='space-y-1.5'>
-          <label className='text-xs font-medium text-muted-foreground'>Status</label>
+          <label className='text-xs font-medium text-muted-foreground'>
+            Status
+          </label>
           <Select value={status} onValueChange={handleStatusChange}>
             <SelectTrigger>
               <SelectValue placeholder='Select status' />
@@ -211,16 +236,26 @@ export function AppointmentFilter() {
             <SelectContent>
               <SelectItem value='all'>All statuses</SelectItem>
               <SelectItem value={AppointmentStatus.PENDING}>Pending</SelectItem>
-              <SelectItem value={AppointmentStatus.CONFIRMED}>Confirmed</SelectItem>
-              <SelectItem value={AppointmentStatus.IN_PROGRESS}>In Progress</SelectItem>
-              <SelectItem value={AppointmentStatus.COMPLETED}>Completed</SelectItem>
-              <SelectItem value={AppointmentStatus.CANCELLED}>Cancelled</SelectItem>
+              <SelectItem value={AppointmentStatus.CONFIRMED}>
+                Confirmed
+              </SelectItem>
+              <SelectItem value={AppointmentStatus.IN_PROGRESS}>
+                In Progress
+              </SelectItem>
+              <SelectItem value={AppointmentStatus.COMPLETED}>
+                Completed
+              </SelectItem>
+              <SelectItem value={AppointmentStatus.CANCELLED}>
+                Cancelled
+              </SelectItem>
               <SelectItem value={AppointmentStatus.NO_SHOW}>No Show</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className='space-y-1.5'>
-          <label className='text-xs font-medium text-muted-foreground'>Doctor</label>
+          <label className='text-xs font-medium text-muted-foreground'>
+            Doctor
+          </label>
           <Select value={doctorId} onValueChange={handleDoctorChange}>
             <SelectTrigger>
               <SelectValue placeholder='Select doctor' />
@@ -236,7 +271,9 @@ export function AppointmentFilter() {
           </Select>
         </div>
         <div className='space-y-1.5'>
-          <label className='text-xs font-medium text-muted-foreground'>Patient</label>
+          <label className='text-xs font-medium text-muted-foreground'>
+            Patient
+          </label>
           <div className='relative'>
             <Search className='absolute left-2.5 top-2.5 size-4 text-muted-foreground' />
             <Input

@@ -8,10 +8,22 @@ import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 
 interface Specialty {
@@ -43,7 +55,12 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: CreateSpecialtyModalProps) => {
+const CreateSpecialtyModal = ({
+  isOpen,
+  onClose,
+  initialData,
+  onSuccess,
+}: CreateSpecialtyModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [departments, setDepartments] = useState<Department[]>([]);
 
@@ -66,7 +83,9 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const res: any = await clientFetcher.get('/admin/departments?limit=100'); // Fetch all departments
+        const res: any = await clientFetcher.get(
+          '/admin/departments?limit=100'
+        ); // Fetch all departments
         if (res.success) {
           setDepartments(res.data);
         }
@@ -160,7 +179,9 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
           <div className='p-6 pt-2 space-y-4'>
             <div className='rounded-md bg-teal-50/50 p-3'>
               <div className='flex justify-between items-center mb-2'>
-                <h3 className='text-sm font-semibold text-teal-800'>Specialty details</h3>
+                <h3 className='text-sm font-semibold text-teal-800'>
+                  Specialty details
+                </h3>
                 <span className='text-xs text-slate-500'>Required fields</span>
               </div>
 
@@ -170,16 +191,27 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
                     <Label htmlFor='name' className='text-slate-600'>
                       Specialty Name
                     </Label>
-                    <span className='text-xs text-slate-400'>Tên chuyên khoa</span>
+                    <span className='text-xs text-slate-400'>
+                      Tên chuyên khoa
+                    </span>
                   </div>
                   <Controller
                     name='name'
                     control={control}
                     render={({ field }) => (
-                      <Input {...field} id='name' placeholder='e.g. Cardiology' className='bg-white' />
+                      <Input
+                        {...field}
+                        id='name'
+                        placeholder='e.g. Cardiology'
+                        className='bg-white'
+                      />
                     )}
                   />
-                  {errors.name && <p className='text-xs text-red-500'>{errors.name.message}</p>}
+                  {errors.name && (
+                    <p className='text-xs text-red-500'>
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className='grid gap-1.5'>
@@ -214,7 +246,11 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
                     name='departmentId'
                     control={control}
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
                         <SelectTrigger className='bg-white'>
                           <SelectValue placeholder='Select department' />
                         </SelectTrigger>
@@ -228,7 +264,11 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
                       </Select>
                     )}
                   />
-                  {errors.departmentId && <p className='text-xs text-red-500'>{errors.departmentId.message}</p>}
+                  {errors.departmentId && (
+                    <p className='text-xs text-red-500'>
+                      {errors.departmentId.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className='grid gap-1.5'>
@@ -240,13 +280,17 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
                     control={control}
                     render={({ field }) => (
                       <Select
-                        onValueChange={(val) => field.onChange(val === 'active')}
+                        onValueChange={(val) =>
+                          field.onChange(val === 'active')
+                        }
                         defaultValue={field.value ? 'active' : 'inactive'}
                         value={field.value ? 'active' : 'inactive'}
                       >
                         <SelectTrigger className='bg-white'>
                           <div className='flex items-center gap-2'>
-                            <div className={`h-2 w-2 rounded-full ${field.value ? 'bg-green-500' : 'bg-slate-300'}`} />
+                            <div
+                              className={`h-2 w-2 rounded-full ${field.value ? 'bg-green-500' : 'bg-slate-300'}`}
+                            />
                             <SelectValue placeholder='Select status' />
                           </div>
                         </SelectTrigger>
@@ -277,7 +321,11 @@ const CreateSpecialtyModal = ({ isOpen, onClose, initialData, onSuccess }: Creat
               <Button type='button' variant='ghost' onClick={handleClose}>
                 Cancel
               </Button>
-              <Button type='submit' className='bg-teal-600 hover:bg-teal-700 text-white gap-2' disabled={isLoading}>
+              <Button
+                type='submit'
+                className='bg-teal-600 hover:bg-teal-700 text-white gap-2'
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   'Saving...'
                 ) : (

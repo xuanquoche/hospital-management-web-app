@@ -6,10 +6,29 @@ import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { clientFetcher } from '@/lib/fetcher';
 
@@ -24,7 +43,9 @@ interface CreatePrescriptionModalProps {
   appointmentId?: string;
 }
 
-export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionModalProps) => {
+export const CreatePrescriptionModal = ({
+  appointmentId,
+}: CreatePrescriptionModalProps) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,7 +65,10 @@ export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionMod
     }
 
     try {
-      await clientFetcher.patch(`/doctors/appointments/${appointmentId}/consultation`, values);
+      await clientFetcher.patch(
+        `/doctors/appointments/${appointmentId}/consultation`,
+        values
+      );
       toast.success('Tạo ghi chú / đơn thuốc thành công');
       setOpen(false);
       form.reset();
@@ -90,7 +114,11 @@ export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionMod
                 <FormItem>
                   <FormLabel>Đơn thuốc</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Nhập đơn thuốc...' className='min-h-[100px]' {...field} />
+                    <Textarea
+                      placeholder='Nhập đơn thuốc...'
+                      className='min-h-[100px]'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -104,7 +132,11 @@ export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionMod
                 <FormItem>
                   <FormLabel>Ghi chú</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Nhập ghi chú...' className='min-h-[80px]' {...field} />
+                    <Textarea
+                      placeholder='Nhập ghi chú...'
+                      className='min-h-[80px]'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +149,10 @@ export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionMod
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Trạng thái</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder='Chọn trạng thái' />
@@ -133,7 +168,11 @@ export const CreatePrescriptionModal = ({ appointmentId }: CreatePrescriptionMod
             />
 
             <div className='flex justify-end gap-2 pt-4'>
-              <Button type='button' variant='outline' onClick={() => setOpen(false)}>
+              <Button
+                type='button'
+                variant='outline'
+                onClick={() => setOpen(false)}
+              >
                 Hủy
               </Button>
               <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>

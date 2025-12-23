@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { clientFetcher } from '@/lib/fetcher';
+import { Doctor } from '@/types/doctor';
 
 export interface UserData {
   id: string;
@@ -13,6 +14,20 @@ export interface UserData {
   role: string;
   isActive: boolean;
   createdAt: string;
+}
+
+export interface DoctorProfileData {
+  id: string;
+  professionalTitle: string;
+  primarySpecialty: {
+    id: string;
+    name: string;
+  };
+  yearsOfExperience: number;
+  subSpecialty: string;
+  consultationFee: number;
+  bio: string;
+  status: string;
 }
 
 export interface ProfileData {
@@ -35,7 +50,7 @@ export interface GetMeResponse {
   message: string;
   data: {
     user: UserData;
-    profile: ProfileData;
+    profile: ProfileData | DoctorProfileData;
   };
   timestamp: string;
 }
@@ -43,7 +58,7 @@ export interface GetMeResponse {
 export const useMe = () => {
   const [data, setData] = useState<{
     user: UserData;
-    profile: ProfileData;
+    profile: ProfileData | DoctorProfileData;
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -53,6 +68,7 @@ export const useMe = () => {
       try {
         setLoading(true);
         const response: GetMeResponse = await clientFetcher.get('/users/me');
+        console.log('get me', response);
         if (response.success) {
           setData(response.data);
         } else {

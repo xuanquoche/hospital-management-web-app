@@ -33,10 +33,12 @@ export const PRIVATE_ROUTES = {
   ADMIN_MEDICINES_CREATE_MEDICINE: '/admin-medicines/create-medicine',
   ADMIN_DEPARTMENTS: '/admin-departments',
   ADMIN_SPECIALTIES: '/admin-specialties',
+  ADMIN_SUPPORT: '/admin-support',
   // patient
   PATIENT_DASHBOARD: '/patient/dashboard',
   PATIENT_PROFILE: '/patient/profile',
   PATIENT_BOOKING: '/patient/booking',
+  PATIENT_SUPPORT: '/patient/support',
   // doctor
   DOCTOR_DASHBOARD: '/doctor/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',

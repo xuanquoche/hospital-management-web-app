@@ -14,7 +14,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { clientFetcher } from '@/lib/fetcher';
 
 import CreateSpecialtyModal from './CreateSpecialtyModal';
@@ -69,13 +76,17 @@ const SpecialtyList = () => {
 
   // Edit modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSpecialty, setSelectedSpecialty] = useState<Specialty | null>(null);
+  const [selectedSpecialty, setSelectedSpecialty] = useState<Specialty | null>(
+    null
+  );
 
   const fetchSpecialties = async (page: number) => {
     try {
       setIsLoading(true);
 
-      const res = await clientFetcher.get(`/admin/specialties?page=${page}&limit=${ITEMS_PER_PAGE}`);
+      const res = await clientFetcher.get(
+        `/admin/specialties?page=${page}&limit=${ITEMS_PER_PAGE}`
+      );
 
       const responseData = res as SpecialtyResponse;
 
@@ -110,7 +121,9 @@ const SpecialtyList = () => {
     if (!confirm('Are you sure you want to delete this specialty?')) return;
     try {
       setIsLoading(true);
-      const res = await clientFetcher.delete(`/admin/specialties/${specialtyId}`);
+      const res = await clientFetcher.delete(
+        `/admin/specialties/${specialtyId}`
+      );
       const responseData = res as SpecialtyResponse;
       if (responseData.success) {
         toast.success('Specialty deleted successfully');
@@ -137,15 +150,25 @@ const SpecialtyList = () => {
     <div className='space-y-4'>
       <div className='flex items-center justify-between'>
         <div className='text-sm text-slate-500'>
-          Specialty List • Showing {specialties.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
-          {Math.min(meta.page * meta.limit, meta.totalItems)} of {meta.totalItems}
+          Specialty List • Showing{' '}
+          {specialties.length > 0 ? (meta.page - 1) * meta.limit + 1 : 0}–
+          {Math.min(meta.page * meta.limit, meta.totalItems)} of{' '}
+          {meta.totalItems}
         </div>
         <div className='flex items-center gap-2'>
-          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
+          <Button
+            variant='outline'
+            size='sm'
+            className='h-8 gap-2 text-slate-600'
+          >
             <Columns className='h-4 w-4' />
             Columns
           </Button>
-          <Button variant='outline' size='sm' className='h-8 gap-2 text-slate-600'>
+          <Button
+            variant='outline'
+            size='sm'
+            className='h-8 gap-2 text-slate-600'
+          >
             <Download className='h-4 w-4' />
             Export
           </Button>
@@ -156,11 +179,21 @@ const SpecialtyList = () => {
         <Table>
           <TableHeader className='bg-teal-50/50'>
             <TableRow>
-              <TableHead className='font-semibold text-teal-900'>Name</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Description</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Department</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Status</TableHead>
-              <TableHead className='font-semibold text-teal-900'>Actions</TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Name
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Description
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Department
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Status
+              </TableHead>
+              <TableHead className='font-semibold text-teal-900'>
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -169,7 +202,9 @@ const SpecialtyList = () => {
                 <TableCell colSpan={5} className='h-24 text-center'>
                   <div className='flex justify-center items-center gap-2'>
                     <Loader2 className='h-6 w-6 animate-spin text-teal-600' />
-                    <span className='text-slate-500'>Loading specialties...</span>
+                    <span className='text-slate-500'>
+                      Loading specialties...
+                    </span>
                   </div>
                 </TableCell>
               </TableRow>
@@ -182,9 +217,15 @@ const SpecialtyList = () => {
             ) : (
               specialties.map((specialty) => (
                 <TableRow key={specialty.id}>
-                  <TableCell className='font-medium text-slate-900'>{specialty.name}</TableCell>
-                  <TableCell className='text-slate-600'>{specialty.description || '—'}</TableCell>
-                  <TableCell className='text-slate-600'>{specialty.department?.name || '—'}</TableCell>
+                  <TableCell className='font-medium text-slate-900'>
+                    {specialty.name}
+                  </TableCell>
+                  <TableCell className='text-slate-600'>
+                    {specialty.description || '—'}
+                  </TableCell>
+                  <TableCell className='text-slate-600'>
+                    {specialty.department?.name || '—'}
+                  </TableCell>
                   <TableCell>
                     <Badge
                       variant='secondary'
@@ -239,26 +280,36 @@ const SpecialtyList = () => {
               <PaginationItem>
                 <PaginationPrevious
                   onClick={() => handlePageChange(currentPage - 1)}
-                  className={!meta.hasPreviousPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  className={
+                    !meta.hasPreviousPage
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
                 />
               </PaginationItem>
 
-              {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map((page) => (
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    isActive={page === currentPage}
-                    onClick={() => handlePageChange(page)}
-                    className='cursor-pointer'
-                  >
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
+              {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={page === currentPage}
+                      onClick={() => handlePageChange(page)}
+                      className='cursor-pointer'
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                )
+              )}
 
               <PaginationItem>
                 <PaginationNext
                   onClick={() => handlePageChange(currentPage + 1)}
-                  className={!meta.hasNextPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  className={
+                    !meta.hasNextPage
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
                 />
               </PaginationItem>
             </PaginationContent>

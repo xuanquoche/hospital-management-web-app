@@ -1,6 +1,9 @@
 import { AppointmentList } from '@/components/modules/admin-appointments/AppointmentList';
 import { serverFetcher } from '@/lib/fetcher';
-import { ApiAppointment, AppointmentListResponse } from '@/types/appointment-api';
+import {
+  ApiAppointment,
+  AppointmentListResponse,
+} from '@/types/appointment-api';
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -36,7 +39,9 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
   }
 
   try {
-    const response = await serverFetcher.get<AppointmentListResponse>(`/appointments?${queryParams.toString()}`);
+    const response = await serverFetcher.get<AppointmentListResponse>(
+      `/appointments?${queryParams.toString()}`
+    );
     if (response?.data) {
       appointments = response.data;
       meta = response.meta;

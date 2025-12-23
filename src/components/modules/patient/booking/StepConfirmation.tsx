@@ -27,8 +27,16 @@ interface StepConfirmationProps {
 
 export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
   const router = useRouter();
-  const { selectedDoctor, timeSlotId, selectedDate, examinationType, symptoms, notes, paymentMethod, selectedTime } =
-    useAppointmentStore();
+  const {
+    selectedDoctor,
+    timeSlotId,
+    selectedDate,
+    examinationType,
+    symptoms,
+    notes,
+    paymentMethod,
+    selectedTime,
+  } = useAppointmentStore();
   const [loading, setLoading] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [bookingId, setBookingId] = useState<string>('');
@@ -74,7 +82,9 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
 
       if (paymentMethod === PaymentMethod.BANK_TRANSFER) {
         // Fetch full details to get payment code and exact fee
-        const detailRes = await clientFetcher.get(`/appointments/${newBookingId}`);
+        const detailRes = await clientFetcher.get(
+          `/appointments/${newBookingId}`
+        );
         const appointmentData = detailRes.data as any;
 
         const actualData = appointmentData.data || appointmentData;
@@ -116,7 +126,12 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
           <TermsAgreement />
 
           <div className='flex items-center justify-end gap-4 pt-4'>
-            <Button variant='ghost' className='text-slate-500 hover:text-slate-900' onClick={onBack} disabled={loading}>
+            <Button
+              variant='ghost'
+              className='text-slate-500 hover:text-slate-900'
+              onClick={onBack}
+              disabled={loading}
+            >
               Quay lại — Bước 3
             </Button>
             <Button
