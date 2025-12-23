@@ -20,7 +20,9 @@ interface UseConversationsOptions {
   autoFetch?: boolean;
 }
 
-export const usePatientConversations = (options: UseConversationsOptions = {}) => {
+export const usePatientConversations = (
+  options: UseConversationsOptions = {}
+) => {
   const { status, autoFetch = true } = options;
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +50,9 @@ export const usePatientConversations = (options: UseConversationsOptions = {}) =
 
   const fetchUnreadCount = useCallback(async () => {
     try {
-      const response: UnreadCountResponse = await clientFetcher.get('/patients/conversations/unread-count');
+      const response: UnreadCountResponse = await clientFetcher.get(
+        '/patients/conversations/unread-count'
+      );
       if (response.success) {
         setUnreadCount(response.data.unreadCount);
       }
@@ -58,7 +62,10 @@ export const usePatientConversations = (options: UseConversationsOptions = {}) =
   }, []);
 
   const createConversation = async (payload: CreateConversationPayload) => {
-    const response: SingleConversationResponse = await clientFetcher.post('/patients/conversations', payload);
+    const response: SingleConversationResponse = await clientFetcher.post(
+      '/patients/conversations',
+      payload
+    );
     if (response.success) {
       setConversations((prev) => [response.data, ...prev]);
       return response.data;
@@ -84,7 +91,9 @@ export const usePatientConversations = (options: UseConversationsOptions = {}) =
   };
 };
 
-export const useAdminConversations = (options: UseConversationsOptions = {}) => {
+export const useAdminConversations = (
+  options: UseConversationsOptions = {}
+) => {
   const { status, autoFetch = true } = options;
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,7 +121,9 @@ export const useAdminConversations = (options: UseConversationsOptions = {}) => 
 
   const fetchUnreadCount = useCallback(async () => {
     try {
-      const response: UnreadCountResponse = await clientFetcher.get('/admin/conversations/unread-count');
+      const response: UnreadCountResponse = await clientFetcher.get(
+        '/admin/conversations/unread-count'
+      );
       if (response.success) {
         setUnreadCount(response.data.unreadCount);
       }
@@ -121,19 +132,32 @@ export const useAdminConversations = (options: UseConversationsOptions = {}) => 
     }
   }, []);
 
-  const updateConversation = async (id: string, payload: UpdateConversationPayload) => {
-    const response: SingleConversationResponse = await clientFetcher.patch(`/admin/conversations/${id}`, payload);
+  const updateConversation = async (
+    id: string,
+    payload: UpdateConversationPayload
+  ) => {
+    const response: SingleConversationResponse = await clientFetcher.patch(
+      `/admin/conversations/${id}`,
+      payload
+    );
     if (response.success) {
-      setConversations((prev) => prev.map((c) => (c.id === id ? response.data : c)));
+      setConversations((prev) =>
+        prev.map((c) => (c.id === id ? response.data : c))
+      );
       return response.data;
     }
     throw new Error(response.message);
   };
 
   const closeConversation = async (id: string) => {
-    const response: SingleConversationResponse = await clientFetcher.patch(`/admin/conversations/${id}/close`, {});
+    const response: SingleConversationResponse = await clientFetcher.patch(
+      `/admin/conversations/${id}/close`,
+      {}
+    );
     if (response.success) {
-      setConversations((prev) => prev.map((c) => (c.id === id ? response.data : c)));
+      setConversations((prev) =>
+        prev.map((c) => (c.id === id ? response.data : c))
+      );
       return response.data;
     }
     throw new Error(response.message);
@@ -216,7 +240,11 @@ export const useMessages = (options: UseMessagesOptions) => {
 
   // Only fetch once per conversation
   useEffect(() => {
-    if (autoFetch && conversationId && lastFetchedIdRef.current !== conversationId) {
+    if (
+      autoFetch &&
+      conversationId &&
+      lastFetchedIdRef.current !== conversationId
+    ) {
       lastFetchedIdRef.current = conversationId;
       setMessages([]);
       fetchMessages();

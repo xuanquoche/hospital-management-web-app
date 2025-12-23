@@ -13,13 +13,23 @@ import { ConversationList } from './ConversationList';
 import { NewConversationModal } from './NewConversationModal';
 
 export const PatientChatContent = () => {
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [selectedConversation, setSelectedConversation] =
+    useState<Conversation | null>(null);
   const [showNewModal, setShowNewModal] = useState(false);
 
-  const { conversations, loading, unreadCount, createConversation, refetch, fetchUnreadCount } =
-    usePatientConversations();
+  const {
+    conversations,
+    loading,
+    unreadCount,
+    createConversation,
+    refetch,
+    fetchUnreadCount,
+  } = usePatientConversations();
 
-  const handleCreateConversation = async (payload: { subject?: string; initialMessage?: string }) => {
+  const handleCreateConversation = async (payload: {
+    subject?: string;
+    initialMessage?: string;
+  }) => {
     const newConversation = await createConversation(payload);
     setSelectedConversation(newConversation);
   };
@@ -40,10 +50,14 @@ export const PatientChatContent = () => {
         <div className='flex items-center gap-3'>
           <h1 className='text-2xl font-bold text-slate-900'>Hỗ trợ</h1>
           {unreadCount > 0 && (
-            <Badge className='h-6 min-w-6 justify-center bg-red-500 hover:bg-red-600'>{unreadCount} mới</Badge>
+            <Badge className='h-6 min-w-6 justify-center bg-red-500 hover:bg-red-600'>
+              {unreadCount} mới
+            </Badge>
           )}
         </div>
-        <p className='mt-1 text-sm text-slate-500'>Liên hệ với bộ phận hỗ trợ để được tư vấn và giải đáp thắc mắc</p>
+        <p className='mt-1 text-sm text-slate-500'>
+          Liên hệ với bộ phận hỗ trợ để được tư vấn và giải đáp thắc mắc
+        </p>
       </div>
 
       {/* Stats Cards */}
@@ -53,7 +67,9 @@ export const PatientChatContent = () => {
             <MessageSquare className='h-6 w-6 text-white' />
           </div>
           <div>
-            <p className='text-2xl font-bold text-slate-900'>{conversations.length}</p>
+            <p className='text-2xl font-bold text-slate-900'>
+              {conversations.length}
+            </p>
             <p className='text-xs text-slate-500'>Tổng hội thoại</p>
           </div>
         </Card>
@@ -64,7 +80,11 @@ export const PatientChatContent = () => {
           </div>
           <div>
             <p className='text-2xl font-bold text-slate-900'>
-              {conversations.filter((c) => c.status === 'OPEN' || c.status === 'IN_PROGRESS').length}
+              {
+                conversations.filter(
+                  (c) => c.status === 'OPEN' || c.status === 'IN_PROGRESS'
+                ).length
+              }
             </p>
             <p className='text-xs text-slate-500'>Đang xử lý</p>
           </div>
@@ -76,7 +96,11 @@ export const PatientChatContent = () => {
           </div>
           <div>
             <p className='text-2xl font-bold text-slate-900'>
-              {conversations.filter((c) => c.status === 'RESOLVED' || c.status === 'CLOSED').length}
+              {
+                conversations.filter(
+                  (c) => c.status === 'RESOLVED' || c.status === 'CLOSED'
+                ).length
+              }
             </p>
             <p className='text-xs text-slate-500'>Đã giải quyết</p>
           </div>

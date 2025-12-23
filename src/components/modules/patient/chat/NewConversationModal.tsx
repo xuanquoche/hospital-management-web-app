@@ -22,7 +22,11 @@ interface NewConversationModalProps {
   onSubmit: (payload: CreateConversationPayload) => Promise<void>;
 }
 
-export const NewConversationModal: React.FC<NewConversationModalProps> = ({ open, onClose, onSubmit }) => {
+export const NewConversationModal: React.FC<NewConversationModalProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -51,7 +55,9 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({ open
       <DialogContent className='sm:max-w-md'>
         <DialogHeader>
           <DialogTitle>Cuộc hội thoại mới</DialogTitle>
-          <DialogDescription>Gửi tin nhắn cho bộ phận hỗ trợ để được tư vấn</DialogDescription>
+          <DialogDescription>
+            Gửi tin nhắn cho bộ phận hỗ trợ để được tư vấn
+          </DialogDescription>
         </DialogHeader>
 
         <div className='space-y-4 py-4'>

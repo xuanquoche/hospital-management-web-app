@@ -1,4 +1,9 @@
-export type ConversationStatus = 'OPEN' | 'PENDING' | 'IN_PROGRESS' | 'RESOLVED' | 'CLOSED';
+export type ConversationStatus =
+  | 'OPEN'
+  | 'PENDING'
+  | 'IN_PROGRESS'
+  | 'RESOLVED'
+  | 'CLOSED';
 export type ConversationPriority = 'LOW' | 'NORMAL' | 'HIGH' | 'URGENT';
 export type MessageType = 'TEXT' | 'IMAGE' | 'FILE';
 export type UserRole = 'ADMIN' | 'DOCTOR' | 'PATIENT';

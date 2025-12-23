@@ -16,8 +16,21 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CancellationReasonLabels, CancellationReason } from '@/const/enum';
 import { clientFetcher } from '@/lib/fetcher';
@@ -36,7 +49,12 @@ interface CancelAppointmentModalProps {
   onSuccess?: () => void;
 }
 
-export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSuccess }: CancelAppointmentModalProps) {
+export function CancelAppointmentModal({
+  isOpen,
+  onClose,
+  appointmentId,
+  onSuccess,
+}: CancelAppointmentModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<CancelFormValues>({
@@ -50,7 +68,10 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
   const onSubmit = async (values: CancelFormValues) => {
     try {
       setIsLoading(true);
-      await clientFetcher.patch(`/appointments/${appointmentId}/cancel`, values);
+      await clientFetcher.patch(
+        `/appointments/${appointmentId}/cancel`,
+        values
+      );
       toast.success('Appointment cancelled successfully');
       onSuccess?.();
       onClose();
@@ -68,7 +89,8 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
         <DialogHeader>
           <DialogTitle>Cancel Appointment</DialogTitle>
           <DialogDescription>
-            Are you sure you want to cancel this appointment? This action cannot be undone.
+            Are you sure you want to cancel this appointment? This action cannot
+            be undone.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -79,7 +101,10 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Reason</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder='Select a reason' />
@@ -88,7 +113,11 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
                     <SelectContent>
                       {Object.values(CancellationReason).map((reason) => (
                         <SelectItem key={reason} value={reason}>
-                          {CancellationReasonLabels[reason as CancellationReason]}
+                          {
+                            CancellationReasonLabels[
+                              reason as CancellationReason
+                            ]
+                          }
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -104,14 +133,23 @@ export function CancelAppointmentModal({ isOpen, onClose, appointmentId, onSucce
                 <FormItem>
                   <FormLabel>Note</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Enter cancellation note...' className='resize-none' {...field} />
+                    <Textarea
+                      placeholder='Enter cancellation note...'
+                      className='resize-none'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type='button' variant='outline' onClick={onClose} disabled={isLoading}>
+              <Button
+                type='button'
+                variant='outline'
+                onClick={onClose}
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
               <Button type='submit' variant='destructive' disabled={isLoading}>

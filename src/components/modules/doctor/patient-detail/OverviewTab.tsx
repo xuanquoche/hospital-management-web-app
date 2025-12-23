@@ -42,7 +42,10 @@ export const OverviewTab = ({ patient }: OverviewTabProps) => {
       {/* Right Column: Sidebar Widgets */}
       <div className='xl:col-span-3 space-y-6'>
         <motion.div variants={item}>
-          <MedicationAllergyCard allergies={patient.allergies} medications={patient.medications} />
+          <MedicationAllergyCard
+            allergies={patient.allergies}
+            medications={patient.medications}
+          />
         </motion.div>
         <motion.div variants={item}>
           <DocumentsCard documents={patient.documents} />
@@ -51,7 +54,10 @@ export const OverviewTab = ({ patient }: OverviewTabProps) => {
           <DoctorNotesCard notes={patient.doctorNotes} />
         </motion.div>
         <motion.div variants={item}>
-          <ContactCard contact={patient.contact} nextAppointment={patient.nextAppointment} />
+          <ContactCard
+            contact={patient.contact}
+            nextAppointment={patient.nextAppointment}
+          />
         </motion.div>
       </div>
     </div>

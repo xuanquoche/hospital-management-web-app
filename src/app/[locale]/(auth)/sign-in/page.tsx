@@ -11,8 +11,12 @@ export default async function SignInPage() {
     <div className='w-full max-w-md mx-auto'>
       <div className='bg-white rounded-2xl shadow-lg p-8'>
         <div className='text-center mb-8'>
-          <h1 className='text-2xl font-bold text-gray-900 mb-2'>Welcome back</h1>
-          <p className='text-gray-600 text-sm'>Sign in to your account to continue</p>
+          <h1 className='text-2xl font-bold text-gray-900 mb-2'>
+            Welcome back
+          </h1>
+          <p className='text-gray-600 text-sm'>
+            Sign in to your account to continue
+          </p>
         </div>
 
         <div className='flex justify-center items-center gap-2 mb-6'>
@@ -32,7 +36,10 @@ export default async function SignInPage() {
         <div className='mt-8 text-center'>
           <p className='text-gray-600 text-sm'>
             Don't have an account?{' '}
-            <Link href={ROUTES.REGISTER} className='text-blue-600 hover:text-blue-700 font-medium'>
+            <Link
+              href={ROUTES.REGISTER}
+              className='text-blue-600 hover:text-blue-700 font-medium'
+            >
               Sign Up
             </Link>
           </p>

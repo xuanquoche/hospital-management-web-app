@@ -1,6 +1,13 @@
 'use client';
 
-import { X, CheckCircle, AlertTriangle, Clock, Settings2, Loader2 } from 'lucide-react';
+import {
+  X,
+  CheckCircle,
+  AlertTriangle,
+  Clock,
+  Settings2,
+  Loader2,
+} from 'lucide-react';
 import React, { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -13,7 +20,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import {
   Conversation,
@@ -28,7 +41,10 @@ interface AdminChatActionsProps {
   onClose: () => Promise<void>;
 }
 
-const statusConfig: Record<ConversationStatus, { color: string; bg: string; label: string }> = {
+const statusConfig: Record<
+  ConversationStatus,
+  { color: string; bg: string; label: string }
+> = {
   OPEN: { color: 'text-blue-700', bg: 'bg-blue-50', label: 'Mở' },
   PENDING: { color: 'text-amber-700', bg: 'bg-amber-50', label: 'Chờ xử lý' },
   IN_PROGRESS: {
@@ -44,19 +60,30 @@ const statusConfig: Record<ConversationStatus, { color: string; bg: string; labe
   CLOSED: { color: 'text-slate-500', bg: 'bg-slate-100', label: 'Đã đóng' },
 };
 
-const priorityConfig: Record<ConversationPriority, { color: string; bg: string; label: string }> = {
+const priorityConfig: Record<
+  ConversationPriority,
+  { color: string; bg: string; label: string }
+> = {
   LOW: { color: 'text-slate-500', bg: 'bg-slate-50', label: 'Thấp' },
   NORMAL: { color: 'text-blue-600', bg: 'bg-blue-50', label: 'Bình thường' },
   HIGH: { color: 'text-orange-600', bg: 'bg-orange-50', label: 'Cao' },
   URGENT: { color: 'text-red-600', bg: 'bg-red-50', label: 'Khẩn cấp' },
 };
 
-export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation, onUpdate, onClose }) => {
+export const AdminChatActions: React.FC<AdminChatActionsProps> = ({
+  conversation,
+  onUpdate,
+  onClose,
+}) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showCloseModal, setShowCloseModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [newStatus, setNewStatus] = useState<ConversationStatus>(conversation.status);
-  const [newPriority, setNewPriority] = useState<ConversationPriority>(conversation.priority);
+  const [newStatus, setNewStatus] = useState<ConversationStatus>(
+    conversation.status
+  );
+  const [newPriority, setNewPriority] = useState<ConversationPriority>(
+    conversation.priority
+  );
 
   const handleUpdate = async () => {
     try {
@@ -103,7 +130,13 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
     return (
       <div className='flex items-center justify-between bg-slate-100 px-4 py-2 border-b'>
         <div className='flex items-center gap-2'>
-          <span className={cn('text-xs font-medium px-2 py-1 rounded-full', status.bg, status.color)}>
+          <span
+            className={cn(
+              'text-xs font-medium px-2 py-1 rounded-full',
+              status.bg,
+              status.color
+            )}
+          >
             {status.label}
           </span>
           <span className='text-sm text-slate-500'>Cuộc hội thoại đã đóng</span>
@@ -116,10 +149,22 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
     <>
       <div className='flex items-center justify-between bg-slate-50 px-4 py-2 border-b border-slate-200'>
         <div className='flex items-center gap-2'>
-          <span className={cn('text-xs font-medium px-2 py-1 rounded-full', status.bg, status.color)}>
+          <span
+            className={cn(
+              'text-xs font-medium px-2 py-1 rounded-full',
+              status.bg,
+              status.color
+            )}
+          >
             {status.label}
           </span>
-          <span className={cn('text-xs font-medium px-2 py-1 rounded-full', priority.bg, priority.color)}>
+          <span
+            className={cn(
+              'text-xs font-medium px-2 py-1 rounded-full',
+              priority.bg,
+              priority.color
+            )}
+          >
             {priority.label}
           </span>
         </div>
@@ -141,7 +186,11 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
             disabled={loading}
             className='gap-1 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50'
           >
-            {loading ? <Loader2 className='h-4 w-4 animate-spin' /> : <CheckCircle className='h-4 w-4' />}
+            {loading ? (
+              <Loader2 className='h-4 w-4 animate-spin' />
+            ) : (
+              <CheckCircle className='h-4 w-4' />
+            )}
             Đã giải quyết
           </Button>
           <Button
@@ -161,13 +210,18 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
         <DialogContent className='sm:max-w-md'>
           <DialogHeader>
             <DialogTitle>Cập nhật cuộc hội thoại</DialogTitle>
-            <DialogDescription>Thay đổi trạng thái và độ ưu tiên của cuộc hội thoại</DialogDescription>
+            <DialogDescription>
+              Thay đổi trạng thái và độ ưu tiên của cuộc hội thoại
+            </DialogDescription>
           </DialogHeader>
 
           <div className='space-y-4 py-4'>
             <div className='space-y-2'>
               <Label className='text-sm font-medium'>Trạng thái</Label>
-              <Select value={newStatus} onValueChange={(v) => setNewStatus(v as ConversationStatus)}>
+              <Select
+                value={newStatus}
+                onValueChange={(v) => setNewStatus(v as ConversationStatus)}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -182,7 +236,10 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
 
             <div className='space-y-2'>
               <Label className='text-sm font-medium'>Độ ưu tiên</Label>
-              <Select value={newPriority} onValueChange={(v) => setNewPriority(v as ConversationPriority)}>
+              <Select
+                value={newPriority}
+                onValueChange={(v) => setNewPriority(v as ConversationPriority)}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -197,7 +254,11 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
           </div>
 
           <DialogFooter>
-            <Button variant='outline' onClick={() => setShowUpdateModal(false)} disabled={loading}>
+            <Button
+              variant='outline'
+              onClick={() => setShowUpdateModal(false)}
+              disabled={loading}
+            >
               Hủy
             </Button>
             <Button
@@ -227,15 +288,24 @@ export const AdminChatActions: React.FC<AdminChatActionsProps> = ({ conversation
               Đóng cuộc hội thoại
             </DialogTitle>
             <DialogDescription>
-              Bạn có chắc chắn muốn đóng cuộc hội thoại này? Bệnh nhân sẽ không thể gửi thêm tin nhắn.
+              Bạn có chắc chắn muốn đóng cuộc hội thoại này? Bệnh nhân sẽ không
+              thể gửi thêm tin nhắn.
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter className='mt-4'>
-            <Button variant='outline' onClick={() => setShowCloseModal(false)} disabled={loading}>
+            <Button
+              variant='outline'
+              onClick={() => setShowCloseModal(false)}
+              disabled={loading}
+            >
               Hủy
             </Button>
-            <Button variant='destructive' onClick={handleClose} disabled={loading}>
+            <Button
+              variant='destructive'
+              onClick={handleClose}
+              disabled={loading}
+            >
               {loading ? (
                 <>
                   <Loader2 className='h-4 w-4 mr-2 animate-spin' />

@@ -26,7 +26,11 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function PatientDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default function PatientDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = React.use(params);
   const [activeTab, setActiveTab] = useState('overview');
   const [patient, setPatient] = useState<PatientDetail | null>(null);
@@ -35,7 +39,9 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
   useEffect(() => {
     const fetchPatientDetail = async () => {
       try {
-        const response = await clientFetcher.get<MyPatientDetailResponse>(`/doctors/my-patients/${id}`);
+        const response = await clientFetcher.get<MyPatientDetailResponse>(
+          `/doctors/my-patients/${id}`
+        );
         if (response?.data) {
           const apiData = response.data;
           const todayVisit = apiData.appointments[0]; // Assuming first is latest/today for now
@@ -43,14 +49,23 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
           const mappedPatient: PatientDetail = {
             id: apiData.id,
             name: apiData.user.fullName,
-            age: apiData.dateOfBirth ? new Date().getFullYear() - new Date(apiData.dateOfBirth).getFullYear() : 0,
+            age: apiData.dateOfBirth
+              ? new Date().getFullYear() -
+                new Date(apiData.dateOfBirth).getFullYear()
+              : 0,
             gender: apiData.gender || 'N/A',
-            dob: apiData.dateOfBirth ? format(new Date(apiData.dateOfBirth), 'dd/MM/yyyy') : 'N/A',
+            dob: apiData.dateOfBirth
+              ? format(new Date(apiData.dateOfBirth), 'dd/MM/yyyy')
+              : 'N/A',
             address: apiData.user.address || 'N/A',
             avatar: apiData.user.avatar || '',
             tags: [
-              apiData.allergies ? `Dị ứng: ${apiData.allergies}` : 'Không dị ứng',
-              apiData.chronicDisease ? `Bệnh mãn tính: ${apiData.chronicDisease}` : 'Không bệnh mãn tính',
+              apiData.allergies
+                ? `Dị ứng: ${apiData.allergies}`
+                : 'Không dị ứng',
+              apiData.chronicDisease
+                ? `Bệnh mãn tính: ${apiData.chronicDisease}`
+                : 'Không bệnh mãn tính',
             ],
             currentPlan: todayVisit?.notes || 'Chưa có kế hoạch',
             personalInfo: {
@@ -127,7 +142,9 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
   }
 
   if (!patient) {
-    return <div className='min-h-screen p-6 text-center'>Patient not found</div>;
+    return (
+      <div className='min-h-screen p-6 text-center'>Patient not found</div>
+    );
   }
 
   return (
@@ -137,7 +154,11 @@ export default function PatientDetailPage({ params }: { params: Promise<{ id: st
           <PatientDetailHeader patient={patient} />
         </motion.div>
 
-        <Tabs defaultValue='overview' className='w-full' onValueChange={setActiveTab}>
+        <Tabs
+          defaultValue='overview'
+          className='w-full'
+          onValueChange={setActiveTab}
+        >
           <motion.div variants={item} className='mb-6'>
             <TabsList className='bg-transparent p-0 h-auto gap-6 border-b border-slate-200 w-full justify-start rounded-none'>
               <TabsTrigger

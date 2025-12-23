@@ -9,7 +9,11 @@ import { Message } from '@/types/conversation';
 interface UseChatSocketOptions {
   conversationId?: string;
   onNewMessage?: (message: Message) => void;
-  onTyping?: (data: { userId: string; userRole: string; isTyping: boolean }) => void;
+  onTyping?: (data: {
+    userId: string;
+    userRole: string;
+    isTyping: boolean;
+  }) => void;
   onMessagesRead?: (data: { conversationId: string; readBy: string }) => void;
   onConversationUpdate?: () => void;
 }
@@ -37,7 +41,8 @@ export const useChatSocket = (options: UseChatSocketOptions = {}) => {
         return;
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || 'http://localhost:3001';
+      const baseUrl =
+        process.env.NEXT_PUBLIC_BACKEND_BASE_URL || 'http://localhost:3001';
       const socketUrl = `${baseUrl}/chat`;
 
       console.log('🔌 Connecting to socket:', socketUrl);
@@ -85,13 +90,17 @@ export const useChatSocket = (options: UseChatSocketOptions = {}) => {
         console.log('🔐 Authenticated:', data);
       });
 
-      socket.on('new_message', (data: { conversationId: string; message: Message }) => {
-        const { onNewMessage, conversationId: currentConvId } = optionsRef.current;
-        console.log('📩 New message:', data.conversationId);
-        if (data.conversationId === currentConvId && onNewMessage) {
-          onNewMessage(data.message);
+      socket.on(
+        'new_message',
+        (data: { conversationId: string; message: Message }) => {
+          const { onNewMessage, conversationId: currentConvId } =
+            optionsRef.current;
+          console.log('📩 New message:', data.conversationId);
+          if (data.conversationId === currentConvId && onNewMessage) {
+            onNewMessage(data.message);
+          }
         }
-      });
+      );
 
       socket.on('user_typing', (data) => {
         const { onTyping, conversationId: currentConvId } = optionsRef.current;
@@ -101,7 +110,8 @@ export const useChatSocket = (options: UseChatSocketOptions = {}) => {
       });
 
       socket.on('messages_read', (data) => {
-        const { onMessagesRead, conversationId: currentConvId } = optionsRef.current;
+        const { onMessagesRead, conversationId: currentConvId } =
+          optionsRef.current;
         if (data.conversationId === currentConvId && onMessagesRead) {
           onMessagesRead(data);
         }
@@ -132,12 +142,16 @@ export const useChatSocket = (options: UseChatSocketOptions = {}) => {
   const joinConversation = useCallback((convId: string) => {
     const socket = socketRef.current;
     if (socket?.connected) {
-      socket.emit('join_conversation', { conversationId: convId }, (response: any) => {
-        if (response?.success) {
-          setIsJoined(true);
-          console.log('🚪 Joined room:', convId);
+      socket.emit(
+        'join_conversation',
+        { conversationId: convId },
+        (response: any) => {
+          if (response?.success) {
+            setIsJoined(true);
+            console.log('🚪 Joined room:', convId);
+          }
         }
-      });
+      );
     }
   }, []);
 
@@ -172,13 +186,17 @@ export const useChatSocket = (options: UseChatSocketOptions = {}) => {
           return;
         }
 
-        socket.emit('send_message', { conversationId, content, messageType }, (response: any) => {
-          if (response?.success) {
-            resolve(response.message);
-          } else {
-            reject(new Error(response?.error || 'Gửi tin nhắn thất bại'));
+        socket.emit(
+          'send_message',
+          { conversationId, content, messageType },
+          (response: any) => {
+            if (response?.success) {
+              resolve(response.message);
+            } else {
+              reject(new Error(response?.error || 'Gửi tin nhắn thất bại'));
+            }
           }
-        });
+        );
       });
     },
     [conversationId]

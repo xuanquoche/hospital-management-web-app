@@ -13,10 +13,18 @@ import { AdminChatActions } from './AdminChatActions';
 import { AdminConversationList } from './AdminConversationList';
 
 export const AdminChatContent = () => {
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [selectedConversation, setSelectedConversation] =
+    useState<Conversation | null>(null);
 
-  const { conversations, loading, unreadCount, updateConversation, closeConversation, refetch, fetchUnreadCount } =
-    useAdminConversations();
+  const {
+    conversations,
+    loading,
+    unreadCount,
+    updateConversation,
+    closeConversation,
+    refetch,
+    fetchUnreadCount,
+  } = useAdminConversations();
 
   const handleSelectConversation = (conversation: Conversation) => {
     setSelectedConversation(conversation);
@@ -41,7 +49,9 @@ export const AdminChatContent = () => {
 
   const stats = {
     total: conversations.length,
-    open: conversations.filter((c) => c.status === 'OPEN' || c.status === 'PENDING').length,
+    open: conversations.filter(
+      (c) => c.status === 'OPEN' || c.status === 'PENDING'
+    ).length,
     inProgress: conversations.filter((c) => c.status === 'IN_PROGRESS').length,
     resolved: conversations.filter((c) => c.status === 'RESOLVED').length,
   };
@@ -53,10 +63,14 @@ export const AdminChatContent = () => {
         <div className='flex items-center gap-3'>
           <h1 className='text-2xl font-bold text-slate-900'>Quản lý hỗ trợ</h1>
           {unreadCount > 0 && (
-            <Badge className='h-6 min-w-6 justify-center bg-red-500 hover:bg-red-600'>{unreadCount} mới</Badge>
+            <Badge className='h-6 min-w-6 justify-center bg-red-500 hover:bg-red-600'>
+              {unreadCount} mới
+            </Badge>
           )}
         </div>
-        <p className='mt-1 text-sm text-slate-500'>Quản lý và phản hồi các yêu cầu hỗ trợ từ bệnh nhân</p>
+        <p className='mt-1 text-sm text-slate-500'>
+          Quản lý và phản hồi các yêu cầu hỗ trợ từ bệnh nhân
+        </p>
       </div>
 
       {/* Stats Cards */}
@@ -86,7 +100,9 @@ export const AdminChatContent = () => {
             <Users className='h-6 w-6 text-white' />
           </div>
           <div>
-            <p className='text-2xl font-bold text-slate-900'>{stats.inProgress}</p>
+            <p className='text-2xl font-bold text-slate-900'>
+              {stats.inProgress}
+            </p>
             <p className='text-xs text-slate-500'>Đang xử lý</p>
           </div>
         </Card>
@@ -96,7 +112,9 @@ export const AdminChatContent = () => {
             <CheckCircle className='h-6 w-6 text-white' />
           </div>
           <div>
-            <p className='text-2xl font-bold text-slate-900'>{stats.resolved}</p>
+            <p className='text-2xl font-bold text-slate-900'>
+              {stats.resolved}
+            </p>
             <p className='text-xs text-slate-500'>Đã giải quyết</p>
           </div>
         </Card>

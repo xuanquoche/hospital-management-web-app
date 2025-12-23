@@ -82,15 +82,24 @@ export const mockPatientDetail: PatientDetail = {
   dob: '05/03/1992',
   address: 'Sống tại TP. Hồ Chí Minh',
   avatar: 'https://github.com/shadcn.png',
-  tags: ['Khám trực tiếp - Phòng 302', 'Đau đầu, mệt mỏi', 'Dị ứng: Paracetamol'],
-  currentPlan: 'Theo dõi đau đầu mạn tính · Hẹn tái khám sau 2 tuần · Thuốc đang dùng: Amlodipine',
+  tags: [
+    'Khám trực tiếp - Phòng 302',
+    'Đau đầu, mệt mỏi',
+    'Dị ứng: Paracetamol',
+  ],
+  currentPlan:
+    'Theo dõi đau đầu mạn tính · Hẹn tái khám sau 2 tuần · Thuốc đang dùng: Amlodipine',
   personalInfo: {
     height: '160 cm',
     weight: '55 kg',
     bmi: '21.5',
     job: 'Nhân viên văn phòng',
     lifestyle: 'Ngồi nhiều, căng thẳng công việc',
-    familyHistory: ['Tăng huyết áp', 'Không hút thuốc', 'Thỉnh thoảng uống cà phê'],
+    familyHistory: [
+      'Tăng huyết áp',
+      'Không hút thuốc',
+      'Thỉnh thoảng uống cà phê',
+    ],
   },
   todayVisit: {
     time: '08:00',
@@ -98,7 +107,8 @@ export const mockPatientDetail: PatientDetail = {
     reason: 'Đau đầu, mệt mỏi kéo dài 2 tuần',
     diagnosis: 'Nghi ngờ đau đầu do căng thẳng, theo dõi huyết áp',
     plan: 'Điều chỉnh lối sống, theo dõi huyết áp tại nhà 2 tuần - tái khám sau 14 ngày',
-    prescription: 'Amlodipine 5mg buổi sáng · Thuốc giảm đau paracetamol tránh dùng do dị ứng',
+    prescription:
+      'Amlodipine 5mg buổi sáng · Thuốc giảm đau paracetamol tránh dùng do dị ứng',
     notes: [
       'Khuyên bệnh nhân ngủ đủ giấc, hạn chế caffeine sau 16:00.',
       'Nếu đau đầu tăng lên kèm nhìn mờ, buồn nôn, cần đi khám ngay.',
@@ -139,7 +149,9 @@ export const mockPatientDetail: PatientDetail = {
       status: 'Chức năng gan thận bình thường',
     },
   ],
-  allergies: [{ name: 'Paracetamol', reaction: 'Nổi mề đay', severity: 'high' }],
+  allergies: [
+    { name: 'Paracetamol', reaction: 'Nổi mề đay', severity: 'high' },
+  ],
   medications: [
     { name: 'Amlodipine 5mg sáng', dosage: '' },
     { name: 'Vitamin D', dosage: '' },
@@ -165,7 +177,8 @@ export const mockPatientDetail: PatientDetail = {
     {
       date: 'Hôm nay · 08:20',
       author: 'BS. Trần Quốc Huy',
-      content: 'Nghi nhiều đến đau đầu do căng thẳng, ưu tiên thay đổi lối sống trước khi tăng liều thuốc.',
+      content:
+        'Nghi nhiều đến đau đầu do căng thẳng, ưu tiên thay đổi lối sống trước khi tăng liều thuốc.',
     },
     {
       date: '01/11/2024 · 09:05',

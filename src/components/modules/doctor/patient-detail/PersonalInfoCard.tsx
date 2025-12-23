@@ -15,11 +15,16 @@ export const PersonalInfoCard = ({ info, patient }: PersonalInfoCardProps) => {
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='flex justify-between items-center mb-4'>
         <h3 className='text-sm font-bold text-slate-900'>Thông tin cá nhân</h3>
-        <Badge variant='secondary' className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'>
+        <Badge
+          variant='secondary'
+          className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'
+        >
           Ưu tiên theo dõi
         </Badge>
       </div>
-      <p className='text-xs text-slate-500 mb-4'>Thông tin cơ bản và yếu tố nguy cơ chính.</p>
+      <p className='text-xs text-slate-500 mb-4'>
+        Thông tin cơ bản và yếu tố nguy cơ chính.
+      </p>
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-y-3 text-sm'>
         <div className='flex justify-between md:justify-start md:gap-12'>

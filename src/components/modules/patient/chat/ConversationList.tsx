@@ -15,7 +15,10 @@ interface ConversationListProps {
   loading?: boolean;
 }
 
-const statusConfig: Record<ConversationStatus, { bg: string; text: string; label: string }> = {
+const statusConfig: Record<
+  ConversationStatus,
+  { bg: string; text: string; label: string }
+> = {
   OPEN: { bg: 'bg-blue-500', text: 'text-white', label: 'Mở' },
   PENDING: { bg: 'bg-amber-500', text: 'text-white', label: 'Chờ xử lý' },
   IN_PROGRESS: { bg: 'bg-teal-500', text: 'text-white', label: 'Đang xử lý' },
@@ -69,8 +72,13 @@ export const ConversationList: React.FC<ConversationListProps> = ({
     <div className='flex h-full flex-col bg-white'>
       {/* Header */}
       <div className='border-b border-slate-200 p-4'>
-        <h2 className='text-lg font-semibold text-slate-800 mb-3'>Tin nhắn hỗ trợ</h2>
-        <Button onClick={onNewConversation} className='w-full gap-2 bg-teal-500 hover:bg-teal-600 text-white'>
+        <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+          Tin nhắn hỗ trợ
+        </h2>
+        <Button
+          onClick={onNewConversation}
+          className='w-full gap-2 bg-teal-500 hover:bg-teal-600 text-white'
+        >
           <Plus className='h-4 w-4' />
           Cuộc hội thoại mới
         </Button>
@@ -84,14 +92,17 @@ export const ConversationList: React.FC<ConversationListProps> = ({
               <MessageCircle className='h-10 w-10 text-slate-400' />
             </div>
             <p className='font-medium text-slate-600'>Chưa có cuộc hội thoại</p>
-            <p className='mt-1 text-sm text-slate-400 max-w-[200px]'>Bắt đầu một cuộc hội thoại mới để được hỗ trợ</p>
+            <p className='mt-1 text-sm text-slate-400 max-w-[200px]'>
+              Bắt đầu một cuộc hội thoại mới để được hỗ trợ
+            </p>
           </div>
         ) : (
           <div className='divide-y divide-slate-100'>
             {conversations.map((conversation) => {
               const isSelected = selectedId === conversation.id;
               const status = statusConfig[conversation.status];
-              const hasUnread = conversation.lastMessage && !conversation.lastMessage.isRead;
+              const hasUnread =
+                conversation.lastMessage && !conversation.lastMessage.isRead;
 
               return (
                 <div
@@ -122,7 +133,9 @@ export const ConversationList: React.FC<ConversationListProps> = ({
                         <h4
                           className={cn(
                             'truncate text-sm',
-                            hasUnread ? 'font-bold text-slate-900' : 'font-medium text-slate-700'
+                            hasUnread
+                              ? 'font-bold text-slate-900'
+                              : 'font-medium text-slate-700'
                           )}
                         >
                           {conversation.subject || 'Hỗ trợ'}
@@ -135,10 +148,13 @@ export const ConversationList: React.FC<ConversationListProps> = ({
                       <p
                         className={cn(
                           'mt-1 truncate text-sm',
-                          hasUnread ? 'text-slate-800 font-medium' : 'text-slate-500'
+                          hasUnread
+                            ? 'text-slate-800 font-medium'
+                            : 'text-slate-500'
                         )}
                       >
-                        {conversation.lastMessage?.content || 'Bắt đầu cuộc hội thoại...'}
+                        {conversation.lastMessage?.content ||
+                          'Bắt đầu cuộc hội thoại...'}
                       </p>
 
                       {/* Tag */}

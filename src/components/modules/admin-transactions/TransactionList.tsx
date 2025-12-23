@@ -39,16 +39,20 @@ export function TransactionList() {
       params.append('limit', itemsPerPage.toString());
 
       if (filters) {
-        if (filters.paymentCode) params.append('paymentCode', filters.paymentCode);
+        if (filters.paymentCode)
+          params.append('paymentCode', filters.paymentCode);
         if (filters.startDate) params.append('startDate', filters.startDate);
         if (filters.endDate) params.append('endDate', filters.endDate);
         if (filters.doctorId) params.append('doctorId', filters.doctorId);
-        if (filters.patientSearch) params.append('patientSearch', filters.patientSearch);
+        if (filters.patientSearch)
+          params.append('patientSearch', filters.patientSearch);
         if (filters.status) params.append('status', filters.status);
         if (filters.method) params.append('method', filters.method);
       }
 
-      const res = await clientFetcher.get<any>(`/admin/payments?${params.toString()}`);
+      const res = await clientFetcher.get<any>(
+        `/admin/payments?${params.toString()}`
+      );
 
       if (res) {
         // Handle response structure based on user provided example
@@ -144,7 +148,11 @@ export function TransactionList() {
                         handlePageChange(currentPage - 1);
                       }}
                       aria-disabled={currentPage === 1}
-                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+                      className={
+                        currentPage === 1
+                          ? 'pointer-events-none opacity-50'
+                          : ''
+                      }
                     />
                   </PaginationItem>
 
@@ -175,7 +183,11 @@ export function TransactionList() {
                         handlePageChange(currentPage + 1);
                       }}
                       aria-disabled={currentPage === totalPages}
-                      className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+                      className={
+                        currentPage === totalPages
+                          ? 'pointer-events-none opacity-50'
+                          : ''
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>

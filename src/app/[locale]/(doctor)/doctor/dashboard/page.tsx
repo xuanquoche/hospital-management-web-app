@@ -4,7 +4,10 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
-import { mockAppointments, mockRecentPatients } from '@/components/modules/doctor/dashboard/data';
+import {
+  mockAppointments,
+  mockRecentPatients,
+} from '@/components/modules/doctor/dashboard/data';
 import { DoctorProfileCard } from '@/components/modules/doctor/dashboard/DoctorProfileCard';
 import { DocumentStatusCard } from '@/components/modules/doctor/dashboard/DocumentStatusCard';
 import { QuickActions } from '@/components/modules/doctor/dashboard/QuickActions';

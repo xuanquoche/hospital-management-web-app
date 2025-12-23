@@ -15,7 +15,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { ApiAppointment } from '@/types/appointment-api';
 
@@ -33,10 +40,15 @@ interface AppointmentTableProps {
   };
 }
 
-export function AppointmentTable({ appointments, meta }: AppointmentTableProps) {
+export function AppointmentTable({
+  appointments,
+  meta,
+}: AppointmentTableProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState<
+    string | null
+  >(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCancelClick = (id: string) => {
@@ -130,7 +142,8 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                   <TableCell>
                     <div className='flex flex-col'>
                       <span className='font-medium'>
-                        {appointment.appointmentDate} · {appointment.timeSlot.startTime}
+                        {appointment.appointmentDate} ·{' '}
+                        {appointment.timeSlot.startTime}
                       </span>
                       <span className='text-muted-foreground text-xs'>
                         {appointment.examinationType === 'IN_PERSON'
@@ -142,24 +155,42 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                   <TableCell>
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
-                        <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
-                        <AvatarFallback>{appointment.patient.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage
+                          src={appointment.patient.avatar}
+                          alt={appointment.patient.name}
+                        />
+                        <AvatarFallback>
+                          {appointment.patient.name.charAt(0)}
+                        </AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
-                        <span className='font-medium'>{appointment.patient.name}</span>
-                        <span className='text-muted-foreground text-xs'>{appointment.patient.phone}</span>
+                        <span className='font-medium'>
+                          {appointment.patient.name}
+                        </span>
+                        <span className='text-muted-foreground text-xs'>
+                          {appointment.patient.phone}
+                        </span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
-                        <AvatarImage src={appointment.doctor.avatar} alt={appointment.doctor.name} />
-                        <AvatarFallback>{appointment.doctor.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage
+                          src={appointment.doctor.avatar}
+                          alt={appointment.doctor.name}
+                        />
+                        <AvatarFallback>
+                          {appointment.doctor.name.charAt(0)}
+                        </AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
-                        <span className='font-medium'>{appointment.doctor.name}</span>
-                        <span className='text-muted-foreground text-xs'>{appointment.doctor.specialty.name}</span>
+                        <span className='font-medium'>
+                          {appointment.doctor.name}
+                        </span>
+                        <span className='text-muted-foreground text-xs'>
+                          {appointment.doctor.specialty.name}
+                        </span>
                       </div>
                     </div>
                   </TableCell>
@@ -168,10 +199,14 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                       variant='secondary'
                       className={cn(
                         'rounded-full font-normal',
-                        appointment.status === 'CONFIRMED' && 'bg-emerald-600 text-white hover:bg-emerald-700',
-                        appointment.status === 'PENDING' && 'bg-amber-500 text-white hover:bg-amber-600',
-                        appointment.status === 'COMPLETED' && 'bg-slate-100 text-slate-500 hover:bg-slate-200',
-                        appointment.status === 'CANCELLED' && 'bg-red-500 text-white hover:bg-red-600'
+                        appointment.status === 'CONFIRMED' &&
+                          'bg-emerald-600 text-white hover:bg-emerald-700',
+                        appointment.status === 'PENDING' &&
+                          'bg-amber-500 text-white hover:bg-amber-600',
+                        appointment.status === 'COMPLETED' &&
+                          'bg-slate-100 text-slate-500 hover:bg-slate-200',
+                        appointment.status === 'CANCELLED' &&
+                          'bg-red-500 text-white hover:bg-red-600'
                       )}
                     >
                       {appointment.status}
@@ -182,13 +217,19 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                   </TableCell>
                   <TableCell className='text-right'>
                     <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
-                      <Link href={`/admin-appointments/${appointment.id}`} className='hover:underline'>
+                      <Link
+                        href={`/admin-appointments/${appointment.id}`}
+                        className='hover:underline'
+                      >
                         View
                       </Link>
                       <span className='text-muted-foreground'>•</span>
                       <button className='hover:underline'>Reschedule</button>
                       <span className='text-muted-foreground'>•</span>
-                      <button className='hover:underline' onClick={() => handleCancelClick(appointment.id)}>
+                      <button
+                        className='hover:underline'
+                        onClick={() => handleCancelClick(appointment.id)}
+                      >
                         Cancel
                       </button>
                     </div>
@@ -206,9 +247,15 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  href={meta.hasPreviousPage ? createPageURL(meta.page - 1) : '#'}
+                  href={
+                    meta.hasPreviousPage ? createPageURL(meta.page - 1) : '#'
+                  }
                   aria-disabled={!meta.hasPreviousPage}
-                  className={!meta.hasPreviousPage ? 'pointer-events-none opacity-50' : ''}
+                  className={
+                    !meta.hasPreviousPage
+                      ? 'pointer-events-none opacity-50'
+                      : ''
+                  }
                 />
               </PaginationItem>
 
@@ -217,7 +264,10 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                   {pageNumber === 'ellipsis' ? (
                     <PaginationEllipsis />
                   ) : (
-                    <PaginationLink href={createPageURL(pageNumber)} isActive={pageNumber === meta.page}>
+                    <PaginationLink
+                      href={createPageURL(pageNumber)}
+                      isActive={pageNumber === meta.page}
+                    >
                       {pageNumber}
                     </PaginationLink>
                   )}
@@ -228,7 +278,9 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                 <PaginationNext
                   href={meta.hasNextPage ? createPageURL(meta.page + 1) : '#'}
                   aria-disabled={!meta.hasNextPage}
-                  className={!meta.hasNextPage ? 'pointer-events-none opacity-50' : ''}
+                  className={
+                    !meta.hasNextPage ? 'pointer-events-none opacity-50' : ''
+                  }
                 />
               </PaginationItem>
             </PaginationContent>
