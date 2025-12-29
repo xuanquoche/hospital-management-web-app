@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
 import { SiFacebook } from 'react-icons/si';
@@ -6,17 +7,15 @@ import { SiFacebook } from 'react-icons/si';
 import RegisterForm from '@/components/form/register-form';
 import { ROUTES } from '@/const/routes';
 
-export default async function SignUp() {
+export default function SignUpPage() {
+  const t = useTranslations('Auth.register');
+
   return (
     <div className='w-full max-w-md mx-auto'>
       <div className='bg-white rounded-2xl shadow-lg p-8'>
         <div className='text-center mb-8'>
-          <h1 className='text-2xl font-bold text-gray-900 mb-2'>
-            Create an account
-          </h1>
-          <p className='text-gray-600 text-sm'>
-            Welcome! Please fill in the details to get started.
-          </p>
+          <h1 className='text-2xl font-bold text-gray-900 mb-2'>{t('title')}</h1>
+          <p className='text-gray-600 text-sm'>{t('subtitle')}</p>
         </div>
 
         <div className='flex justify-center items-center gap-2 mb-6'>
@@ -35,12 +34,9 @@ export default async function SignUp() {
 
         <div className='mt-8 text-center'>
           <p className='text-gray-600 text-sm'>
-            Already have an account?
-            <Link
-              href={ROUTES.LOGIN}
-              className='text-blue-600 hover:text-blue-700 font-medium'
-            >
-              Sign In
+            {t('haveAccount')}{' '}
+            <Link href={ROUTES.LOGIN} className='text-blue-600 hover:text-blue-700 font-medium'>
+              {t('signIn')}
             </Link>
           </p>
         </div>

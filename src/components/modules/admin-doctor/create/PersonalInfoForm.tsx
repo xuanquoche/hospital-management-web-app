@@ -1,17 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -44,11 +38,8 @@ interface PersonalInfoFormProps {
   onComplete: () => void;
 }
 
-export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
-  initialData,
-  onUpdate,
-  onComplete,
-}) => {
+export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+  const t = useTranslations('Admin.DoctorCreate.PersonalInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -83,14 +74,10 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
     <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className='text-lg font-semibold text-slate-900'>
-            Personal information
-          </h2>
-          <p className='text-sm text-slate-500'>
-            Basic details used across the system.
-          </p>
+          <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
+          <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>Required</span>
+        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
       </div>
 
       <Form {...form}>
@@ -114,9 +101,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='fullName'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full name</FormLabel>
+                  <FormLabel>{t('fullName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='Enter full name' {...field} />
+                    <Input placeholder={t('placeholders.fullName')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,9 +114,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='username'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>{t('username')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='dr.john' {...field} />
+                    <Input placeholder={t('placeholders.username')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -140,9 +127,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('email')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='name@example.com' {...field} />
+                    <Input placeholder={t('placeholders.email')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -153,9 +140,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='phone'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>{t('phone')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='+1 (000) 000-0000' {...field} />
+                    <Input placeholder={t('placeholders.phone')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -166,9 +153,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='address'
               render={({ field }) => (
                 <FormItem className='col-span-2'>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>{t('address')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='Street, city, state, ZIP' {...field} />
+                    <Input placeholder={t('placeholders.address')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -179,9 +166,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               name='bio'
               render={({ field }) => (
                 <FormItem className='col-span-2'>
-                  <FormLabel>Bio (Optional)</FormLabel>
+                  <FormLabel>{t('bio')}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder='Short biography...' {...field} />
+                    <Textarea placeholder={t('placeholders.bio')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -191,22 +178,22 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>Unsaved changes</p>
-              <p>Make sure required fields are completed before saving.</p>
+              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p>{t('unsavedChangesDescription')}</p>
             </div>
             <div className='flex items-center gap-3'>
               <Button type='button' variant='ghost' className='text-slate-600'>
-                Discard
+                {t('discard')}
               </Button>
               <Button
                 type='button'
                 variant='outline'
                 className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
               >
-                Save as draft
+                {t('saveAsDraft')}
               </Button>
               <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
-                Save & activate
+                {t('saveAndActivate')}
               </Button>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
 import { SiFacebook } from 'react-icons/si';
@@ -6,17 +7,15 @@ import { SiFacebook } from 'react-icons/si';
 import LoginForm from '@/components/form/login-form';
 import { ROUTES } from '@/const/routes';
 
-export default async function SignInPage() {
+export default function SignInPage() {
+  const t = useTranslations('Auth.login');
+
   return (
     <div className='w-full max-w-md mx-auto'>
       <div className='bg-white rounded-2xl shadow-lg p-8'>
         <div className='text-center mb-8'>
-          <h1 className='text-2xl font-bold text-gray-900 mb-2'>
-            Welcome back
-          </h1>
-          <p className='text-gray-600 text-sm'>
-            Sign in to your account to continue
-          </p>
+          <h1 className='text-2xl font-bold text-gray-900 mb-2'>{t('title')}</h1>
+          <p className='text-gray-600 text-sm'>{t('subtitle')}</p>
         </div>
 
         <div className='flex justify-center items-center gap-2 mb-6'>
@@ -35,19 +34,16 @@ export default async function SignInPage() {
 
         <div className='mt-8 text-center'>
           <p className='text-gray-600 text-sm'>
-            Don't have an account?{' '}
-            <Link
-              href={ROUTES.REGISTER}
-              className='text-blue-600 hover:text-blue-700 font-medium'
-            >
-              Sign Up
+            {t('noAccount')}{' '}
+            <Link href={ROUTES.REGISTER} className='text-blue-600 hover:text-blue-700 font-medium'>
+              {t('signUp')}
             </Link>
           </p>
         </div>
 
         <div className='mt-6 pt-6 border-t border-gray-200 text-center'>
           <p className='text-xs text-gray-500'>
-            Secured by <span className='font-semibold'>Xuan Quoc</span>
+            {t('securedBy')} <span className='font-semibold'>Xuan Quoc</span>
           </p>
         </div>
       </div>

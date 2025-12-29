@@ -1,18 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -35,11 +29,8 @@ interface AwardsInfoFormProps {
   onComplete: () => void;
 }
 
-export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
-  initialData,
-  onUpdate,
-  onComplete,
-}) => {
+export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+  const t = useTranslations('Admin.DoctorCreate.AwardsInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -96,36 +87,26 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
     <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className='text-lg font-semibold text-slate-900'>
-            Awards & achievements
-          </h2>
-          <p className='text-sm text-slate-500'>
-            Add important awards and medical achievements.
-          </p>
+          <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
+          <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>Optional</span>
+        <span className='text-xs font-medium text-slate-400'>{t('optional')}</span>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div
-                key={field.id}
-                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4'
-              >
+              <div key={field.id} className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4'>
                 <div className='grid grid-cols-3 gap-4 mb-4'>
                   <FormField
                     control={form.control}
                     name={`awards.${index}.title`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Award / Title</FormLabel>
+                        <FormLabel>{t('awardTitle')}</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder='e.g. National Clinical Excellence Award'
-                            {...field}
-                          />
+                          <Input placeholder={t('placeholders.awardTitle')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -136,12 +117,9 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                     name={`awards.${index}.organization`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Organization / Issuer</FormLabel>
+                        <FormLabel>{t('organization')}</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder='e.g. Vietnam Medical Association'
-                            {...field}
-                          />
+                          <Input placeholder={t('placeholders.organization')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,9 +130,9 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                     name={`awards.${index}.year`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Year</FormLabel>
+                        <FormLabel>{t('year')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='e.g. 2021' {...field} />
+                          <Input placeholder={t('placeholders.year')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -167,13 +145,9 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                   name={`awards.${index}.description`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Description (optional)</FormLabel>
+                      <FormLabel>{t('description')}</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder='e.g. Recognized for outstanding contributions in cardiology and patient care.'
-                          className='resize-none'
-                          {...field}
-                        />
+                        <Textarea placeholder={t('placeholders.description')} className='resize-none' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,7 +162,7 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
                     className='absolute right-4 bottom-4 text-red-500 hover:bg-red-50 hover:text-red-600'
                     onClick={() => remove(index)}
                   >
-                    Remove
+                    {t('remove')}
                   </Button>
                 )}
               </div>
@@ -199,32 +173,30 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
             type='button'
             variant='secondary'
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-            onClick={() =>
-              append({ title: '', organization: '', year: '', description: '' })
-            }
+            onClick={() => append({ title: '', organization: '', year: '', description: '' })}
           >
             <Plus className='mr-2 h-4 w-4' />
-            Add award
+            {t('addAward')}
           </Button>
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>Unsaved changes</p>
-              <p>Review awards list before saving.</p>
+              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>
               <Button type='button' variant='ghost' className='text-slate-600'>
-                Discard
+                {t('discard')}
               </Button>
               <Button
                 type='button'
                 variant='outline'
                 className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
               >
-                Save as draft
+                {t('saveAsDraft')}
               </Button>
               <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
-                Save & activate
+                {t('saveAndActivate')}
               </Button>
             </div>
           </div>

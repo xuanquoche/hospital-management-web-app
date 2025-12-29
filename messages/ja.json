@@ -1,47 +1,312 @@
 {
-  "SignInPage": {
-    "welcome": "おかえりなさい",
-    "welcomeMessage": "続行するにはアカウントにサインインしてください",
-    "dontHaveAccount": "アカウントをお持ちでない場合",
-    "signUp": "サインアップ",
-    "securedBy": "セキュリティ提供"
+  "Auth": {
+    "login": {
+      "title": "おかえりなさい",
+      "subtitle": "続行するにはアカウントにサインインしてください",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "サインアップ",
+      "securedBy": "セキュリティ提供："
+    },
+    "register": {
+      "title": "アカウントを作成",
+      "subtitle": "病院を効率的に管理するために参加しましょう",
+      "haveAccount": "すでにアカウントをお持ちですか？",
+      "signIn": "サインイン"
+    }
   },
-  "SignUpPage": {
-    "createAccount": "アカウントを作成",
-    "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
-    "signIn": "サインイン",
-    "securedBy": "セキュリティ提供",
-    "welcome": "ようこそ！始めるために詳細を入力してください。"
-  },
-  "SidebarHeader": {
-    "logoName": "Trustcare Clinic",
-    "location": "Hanoi, Vietnam"
-  },
-  "setting": {
-    "account": "アカウント",
-    "language": "言語",
+  "Common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "logout": "ログアウト",
     "profile": "プロフィール",
-    "logout": "ログアウト"
+    "settings": "設定",
+    "dashboard": "ダッシュボード"
   },
-  "department": {
-    "name": "部門名",
-    "status": "ステータス",
-    "addDeparment": "部門を追加",
-    "editDepartment": "部門を編集",
-    "addBtn": "追加",
-    "editBtn": "変更を保存",
-    "active": "アクティブ",
-    "inactive": "非アクティブ",
-    "selectStatus": "ステータスを選択",
-    "enterDepartmentName": "部門名を入力"
+  "UserProfile": {
+    "profile": "個人プロフィール",
+    "subscription": "サブスクリプション",
+    "settings": "設定",
+    "logout": "ログアウト",
+    "loggingOut": "ログアウト中..."
   },
-  "departmentTable": {
-    "deparmentList": "部門リスト",
-    "name": "名前",
-    "status": "ステータス",
-    "actions": "アクション",
-    "updateBtn": "更新",
-    "deleteBtn": "削除",
-    "notHaveData": "利用可能なデータがありません"
+  "Sidebar": {
+    "doctors": "医師",
+    "patients": "患者",
+    "appointments": "予約",
+    "transactions": "取引",
+    "medicines": "薬",
+    "departments": "診療科",
+    "specialties": "専門",
+    "support": "サポート",
+    "dashboard": "ダッシュボード",
+    "booking": "予約",
+    "profile": "プロフィール",
+    "myPatients": "私の患者"
+  },
+  "Admin": {
+    "PatientList": {
+      "title": "患者リスト",
+      "subtitle": "患者管理 - リスト、新規作成、詳細表示。",
+      "totalPatients": "総患者数",
+      "newThisMonth": "今月の新規",
+      "export": "エクスポート",
+      "import": "インポート",
+      "createPatient": "患者を作成 (サポート)",
+      "schedule": "スケジュール",
+      "quickFilters": "クイックフィルター",
+      "commonDoctorViews": "一般的な医師ビュー",
+      "allDoctors": "すべての医師",
+      "availableToday": "今日利用可能",
+      "newlyAdded": "新規追加",
+      "onLeave": "休暇中",
+      "filter": {
+        "all": "すべて",
+        "active": "アクティブ",
+        "inactive": "非アクティブ",
+        "advanced": "詳細フィルター",
+        "sortBy": "並び替え: 最終来院 · 降順"
+      },
+      "table": {
+        "hash": "#",
+        "patient": "患者",
+        "phone": "電話番号",
+        "idInsurance": "ID / 保険",
+        "lastVisit": "最終来院",
+        "statusTags": "ステータス & タグ",
+        "showing": "{total}人中 {start}-{end}人を表示"
+      }
+    },
+    "DoctorList": {
+      "title": "医師リスト",
+      "subtitle": "医師管理 - リスト、新規作成、詳細表示。",
+      "totalDoctors": "総医師数",
+      "newThisMonth": "今月の新規",
+      "export": "エクスポート",
+      "import": "インポート",
+      "createDoctor": "医師を作成 (サポート)",
+      "schedule": "スケジュール",
+      "quickFilters": "クイックフィルター",
+      "commonDoctorViews": "一般的な医師ビュー",
+      "allDoctors": "すべての医師",
+      "availableToday": "今日利用可能",
+      "newlyAdded": "新規追加",
+      "onLeave": "休暇中",
+      "widgets": {
+        "today": "今日",
+        "availableSlots": "利用可能枠",
+        "bookedAppointments": "予約",
+        "offHours": "休暇時間",
+        "scheduleSnapshot": "スケジュールスナップショット",
+        "dataQuality": "データ品質",
+        "profileCompletionOverview": "プロフィール完了率",
+        "completedProfiles": "完了プロフィール",
+        "missingDocuments": "欠落文書",
+        "pendingApprovals": "承認待ち",
+        "reviewIncomplete": "未完了レビュー"
+      }
+    },
+    "DoctorFilters": {
+      "title": "フィルター",
+      "searchByName": "名前で検索",
+      "specialty": "専門",
+      "allSpecialties": "すべての専門",
+      "status": "ステータス",
+      "all": "すべて",
+      "active": "アクティブ",
+      "inactive": "非アクティブ",
+      "onLeave": "休暇中"
+    },
+    "DoctorTable": {
+      "title": "医師リスト",
+      "subtitle": "医師管理 - リスト、新規作成、詳細表示。",
+      "totalDoctors": "総医師数",
+      "newThisMonth": "今月の新規",
+      "export": "エクスポート",
+      "import": "インポート",
+      "showing": "表示",
+      "createDoctor": "医師を作成 (サポート)",
+      "columns": "カラム",
+      "filter": "フィルター",
+      "sortBy": "並び替え",
+      "name": "名前",
+      "specialty": "専門",
+      "status": "ステータス",
+      "actions": "アクション",
+      "doctor": "医師",
+      "experience": "経験",
+      "addTime": "時間追加",
+      "view": "見る",
+      "edit": "編集",
+      "delete": "削除",
+      "noDoctorsFound": "医師が見つかりませんでした"
+    },
+    "DoctorCreate": {
+      "status": "ステータス",
+      "draft": "下書き",
+      "Header": {
+        "title": "医師を作成",
+        "subtitle": "個人情報で新しい医師プロフィールを追加します。",
+        "cancelAndGoBack": "キャンセルして戻る"
+      },
+      "Steps": {
+        "title": "ステップ",
+        "subtitle": "ステップ1: 個人情報",
+        "personalInfo": "個人情報",
+        "professionalInfo": "専門情報",
+        "educationInfo": "教育情報",
+        "awardsInfo": "賞与情報",
+        "certificationsInfo": "資格情報"
+      },
+      "PersonalInfoForm": {
+        "title": "個人情報",
+        "subtitle": "個人情報で新しい医師プロフィールを追加します。",
+        "fullName": "フルネーム",
+        "username": "ユーザー名",
+        "email": "メール",
+        "phone": "電話",
+        "address": "住所",
+        "bio": "自己紹介 (任意)",
+        "unsavedChanges": "未保存の変更",
+        "unsavedChangesDescription": "保存する前に必須フィールドを完成させましょう。",
+        "discard": "破棄",
+        "saveAsDraft": "下書きとして保存",
+        "saveAndActivate": "保存 & 活性化",
+        "required": "必須",
+        "placeholders": {
+          "fullName": "氏名を入力",
+          "username": "dr.john",
+          "email": "name@example.com",
+          "phone": "+81 (000) 000-0000",
+          "address": "住所を入力",
+          "bio": "略歴..."
+        }
+      },
+      "ProfessionalInfoForm": {
+        "title": "専門情報",
+        "subtitle": "専門情報で新しい医師プロフィールを追加します。",
+        "primarySpecialty": "主な専門",
+        "subSpecialty": "副専門 (任意)",
+        "professionalTitle": "専門タイトル (任意)",
+        "yearsOfExperience": "経験年数",
+        "consultationFee": "相談料",
+        "unsavedChanges": "未保存の変更",
+        "unsavedChangesDescription": "保存する前に必須フィールドを完成させましょう。",
+        "discard": "破棄",
+        "saveAsDraft": "下書きとして保存",
+        "saveAndActivate": "保存 & 活性化",
+        "reviewBeforeSaving": "保存する前に確認してください",
+        "required": "必須",
+        "placeholders": {
+          "loading": "読み込み中...",
+          "selectSpecialty": "専門分野を選択",
+          "subSpecialty": "例: インターベンション循環器内科",
+          "professionalTitle": "例: シニアコンサルタント",
+          "yearsOfExperience": "年数を入力",
+          "consultationFee": "例: 500000"
+        }
+      },
+      "EducationInfoForm": {
+        "title": "教育情報",
+        "subtitle": "学歴を追加します。",
+        "required": "必須",
+        "school": "学校 / 大学",
+        "degree": "学位",
+        "graduationYear": "卒業年",
+        "addEducation": "学歴を追加",
+        "unsavedChanges": "未保存の変更",
+        "reviewBeforeSaving": "保存する前に学歴を確認してください。",
+        "discard": "破棄",
+        "saveAsDraft": "下書きとして保存",
+        "saveAndActivate": "保存 & 活性化",
+        "placeholders": {
+          "school": "例：東京医科大学",
+          "degree": "例：医学博士、循環器内科",
+          "graduationYear": "例：2015"
+        }
+      },
+      "AwardsInfoForm": {
+        "title": "賞与 & 業績",
+        "subtitle": "重要な賞と医療実績を追加します。",
+        "optional": "任意",
+        "awardTitle": "賞 / タイトル",
+        "organization": "組織 / 発行者",
+        "year": "年",
+        "description": "説明 (任意)",
+        "remove": "削除",
+        "addAward": "賞を追加",
+        "unsavedChanges": "未保存の変更",
+        "reviewBeforeSaving": "保存する前に受賞リストを確認してください。",
+        "discard": "破棄",
+        "saveAsDraft": "下書きとして保存",
+        "saveAndActivate": "保存 & 活性化",
+        "placeholders": {
+          "awardTitle": "例：全国臨床優秀賞",
+          "organization": "例：日本医師会",
+          "year": "例：2021",
+          "description": "例：循環器内科および患者ケアへの多大な貢献が認められました。"
+        }
+      },
+      "CertificationsInfoForm": {
+        "title": "資格証明",
+        "subtitle": "専門資格と診療免許をアップロードします。",
+        "required": "必須",
+        "certificateName": "証明書 / 免許名",
+        "issuingAuthority": "発行機関",
+        "licenseNumber": "免許番号",
+        "issueDate": "発行日",
+        "expiryDate": "有効期限",
+        "verificationNotes": "確認メモ (任意)",
+        "uploadText": "クリックしてアップロードまたはドラッグ＆ドロップ",
+        "uploadFormats": "PDF, PNG, JPG",
+        "remove": "削除",
+        "addCertification": "資格を追加",
+        "unsavedChanges": "未保存の変更",
+        "reviewBeforeSaving": "セットアップを完了する前にすべての資格を確認してください。",
+        "discard": "破棄",
+        "saveAsDraft": "下書きとして保存",
+        "saveAndActivate": "保存 & 活性化",
+        "saving": "保存中...",
+        "placeholders": {
+          "certificateName": "例：医師免許",
+          "issuingAuthority": "例：厚生労働省",
+          "licenseNumber": "例：HN-12345",
+          "verificationNotes": "例：2024/03/05に免許委員会で確認済み。"
+        }
+      },
+      "ImageUpload": {
+        "profilePhoto": "プロフィール写真",
+        "uploadPhoto": "写真をアップロード",
+        "uploadFormat": "JPG, PNG, 最大 5MB"
+      },
+      "Complete": {
+        "title": "医師プロフィールが有効化されました",
+        "description": "医師は検索に表示され、予約を受け取ることができます。",
+        "backToList": "医師リストに戻る",
+        "successTitle": "保存 & 有効化に成功しました",
+        "successMessage": "すべての個人情報、専門情報、学歴、賞与、資格情報が保存されました。",
+        "active": "アクティブ",
+        "overviewTitle": "医師の概要",
+        "readOnly": "読み取り専用サマリー",
+        "name": "名前",
+        "specialty": "専門",
+        "experience": "経験",
+        "primaryLicense": "主な免許",
+        "issuingAuthority": "発行機関",
+        "licenseStatus": "免許ステータス",
+        "verified": "確認済み",
+        "noExpiry": "有効期限なし",
+        "nextStepTitle": "次のステップ",
+        "nextStepDescription": "予約を受け付けるために空き状況を設定してください。",
+        "addTimeSlots": "時間枠を追加",
+        "openCalendar": "医師カレンダーを開く",
+        "adjustRules": "予約ルールの調整",
+        "badges": {
+          "boardCertified": "委員会認定",
+          "cardioCPD": "心臓病 CPD",
+          "telehealth": "遠隔医療対応"
+        }
+      }
+    }
   }
 }

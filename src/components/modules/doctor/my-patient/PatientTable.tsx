@@ -44,7 +44,7 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                     <div className='flex items-center gap-3'>
                       <Avatar className='h-10 w-10 border border-slate-100'>
                         <AvatarImage src={patient.user.avatar || ''} alt={patient.user.fullName} />
-                        <AvatarFallback>{patient.user.fullName.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{patient.user.fullName?.charAt(0) ?? 'P'}</AvatarFallback>
                       </Avatar>
                       <div>
                         <p className='font-bold text-slate-900'>{patient.user.fullName}</p>

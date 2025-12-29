@@ -1,47 +1,306 @@
 {
-  "SignInPage": {
-    "welcome": "Welcome back",
-    "welcomeMessage": "Sign in to your account to continue",
-    "dontHaveAccount": "Don't have an account?",
-    "signUp": "Sign Up",
-    "securedBy": "Secured by"
+  "Auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account to continue",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "securedBy": "Secured by"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Join us to manage your hospital efficiently",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In"
+    }
   },
-  "SignUpPage": {
-    "createAccount": "Create an account",
-    "alreadyHaveAccount": "Already have an account?",
-    "signIn": "Sign In",
-    "securedBy": "Secured by",
-    "welcome": "Welcome! Please fill in the details to get started."
-  },
-  "SidebarHeader": {
-    "logoName": "Trustcare Clinic",
-    "location": "Hanoi, Vietnam"
-  },
-  "setting": {
-    "account": "Account",
-    "language": "Language",
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "logout": "Log out",
     "profile": "Profile",
-    "logout": "Logout"
+    "settings": "Settings",
+    "dashboard": "Dashboard"
   },
-  "department": {
-    "name": "Name of Department",
-    "status": "Status",
-    "addDeparment": "Add Department",
-    "editDepartment": "Edit Department",
-    "addBtn": "Add",
-    "editBtn": "Save Changes",
-    "active": "Active",
-    "inactive": "Inactive",
-    "selectStatus": "Select status",
-    "enterDepartmentName": "Enter department name"
+  "UserProfile": {
+    "profile": "Profile",
+    "subscription": "Subscription",
+    "settings": "Settings",
+    "logout": "Log out",
+    "loggingOut": "Logging out..."
   },
-  "departmentTable": {
-    "deparmentList": "Department List",
-    "name": "Name",
-    "status": "Status",
-    "actions": "Actions",
-    "updateBtn": "Update",
-    "deleteBtn": "Delete",
-    "notHaveData": "No data available"
+  "Sidebar": {
+    "doctors": "Doctors",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "transactions": "Transactions",
+    "medicines": "Medicines",
+    "departments": "Departments",
+    "specialties": "Specialties",
+    "support": "Support",
+    "dashboard": "Dashboard",
+    "booking": "Booking",
+    "profile": "Profile",
+    "myPatients": "My Patients"
+  },
+  "Admin": {
+    "PatientList": {
+      "title": "Patients",
+      "subtitle": "Manage Patients - List, create, and view details.",
+      "totalPatients": "Total patients",
+      "newThisMonth": "New this month",
+      "export": "Export",
+      "import": "Import",
+      "createPatient": "Create Patient (Support)",
+      "quickFilters": "Quick Filters",
+      "commonDoctorViews": "Common doctor views",
+      "allDoctors": "All doctors",
+      "availableToday": "Available today",
+      "newlyAdded": "Newly added",
+      "onLeave": "On leave",
+      "filter": {
+        "all": "All",
+        "active": "Active",
+        "inactive": "Inactive",
+        "advanced": "Advanced Filter",
+        "sortBy": "Sort: Last visit · Desc"
+      },
+      "table": {
+        "hash": "#",
+        "patient": "Patient",
+        "phone": "Phone",
+        "idInsurance": "ID / Insurance",
+        "lastVisit": "Last visit",
+        "statusTags": "Status & tags",
+        "showing": "Showing {start}-{end} of {total} patients"
+      }
+    },
+    "DoctorList": {
+      "title": "Doctors",
+      "subtitle": "Manage Doctors - List, create, and view details.",
+      "totalDoctors": "Total doctors",
+      "newThisMonth": "New this month",
+      "export": "Export",
+      "import": "Import",
+      "createDoctor": "Create Doctor (Support)",
+      "schedule": "Schedule",
+      "widgets": {
+        "today": "Today",
+        "availableSlots": "Available slots",
+        "bookedAppointments": "Booked appointments",
+        "offHours": "Off hours",
+        "scheduleSnapshot": "Schedule snapshot",
+        "dataQuality": "Data quality",
+        "profileCompletionOverview": "Profile completion overview",
+        "completedProfiles": "Completed profiles",
+        "missingDocuments": "Missing documents",
+        "pendingApprovals": "Pending approvals",
+        "reviewIncomplete": "Review incomplete"
+      }
+    },
+    "DoctorFilters": {
+      "title": "Filters",
+      "searchByName": "Search by name",
+      "specialty": "Specialty",
+      "allSpecialties": "All specialties",
+      "status": "Status",
+      "all": "All",
+      "active": "Active",
+      "inactive": "Inactive",
+      "onLeave": "On leave"
+    },
+    "DoctorTable": {
+      "title": "Doctors",
+      "subtitle": "Manage Doctors - List, create, and view details.",
+      "totalDoctors": "Total doctors",
+      "newThisMonth": "New this month",
+      "export": "Export",
+      "import": "Import",
+      "createDoctor": "Create Doctor (Support)",
+      "schedule": "Schedule",
+      "showing": "Showings",
+      "columns": "Columns",
+      "filter": "Filter",
+      "sortBy": "Sort by",
+      "name": "Name",
+      "specialty": "Specialty",
+      "status": "Status",
+      "actions": "Actions",
+      "doctor": "Doctor",
+      "experience": "Experience",
+      "addTime": "Add time",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "noDoctorsFound": "No doctors found"
+    },
+    "DoctorCreate": {
+      "status": "Status",
+      "draft": "Draft",
+      "Header": {
+        "title": "Create Doctor",
+        "subtitle": "Add a new doctor profile with personal details.",
+        "cancelAndGoBack": "Cancel and go back"
+      },
+      "Steps": {
+        "title": "Steps",
+        "subtitle": "Step 1: Personal information",
+        "personalInfo": "Personal information",
+        "professionalInfo": "Professional information",
+        "educationInfo": "Education information",
+        "awardsInfo": "Awards information",
+        "certificationsInfo": "Certifications information"
+      },
+      "PersonalInfoForm": {
+        "title": "Personal Information",
+        "subtitle": "Add a new doctor profile with personal details.",
+        "fullName": "Full name",
+        "username": "Username",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "bio": "Bio (Optional)",
+        "unsavedChanges": "Unsaved changes",
+        "unsavedChangesDescription": "Make sure required fields are completed before saving.",
+        "discard": "Discard",
+        "saveAsDraft": "Save as draft",
+        "saveAndActivate": "Save & activate",
+        "required": "Required",
+        "placeholders": {
+          "fullName": "Enter full name",
+          "username": "dr.john",
+          "email": "name@example.com",
+          "phone": "+1 (000) 000-0000",
+          "address": "Street, city, state, ZIP",
+          "bio": "Short biography..."
+        }
+      },
+      "ProfessionalInfoForm": {
+        "title": "Professional Information",
+        "subtitle": "Add a new doctor profile with professional details.",
+        "primarySpecialty": "Primary specialty",
+        "subSpecialty": "Sub-specialty (optional)",
+        "professionalTitle": "Professional title (optional)",
+        "yearsOfExperience": "Years of experience",
+        "consultationFee": "Consultation fee",
+        "unsavedChanges": "Unsaved changes",
+        "unsavedChangesDescription": "Make sure required fields are completed before saving.",
+        "discard": "Discard",
+        "saveAsDraft": "Save as draft",
+        "saveAndActivate": "Save & activate",
+        "reviewBeforeSaving": "Review before saving",
+        "required": "Required",
+        "placeholders": {
+          "loading": "Loading...",
+          "selectSpecialty": "Select specialty",
+          "subSpecialty": "e.g. Interventional cardiology",
+          "professionalTitle": "e.g. Senior Consultant",
+          "yearsOfExperience": "Enter years",
+          "consultationFee": "e.g. 500000"
+        }
+      },
+      "EducationInfoForm": {
+        "title": "Educational information",
+        "subtitle": "Add your educational background.",
+        "required": "Required",
+        "school": "School / University",
+        "degree": "Degree",
+        "graduationYear": "Graduation year",
+        "addEducation": "Add education",
+        "unsavedChanges": "Unsaved changes",
+        "reviewBeforeSaving": "Review education history before saving.",
+        "discard": "Discard",
+        "saveAsDraft": "Save as draft",
+        "saveAndActivate": "Save & activate",
+        "placeholders": {
+          "school": "e.g. University of Medicine",
+          "degree": "e.g. MD, Cardiology",
+          "graduationYear": "e.g. 2015"
+        }
+      },
+      "AwardsInfoForm": {
+        "title": "Awards & achievements",
+        "subtitle": "Add important awards and medical achievements.",
+        "optional": "Optional",
+        "awardTitle": "Award / Title",
+        "organization": "Organization / Issuer",
+        "year": "Year",
+        "description": "Description (optional)",
+        "remove": "Remove",
+        "addAward": "Add award",
+        "unsavedChanges": "Unsaved changes",
+        "reviewBeforeSaving": "Review awards list before saving.",
+        "discard": "Discard",
+        "saveAsDraft": "Save as draft",
+        "saveAndActivate": "Save & activate",
+        "placeholders": {
+          "awardTitle": "e.g. National Clinical Excellence Award",
+          "organization": "e.g. Vietnam Medical Association",
+          "year": "e.g. 2021",
+          "description": "e.g. Recognized for outstanding contributions in cardiology and patient care."
+        }
+      },
+      "CertificationsInfoForm": {
+        "title": "Practice certifications",
+        "subtitle": "Upload professional certifications and practice licenses.",
+        "required": "Required",
+        "certificateName": "Certificate / License name",
+        "issuingAuthority": "Issuing authority",
+        "licenseNumber": "License number",
+        "issueDate": "Issue date",
+        "expiryDate": "Expiry date",
+        "verificationNotes": "Verification notes (optional)",
+        "uploadText": "Click to upload or drag & drop",
+        "uploadFormats": "PDF, PNG, JPG",
+        "remove": "Remove",
+        "addCertification": "Add certification",
+        "unsavedChanges": "Unsaved changes",
+        "reviewBeforeSaving": "Review all certifications before completing setup.",
+        "discard": "Discard",
+        "saveAsDraft": "Save as draft",
+        "saveAndActivate": "Save & activate",
+        "saving": "Saving...",
+        "placeholders": {
+          "certificateName": "e.g. Medical Practice License",
+          "issuingAuthority": "e.g. Vietnam Ministry of Health",
+          "licenseNumber": "e.g. HN-12345",
+          "verificationNotes": "e.g. Verified with licensing board on 05/03/2024. Next check in 12 months."
+        }
+      },
+      "ImageUpload": {
+        "profilePhoto": "Profile photo",
+        "uploadPhoto": "Upload photo",
+        "uploadFormat": "JPG, PNG, max 5MB"
+      },
+      "Complete": {
+        "title": "Doctor profile activated",
+        "description": "Doctor is now visible in search and can receive appointments.",
+        "backToList": "Back to doctor list",
+        "successTitle": "Save & activate successful",
+        "successMessage": "All personal, professional, education, awards and certification details have been saved.",
+        "active": "Active",
+        "overviewTitle": "Doctor overview",
+        "readOnly": "Read-only summary",
+        "name": "Name",
+        "specialty": "Specialty",
+        "experience": "Experience",
+        "primaryLicense": "Primary license",
+        "issuingAuthority": "Issuing authority",
+        "licenseStatus": "License status",
+        "verified": "Verified",
+        "noExpiry": "No expiry set",
+        "nextStepTitle": "Next best step",
+        "nextStepDescription": "Set availability to begin accepting appointments.",
+        "addTimeSlots": "Add time slots",
+        "openCalendar": "Open doctor calendar",
+        "adjustRules": "Adjust booking rules",
+        "badges": {
+          "boardCertified": "Board-certified",
+          "cardioCPD": "Cardio CPD",
+          "telehealth": "Telehealth enabled"
+        }
+      }
+    }
   }
 }

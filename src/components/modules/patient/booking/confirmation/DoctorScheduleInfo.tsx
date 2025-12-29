@@ -14,33 +14,23 @@ export const DoctorScheduleInfo = () => {
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100'>
       <div className='flex justify-between items-center mb-6'>
-        <h3 className='text-lg font-bold text-slate-900'>
-          Bác sĩ & lịch đã chọn
-        </h3>
-        <button className='text-sm text-teal-600 font-medium hover:text-teal-700'>
-          Thay đổi
-        </button>
+        <h3 className='text-lg font-bold text-slate-900'>Bác sĩ & lịch đã chọn</h3>
+        <button className='text-sm text-teal-600 font-medium hover:text-teal-700'>Thay đổi</button>
       </div>
 
       <p className='text-sm text-slate-500 mb-6'>Thông tin từ Bước 1 & 2.</p>
 
       <div className='flex items-start gap-4 mb-6'>
         <Avatar className='h-12 w-12 border border-slate-200'>
-          <AvatarImage
-            src={selectedDoctor.user.avatar}
-            alt={selectedDoctor.user.fullName}
-          />
-          <AvatarFallback>
-            {selectedDoctor.user.fullName.charAt(0)}
-          </AvatarFallback>
+          <AvatarImage src={selectedDoctor.user.avatar} alt={selectedDoctor.user.fullName} />
+          <AvatarFallback>{selectedDoctor.user.fullName?.charAt(0) ?? 'D'}</AvatarFallback>
         </Avatar>
         <div>
           <h4 className='font-bold text-slate-900'>
             {selectedDoctor.professionalTitle}. {selectedDoctor.user.fullName}
           </h4>
           <p className='text-xs text-slate-500 mt-1'>
-            {selectedDoctor.primarySpecialty.name} •{' '}
-            {selectedDoctor.yearsOfExperience} năm kinh nghiệm
+            {selectedDoctor.primarySpecialty.name} • {selectedDoctor.yearsOfExperience} năm kinh nghiệm
           </p>
           <div className='flex gap-2 mt-2'>
             <Badge
@@ -68,15 +58,11 @@ export const DoctorScheduleInfo = () => {
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-sm text-slate-500'>Khung giờ</span>
-          <span className='text-sm font-semibold text-slate-900'>
-            {selectedTime}
-          </span>
+          <span className='text-sm font-semibold text-slate-900'>{selectedTime}</span>
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-sm text-slate-500'>Hình thức</span>
-          <span className='text-sm font-semibold text-slate-900'>
-            Khám trực tiếp tại cơ sở
-          </span>
+          <span className='text-sm font-semibold text-slate-900'>Khám trực tiếp tại cơ sở</span>
         </div>
       </div>
     </div>

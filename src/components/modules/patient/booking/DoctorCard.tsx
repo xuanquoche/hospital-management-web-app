@@ -27,11 +27,7 @@ interface DoctorCardProps {
   onSelect?: () => void;
 }
 
-export const DoctorCard = ({
-  doctor,
-  isSelected,
-  onSelect,
-}: DoctorCardProps) => {
+export const DoctorCard = ({ doctor, isSelected, onSelect }: DoctorCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -48,7 +44,7 @@ export const DoctorCard = ({
         <Avatar className='h-20 w-20 border-2 border-white shadow-sm'>
           <AvatarImage src={doctor.image} alt={doctor.name} />
           <AvatarFallback className='bg-teal-100 text-xl font-bold text-teal-700'>
-            {doctor.name.split(' ').pop()?.charAt(0)}
+            {doctor.name?.split(' ').pop()?.charAt(0) ?? 'D'}
           </AvatarFallback>
         </Avatar>
         {doctor.tags?.includes('Được đánh giá cao') && (
@@ -62,10 +58,7 @@ export const DoctorCard = ({
         <div className='flex items-center gap-2'>
           <h4 className='font-bold text-slate-900'>{doctor.name}</h4>
           {doctor.isFemale && (
-            <Badge
-              variant='outline'
-              className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'
-            >
+            <Badge variant='outline' className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'>
               Bác sĩ nữ
             </Badge>
           )}
@@ -76,20 +69,13 @@ export const DoctorCard = ({
         </p>
 
         <div className='flex flex-wrap gap-2 pt-1'>
-          <Badge
-            variant='secondary'
-            className='bg-slate-100 font-normal text-slate-600'
-          >
+          <Badge variant='secondary' className='bg-slate-100 font-normal text-slate-600'>
             {doctor.location}
           </Badge>
           {doctor.tags
             ?.filter((t) => t !== 'Được đánh giá cao')
             .map((tag, i) => (
-              <Badge
-                key={i}
-                variant='outline'
-                className='border-slate-200 font-normal text-slate-500'
-              >
+              <Badge key={i} variant='outline' className='border-slate-200 font-normal text-slate-500'>
                 {tag}
               </Badge>
             ))}
@@ -98,9 +84,7 @@ export const DoctorCard = ({
 
       <div className='flex flex-col items-end gap-2 sm:min-w-[140px]'>
         <div className='text-right'>
-          <p className='text-xs font-medium text-teal-600'>
-            {doctor.availability}
-          </p>
+          <p className='text-xs font-medium text-teal-600'>{doctor.availability}</p>
           <p className='text-xs text-slate-400'>{doctor.slots} khung giờ</p>
         </div>
         <Button

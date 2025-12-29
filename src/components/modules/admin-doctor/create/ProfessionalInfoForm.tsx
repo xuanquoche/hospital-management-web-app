@@ -1,26 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 
 import { DoctorFormData } from './CreateDoctorMain';
@@ -50,11 +38,8 @@ interface Specialty {
   name: string;
 }
 
-export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
-  initialData,
-  onUpdate,
-  onComplete,
-}) => {
+export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+  const t = useTranslations('Admin.DoctorCreate.ProfessionalInfoForm');
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [isLoadingSpecialties, setIsLoadingSpecialties] = useState(false);
 
@@ -64,12 +49,8 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
       primarySpecialtyId: initialData.primarySpecialtyId,
       subSpecialty: initialData.subSpecialty,
       professionalTitle: initialData.professionalTitle,
-      yearsOfExperience: initialData.yearsOfExperience
-        ? String(initialData.yearsOfExperience)
-        : '',
-      consultationFee: initialData.consultationFee
-        ? String(initialData.consultationFee)
-        : '',
+      yearsOfExperience: initialData.yearsOfExperience ? String(initialData.yearsOfExperience) : '',
+      consultationFee: initialData.consultationFee ? String(initialData.consultationFee) : '',
     },
   });
 
@@ -77,9 +58,7 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
     const fetchSpecialties = async () => {
       setIsLoadingSpecialties(true);
       try {
-        const response = await clientFetcher.get(
-          '/admin/specialties?page=1&limit=100'
-        ); // Fetch enough specialties
+        const response = await clientFetcher.get('/admin/specialties?page=1&limit=100'); // Fetch enough specialties
         if (response.data) {
           setSpecialties(response.data);
         }
@@ -99,12 +78,8 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
       primarySpecialtyId: initialData.primarySpecialtyId,
       subSpecialty: initialData.subSpecialty,
       professionalTitle: initialData.professionalTitle,
-      yearsOfExperience: initialData.yearsOfExperience
-        ? String(initialData.yearsOfExperience)
-        : '',
-      consultationFee: initialData.consultationFee
-        ? String(initialData.consultationFee)
-        : '',
+      yearsOfExperience: initialData.yearsOfExperience ? String(initialData.yearsOfExperience) : '',
+      consultationFee: initialData.consultationFee ? String(initialData.consultationFee) : '',
     });
   }, [initialData, form]);
 
@@ -121,14 +96,10 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
     <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className='text-lg font-semibold text-slate-900'>
-            Professional details
-          </h2>
-          <p className='text-sm text-slate-500'>
-            Specialty, experience, and fee information.
-          </p>
+          <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
+          <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>Required</span>
+        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
       </div>
 
       <Form {...form}>
@@ -139,7 +110,7 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
               name='primarySpecialtyId'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Primary specialty</FormLabel>
+                  <FormLabel>{t('primarySpecialty')}</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -150,9 +121,7 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
-                            isLoadingSpecialties
-                              ? 'Loading...'
-                              : 'Select specialty'
+                            isLoadingSpecialties ? t('placeholders.loading') : t('placeholders.selectSpecialty')
                           }
                         />
                       </SelectTrigger>
@@ -174,12 +143,9 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
               name='subSpecialty'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sub-specialty (optional)</FormLabel>
+                  <FormLabel>{t('subSpecialty')}</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='e.g. Interventional cardiology'
-                      {...field}
-                    />
+                    <Input placeholder={t('placeholders.subSpecialty')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -190,9 +156,9 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
               name='professionalTitle'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Professional title (optional)</FormLabel>
+                  <FormLabel>{t('professionalTitle')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='e.g. Senior Consultant' {...field} />
+                    <Input placeholder={t('placeholders.professionalTitle')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -203,9 +169,9 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
               name='yearsOfExperience'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Years of experience</FormLabel>
+                  <FormLabel>{t('yearsOfExperience')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='Enter years' type='number' {...field} />
+                    <Input placeholder={t('placeholders.yearsOfExperience')} type='number' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,9 +182,9 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
               name='consultationFee'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Consultation fee</FormLabel>
+                  <FormLabel>{t('consultationFee')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='e.g. 500000' type='number' {...field} />
+                    <Input placeholder={t('placeholders.consultationFee')} type='number' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -228,22 +194,22 @@ export const ProfessionalInfoForm: React.FC<ProfessionalInfoFormProps> = ({
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>Unsaved changes</p>
-              <p>Review specialty, experience and fee before saving.</p>
+              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>
               <Button type='button' variant='ghost' className='text-slate-600'>
-                Discard
+                {t('discard')}
               </Button>
               <Button
                 type='button'
                 variant='outline'
                 className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
               >
-                Save as draft
+                {t('saveAsDraft')}
               </Button>
               <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
-                Save & activate
+                {t('saveAndActivate')}
               </Button>
             </div>
           </div>

@@ -160,7 +160,7 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
                         <AvatarImage src={appointment.patient.avatar} alt={appointment.patient.name} />
-                        <AvatarFallback>{appointment.patient.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{appointment.patient.name?.charAt(0) ?? 'P'}</AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
                         <span className='font-medium'>{appointment.patient.name}</span>
@@ -172,7 +172,7 @@ export function AppointmentTable({ appointments, meta }: AppointmentTableProps) 
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
                         <AvatarImage src={appointment.doctor.avatar} alt={appointment.doctor.name} />
-                        <AvatarFallback>{appointment.doctor.name.charAt(0)}</AvatarFallback>
+                        <AvatarFallback>{appointment.doctor.name?.charAt(0) ?? 'D'}</AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
                         <span className='font-medium'>{appointment.doctor.name}</span>

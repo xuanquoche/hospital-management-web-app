@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -8,11 +9,11 @@ interface Step {
 }
 
 const steps: Step[] = [
-  { id: 1, label: 'Personal info' },
-  { id: 2, label: 'Professional' },
-  { id: 3, label: 'Education' },
-  { id: 4, label: 'Awards' },
-  { id: 5, label: 'Certifications' },
+  { id: 1, label: 'personalInfo' },
+  { id: 2, label: 'professionalInfo' },
+  { id: 3, label: 'educationInfo' },
+  { id: 4, label: 'awardsInfo' },
+  { id: 5, label: 'certificationsInfo' },
 ];
 
 interface DoctorCreationStepsProps {
@@ -21,18 +22,13 @@ interface DoctorCreationStepsProps {
   onStepClick: (stepId: number) => void;
 }
 
-export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
-  currentStep,
-  maxStep,
-  onStepClick,
-}) => {
+export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({ currentStep, maxStep, onStepClick }) => {
+  const t = useTranslations('Admin.DoctorCreate.Steps');
   return (
     <div className='w-64 shrink-0 space-y-1'>
       <div className='mb-4'>
-        <h3 className='font-semibold text-slate-900'>Doctor profile setup</h3>
-        <p className='text-sm text-slate-500'>
-          Only basic personal information is required on this step.
-        </p>
+        <h3 className='font-semibold text-slate-900'>{t('title')}</h3>
+        <p className='text-sm text-slate-500'>{t('subtitle')}</p>
       </div>
       <nav className='flex flex-col space-y-1'>
         {steps.map((step) => {
@@ -63,7 +59,7 @@ export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
               >
                 {step.id}
               </span>
-              {step.label}
+              {t(step.label)}
             </button>
           );
         })}

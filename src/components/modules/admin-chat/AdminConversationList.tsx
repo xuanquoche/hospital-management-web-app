@@ -4,19 +4,9 @@ import { MessageCircle, Search, Loader2 } from 'lucide-react';
 import React, { useState } from 'react';
 
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
-import {
-  Conversation,
-  ConversationPriority,
-  ConversationStatus,
-} from '@/types/conversation';
+import { Conversation, ConversationPriority, ConversationStatus } from '@/types/conversation';
 
 interface AdminConversationListProps {
   conversations: Conversation[];
@@ -25,10 +15,7 @@ interface AdminConversationListProps {
   loading?: boolean;
 }
 
-const statusConfig: Record<
-  ConversationStatus,
-  { bg: string; text: string; label: string }
-> = {
+const statusConfig: Record<ConversationStatus, { bg: string; text: string; label: string }> = {
   OPEN: { bg: 'bg-blue-500', text: 'text-white', label: 'Mở' },
   PENDING: { bg: 'bg-amber-500', text: 'text-white', label: 'Chờ xử lý' },
   IN_PROGRESS: { bg: 'bg-teal-500', text: 'text-white', label: 'Đang xử lý' },
@@ -40,10 +27,7 @@ const statusConfig: Record<
   CLOSED: { bg: 'bg-slate-400', text: 'text-white', label: 'Đã đóng' },
 };
 
-const priorityConfig: Record<
-  ConversationPriority,
-  { bg: string; text: string; label: string }
-> = {
+const priorityConfig: Record<ConversationPriority, { bg: string; text: string; label: string }> = {
   LOW: { bg: 'bg-slate-200', text: 'text-slate-600', label: 'Thấp' },
   NORMAL: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Bình thường' },
   HIGH: { bg: 'bg-orange-500', text: 'text-white', label: 'Cao' },
@@ -121,9 +105,7 @@ export const AdminConversationList: React.FC<AdminConversationListProps> = ({
     <div className='flex h-full flex-col bg-white'>
       {/* Header & Filters */}
       <div className='space-y-3 border-b border-slate-200 p-4'>
-        <h2 className='text-lg font-semibold text-slate-800'>
-          Danh sách hội thoại
-        </h2>
+        <h2 className='text-lg font-semibold text-slate-800'>Danh sách hội thoại</h2>
         <div className='relative'>
           <Search className='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400' />
           <Input
@@ -155,9 +137,7 @@ export const AdminConversationList: React.FC<AdminConversationListProps> = ({
             <div className='rounded-full bg-slate-100 p-4 mb-4'>
               <MessageCircle className='h-10 w-10 text-slate-400' />
             </div>
-            <p className='font-medium text-slate-600'>
-              Không có cuộc hội thoại
-            </p>
+            <p className='font-medium text-slate-600'>Không có cuộc hội thoại</p>
             <p className='mt-1 text-sm text-slate-400 max-w-[200px]'>
               Các yêu cầu hỗ trợ từ bệnh nhân sẽ hiển thị ở đây
             </p>
@@ -173,7 +153,7 @@ export const AdminConversationList: React.FC<AdminConversationListProps> = ({
                 !conversation.lastMessage.isRead &&
                 conversation.lastMessage.senderRole === 'PATIENT';
               const patientName = conversation.patient?.name || 'Bệnh nhân';
-              const initials = patientName.charAt(0).toUpperCase();
+              const initials = patientName?.charAt(0)?.toUpperCase() ?? 'P';
 
               return (
                 <div
@@ -209,9 +189,7 @@ export const AdminConversationList: React.FC<AdminConversationListProps> = ({
                         <h4
                           className={cn(
                             'truncate text-sm',
-                            hasUnread
-                              ? 'font-bold text-slate-900'
-                              : 'font-medium text-slate-700'
+                            hasUnread ? 'font-bold text-slate-900' : 'font-medium text-slate-700'
                           )}
                         >
                           {patientName}
@@ -228,13 +206,10 @@ export const AdminConversationList: React.FC<AdminConversationListProps> = ({
                       <p
                         className={cn(
                           'mt-1 truncate text-sm',
-                          hasUnread
-                            ? 'text-slate-800 font-medium'
-                            : 'text-slate-500'
+                          hasUnread ? 'text-slate-800 font-medium' : 'text-slate-500'
                         )}
                       >
-                        {conversation.lastMessage?.content ||
-                          'Chưa có tin nhắn'}
+                        {conversation.lastMessage?.content || 'Chưa có tin nhắn'}
                       </p>
 
                       {/* Tags */}

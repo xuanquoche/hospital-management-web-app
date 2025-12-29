@@ -1,15 +1,10 @@
 import { Search } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 
 interface DoctorFiltersProps {
@@ -22,10 +17,8 @@ interface Specialty {
   name: string;
 }
 
-const DoctorFilters: React.FC<DoctorFiltersProps> = ({
-  onSearch,
-  onSpecialtyChange,
-}) => {
+const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChange }) => {
+  const t = useTranslations('Admin.DoctorFilters');
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,9 +27,7 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
     const fetchSpecialties = async () => {
       setLoading(true);
       try {
-        const response = await clientFetcher.get(
-          '/admin/specialties?page=1&limit=100'
-        );
+        const response = await clientFetcher.get('/admin/specialties?page=1&limit=100');
         if (response.data) {
           setSpecialties(response.data);
         }
@@ -63,13 +54,11 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
   return (
     <div className='mb-6 rounded-lg border border-slate-100 bg-white p-4 shadow-sm'>
       <div className='mb-4'>
-        <h3 className='text-sm font-medium text-slate-500'>Filters</h3>
+        <h3 className='text-sm font-medium text-slate-500'>{t('title')}</h3>
       </div>
       <div className='grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
-            Search by name
-          </label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('searchByName')}</label>
           <div className='relative'>
             <Search className='absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400' />
             <Input
@@ -81,17 +70,13 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
           </div>
         </div>
         <div className='col-span-3'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
-            Specialty
-          </label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('specialty')}</label>
           <Select defaultValue='all' onValueChange={onSpecialtyChange}>
             <SelectTrigger className='h-10 border-slate-200 focus:ring-teal-500'>
-              <SelectValue
-                placeholder={loading ? 'Loading...' : 'Select specialty'}
-              />
+              <SelectValue placeholder={loading ? 'Loading...' : 'Select specialty'} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='all'>All specialties</SelectItem>
+              <SelectItem value='all'>{t('allSpecialties')}</SelectItem>
               {specialties.map((specialty) => (
                 <SelectItem key={specialty.id} value={specialty.id}>
                   {specialty.name}
@@ -101,18 +86,16 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
           </Select>
         </div>
         <div className='col-span-3'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
-            Status
-          </label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('status')}</label>
           <Select defaultValue='all'>
             <SelectTrigger className='h-10 border-slate-200 focus:ring-teal-500'>
               <SelectValue placeholder='Select status' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='all'>All</SelectItem>
-              <SelectItem value='active'>Active</SelectItem>
-              <SelectItem value='inactive'>Inactive</SelectItem>
-              <SelectItem value='on-leave'>On leave</SelectItem>
+              <SelectItem value='all'>{t('all')}</SelectItem>
+              <SelectItem value='active'>{t('active')}</SelectItem>
+              <SelectItem value='inactive'>{t('inactive')}</SelectItem>
+              <SelectItem value='on-leave'>{t('onLeave')}</SelectItem>
             </SelectContent>
           </Select>
         </div>

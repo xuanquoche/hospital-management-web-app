@@ -81,7 +81,7 @@ export const LOCALIZED_ROUTES = {
   DASHBOARD_BY_ROLE: (role: Role, locale: string = 'en') => {
     switch (role) {
       case Role.ADMIN:
-        return `/${locale}/admin/dashboard`;
+        return `/${locale}/dashboard`;
       case Role.DOCTOR:
         return `/${locale}/doctor/dashboard`;
       case Role.PATIENT:

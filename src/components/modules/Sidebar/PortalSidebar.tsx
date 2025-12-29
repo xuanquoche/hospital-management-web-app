@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import React, { useMemo } from 'react';
 
 import { Role } from '@/const/enum';
@@ -12,6 +13,7 @@ import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 
 const PortalSidebar = () => {
+  const t = useTranslations('Sidebar');
   const pathname = usePathname();
   const { data: session, status } = useSession();
 
@@ -20,9 +22,7 @@ const PortalSidebar = () => {
   const checkActive = (href: string) => {
     // Remove locale prefix (e.g., /en, /vi) from pathname to compare with href
     const normalizedPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
-    return (
-      normalizedPathname === href || normalizedPathname.startsWith(`${href}/`)
-    );
+    return normalizedPathname === href || normalizedPathname.startsWith(`${href}/`);
   };
 
   const menuItems = useMemo(() => {
@@ -38,10 +38,7 @@ const PortalSidebar = () => {
         <div className='h-8 w-32 animate-pulse rounded bg-teal-100/50 mb-8'></div>
         <div className='space-y-4'>
           {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className='h-10 w-full animate-pulse rounded bg-slate-100'
-            ></div>
+            <div key={i} className='h-10 w-full animate-pulse rounded bg-slate-100'></div>
           ))}
         </div>
       </div>
@@ -55,18 +52,12 @@ const PortalSidebar = () => {
       </div>
 
       <div className='flex-1 px-4 py-2'>
-        <h2 className='mb-2 px-2 text-xs font-semibold tracking-wider text-slate-400 uppercase'>
-          Management
-        </h2>
+        <h2 className='mb-2 px-2 text-xs font-semibold tracking-wider text-slate-400 uppercase'>Management</h2>
 
         <div className='space-y-1'>
           {menuItems.map((item) => (
             <Link key={item.href} href={item.href} className='block'>
-              <PortalSidebarItem
-                icon={item.icon}
-                label={item.label}
-                isActive={checkActive(item.href)}
-              />
+              <PortalSidebarItem icon={item.icon} label={t(item.label)} isActive={checkActive(item.href)} />
             </Link>
           ))}
         </div>

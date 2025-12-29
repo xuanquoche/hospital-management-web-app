@@ -21,65 +21,65 @@ export interface MenuItem {
 }
 
 export const ADMIN_MENU: MenuItem[] = [
-  { icon: Stethoscope, label: 'Doctors', href: PRIVATE_ROUTES.ADMIN_DOCTOR },
-  { icon: Users, label: 'Patients', href: PRIVATE_ROUTES.ADMIN_PATIENT },
+  { icon: Stethoscope, label: 'doctors', href: PRIVATE_ROUTES.ADMIN_DOCTOR },
+  { icon: Users, label: 'patients', href: PRIVATE_ROUTES.ADMIN_PATIENT },
   {
     icon: Calendar,
-    label: 'Appointments',
+    label: 'appointments',
     href: PRIVATE_ROUTES.ADMIN_APPOINTMENTS,
   },
   {
     icon: CreditCard,
-    label: 'Transactions',
+    label: 'transactions',
     href: PRIVATE_ROUTES.ADMIN_TRANSACTIONS,
   },
-  { icon: Pill, label: 'Medicines', href: PRIVATE_ROUTES.ADMIN_MEDICINES },
+  { icon: Pill, label: 'medicines', href: PRIVATE_ROUTES.ADMIN_MEDICINES },
   {
     icon: Server,
-    label: 'Departments',
+    label: 'departments',
     href: PRIVATE_ROUTES.ADMIN_DEPARTMENTS,
   },
   {
     icon: Activity,
-    label: 'Specialties',
+    label: 'specialties',
     href: PRIVATE_ROUTES.ADMIN_SPECIALTIES,
   },
   {
     icon: MessageCircle,
-    label: 'Support',
+    label: 'support',
     href: PRIVATE_ROUTES.ADMIN_SUPPORT,
   },
 ];
 
 export const PATIENT_MENU: MenuItem[] = [
-  { icon: House, label: 'Dashboard', href: PRIVATE_ROUTES.PATIENT_DASHBOARD },
+  { icon: House, label: 'dashboard', href: PRIVATE_ROUTES.PATIENT_DASHBOARD },
   {
     icon: Calendar,
-    label: 'Booking',
+    label: 'booking',
     href: PRIVATE_ROUTES.PATIENT_BOOKING,
   },
   {
     icon: UserRoundPen,
-    label: 'Profile',
+    label: 'profile',
     href: PRIVATE_ROUTES.PATIENT_PROFILE,
   },
   {
     icon: MessageCircle,
-    label: 'Support',
+    label: 'support',
     href: PRIVATE_ROUTES.PATIENT_SUPPORT,
   },
 ];
 
 export const DOCTOR_MENU: MenuItem[] = [
-  { icon: House, label: 'Dashboard', href: PRIVATE_ROUTES.DOCTOR_DASHBOARD },
+  { icon: House, label: 'dashboard', href: PRIVATE_ROUTES.DOCTOR_DASHBOARD },
   {
     icon: Users,
-    label: 'My patients',
+    label: 'myPatients',
     href: PRIVATE_ROUTES.DOCTOR_PATIENTS,
   },
   {
     icon: UserRoundPen,
-    label: 'Profile',
+    label: 'profile',
     href: PRIVATE_ROUTES.DOCTOR_PROFILE,
   },
 ];

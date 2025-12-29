@@ -1,4 +1,5 @@
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -10,14 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 
 export interface Patient {
@@ -66,6 +60,7 @@ export function PatientTable({
   totalItems,
   onPageChange,
 }: PatientTableProps) {
+  const t = useTranslations('Admin.PatientList.table');
   const startItem = (page - 1) * 10 + 1;
   const endItem = Math.min(page * 10, totalItems);
 
@@ -75,12 +70,12 @@ export function PatientTable({
         <Table>
           <TableHeader className='bg-muted/50'>
             <TableRow>
-              <TableHead className='w-[50px]'>#</TableHead>
-              <TableHead>Patient</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>ID / Insurance</TableHead>
-              <TableHead>Last visit</TableHead>
-              <TableHead>Status & tags</TableHead>
+              <TableHead className='w-[50px]'>{t('hash')}</TableHead>
+              <TableHead>{t('patient')}</TableHead>
+              <TableHead>{t('phone')}</TableHead>
+              <TableHead>{t('idInsurance')}</TableHead>
+              <TableHead>{t('lastVisit')}</TableHead>
+              <TableHead>{t('statusTags')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -96,58 +91,38 @@ export function PatientTable({
               patients.map((patient, index) => (
                 <TableRow
                   key={patient.id}
-                  className={cn(
-                    'cursor-pointer hover:bg-muted/50',
-                    selectedPatientId === patient.id && 'bg-muted/50'
-                  )}
+                  className={cn('cursor-pointer hover:bg-muted/50', selectedPatientId === patient.id && 'bg-muted/50')}
                   onClick={() => onSelectPatient(patient)}
                 >
-                  <TableCell className='font-medium'>
-                    {(page - 1) * 10 + index + 1}
-                  </TableCell>
+                  <TableCell className='font-medium'>{(page - 1) * 10 + index + 1}</TableCell>
                   <TableCell>
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
-                        <AvatarImage
-                          src={patient.avatarUrl}
-                          alt={patient.name}
-                        />
-                        <AvatarFallback>
-                          {patient.name.charAt(0)}
-                        </AvatarFallback>
+                        <AvatarImage src={patient.avatarUrl} alt={patient.name} />
+                        <AvatarFallback>{patient.name?.charAt(0) ?? 'P'}</AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
                         <span className='font-medium'>{patient.name}</span>
-                        <span className='text-muted-foreground text-xs'>
-                          {patient.pid}
-                        </span>
+                        <span className='text-muted-foreground text-xs'>{patient.pid}</span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
                       <span className='font-medium'>{patient.phone}</span>
-                      <span className='text-muted-foreground text-xs'>
-                        {patient.email}
-                      </span>
+                      <span className='text-muted-foreground text-xs'>{patient.email}</span>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
-                      <span className='text-muted-foreground text-xs'>
-                        CMND: {patient.cmnd}
-                      </span>
-                      <span className='text-muted-foreground text-xs'>
-                        {patient.insurance}
-                      </span>
+                      <span className='text-muted-foreground text-xs'>CMND: {patient.cmnd}</span>
+                      <span className='text-muted-foreground text-xs'>{patient.insurance}</span>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
                       <span className='font-medium'>{patient.lastVisit}</span>
-                      <span className='text-muted-foreground text-xs'>
-                        {patient.lastVisitReason}
-                      </span>
+                      <span className='text-muted-foreground text-xs'>{patient.lastVisitReason}</span>
                     </div>
                   </TableCell>
                   <TableCell>
@@ -156,12 +131,9 @@ export function PatientTable({
                         variant='secondary'
                         className={cn(
                           'rounded-full font-normal',
-                          patient.status === 'Active' &&
-                            'bg-emerald-100 text-emerald-700 hover:bg-emerald-100/80',
-                          patient.status === 'Inactive' &&
-                            'bg-slate-100 text-slate-700 hover:bg-slate-100/80',
-                          patient.status === 'Blocked' &&
-                            'bg-red-100 text-red-700 hover:bg-red-100/80'
+                          patient.status === 'Active' && 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100/80',
+                          patient.status === 'Inactive' && 'bg-slate-100 text-slate-700 hover:bg-slate-100/80',
+                          patient.status === 'Blocked' && 'bg-red-100 text-red-700 hover:bg-red-100/80'
                         )}
                       >
                         {patient.status}
@@ -185,27 +157,23 @@ export function PatientTable({
       </div>
       <div className='flex items-center justify-between px-2'>
         <div className='text-muted-foreground text-sm'>
-          Showing {totalItems > 0 ? startItem : 0}-{endItem} of {totalItems}{' '}
-          patients
+          {t.rich('showing', {
+            start: totalItems > 0 ? startItem : 0,
+            end: endItem,
+            total: totalItems,
+          })}
         </div>
         <Pagination className='w-auto mx-0'>
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => onPageChange(Math.max(1, page - 1))}
-                className={cn(
-                  'cursor-pointer',
-                  page === 1 && 'pointer-events-none opacity-50'
-                )}
+                className={cn('cursor-pointer', page === 1 && 'pointer-events-none opacity-50')}
               />
             </PaginationItem>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <PaginationItem key={p}>
-                <PaginationLink
-                  isActive={page === p}
-                  onClick={() => onPageChange(p)}
-                  className='cursor-pointer'
-                >
+                <PaginationLink isActive={page === p} onClick={() => onPageChange(p)} className='cursor-pointer'>
                   {p}
                 </PaginationLink>
               </PaginationItem>
@@ -213,10 +181,7 @@ export function PatientTable({
             <PaginationItem>
               <PaginationNext
                 onClick={() => onPageChange(Math.min(totalPages, page + 1))}
-                className={cn(
-                  'cursor-pointer',
-                  page === totalPages && 'pointer-events-none opacity-50'
-                )}
+                className={cn('cursor-pointer', page === totalPages && 'pointer-events-none opacity-50')}
               />
             </PaginationItem>
           </PaginationContent>

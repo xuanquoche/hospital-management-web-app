@@ -1,18 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
 import { DoctorFormData } from './CreateDoctorMain';
@@ -35,11 +29,8 @@ interface EducationInfoFormProps {
   onComplete: () => void;
 }
 
-export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
-  initialData,
-  onUpdate,
-  onComplete,
-}) => {
+export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+  const t = useTranslations('Admin.DoctorCreate.EducationInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -91,14 +82,10 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
     <div className='flex-1 rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h2 className='text-lg font-semibold text-slate-900'>
-            Educational information
-          </h2>
-          <p className='text-sm text-slate-500'>
-            Add your educational background.
-          </p>
+          <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
+          <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>Required</span>
+        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
       </div>
 
       <Form {...form}>
@@ -114,12 +101,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                   name={`educations.${index}.school`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>School / University</FormLabel>
+                      <FormLabel>{t('school')}</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder='e.g. University of Medicine'
-                          {...field}
-                        />
+                        <Input placeholder={t('placeholders.school')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -130,9 +114,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                   name={`educations.${index}.degree`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Degree</FormLabel>
+                      <FormLabel>{t('degree')}</FormLabel>
                       <FormControl>
-                        <Input placeholder='e.g. MD, Cardiology' {...field} />
+                        <Input placeholder={t('placeholders.degree')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,9 +127,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
                   name={`educations.${index}.graduationYear`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Graduation year</FormLabel>
+                      <FormLabel>{t('graduationYear')}</FormLabel>
                       <FormControl>
-                        <Input placeholder='e.g. 2015' {...field} />
+                        <Input placeholder={t('placeholders.graduationYear')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -171,32 +155,30 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
             type='button'
             variant='secondary'
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-            onClick={() =>
-              append({ school: '', degree: '', graduationYear: '' })
-            }
+            onClick={() => append({ school: '', degree: '', graduationYear: '' })}
           >
             <Plus className='mr-2 h-4 w-4' />
-            Add education
+            {t('addEducation')}
           </Button>
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>Unsaved changes</p>
-              <p>Review education history before saving.</p>
+              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>
               <Button type='button' variant='ghost' className='text-slate-600'>
-                Discard
+                {t('discard')}
               </Button>
               <Button
                 type='button'
                 variant='outline'
                 className='bg-teal-50 text-teal-700 border-teal-100 hover:bg-teal-100'
               >
-                Save as draft
+                {t('saveAsDraft')}
               </Button>
               <Button type='submit' className='bg-teal-600 hover:bg-teal-700'>
-                Save & activate
+                {t('saveAndActivate')}
               </Button>
             </div>
           </div>

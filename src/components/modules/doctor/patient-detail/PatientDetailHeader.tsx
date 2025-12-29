@@ -36,23 +36,17 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
         <div className='flex gap-4'>
           <Avatar className='h-16 w-16 border border-slate-100'>
             <AvatarImage src={patient.avatar} alt={patient.name} />
-            <AvatarFallback>{patient.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>{patient.name?.charAt(0) ?? 'P'}</AvatarFallback>
           </Avatar>
           <div>
             <div className='flex items-center gap-3 mb-1'>
-              <h1 className='text-xl font-bold text-slate-900'>
-                {patient.name}
-              </h1>
-              <Badge
-                variant='secondary'
-                className='bg-slate-100 text-slate-600 font-normal'
-              >
+              <h1 className='text-xl font-bold text-slate-900'>{patient.name}</h1>
+              <Badge variant='secondary' className='bg-slate-100 text-slate-600 font-normal'>
                 {patient.id}
               </Badge>
             </div>
             <p className='text-sm text-slate-500 mb-2'>
-              {patient.gender} · {patient.age} tuổi · {patient.dob} ·{' '}
-              {patient.address}
+              {patient.gender} · {patient.age} tuổi · {patient.dob} · {patient.address}
             </p>
             <div className='flex flex-wrap gap-2'>
               {patient.tags.map((tag, index) => (
@@ -71,16 +65,12 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
         <div className='flex flex-col items-end gap-2 w-full md:w-auto'>
           <div className='text-right text-xs text-slate-500 mb-2'>
             <p>
-              Lần khám gần nhất:{' '}
-              <span className='font-bold text-slate-900'>Hôm nay - 08:00</span>
+              Lần khám gần nhất: <span className='font-bold text-slate-900'>Hôm nay - 08:00</span>
             </p>
             <p>
-              Bác sĩ phụ trách:{' '}
-              <span className='font-bold text-slate-900'>{user?.fullName}</span>
+              Bác sĩ phụ trách: <span className='font-bold text-slate-900'>{user?.fullName}</span>
             </p>
-            <Badge className='bg-green-500 hover:bg-green-600 text-white border-none mt-1'>
-              Đã khám xong
-            </Badge>
+            <Badge className='bg-green-500 hover:bg-green-600 text-white border-none mt-1'>Đã khám xong</Badge>
           </div>
           <div className='flex gap-2 w-full md:w-auto'>
             <Button
@@ -96,9 +86,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
       </div>
 
       <div className='mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-600'>
-        <span className='font-bold text-slate-900 whitespace-nowrap'>
-          Kế hoạch hiện tại:
-        </span>
+        <span className='font-bold text-slate-900 whitespace-nowrap'>Kế hoạch hiện tại:</span>
         <span>{patient.currentPlan}</span>
       </div>
     </div>

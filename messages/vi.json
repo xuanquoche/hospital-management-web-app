@@ -1,0 +1,311 @@
+{
+  "Auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Đăng nhập vào tài khoản của bạn để tiếp tục",
+      "noAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "securedBy": "Được bảo mật bởi"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "subtitle": "Tham gia cùng chúng tôi để quản lý bệnh viện hiệu quả",
+      "haveAccount": "Đã có tài khoản?",
+      "signIn": "Đăng nhập"
+    }
+  },
+  "Common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "logout": "Đăng xuất",
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "dashboard": "Bảng điều khiển"
+  },
+  "UserProfile": {
+    "profile": "Hồ sơ cá nhân",
+    "subscription": "Gói dịch vụ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "loggingOut": "Đang đăng xuất..."
+  },
+  "Sidebar": {
+    "doctors": "Bác sĩ",
+    "patients": "Bệnh nhân",
+    "appointments": "Lịch hẹn",
+    "transactions": "Giao dịch",
+    "medicines": "Thuốc",
+    "departments": "Chuyên khoa",
+    "specialties": "Dịch vụ",
+    "support": "Hỗ trợ",
+    "dashboard": "Bảng điều khiển",
+    "booking": "Đặt lịch",
+    "profile": "Hồ sơ",
+    "myPatients": "Bệnh nhân của tôi"
+  },
+  "Admin": {
+    "PatientList": {
+      "title": "Danh sách bệnh nhân",
+      "subtitle": "Quản lý Bệnh nhân - Danh sách, tạo mới, và xem hồ sơ chi tiết.",
+      "totalPatients": "Tổng số bệnh nhân",
+      "newThisMonth": "Mới trong tháng",
+      "export": "Xuất Excel",
+      "import": "Nhập Excel",
+      "createPatient": "Tạo Bệnh nhân (Hỗ trợ)",
+      "quickFilters": "Lọc nhanh",
+      "commonDoctorViews": "Xem bác sĩ",
+      "allDoctors": "Tất cả",
+      "availableToday": "Đang có",
+      "newlyAdded": "Mới nhất",
+      "onLeave": "Đang nghỉ",
+      "filter": {
+        "all": "Tất cả",
+        "active": "Đang hoạt động",
+        "inactive": "Ngưng hoạt động",
+        "advanced": "Lọc nâng cao",
+        "sortBy": "Sắp xếp: Lần khám cuối · Giảm dần"
+      },
+      "table": {
+        "hash": "STT",
+        "patient": "Bệnh nhân",
+        "phone": "Số điện thoại",
+        "idInsurance": "CMND / BHYT",
+        "lastVisit": "Lần khám cuối",
+        "statusTags": "Trạng thái & Thẻ",
+        "showing": "Hiển thị {start}-{end} trên {total} bệnh nhân"
+      }
+    },
+    "DoctorList": {
+      "title": "Danh sách bác sĩ",
+      "subtitle": "Quản lý Bác sĩ - Danh sách, tạo mới, và xem hồ sơ chi tiết.",
+      "totalDoctors": "Tổng số bác sĩ",
+      "newThisMonth": "Mới trong tháng",
+      "export": "Xuất Excel",
+      "import": "Nhập Excel",
+      "createDoctor": "Tạo Bác sĩ (Hỗ trợ)",
+      "schedule": "Lịch",
+      "quickFilters": "Lọc nhanh",
+      "commonDoctorViews": "Xem bác sĩ",
+      "allDoctors": "Tất cả",
+      "availableToday": "Đang có",
+      "newlyAdded": "Mới nhất",
+      "onLeave": "Đang nghỉ",
+      "widgets": {
+        "today": "Hôm nay",
+        "availableSlots": "Các khung thời gian có sẵn",
+        "bookedAppointments": "Đã đặt",
+        "offHours": "Giờ nghỉ",
+        "scheduleSnapshot": "Bản chụp lịch",
+        "dataQuality": "Chất lượng dữ liệu",
+        "profileCompletionOverview": "Tổng hợp hoàn thành hồ sơ",
+        "completedProfiles": "Hoàn thành hồ sơ",
+        "missingDocuments": "Thiếu tài liệu",
+        "pendingApprovals": "Đang chờ phê duyệt",
+        "reviewIncomplete": "Review không hoàn thành"
+      }
+    },
+    "DoctorFilters": {
+      "title": "Lọc",
+      "searchByName": "Tìm kiếm theo tên",
+      "specialty": "Chuyên khoa",
+      "allSpecialties": "Tất cả các chuyên khoa",
+      "status": "Trạng thái",
+      "all": "Tất cả",
+      "active": "Đang hoạt động",
+      "inactive": "Ngưng hoạt động",
+      "onLeave": "Đang nghỉ"
+    },
+    "DoctorTable": {
+      "title": "Danh sách bác sĩ",
+      "subtitle": "Quản lý Bác sĩ - Danh sách, tạo mới, và xem hồ sơ chi tiết.",
+      "totalDoctors": "Tổng số bác sĩ",
+      "newThisMonth": "Mới trong tháng",
+      "export": "Xuất Excel",
+      "import": "Nhập Excel",
+      "showing": "Hiển thị",
+      "createDoctor": "Tạo Bác sĩ (Hỗ trợ)",
+      "columns": "Cột",
+      "filter": "Lọc",
+      "sortBy": "Sắp xếp",
+      "name": "Tên",
+      "specialty": "Chuyên khoa",
+      "status": "Trạng thái",
+      "actions": "Hành động",
+      "doctor": "Bác sĩ",
+      "experience": "Kinh nghiệm",
+      "addTime": "Thêm thời gian",
+      "view": "Xem",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "noDoctorsFound": "Không tìm thấy bác sĩ"
+    },
+    "DoctorCreate": {
+      "status": "Trạng thái",
+      "draft": "Bản nháp",
+      "Header": {
+        "title": "Tạo Bác sĩ",
+        "subtitle": "Thêm một hồ sơ bác sĩ mới với thông tin cá nhân.",
+        "cancelAndGoBack": "Hủy và quay lại"
+      },
+      "Steps": {
+        "title": "Bước",
+        "subtitle": "Bước 1: Thông tin cá nhân",
+        "personalInfo": "Thông tin cá nhân",
+        "professionalInfo": "Thông tin chuyên môn",
+        "educationInfo": "Thông tin đào tạo",
+        "awardsInfo": "Thông tin giải thưởng",
+        "certificationsInfo": "Thông tin chứng chỉ"
+      },
+      "PersonalInfoForm": {
+        "title": "Thông tin cá nhân",
+        "subtitle": "Thêm một hồ sơ bác sĩ mới với thông tin cá nhân.",
+        "fullName": "Tên đầy đủ",
+        "username": "Tên người dùng",
+        "email": "Email",
+        "phone": "Điện thoại",
+        "address": "Địa chỉ",
+        "bio": "Giới thiệu bản thân (Tùy chọn)",
+        "unsavedChanges": "Thay đổi chưa được lưu",
+        "unsavedChangesDescription": "Đảm bảo rằng các trường bắt buộc được hoàn thành trước khi lưu.",
+        "discard": "Bỏ qua",
+        "saveAsDraft": "Lưu nháp",
+        "saveAndActivate": "Lưu & Kích hoạt",
+        "required": "Bắt buộc",
+        "placeholders": {
+          "fullName": "Nhập họ và tên đầy đủ",
+          "username": "dr.john",
+          "email": "name@example.com",
+          "phone": "+84 (000) 000-0000",
+          "address": "Đường, thành phố, ...",
+          "bio": "Tiểu sử ngắn..."
+        }
+      },
+      "ProfessionalInfoForm": {
+        "title": "Thông tin chuyên môn",
+        "subtitle": "Thêm một hồ sơ bác sĩ mới với thông tin chuyên môn.",
+        "primarySpecialty": "Chuyên khoa chính",
+        "subSpecialty": "Chuyên khoa phụ (Tùy chọn)",
+        "professionalTitle": "Tiêu đề chuyên môn (Tùy chọn)",
+        "yearsOfExperience": "Kinh nghiệm",
+        "consultationFee": "Phí tư vấn",
+        "unsavedChanges": "Thay đổi chưa được lưu",
+        "unsavedChangesDescription": "Đảm bảo rằng các trường bắt buộc được hoàn thành trước khi lưu.",
+        "discard": "Bỏ qua",
+        "saveAsDraft": "Lưu nháp",
+        "saveAndActivate": "Lưu & Kích hoạt",
+        "reviewBeforeSaving": "Xem lại trước khi lưu",
+        "required": "Bắt buộc",
+        "placeholders": {
+          "loading": "Đang tải...",
+          "selectSpecialty": "Chọn chuyên khoa",
+          "subSpecialty": "Ví dụ: Tim mạch can thiệp",
+          "professionalTitle": "Ví dụ: Cố vấn cao cấp",
+          "yearsOfExperience": "Nhập số năm",
+          "consultationFee": "Ví dụ: 500000"
+        }
+      },
+      "EducationInfoForm": {
+        "title": "Thông tin đào tạo",
+        "subtitle": "Thêm nền tảng giáo dục của bạn.",
+        "required": "Bắt buộc",
+        "school": "Trường / Đại học",
+        "degree": "Bằng cấp",
+        "graduationYear": "Năm tốt nghiệp",
+        "addEducation": "Thêm đào tạo",
+        "unsavedChanges": "Thay đổi chưa được lưu",
+        "reviewBeforeSaving": "Xem lại lịch sử đào tạo trước khi lưu.",
+        "discard": "Bỏ qua",
+        "saveAsDraft": "Lưu nháp",
+        "saveAndActivate": "Lưu & Kích hoạt",
+        "placeholders": {
+          "school": "VD: Đại học Y Hà Nội",
+          "degree": "VD: Bác sĩ đa khoa",
+          "graduationYear": "VD: 2015"
+        }
+      },
+      "AwardsInfoForm": {
+        "title": "Giải thưởng & Thành tựu",
+        "subtitle": "Thêm các giải thưởng và thành tựu y khoa quan trọng.",
+        "optional": "Tùy chọn",
+        "awardTitle": "Giải thưởng / Tiêu đề",
+        "organization": "Tổ chức / Đơn vị cấp",
+        "year": "Năm",
+        "description": "Mô tả (tùy chọn)",
+        "remove": "Xóa",
+        "addAward": "Thêm giải thưởng",
+        "unsavedChanges": "Thay đổi chưa được lưu",
+        "reviewBeforeSaving": "Xem lại danh sách giải thưởng trước khi lưu.",
+        "discard": "Bỏ qua",
+        "saveAsDraft": "Lưu nháp",
+        "saveAndActivate": "Lưu & Kích hoạt",
+        "placeholders": {
+          "awardTitle": "VD: Giải thưởng Lâm sàng Xuất sắc Quốc gia",
+          "organization": "VD: Hội Y học Việt Nam",
+          "year": "VD: 2021",
+          "description": "VD: Được công nhận vì những đóng góp xuất sắc trong tim mạch..."
+        }
+      },
+      "CertificationsInfoForm": {
+        "title": "Chứng chỉ hành nghề",
+        "subtitle": "Tải lên các chứng chỉ chuyên môn và giấy phép hành nghề.",
+        "required": "Bắt buộc",
+        "certificateName": "Tên Chứng chỉ / Giấy phép",
+        "issuingAuthority": "Cơ quan cấp",
+        "licenseNumber": "Số giấy phép",
+        "issueDate": "Ngày cấp",
+        "expiryDate": "Ngày hết hạn",
+        "verificationNotes": "Ghi chú xác minh (tùy chọn)",
+        "uploadText": "Nhấn để tải lên hoặc kéo thả",
+        "uploadFormats": "PDF, PNG, JPG",
+        "remove": "Xóa",
+        "addCertification": "Thêm chứng chỉ",
+        "unsavedChanges": "Thay đổi chưa được lưu",
+        "reviewBeforeSaving": "Xem lại tất cả chứng chỉ trước khi hoàn tất.",
+        "discard": "Bỏ qua",
+        "saveAsDraft": "Lưu nháp",
+        "saveAndActivate": "Lưu & Kích hoạt",
+        "saving": "Đang lưu...",
+        "placeholders": {
+          "certificateName": "VD: Giấy phép hành nghề y",
+          "issuingAuthority": "VD: Bộ Y tế",
+          "licenseNumber": "VD: HN-12345",
+          "verificationNotes": "VD: Đã xác minh với hội đồng cấp phép ngày 05/03/2024..."
+        }
+      },
+      "ImageUpload": {
+        "profilePhoto": "Ảnh hồ sơ",
+        "uploadPhoto": "Tải ảnh lên",
+        "uploadFormat": "JPG, PNG, tối đa 5MB"
+      },
+      "Complete": {
+        "title": "Hồ sơ bác sĩ đã kích hoạt",
+        "description": "Bác sĩ hiện có thể tìm kiếm và nhận lịch hẹn.",
+        "backToList": "Quay lại danh sách bác sĩ",
+        "successTitle": "Lưu & kích hoạt thành công",
+        "successMessage": "Tất cả thông tin cá nhân, chuyên môn, đào tạo, giải thưởng và chứng chỉ đã được lưu.",
+        "active": "Hoạt động",
+        "overviewTitle": "Tổng quan bác sĩ",
+        "readOnly": "Tóm tắt chỉ đọc",
+        "name": "Tên",
+        "specialty": "Chuyên khoa",
+        "experience": "Kinh nghiệm",
+        "primaryLicense": "Giấy phép chính",
+        "issuingAuthority": "Cơ quan cấp",
+        "licenseStatus": "Trạng thái giấy phép",
+        "verified": "Đã xác minh",
+        "noExpiry": "Không có ngày hết hạn",
+        "nextStepTitle": "Bước tiếp theo",
+        "nextStepDescription": "Thiết lập thời gian để bắt đầu nhận lịch hẹn.",
+        "addTimeSlots": "Thêm khung giờ",
+        "openCalendar": "Mở lịch bác sĩ",
+        "adjustRules": "Điều chỉnh quy tắc đặt lịch",
+        "badges": {
+          "boardCertified": "Được hội đồng chứng nhận",
+          "cardioCPD": "Tim mạch CPD",
+          "telehealth": "Hỗ trợ khám từ xa"
+        }
+      }
+    }
+  }
+}
