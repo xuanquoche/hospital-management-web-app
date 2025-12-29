@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { useMe } from '@/hooks/use-me';
+import { useMe, ProfileData } from '@/hooks/use-me';
 import { clientFetcher } from '@/lib/fetcher';
 import {
   profileSchema,
@@ -21,6 +21,11 @@ import { HealthStatsSection } from './HealthStatsSection';
 import { PersonalInfoSection } from './PersonalInfoSection';
 import { ProfileHeader } from './ProfileHeader';
 import { ProfileSidebar } from './ProfileSidebar';
+
+// Type guard to check if profile is ProfileData
+const isProfileData = (profile: any): profile is ProfileData => {
+  return profile && 'gender' in profile;
+};
 
 export const ProfileForm = () => {
   const { user, profile, refetch } = useMe();
@@ -51,23 +56,32 @@ export const ProfileForm = () => {
     if (user && profile) {
       form.reset({
         fullName: user.fullName || '',
-        gender: (profile.gender?.toLowerCase() as any) || 'other',
-        dateOfBirth: profile.dateOfBirth
-          ? new Date(profile.dateOfBirth)
-          : new Date(),
-        idNumber: profile.identityNumber || '',
+        gender:
+          (isProfileData(profile) && (profile.gender?.toLowerCase() as any)) ||
+          'other',
+        dateOfBirth:
+          isProfileData(profile) && profile.dateOfBirth
+            ? new Date(profile.dateOfBirth)
+            : new Date(),
+        idNumber: isProfileData(profile) ? profile.identityNumber || '' : '',
         address: user.address || '',
         insuranceType: HealthInsuranceType.BHYT, // Default
-        insuranceNumber: profile.healthInsuranceNumber || '',
-        height: profile.height || 0,
-        weight: profile.weight || 0,
-        bloodType: profile.bloodType || '',
+        insuranceNumber: isProfileData(profile)
+          ? profile.healthInsuranceNumber || ''
+          : '',
+        height: isProfileData(profile) ? profile.height || 0 : 0,
+        weight: isProfileData(profile) ? profile.weight || 0 : 0,
+        bloodType: isProfileData(profile) ? profile.bloodType || '' : '',
         smoking: false,
-        allergies: profile.allergies || '',
-        chronicDiseases: profile.chronicDisease || '',
+        allergies: isProfileData(profile) ? profile.allergies || '' : '',
+        chronicDiseases: isProfileData(profile)
+          ? profile.chronicDisease || ''
+          : '',
         phone: user.phone || '',
         email: user.email || '',
-        emergencyContact: profile.emergencyContact || '',
+        emergencyContact: isProfileData(profile)
+          ? profile.emergencyContact || ''
+          : '',
         notificationSms: true,
         notificationEmail: true,
       });

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { clientFetcher } from '@/lib/fetcher';
-import { Doctor } from '@/types/doctor';
 
 export interface UserData {
   id: string;
