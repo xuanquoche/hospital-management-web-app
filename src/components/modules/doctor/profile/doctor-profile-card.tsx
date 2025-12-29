@@ -10,7 +10,10 @@ interface DoctorProfileCardProps {
   profile: DoctorProfileData;
 }
 
-export default function DoctorProfileCard({ user, profile }: DoctorProfileCardProps) {
+export default function DoctorProfileCard({
+  user,
+  profile,
+}: DoctorProfileCardProps) {
   return (
     <Card className='p-6'>
       <div className='flex flex-col items-center text-center'>
@@ -31,7 +34,9 @@ export default function DoctorProfileCard({ user, profile }: DoctorProfileCardPr
           {profile.primarySpecialty?.name}
         </p>
 
-        <p className='text-sm mt-2 text-gray-500'>{profile.yearsOfExperience} Years Experience Overall</p>
+        <p className='text-sm mt-2 text-gray-500'>
+          {profile.yearsOfExperience} Years Experience Overall
+        </p>
 
         <div className='flex items-center gap-1 text-green-600 mt-2'>
           <CheckCircle className='w-4 h-4' />

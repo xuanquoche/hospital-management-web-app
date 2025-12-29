@@ -15,7 +15,11 @@ export const DoctorCreationHeader = () => {
         <h1 className='text-2xl font-bold text-slate-900'>{t('title')}</h1>
         <p className='text-slate-500'>{t('subtitle')}</p>
       </div>
-      <Button variant='ghost' className='text-slate-500 hover:text-slate-700' onClick={() => router.back()}>
+      <Button
+        variant='ghost'
+        className='text-slate-500 hover:text-slate-700'
+        onClick={() => router.back()}
+      >
         <X className='mr-2 h-4 w-4' />
         {t('cancelAndGoBack')}
       </Button>

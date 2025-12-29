@@ -14,7 +14,9 @@ export const RecentPatients = ({ patients }: RecentPatientsProps) => {
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100'>
       <div className='flex justify-between items-center mb-4'>
         <h3 className='text-sm font-bold text-slate-900'>Bệnh nhân gần đây</h3>
-        <span className='text-xs text-teal-600 cursor-pointer hover:underline'>Xem hồ sơ</span>
+        <span className='text-xs text-teal-600 cursor-pointer hover:underline'>
+          Xem hồ sơ
+        </span>
       </div>
 
       <div className='space-y-3'>
@@ -28,17 +30,25 @@ export const RecentPatients = ({ patients }: RecentPatientsProps) => {
               <AvatarFallback>{patient.name?.charAt(0) ?? 'P'}</AvatarFallback>
             </Avatar>
             <div className='flex-1 min-w-0'>
-              <p className='text-sm font-bold text-slate-900 truncate'>{patient.name}</p>
+              <p className='text-sm font-bold text-slate-900 truncate'>
+                {patient.name}
+              </p>
               <p className='text-xs text-slate-500 truncate'>
                 {patient.time} · {patient.action}
               </p>
             </div>
             {patient.time === 'Đang khám' ? (
-              <Badge variant='secondary' className='bg-teal-50 text-teal-700 text-[10px] h-5 px-1.5'>
+              <Badge
+                variant='secondary'
+                className='bg-teal-50 text-teal-700 text-[10px] h-5 px-1.5'
+              >
                 Tiếp tục
               </Badge>
             ) : (
-              <Badge variant='secondary' className='bg-slate-100 text-slate-600 text-[10px] h-5 px-1.5'>
+              <Badge
+                variant='secondary'
+                className='bg-slate-100 text-slate-600 text-[10px] h-5 px-1.5'
+              >
                 Chuẩn bị
               </Badge>
             )}

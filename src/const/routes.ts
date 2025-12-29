@@ -72,7 +72,11 @@ export const PRIVATE_ROUTES_MIDDLEWARE = {
   ...PATIENT_ROUTES,
 } as const;
 
-export const PUBLIC_ENDPOINT = ['/auth/login', '/auth/register', '/auth/refresh'];
+export const PUBLIC_ENDPOINT = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/refresh',
+];
 
 export const LOCALIZED_ROUTES = {
   LOGIN: () => '/sign-in',
@@ -98,7 +102,10 @@ export const ROLE_ALLOWED_ROUTES = {
   [Role.PATIENT]: Object.values(PATIENT_ROUTES),
 } as const;
 
-export const isRouteAllowedForRole = (pathname: string, role: Role): boolean => {
+export const isRouteAllowedForRole = (
+  pathname: string,
+  role: Role
+): boolean => {
   const allowedRoutes = ROLE_ALLOWED_ROUTES[role];
   return allowedRoutes.some((route) => pathname.startsWith(route));
 };

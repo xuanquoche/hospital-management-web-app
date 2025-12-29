@@ -6,7 +6,14 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
 import { DoctorFormData } from './CreateDoctorMain';
@@ -29,7 +36,11 @@ interface EducationInfoFormProps {
   onComplete: () => void;
 }
 
-export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({
+  initialData,
+  onUpdate,
+  onComplete,
+}) => {
   const t = useTranslations('Admin.DoctorCreate.EducationInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,7 +96,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
           <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
           <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
+        <span className='text-xs font-medium text-slate-400'>
+          {t('required')}
+        </span>
       </div>
 
       <Form {...form}>
@@ -103,7 +116,10 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
                     <FormItem>
                       <FormLabel>{t('school')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('placeholders.school')} {...field} />
+                        <Input
+                          placeholder={t('placeholders.school')}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -116,7 +132,10 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
                     <FormItem>
                       <FormLabel>{t('degree')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('placeholders.degree')} {...field} />
+                        <Input
+                          placeholder={t('placeholders.degree')}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -129,7 +148,10 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
                     <FormItem>
                       <FormLabel>{t('graduationYear')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('placeholders.graduationYear')} {...field} />
+                        <Input
+                          placeholder={t('placeholders.graduationYear')}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -155,7 +177,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
             type='button'
             variant='secondary'
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-            onClick={() => append({ school: '', degree: '', graduationYear: '' })}
+            onClick={() =>
+              append({ school: '', degree: '', graduationYear: '' })
+            }
           >
             <Plus className='mr-2 h-4 w-4' />
             {t('addEducation')}
@@ -163,7 +187,9 @@ export const EducationInfoForm: React.FC<EducationInfoFormProps> = ({ initialDat
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p className='font-medium text-slate-900'>
+                {t('unsavedChanges')}
+              </p>
               <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>

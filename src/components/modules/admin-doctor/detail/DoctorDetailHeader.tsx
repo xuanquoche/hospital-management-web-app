@@ -24,9 +24,13 @@ export function DoctorDetailHeader({ doctor }: DoctorDetailHeaderProps) {
           <div className='text-muted-foreground mt-2 flex items-center gap-2 text-xs'>
             <span>ID: {doctor.id}</span>
             <span>•</span>
-            <span>Created {format(new Date(doctor.createdAt), 'dd MMM yyyy')}</span>
+            <span>
+              Created {format(new Date(doctor.createdAt), 'dd MMM yyyy')}
+            </span>
             <span>•</span>
-            <span>Last updated {format(new Date(doctor.updatedAt), 'dd MMM yyyy')}</span>
+            <span>
+              Last updated {format(new Date(doctor.updatedAt), 'dd MMM yyyy')}
+            </span>
           </div>
         </div>
         <div className='flex items-center gap-2'>
@@ -51,7 +55,9 @@ export function DoctorDetailHeader({ doctor }: DoctorDetailHeaderProps) {
       <div className='bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-6 shadow-sm md:flex-row md:items-center'>
         <Avatar className='size-20 md:size-24'>
           <AvatarImage src={doctor.user.avatar} alt={doctor.user.fullName} />
-          <AvatarFallback>{doctor.user.fullName?.charAt(0) ?? 'D'}</AvatarFallback>
+          <AvatarFallback>
+            {doctor.user.fullName?.charAt(0) ?? 'D'}
+          </AvatarFallback>
         </Avatar>
 
         <div className='flex-1 space-y-2'>
@@ -65,14 +71,20 @@ export function DoctorDetailHeader({ doctor }: DoctorDetailHeaderProps) {
               </div>
             </div>
             <div className='flex flex-col items-end gap-1'>
-              <div className='text-muted-foreground text-xs'>Today · {format(new Date(), 'dd MMM yyyy')}</div>
+              <div className='text-muted-foreground text-xs'>
+                Today · {format(new Date(), 'dd MMM yyyy')}
+              </div>
             </div>
           </div>
 
           <div className='flex flex-wrap items-center gap-3'>
             <Badge
               variant={doctor.status === 'ACTIVE' ? 'default' : 'secondary'}
-              className={doctor.status === 'ACTIVE' ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
+              className={
+                doctor.status === 'ACTIVE'
+                  ? 'bg-emerald-600 hover:bg-emerald-700'
+                  : ''
+              }
             >
               {doctor.status}
             </Badge>

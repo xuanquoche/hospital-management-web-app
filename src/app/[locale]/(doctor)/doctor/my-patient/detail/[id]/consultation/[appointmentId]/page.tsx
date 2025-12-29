@@ -7,7 +7,9 @@ interface PrescriptionPageProps {
   }>;
 }
 
-export default async function PrescriptionPage({ params }: PrescriptionPageProps) {
+export default async function PrescriptionPage({
+  params,
+}: PrescriptionPageProps) {
   const { id, appointmentId } = await params;
 
   return (

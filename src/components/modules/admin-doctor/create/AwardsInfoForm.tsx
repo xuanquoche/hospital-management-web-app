@@ -6,7 +6,14 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -29,7 +36,11 @@ interface AwardsInfoFormProps {
   onComplete: () => void;
 }
 
-export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({
+  initialData,
+  onUpdate,
+  onComplete,
+}) => {
   const t = useTranslations('Admin.DoctorCreate.AwardsInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -90,14 +101,19 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
           <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
           <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>{t('optional')}</span>
+        <span className='text-xs font-medium text-slate-400'>
+          {t('optional')}
+        </span>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div key={field.id} className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4'>
+              <div
+                key={field.id}
+                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4'
+              >
                 <div className='grid grid-cols-3 gap-4 mb-4'>
                   <FormField
                     control={form.control}
@@ -106,7 +122,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
                       <FormItem>
                         <FormLabel>{t('awardTitle')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.awardTitle')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.awardTitle')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -119,7 +138,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
                       <FormItem>
                         <FormLabel>{t('organization')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.organization')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.organization')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,7 +154,10 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
                       <FormItem>
                         <FormLabel>{t('year')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.year')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.year')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -147,7 +172,11 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
                     <FormItem>
                       <FormLabel>{t('description')}</FormLabel>
                       <FormControl>
-                        <Textarea placeholder={t('placeholders.description')} className='resize-none' {...field} />
+                        <Textarea
+                          placeholder={t('placeholders.description')}
+                          className='resize-none'
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -173,7 +202,9 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
             type='button'
             variant='secondary'
             className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-            onClick={() => append({ title: '', organization: '', year: '', description: '' })}
+            onClick={() =>
+              append({ title: '', organization: '', year: '', description: '' })
+            }
           >
             <Plus className='mr-2 h-4 w-4' />
             {t('addAward')}
@@ -181,7 +212,9 @@ export const AwardsInfoForm: React.FC<AwardsInfoFormProps> = ({ initialData, onU
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p className='font-medium text-slate-900'>
+                {t('unsavedChanges')}
+              </p>
               <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>

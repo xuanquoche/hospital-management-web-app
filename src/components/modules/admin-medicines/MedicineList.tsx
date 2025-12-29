@@ -3,7 +3,12 @@
 import { useEffect, useState, useCallback } from 'react'; // Import useCallback
 
 import { clientFetcher } from '@/lib/fetcher';
-import { MedicineBatch, MedicineBatchResponse, QueryMedicineBatchDto, BatchStatus } from '@/types/medicine';
+import {
+  MedicineBatch,
+  MedicineBatchResponse,
+  QueryMedicineBatchDto,
+  BatchStatus,
+} from '@/types/medicine';
 
 import { MedicineFilter } from './MedicineFilter';
 import { MedicineListHeader } from './MedicineListHeader';
@@ -40,11 +45,14 @@ export const MedicineList = () => {
 
       // Xử lý logic 'all' hoặc string rỗng thì không gửi lên params
       if (params.status) queryString.append('status', params.status);
-      if (params.categoryId && params.categoryId !== 'all') queryString.append('categoryId', params.categoryId);
+      if (params.categoryId && params.categoryId !== 'all')
+        queryString.append('categoryId', params.categoryId);
 
       if (params.search) queryString.append('search', params.search);
-      if (params.expiryDateBefore) queryString.append('expiryDateBefore', params.expiryDateBefore);
-      if (params.expiryDateAfter) queryString.append('expiryDateAfter', params.expiryDateAfter);
+      if (params.expiryDateBefore)
+        queryString.append('expiryDateBefore', params.expiryDateBefore);
+      if (params.expiryDateAfter)
+        queryString.append('expiryDateAfter', params.expiryDateAfter);
 
       const response: MedicineBatchResponse = await clientFetcher.get(
         `/admin/medicine-batches?${queryString.toString()}`
@@ -89,13 +97,24 @@ export const MedicineList = () => {
 
         <MedicineFilter
           onSearchChange={handleSearchChange}
-          onStatusChange={(status) => handleFilterChange({ status: status as BatchStatus })}
+          onStatusChange={(status) =>
+            handleFilterChange({ status: status as BatchStatus })
+          }
           onCategoryChange={(categoryId) => handleFilterChange({ categoryId })}
-          onExpiryDateBeforeChange={(date) => handleFilterChange({ expiryDateBefore: date })}
-          onExpiryDateAfterChange={(date) => handleFilterChange({ expiryDateAfter: date })}
+          onExpiryDateBeforeChange={(date) =>
+            handleFilterChange({ expiryDateBefore: date })
+          }
+          onExpiryDateAfterChange={(date) =>
+            handleFilterChange({ expiryDateAfter: date })
+          }
         />
 
-        <MedicineTable data={data} loading={loading} meta={meta} onPageChange={handlePageChange} />
+        <MedicineTable
+          data={data}
+          loading={loading}
+          meta={meta}
+          onPageChange={handlePageChange}
+        />
       </div>
 
       <MedicineRightPanel />

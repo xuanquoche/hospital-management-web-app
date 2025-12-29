@@ -8,7 +8,9 @@ interface DoctorAvailableTimeProps {
   profile: DoctorProfileData;
 }
 
-export default function DoctorAvailableTime({ profile }: DoctorAvailableTimeProps) {
+export default function DoctorAvailableTime({
+  profile,
+}: DoctorAvailableTimeProps) {
   return (
     <Card className='p-6'>
       <h3 className='font-semibold text-lg mb-2'>Available Time</h3>
@@ -28,7 +30,9 @@ export default function DoctorAvailableTime({ profile }: DoctorAvailableTimeProp
 
       <div className='grid grid-cols-4 gap-2 text-center mb-3'>
         {/* DoctorProfileData does not have schedules yet */}
-        <div className='col-span-4 text-xs text-muted-foreground'>Chưa có lịch.</div>
+        <div className='col-span-4 text-xs text-muted-foreground'>
+          Chưa có lịch.
+        </div>
       </div>
 
       <div className='space-y-2'>
@@ -36,7 +40,10 @@ export default function DoctorAvailableTime({ profile }: DoctorAvailableTimeProp
       </div>
 
       <div className='mt-4 text-sm text-gray-500'>
-        <span className='font-semibold'>{profile.consultationFee?.toLocaleString('vi-VN')} VNĐ</span> mỗi lượt khám
+        <span className='font-semibold'>
+          {profile.consultationFee?.toLocaleString('vi-VN')} VNĐ
+        </span>{' '}
+        mỗi lượt khám
       </div>
     </Card>
   );

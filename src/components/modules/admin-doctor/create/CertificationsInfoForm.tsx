@@ -6,15 +6,26 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 import { DoctorFormData } from './CreateDoctorMain';
 
 const certificationSchema = z.object({
-  certificateName: z.string().min(1, { message: 'Certificate name is required' }),
-  issuingAuthority: z.string().min(1, { message: 'Issuing authority is required' }),
+  certificateName: z
+    .string()
+    .min(1, { message: 'Certificate name is required' }),
+  issuingAuthority: z
+    .string()
+    .min(1, { message: 'Issuing authority is required' }),
   licenseNumber: z.string().min(1, { message: 'License number is required' }),
   issueDate: z.string().min(1, { message: 'Issue date is required' }),
   expiryDate: z.string().optional(),
@@ -112,14 +123,19 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
           <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
           <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
+        <span className='text-xs font-medium text-slate-400'>
+          {t('required')}
+        </span>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <div className='space-y-4'>
             {fields.map((field, index) => (
-              <div key={field.id} className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4'>
+              <div
+                key={field.id}
+                className='relative rounded-lg border border-slate-100 bg-slate-50/50 p-4 space-y-4'
+              >
                 <div className='grid grid-cols-3 gap-4'>
                   <FormField
                     control={form.control}
@@ -128,7 +144,10 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>{t('certificateName')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.certificateName')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.certificateName')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -141,7 +160,10 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>{t('issuingAuthority')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.issuingAuthority')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.issuingAuthority')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,7 +176,10 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                       <FormItem>
                         <FormLabel>{t('licenseNumber')}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t('placeholders.licenseNumber')} {...field} />
+                          <Input
+                            placeholder={t('placeholders.licenseNumber')}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -193,9 +218,15 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
 
                 <div className='border-2 border-dashed border-slate-200 rounded-lg p-6 text-center hover:border-teal-300 transition-colors'>
                   <Upload className='mx-auto h-8 w-8 text-slate-400 mb-2' />
-                  <p className='text-sm font-medium text-slate-600 mb-1'>{t('uploadText')}</p>
+                  <p className='text-sm font-medium text-slate-600 mb-1'>
+                    {t('uploadText')}
+                  </p>
                   <p className='text-xs text-slate-400'>{t('uploadFormats')}</p>
-                  <input type='file' className='hidden' accept='.pdf,.png,.jpg,.jpeg' />
+                  <input
+                    type='file'
+                    className='hidden'
+                    accept='.pdf,.png,.jpg,.jpeg'
+                  />
                 </div>
 
                 {fields.length > 1 && (
@@ -240,7 +271,11 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
                 <FormItem>
                   <FormLabel>{t('verificationNotes')}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder={t('placeholders.verificationNotes')} className='resize-none' {...field} />
+                    <Textarea
+                      placeholder={t('placeholders.verificationNotes')}
+                      className='resize-none'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -250,7 +285,9 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p className='font-medium text-slate-900'>
+                {t('unsavedChanges')}
+              </p>
               <p>{t('reviewBeforeSaving')}</p>
             </div>
             <div className='flex items-center gap-3'>
@@ -264,7 +301,11 @@ export const CertificationsInfoForm: React.FC<CertificationsInfoFormProps> = ({
               >
                 {t('saveAsDraft')}
               </Button>
-              <Button type='submit' className='bg-teal-600 hover:bg-teal-700' disabled={isLoading}>
+              <Button
+                type='submit'
+                className='bg-teal-600 hover:bg-teal-700'
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className='mr-2 h-4 w-4 animate-spin' />

@@ -65,7 +65,12 @@ export default function LoginForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-6'>
         <div className='space-y-2'>
-          <CustomInput label={'Email'} name='email' control={form.control} placeholder={'Enter your email address'} />
+          <CustomInput
+            label={'Email'}
+            name='email'
+            control={form.control}
+            placeholder={'Enter your email address'}
+          />
         </div>
 
         <div className='space-y-2'>

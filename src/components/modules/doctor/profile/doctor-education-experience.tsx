@@ -5,7 +5,9 @@ interface DoctorEducationExperienceProps {
   profile: DoctorProfileData;
 }
 
-export default function DoctorEducationExperience({ profile }: DoctorEducationExperienceProps) {
+export default function DoctorEducationExperience({
+  profile,
+}: DoctorEducationExperienceProps) {
   return (
     <Card className='p-6 grid md:grid-cols-2 gap-4'>
       <div>
@@ -22,7 +24,9 @@ export default function DoctorEducationExperience({ profile }: DoctorEducationEx
           <li>
             <div className='mb-1'>
               <div className='h-2 w-2 rounded-full bg-primary inline-block mr-2'></div>
-              <strong className='text-slate-900'>{profile.yearsOfExperience} năm kinh nghiệm</strong>
+              <strong className='text-slate-900'>
+                {profile.yearsOfExperience} năm kinh nghiệm
+              </strong>
             </div>
             Chuyên khoa: {profile.primarySpecialty?.name}
           </li>

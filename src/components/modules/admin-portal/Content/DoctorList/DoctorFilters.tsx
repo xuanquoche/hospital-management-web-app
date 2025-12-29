@@ -4,7 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { clientFetcher } from '@/lib/fetcher';
 
 interface DoctorFiltersProps {
@@ -17,7 +23,10 @@ interface Specialty {
   name: string;
 }
 
-const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChange }) => {
+const DoctorFilters: React.FC<DoctorFiltersProps> = ({
+  onSearch,
+  onSpecialtyChange,
+}) => {
   const t = useTranslations('Admin.DoctorFilters');
   const [specialties, setSpecialties] = useState<Specialty[]>([]);
   const [loading, setLoading] = useState(false);
@@ -27,7 +36,9 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChan
     const fetchSpecialties = async () => {
       setLoading(true);
       try {
-        const response = await clientFetcher.get('/admin/specialties?page=1&limit=100');
+        const response = await clientFetcher.get(
+          '/admin/specialties?page=1&limit=100'
+        );
         if (response.data) {
           setSpecialties(response.data);
         }
@@ -58,7 +69,9 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChan
       </div>
       <div className='grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('searchByName')}</label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
+            {t('searchByName')}
+          </label>
           <div className='relative'>
             <Search className='absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400' />
             <Input
@@ -70,10 +83,14 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChan
           </div>
         </div>
         <div className='col-span-3'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('specialty')}</label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
+            {t('specialty')}
+          </label>
           <Select defaultValue='all' onValueChange={onSpecialtyChange}>
             <SelectTrigger className='h-10 border-slate-200 focus:ring-teal-500'>
-              <SelectValue placeholder={loading ? 'Loading...' : 'Select specialty'} />
+              <SelectValue
+                placeholder={loading ? 'Loading...' : 'Select specialty'}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value='all'>{t('allSpecialties')}</SelectItem>
@@ -86,7 +103,9 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({ onSearch, onSpecialtyChan
           </Select>
         </div>
         <div className='col-span-3'>
-          <label className='mb-1.5 block text-xs font-medium text-slate-500'>{t('status')}</label>
+          <label className='mb-1.5 block text-xs font-medium text-slate-500'>
+            {t('status')}
+          </label>
           <Select defaultValue='all'>
             <SelectTrigger className='h-10 border-slate-200 focus:ring-teal-500'>
               <SelectValue placeholder='Select status' />

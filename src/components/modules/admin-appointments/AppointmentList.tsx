@@ -18,7 +18,10 @@ interface AppointmentListProps {
   };
 }
 
-export async function AppointmentList({ appointments, meta }: AppointmentListProps) {
+export async function AppointmentList({
+  appointments,
+  meta,
+}: AppointmentListProps) {
   return (
     <div className='flex flex-col gap-6'>
       <AppointmentListHeader />

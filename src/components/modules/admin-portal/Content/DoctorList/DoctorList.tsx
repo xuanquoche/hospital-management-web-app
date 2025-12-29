@@ -26,7 +26,8 @@ const DoctorList = () => {
 
   // Schedule Modal State
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
-  const [selectedDoctorForSchedule, setSelectedDoctorForSchedule] = useState<Doctor | null>(null);
+  const [selectedDoctorForSchedule, setSelectedDoctorForSchedule] =
+    useState<Doctor | null>(null);
 
   const fetchDoctors = async () => {
     setLoading(true);
@@ -38,7 +39,9 @@ const DoctorList = () => {
         ...(specialtyId && specialtyId !== 'all' && { specialtyId }),
       });
 
-      const response = await clientFetcher.get(`/admin/doctors?${queryParams.toString()}`);
+      const response = await clientFetcher.get(
+        `/admin/doctors?${queryParams.toString()}`
+      );
       if (response.data) {
         setDoctors(response.data);
       }
@@ -98,8 +101,15 @@ const DoctorList = () => {
         </div>
       </div>
 
-      <DoctorFilters onSearch={handleSearch} onSpecialtyChange={handleSpecialtyChange} />
-      <DoctorTable doctors={doctors} loading={loading} onAddSchedule={handleAddSchedule} />
+      <DoctorFilters
+        onSearch={handleSearch}
+        onSpecialtyChange={handleSpecialtyChange}
+      />
+      <DoctorTable
+        doctors={doctors}
+        loading={loading}
+        onAddSchedule={handleAddSchedule}
+      />
 
       <CreateScheduleModal
         isOpen={isScheduleModalOpen}

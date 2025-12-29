@@ -10,7 +10,10 @@ interface ImageUploadProps {
   onChange?: (value: string) => void;
 }
 
-export const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => {
+export const ImageUpload: React.FC<ImageUploadProps> = ({
+  value,
+  onChange,
+}) => {
   const t = useTranslations('Admin.DoctorCreate.ImageUpload');
   const [preview, setPreview] = useState<string | null>(value || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -49,7 +52,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => 
         </AvatarFallback>
       </Avatar>
       <div>
-        <p className='mb-2 text-sm font-medium text-slate-700'>{t('profilePhoto')}</p>
+        <p className='mb-2 text-sm font-medium text-slate-700'>
+          {t('profilePhoto')}
+        </p>
         <div className='flex items-center gap-3'>
           <Button
             type='button'
@@ -61,7 +66,13 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ value, onChange }) => 
           </Button>
           <span className='text-xs text-slate-400'>{t('uploadFormat')}</span>
         </div>
-        <input type='file' ref={fileInputRef} className='hidden' accept='image/*' onChange={handleFileChange} />
+        <input
+          type='file'
+          ref={fileInputRef}
+          className='hidden'
+          accept='image/*'
+          onChange={handleFileChange}
+        />
       </div>
     </div>
   );

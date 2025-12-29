@@ -13,7 +13,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 interface AppointmentHistory {
   id: string;
@@ -51,10 +58,16 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
         );
       case 'CONFIRMED':
         return (
-          <Badge className='bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100 font-normal'>Đã xác nhận</Badge>
+          <Badge className='bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100 font-normal'>
+            Đã xác nhận
+          </Badge>
         );
       case 'CANCELLED':
-        return <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-red-100 font-normal'>Đã hủy</Badge>;
+        return (
+          <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-red-100 font-normal'>
+            Đã hủy
+          </Badge>
+        );
       case 'PENDING':
         return (
           <Badge className='bg-yellow-50 text-yellow-700 hover:bg-yellow-100 border-yellow-100 font-normal'>
@@ -70,7 +83,9 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
     <div className='bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm'>
       <div className='p-6 border-b border-slate-100 flex justify-between items-center'>
         <h3 className='font-bold text-slate-900'>Lịch sử khám bệnh</h3>
-        <span className='text-xs text-slate-500'>Tổng cộng {appointments.length} lần khám</span>
+        <span className='text-xs text-slate-500'>
+          Tổng cộng {appointments.length} lần khám
+        </span>
       </div>
 
       <div className='overflow-x-auto'>
@@ -89,26 +104,45 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
           <TableBody>
             {appointments.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className='text-center py-12 text-slate-500'>
+                <TableCell
+                  colSpan={7}
+                  className='text-center py-12 text-slate-500'
+                >
                   Chưa có lịch sử khám bệnh
                 </TableCell>
               </TableRow>
             ) : (
               appointments.map((apt) => (
-                <TableRow key={apt.id} className='hover:bg-slate-50/50 transition-colors'>
+                <TableRow
+                  key={apt.id}
+                  className='hover:bg-slate-50/50 transition-colors'
+                >
                   <TableCell className='font-medium text-slate-900'>
                     {format(new Date(apt.appointmentDate), 'dd/MM/yyyy')}
                   </TableCell>
-                  <TableCell className='text-slate-600'>{apt.timeSlot.startTime}</TableCell>
+                  <TableCell className='text-slate-600'>
+                    {apt.timeSlot.startTime}
+                  </TableCell>
                   <TableCell>
-                    <Badge variant='outline' className='font-normal border-slate-200 text-slate-600'>
-                      {apt.examinationType === 'IN_PERSON' ? 'Trực tiếp' : 'Trực tuyến'}
+                    <Badge
+                      variant='outline'
+                      className='font-normal border-slate-200 text-slate-600'
+                    >
+                      {apt.examinationType === 'IN_PERSON'
+                        ? 'Trực tiếp'
+                        : 'Trực tuyến'}
                     </Badge>
                   </TableCell>
-                  <TableCell className='max-w-[200px] truncate text-slate-600' title={apt.symptoms || ''}>
+                  <TableCell
+                    className='max-w-[200px] truncate text-slate-600'
+                    title={apt.symptoms || ''}
+                  >
                     {apt.symptoms || '-'}
                   </TableCell>
-                  <TableCell className='max-w-[200px] truncate text-slate-600' title={apt.diagnosis || ''}>
+                  <TableCell
+                    className='max-w-[200px] truncate text-slate-600'
+                    title={apt.diagnosis || ''}
+                  >
                     {apt.diagnosis || '-'}
                   </TableCell>
                   <TableCell>{getStatusBadge(apt.status)}</TableCell>
@@ -118,7 +152,11 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                         variant='ghost'
                         size='sm'
                         className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 h-8 px-2 flex items-center gap-1'
-                        onClick={() => router.push(`/doctor/my-patient/detail/${patientId}/consultation/${apt.id}`)}
+                        onClick={() =>
+                          router.push(
+                            `/doctor/my-patient/detail/${patientId}/consultation/${apt.id}`
+                          )
+                        }
                       >
                         <FileText className='w-4 h-4' />
                         <span className='text-xs'>Kê đơn</span>
@@ -126,12 +164,22 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
 
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant='ghost' size='icon' className='h-8 w-8 text-slate-400'>
+                          <Button
+                            variant='ghost'
+                            size='icon'
+                            className='h-8 w-8 text-slate-400'
+                          >
                             <MoreVertical className='w-4 h-4' />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align='end'>
-                          <DropdownMenuItem onClick={() => router.push(`/doctor/my-patient/detail/${patientId}`)}>
+                          <DropdownMenuItem
+                            onClick={() =>
+                              router.push(
+                                `/doctor/my-patient/detail/${patientId}`
+                              )
+                            }
+                          >
                             Xem chi tiết
                           </DropdownMenuItem>
                           <DropdownMenuItem>Tải hồ sơ (PDF)</DropdownMenuItem>

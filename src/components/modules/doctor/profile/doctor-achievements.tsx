@@ -5,7 +5,9 @@ interface DoctorAchievementsProps {
   profile: DoctorProfileData;
 }
 
-export default function DoctorAchievements({ profile }: DoctorAchievementsProps) {
+export default function DoctorAchievements({
+  profile,
+}: DoctorAchievementsProps) {
   return (
     <Card className='p-6'>
       <h3 className='font-semibold text-lg mb-3'>Achievements</h3>

@@ -34,22 +34,34 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
           <tbody className='divide-y divide-slate-100'>
             {patients.map((patient, index) => {
               const age = patient.dateOfBirth
-                ? new Date().getFullYear() - new Date(patient.dateOfBirth).getFullYear()
+                ? new Date().getFullYear() -
+                  new Date(patient.dateOfBirth).getFullYear()
                 : 'N/A';
 
               return (
-                <tr key={patient.id} className='hover:bg-slate-50/50 transition-colors group'>
+                <tr
+                  key={patient.id}
+                  className='hover:bg-slate-50/50 transition-colors group'
+                >
                   <td className='px-6 py-4 text-slate-500'>{index + 1}</td>
                   <td className='px-6 py-4'>
                     <div className='flex items-center gap-3'>
                       <Avatar className='h-10 w-10 border border-slate-100'>
-                        <AvatarImage src={patient.user.avatar || ''} alt={patient.user.fullName} />
-                        <AvatarFallback>{patient.user.fullName?.charAt(0) ?? 'P'}</AvatarFallback>
+                        <AvatarImage
+                          src={patient.user.avatar || ''}
+                          alt={patient.user.fullName}
+                        />
+                        <AvatarFallback>
+                          {patient.user.fullName?.charAt(0) ?? 'P'}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className='font-bold text-slate-900'>{patient.user.fullName}</p>
+                        <p className='font-bold text-slate-900'>
+                          {patient.user.fullName}
+                        </p>
                         <p className='text-xs text-slate-500'>
-                          {patient.gender || 'N/A'} · {age} tuổi · {patient.id.slice(0, 8)}...
+                          {patient.gender || 'N/A'} · {age} tuổi ·{' '}
+                          {patient.id.slice(0, 8)}...
                         </p>
                       </div>
                     </div>
@@ -58,10 +70,14 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                     {patient.lastAppointment ? (
                       <>
                         <p className='text-slate-900 font-medium'>
-                          {format(new Date(patient.lastAppointment.appointmentDate), 'dd/MM/yyyy HH:mm')}
+                          {format(
+                            new Date(patient.lastAppointment.appointmentDate),
+                            'dd/MM/yyyy HH:mm'
+                          )}
                         </p>
                         <p className='text-xs text-slate-500 truncate max-w-[150px]'>
-                          {patient.lastAppointment.symptoms || 'Không có triệu chứng'}
+                          {patient.lastAppointment.symptoms ||
+                            'Không có triệu chứng'}
                         </p>
                       </>
                     ) : (
@@ -70,16 +86,21 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                   </td>
                   <td className='px-6 py-4'>
                     {/* Assuming visit type logic or default */}
-                    <Badge variant='secondary' className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'>
+                    <Badge
+                      variant='secondary'
+                      className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'
+                    >
                       Khám trực tiếp
                     </Badge>
                   </td>
                   <td className='px-6 py-4 max-w-[200px]'>
                     <p className='text-xs text-slate-600 truncate'>
-                      <span className='text-slate-400'>Dị ứng:</span> {patient.allergies || 'Không'}
+                      <span className='text-slate-400'>Dị ứng:</span>{' '}
+                      {patient.allergies || 'Không'}
                     </p>
                     <p className='text-xs text-slate-600 truncate'>
-                      <span className='text-slate-400'>Bệnh mãn tính:</span> {patient.chronicDisease || 'Không'}
+                      <span className='text-slate-400'>Bệnh mãn tính:</span>{' '}
+                      {patient.chronicDisease || 'Không'}
                     </p>
                   </td>
                   <td className='px-6 py-4'>
@@ -94,10 +115,14 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                       </Badge>
                     )}
                     {patient.lastAppointment?.status === 'CANCELLED' && (
-                      <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-none font-normal'>Đã hủy</Badge>
+                      <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-none font-normal'>
+                        Đã hủy
+                      </Badge>
                     )}
                     {!patient.lastAppointment && (
-                      <Badge className='bg-gray-50 text-gray-500 border-gray-200 font-normal'>Mới</Badge>
+                      <Badge className='bg-gray-50 text-gray-500 border-gray-200 font-normal'>
+                        Mới
+                      </Badge>
                     )}
                   </td>
                   <td className='px-6 py-4 text-right'>
@@ -120,7 +145,9 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                         variant='ghost'
                         className='text-teal-600 hover:text-teal-700 hover:bg-teal-50 p-0 h-auto font-medium text-xs flex items-center gap-1'
                         onClick={() => {
-                          router.push(`/doctor/my-patient/detail/${patient.id}`);
+                          router.push(
+                            `/doctor/my-patient/detail/${patient.id}`
+                          );
                         }}
                       >
                         Xem hồ sơ

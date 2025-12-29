@@ -22,7 +22,11 @@ interface DoctorCreationStepsProps {
   onStepClick: (stepId: number) => void;
 }
 
-export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({ currentStep, maxStep, onStepClick }) => {
+export const DoctorCreationSteps: React.FC<DoctorCreationStepsProps> = ({
+  currentStep,
+  maxStep,
+  onStepClick,
+}) => {
   const t = useTranslations('Admin.DoctorCreate.Steps');
   return (
     <div className='w-64 shrink-0 space-y-1'>

@@ -6,11 +6,29 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
 import { useDebounce } from '@/hooks/use-debounce';
 import { clientFetcher } from '@/lib/fetcher';
@@ -30,18 +48,25 @@ interface PrescriptionFormProps {
   appointmentId: string;
 }
 
-export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormProps) {
+export function PrescriptionForm({
+  patientId,
+  appointmentId,
+}: PrescriptionFormProps) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [batches, setBatches] = useState<MedicineBatch[]>([]);
-  const [selectedBatch, setSelectedBatch] = useState<MedicineBatch | null>(null);
+  const [selectedBatch, setSelectedBatch] = useState<MedicineBatch | null>(
+    null
+  );
 
   const [quantity, setQuantity] = useState<number>(1);
   const [dosage, setDosage] = useState('');
   const [instructions, setInstructions] = useState('');
 
-  const [prescriptionItems, setPrescriptionItems] = useState<PrescriptionItem[]>([]);
+  const [prescriptionItems, setPrescriptionItems] = useState<
+    PrescriptionItem[]
+  >([]);
   const [loading, setLoading] = useState(false);
 
   const debouncedSearch = useDebounce(searchTerm, 500);
@@ -49,7 +74,9 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
   React.useEffect(() => {
     const fetchBatches = async () => {
       try {
-        const res = await clientFetcher.get<MedicineBatchResponse>(`/admin/medicine-batches?search=${debouncedSearch}`);
+        const res = await clientFetcher.get<MedicineBatchResponse>(
+          `/admin/medicine-batches?search=${debouncedSearch}`
+        );
         if (res.data) {
           setBatches(Array.isArray(res.data) ? res.data : []);
         }
@@ -115,9 +142,12 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
         })),
       };
 
-      await clientFetcher.patch(`/doctors/appointments/${appointmentId}/prescription`, {
-        ...payload,
-      });
+      await clientFetcher.patch(
+        `/doctors/appointments/${appointmentId}/prescription`,
+        {
+          ...payload,
+        }
+      );
 
       toast.success('Lưu đơn thuốc thành công');
       router.push(`/doctor/my-patient/detail/${patientId}`);
@@ -132,21 +162,30 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
   return (
     <div className='space-y-6'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-2xl font-bold text-slate-900'>Kê đơn thuốc (Prescription)</h1>
+        <h1 className='text-2xl font-bold text-slate-900'>
+          Kê đơn thuốc (Prescription)
+        </h1>
         <Button variant='outline' onClick={() => router.back()}>
           Quay lại
         </Button>
       </div>
 
       <div className='bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6'>
-        <h2 className='text-lg font-semibold text-slate-900'>Thêm thuốc vào đơn</h2>
+        <h2 className='text-lg font-semibold text-slate-900'>
+          Thêm thuốc vào đơn
+        </h2>
 
         <div className='space-y-4'>
           <div className='space-y-2'>
             <Label>Tìm thuốc (Tên, Mã, Hoạt chất)</Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
-                <Button variant='outline' role='combobox' aria-expanded={open} className='w-full justify-between'>
+                <Button
+                  variant='outline'
+                  role='combobox'
+                  aria-expanded={open}
+                  className='w-full justify-between'
+                >
                   {selectedBatch
                     ? `${selectedBatch.medicine.name} (${selectedBatch.batchNumber})`
                     : 'Nhập tên thuốc để tìm kiếm...'}
@@ -155,7 +194,11 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
               </PopoverTrigger>
               <PopoverContent className='w-[600px] p-0' align='start'>
                 <Command shouldFilter={false}>
-                  <CommandInput placeholder='Tìm thuốc...' value={searchTerm} onValueChange={setSearchTerm} />
+                  <CommandInput
+                    placeholder='Tìm thuốc...'
+                    value={searchTerm}
+                    onValueChange={setSearchTerm}
+                  />
                   <CommandList>
                     <CommandEmpty>Không tìm thấy thuốc.</CommandEmpty>
                     <CommandGroup>
@@ -169,12 +212,20 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
                           }}
                         >
                           <Check
-                            className={cn('mr-2 h-4 w-4', selectedBatch?.id === batch.id ? 'opacity-100' : 'opacity-0')}
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              selectedBatch?.id === batch.id
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
                           />
                           <div className='flex flex-col'>
-                            <span className='font-medium'>{batch.medicine.name}</span>
+                            <span className='font-medium'>
+                              {batch.medicine.name}
+                            </span>
                             <span className='text-xs text-muted-foreground'>
-                              Mã: {batch.medicine.code} | Hoạt chất: {batch.medicine.activeIngredient} | Tồn:{' '}
+                              Mã: {batch.medicine.code} | Hoạt chất:{' '}
+                              {batch.medicine.activeIngredient} | Tồn:{' '}
                               {batch.currentStock}
                             </span>
                           </div>
@@ -199,7 +250,11 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
             </div>
             <div className='space-y-2'>
               <Label>Liều dùng (Dosage)</Label>
-              <Input placeholder='VD: 2 viên/ngày, sau ăn' value={dosage} onChange={(e) => setDosage(e.target.value)} />
+              <Input
+                placeholder='VD: 2 viên/ngày, sau ăn'
+                value={dosage}
+                onChange={(e) => setDosage(e.target.value)}
+              />
             </div>
           </div>
 
@@ -226,7 +281,9 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
       </div>
 
       <div className='bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6'>
-        <h2 className='text-lg font-semibold text-slate-900'>Danh sách thuốc đã kê</h2>
+        <h2 className='text-lg font-semibold text-slate-900'>
+          Danh sách thuốc đã kê
+        </h2>
 
         <div className='rounded-md border'>
           <Table>
@@ -243,7 +300,10 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
             <TableBody>
               {prescriptionItems.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className='text-center py-8 text-muted-foreground'>
+                  <TableCell
+                    colSpan={6}
+                    className='text-center py-8 text-muted-foreground'
+                  >
                     Chưa có thuốc nào trong đơn
                   </TableCell>
                 </TableRow>
@@ -251,7 +311,9 @@ export function PrescriptionForm({ patientId, appointmentId }: PrescriptionFormP
                 prescriptionItems.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell className='font-medium'>{item.medicineName}</TableCell>
+                    <TableCell className='font-medium'>
+                      {item.medicineName}
+                    </TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.dosage}</TableCell>
                     <TableCell>{item.instructions || '-'}</TableCell>

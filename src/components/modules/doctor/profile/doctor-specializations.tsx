@@ -5,7 +5,9 @@ interface DoctorSpecializationsProps {
   profile: DoctorProfileData;
 }
 
-export default function DoctorSpecializations({ profile }: DoctorSpecializationsProps) {
+export default function DoctorSpecializations({
+  profile,
+}: DoctorSpecializationsProps) {
   const specializations = [
     profile.primarySpecialty?.name,
     ...(profile.subSpecialty ? profile.subSpecialty.split(',') : []),
@@ -16,7 +18,10 @@ export default function DoctorSpecializations({ profile }: DoctorSpecializations
       <h3 className='font-semibold text-lg mb-3'>Specializations</h3>
       <div className='flex flex-wrap gap-2'>
         {specializations.map((item) => (
-          <span key={item} className='text-sm bg-gray-100 rounded-full px-3 py-1 text-muted-foreground'>
+          <span
+            key={item}
+            className='text-sm bg-gray-100 rounded-full px-3 py-1 text-muted-foreground'
+          >
             {item}
           </span>
         ))}

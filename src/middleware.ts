@@ -27,7 +27,9 @@ export async function middleware(request: NextRequest) {
 
   // Remove locale from path to check against routes
   // e.g. /en/dashboard -> /dashboard, /en -> /
-  const pathWithoutLocale = hasLocale ? `/${segments.slice(2).join('/')}` : pathname;
+  const pathWithoutLocale = hasLocale
+    ? `/${segments.slice(2).join('/')}`
+    : pathname;
 
   // Ensure pathWithoutLocale starts with / and handles empty case
   const normalizedPath = pathWithoutLocale === '' ? '/' : pathWithoutLocale;
@@ -35,14 +37,17 @@ export async function middleware(request: NextRequest) {
   // 3. Check Public Route
   const publicRoutes = Object.values(PUBLIC_ROUTES);
   const isPublicRoute = publicRoutes.some(
-    (route) => normalizedPath === route || normalizedPath.startsWith(`${route}/`)
+    (route) =>
+      normalizedPath === route || normalizedPath.startsWith(`${route}/`)
   );
 
   // 4. Auth Logic
 
   // CASE A: Authenticated user trying to access public routes (login/register)
   if (isPublicRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url));
+    return NextResponse.redirect(
+      new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url)
+    );
   }
 
   // CASE B: Unauthenticated user trying to access private routes
@@ -63,7 +68,9 @@ export async function middleware(request: NextRequest) {
   if (normalizedPath === '/') {
     // If authenticated, redirect to dashboard
     if (isAuthenticated) {
-      return NextResponse.redirect(new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url));
+      return NextResponse.redirect(
+        new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url)
+      );
     }
   }
 

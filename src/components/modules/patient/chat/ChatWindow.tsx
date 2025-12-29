@@ -61,7 +61,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
 
   const handleTyping = useCallback(
     (data: { userId: string; userRole: string; isTyping: boolean }) => {
-      const isSelf = isAdmin ? data.userRole === 'ADMIN' : data.userRole === 'PATIENT';
+      const isSelf = isAdmin
+        ? data.userRole === 'ADMIN'
+        : data.userRole === 'PATIENT';
       if (!isSelf) {
         setIsOtherTyping(data.isTyping);
       }
@@ -217,7 +219,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   };
 
   const isOwnMessage = (message: Message) => {
-    return isAdmin ? message.senderRole === 'ADMIN' : message.senderRole === 'PATIENT';
+    return isAdmin
+      ? message.senderRole === 'ADMIN'
+      : message.senderRole === 'PATIENT';
   };
 
   // Empty state
@@ -229,9 +233,12 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
             <MessageCircle className='h-12 w-12 text-white' />
           </div>
           <div className='space-y-2'>
-            <h3 className='text-xl font-semibold text-slate-800'>Chào mừng đến với Hỗ trợ</h3>
+            <h3 className='text-xl font-semibold text-slate-800'>
+              Chào mừng đến với Hỗ trợ
+            </h3>
             <p className='max-w-sm text-sm text-slate-500'>
-              Chọn một cuộc hội thoại từ danh sách bên trái hoặc tạo mới để bắt đầu nhắn tin
+              Chọn một cuộc hội thoại từ danh sách bên trái hoặc tạo mới để bắt
+              đầu nhắn tin
             </p>
           </div>
         </div>
@@ -254,7 +261,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 backgroundColor: '#14b8a6',
               }}
             >
-              {isAdmin ? conversation.patient?.name?.charAt(0).toUpperCase() || 'B' : 'A'}
+              {isAdmin
+                ? conversation.patient?.name?.charAt(0).toUpperCase() || 'B'
+                : 'A'}
             </div>
             <span
               className='absolute bottom-0 right-0 border-2 border-white'
@@ -268,11 +277,15 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
           <div className='flex flex-col'>
             <h3 className='font-semibold text-slate-900'>
-              {isAdmin ? conversation.patient?.name || 'Bệnh nhân' : 'Hỗ trợ Admin'}
+              {isAdmin
+                ? conversation.patient?.name || 'Bệnh nhân'
+                : 'Hỗ trợ Admin'}
             </h3>
             <div className='flex items-center gap-2'>
               {isConnected ? (
-                <span className='text-xs text-emerald-600 font-medium'>● Trực tuyến</span>
+                <span className='text-xs text-emerald-600 font-medium'>
+                  ● Trực tuyến
+                </span>
               ) : (
                 <span className='flex items-center gap-1 text-xs text-amber-600'>
                   <Loader2 className='h-3 w-3 animate-spin' />
@@ -282,7 +295,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               {conversation.subject && (
                 <>
                   <span className='text-slate-300'>•</span>
-                  <span className='text-xs text-slate-500 truncate max-w-[150px]'>{conversation.subject}</span>
+                  <span className='text-xs text-slate-500 truncate max-w-[150px]'>
+                    {conversation.subject}
+                  </span>
                 </>
               )}
             </div>
@@ -290,7 +305,12 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         </div>
         <div className='flex items-center gap-1'>
           {!isConnected && (
-            <Button variant='ghost' size='sm' onClick={retryConnection} className='text-slate-500 hover:text-teal-600'>
+            <Button
+              variant='ghost'
+              size='sm'
+              onClick={retryConnection}
+              className='text-slate-500 hover:text-teal-600'
+            >
               <RefreshCw className='h-4 w-4 mr-1' />
               Thử lại
             </Button>
@@ -305,7 +325,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       {connectionError && !isConnected && (
         <div className='flex items-center gap-2 bg-amber-50 px-4 py-2 text-sm text-amber-700 border-b border-amber-100'>
           <AlertCircle className='h-4 w-4 shrink-0' />
-          <span>Đang sử dụng chế độ offline - Tin nhắn sẽ được cập nhật mỗi 5 giây</span>
+          <span>
+            Đang sử dụng chế độ offline - Tin nhắn sẽ được cập nhật mỗi 5 giây
+          </span>
         </div>
       )}
 
@@ -315,7 +337,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           <div className='flex h-full items-center justify-center'>
             <div className='flex flex-col items-center gap-3'>
               <Loader2 className='h-8 w-8 animate-spin text-teal-500' />
-              <span className='text-sm text-slate-500'>Đang tải tin nhắn...</span>
+              <span className='text-sm text-slate-500'>
+                Đang tải tin nhắn...
+              </span>
             </div>
           </div>
         ) : localMessages.length === 0 ? (
@@ -324,7 +348,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               <MessageCircle className='h-8 w-8 text-slate-400' />
             </div>
             <p className='font-medium text-slate-600'>Chưa có tin nhắn</p>
-            <p className='mt-1 text-sm text-slate-400'>Hãy bắt đầu cuộc hội thoại!</p>
+            <p className='mt-1 text-sm text-slate-400'>
+              Hãy bắt đầu cuộc hội thoại!
+            </p>
           </div>
         ) : (
           <div className='space-y-4'>
@@ -333,7 +359,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 {/* Date Separator */}
                 <div className='flex items-center justify-center my-4'>
                   <div className='bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm border border-slate-100'>
-                    <span className='text-xs font-medium text-slate-500'>{formatDate(group.date)}</span>
+                    <span className='text-xs font-medium text-slate-500'>
+                      {formatDate(group.date)}
+                    </span>
                   </div>
                 </div>
 
@@ -343,7 +371,13 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                     const own = isOwnMessage(message);
                     const isTemp = message.id.startsWith('temp-');
                     return (
-                      <div key={message.id} className={cn('flex', own ? 'justify-end' : 'justify-start')}>
+                      <div
+                        key={message.id}
+                        className={cn(
+                          'flex',
+                          own ? 'justify-end' : 'justify-start'
+                        )}
+                      >
                         <div
                           className={cn(
                             'max-w-[70%] rounded-2xl px-4 py-2',
@@ -362,7 +396,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                               own ? 'text-teal-200' : 'text-slate-400'
                             )}
                           >
-                            <span className='text-[10px]'>{formatTime(message.createdAt)}</span>
+                            <span className='text-[10px]'>
+                              {formatTime(message.createdAt)}
+                            </span>
                             {own &&
                               (isTemp ? (
                                 <Loader2 className='h-3 w-3 animate-spin' />
@@ -436,7 +472,11 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                   : 'bg-slate-100 text-slate-400 cursor-not-allowed'
               )}
             >
-              {sending ? <Loader2 className='h-5 w-5 animate-spin' /> : <Send className='h-5 w-5' />}
+              {sending ? (
+                <Loader2 className='h-5 w-5 animate-spin' />
+              ) : (
+                <Send className='h-5 w-5' />
+              )}
             </button>
           </div>
         </div>

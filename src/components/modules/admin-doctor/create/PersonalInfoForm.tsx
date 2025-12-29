@@ -5,7 +5,14 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -38,7 +45,11 @@ interface PersonalInfoFormProps {
   onComplete: () => void;
 }
 
-export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData, onUpdate, onComplete }) => {
+export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
+  initialData,
+  onUpdate,
+  onComplete,
+}) => {
   const t = useTranslations('Admin.DoctorCreate.PersonalInfoForm');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -77,7 +88,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData,
           <h2 className='text-lg font-semibold text-slate-900'>{t('title')}</h2>
           <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
-        <span className='text-xs font-medium text-slate-400'>{t('required')}</span>
+        <span className='text-xs font-medium text-slate-400'>
+          {t('required')}
+        </span>
       </div>
 
       <Form {...form}>
@@ -103,7 +116,10 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData,
                 <FormItem>
                   <FormLabel>{t('fullName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('placeholders.fullName')} {...field} />
+                    <Input
+                      placeholder={t('placeholders.fullName')}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,7 +132,10 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData,
                 <FormItem>
                   <FormLabel>{t('username')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('placeholders.username')} {...field} />
+                    <Input
+                      placeholder={t('placeholders.username')}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -178,7 +197,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ initialData,
 
           <div className='flex items-center justify-between border-t border-slate-100 pt-6'>
             <div className='text-sm text-slate-500'>
-              <p className='font-medium text-slate-900'>{t('unsavedChanges')}</p>
+              <p className='font-medium text-slate-900'>
+                {t('unsavedChanges')}
+              </p>
               <p>{t('unsavedChangesDescription')}</p>
             </div>
             <div className='flex items-center gap-3'>

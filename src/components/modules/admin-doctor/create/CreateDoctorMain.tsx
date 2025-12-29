@@ -115,7 +115,9 @@ export const CreateDoctorMain = () => {
         certifications: currentFormData.certifications.map((c) => ({
           ...c,
           issueDate: c.issueDate ? new Date(c.issueDate).toISOString() : '',
-          expiryDate: c.expiryDate ? new Date(c.expiryDate).toISOString() : undefined,
+          expiryDate: c.expiryDate
+            ? new Date(c.expiryDate).toISOString()
+            : undefined,
         })),
       };
 
@@ -144,15 +146,27 @@ export const CreateDoctorMain = () => {
       <DoctorCreationHeader />
 
       <div className='flex items-center justify-end mb-4'>
-        <span className='text-sm font-medium text-slate-500 mr-2'>{t('status')}</span>
-        <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600'>{t('draft')}</span>
+        <span className='text-sm font-medium text-slate-500 mr-2'>
+          {t('status')}
+        </span>
+        <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600'>
+          {t('draft')}
+        </span>
       </div>
 
       <div className='flex gap-8'>
-        <DoctorCreationSteps currentStep={currentStep} maxStep={maxStep} onStepClick={setCurrentStep} />
+        <DoctorCreationSteps
+          currentStep={currentStep}
+          maxStep={maxStep}
+          onStepClick={setCurrentStep}
+        />
 
         {currentStep === 1 && (
-          <PersonalInfoForm initialData={formData} onUpdate={handleUpdateFormData} onComplete={handleStepComplete} />
+          <PersonalInfoForm
+            initialData={formData}
+            onUpdate={handleUpdateFormData}
+            onComplete={handleStepComplete}
+          />
         )}
         {currentStep === 2 && (
           <ProfessionalInfoForm
@@ -162,10 +176,18 @@ export const CreateDoctorMain = () => {
           />
         )}
         {currentStep === 3 && (
-          <EducationInfoForm initialData={formData} onUpdate={handleUpdateFormData} onComplete={handleStepComplete} />
+          <EducationInfoForm
+            initialData={formData}
+            onUpdate={handleUpdateFormData}
+            onComplete={handleStepComplete}
+          />
         )}
         {currentStep === 4 && (
-          <AwardsInfoForm initialData={formData} onUpdate={handleUpdateFormData} onComplete={handleStepComplete} />
+          <AwardsInfoForm
+            initialData={formData}
+            onUpdate={handleUpdateFormData}
+            onComplete={handleStepComplete}
+          />
         )}
         {currentStep === 5 && (
           <CertificationsInfoForm

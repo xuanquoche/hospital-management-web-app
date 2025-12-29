@@ -25,10 +25,17 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
     <Card className='h-fit'>
       <CardHeader className='flex flex-row items-start justify-between space-y-0 pb-2'>
         <div>
-          <CardTitle className='text-base font-semibold'>Patient details</CardTitle>
-          <p className='text-muted-foreground text-xs'>Hồ sơ tổng quát của bệnh nhân được chọn</p>
+          <CardTitle className='text-base font-semibold'>
+            Patient details
+          </CardTitle>
+          <p className='text-muted-foreground text-xs'>
+            Hồ sơ tổng quát của bệnh nhân được chọn
+          </p>
         </div>
-        <Button variant='link' className='text-muted-foreground h-auto p-0 text-xs'>
+        <Button
+          variant='link'
+          className='text-muted-foreground h-auto p-0 text-xs'
+        >
           View full
         </Button>
       </CardHeader>
@@ -92,16 +99,24 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
 
         {/* Status */}
         <div className='space-y-2'>
-          <p className='text-muted-foreground text-xs uppercase tracking-wider'>TÌNH TRẠNG HỒ SƠ</p>
+          <p className='text-muted-foreground text-xs uppercase tracking-wider'>
+            TÌNH TRẠNG HỒ SƠ
+          </p>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
               <Badge
                 variant={patient.status === 'Active' ? 'default' : 'secondary'}
-                className={patient.status === 'Active' ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
+                className={
+                  patient.status === 'Active'
+                    ? 'bg-emerald-600 hover:bg-emerald-700'
+                    : ''
+                }
               >
                 {patient.status}
               </Badge>
-              <span className='text-muted-foreground text-xs'>Created at quầy lễ tân</span>
+              <span className='text-muted-foreground text-xs'>
+                Created at quầy lễ tân
+              </span>
             </div>
             <Button variant='ghost' size='sm' className='h-auto p-0 text-xs'>
               Edit
@@ -115,7 +130,10 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
         <div className='space-y-3'>
           <div className='flex items-center justify-between'>
             <h4 className='text-sm font-semibold'>Lịch sử khám (tổng quát)</h4>
-            <Button variant='link' className='text-muted-foreground h-auto p-0 text-xs'>
+            <Button
+              variant='link'
+              className='text-muted-foreground h-auto p-0 text-xs'
+            >
               View all
             </Button>
           </div>
@@ -127,7 +145,9 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
                   <p className='text-xs font-medium'>
                     {visit.date} · {visit.type}
                   </p>
-                  <p className='text-muted-foreground text-[10px]'>Follow-up · {visit.doctor}</p>
+                  <p className='text-muted-foreground text-[10px]'>
+                    Follow-up · {visit.doctor}
+                  </p>
                 </div>
                 <Badge
                   variant='secondary'
@@ -146,13 +166,19 @@ export function PatientDetailPanel({ patient }: PatientDetailPanelProps) {
         <div className='space-y-2'>
           <div className='flex items-center justify-between'>
             <h4 className='text-sm font-semibold'>Ghi chú nội bộ</h4>
-            <Button variant='link' className='text-muted-foreground h-auto p-0 text-xs'>
+            <Button
+              variant='link'
+              className='text-muted-foreground h-auto p-0 text-xs'
+            >
               Update
             </Button>
           </div>
-          <p className='text-muted-foreground text-xs'>Chỉ hiển thị cho Admin & Bác sĩ</p>
+          <p className='text-muted-foreground text-xs'>
+            Chỉ hiển thị cho Admin & Bác sĩ
+          </p>
           <p className='text-muted-foreground text-xs leading-relaxed'>
-            Nhắc bệnh nhân mang sổ đo huyết áp mỗi lần tái khám. Tránh đặt lịch buổi sáng quá sớm (ưu tiên sau 9:00).
+            Nhắc bệnh nhân mang sổ đo huyết áp mỗi lần tái khám. Tránh đặt lịch
+            buổi sáng quá sớm (ưu tiên sau 9:00).
           </p>
         </div>
       </CardContent>

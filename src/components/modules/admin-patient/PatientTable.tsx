@@ -11,7 +11,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 
 export interface Patient {
@@ -91,38 +98,58 @@ export function PatientTable({
               patients.map((patient, index) => (
                 <TableRow
                   key={patient.id}
-                  className={cn('cursor-pointer hover:bg-muted/50', selectedPatientId === patient.id && 'bg-muted/50')}
+                  className={cn(
+                    'cursor-pointer hover:bg-muted/50',
+                    selectedPatientId === patient.id && 'bg-muted/50'
+                  )}
                   onClick={() => onSelectPatient(patient)}
                 >
-                  <TableCell className='font-medium'>{(page - 1) * 10 + index + 1}</TableCell>
+                  <TableCell className='font-medium'>
+                    {(page - 1) * 10 + index + 1}
+                  </TableCell>
                   <TableCell>
                     <div className='flex items-center gap-3'>
                       <Avatar className='size-9'>
-                        <AvatarImage src={patient.avatarUrl} alt={patient.name} />
-                        <AvatarFallback>{patient.name?.charAt(0) ?? 'P'}</AvatarFallback>
+                        <AvatarImage
+                          src={patient.avatarUrl}
+                          alt={patient.name}
+                        />
+                        <AvatarFallback>
+                          {patient.name?.charAt(0) ?? 'P'}
+                        </AvatarFallback>
                       </Avatar>
                       <div className='flex flex-col'>
                         <span className='font-medium'>{patient.name}</span>
-                        <span className='text-muted-foreground text-xs'>{patient.pid}</span>
+                        <span className='text-muted-foreground text-xs'>
+                          {patient.pid}
+                        </span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
                       <span className='font-medium'>{patient.phone}</span>
-                      <span className='text-muted-foreground text-xs'>{patient.email}</span>
+                      <span className='text-muted-foreground text-xs'>
+                        {patient.email}
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
-                      <span className='text-muted-foreground text-xs'>CMND: {patient.cmnd}</span>
-                      <span className='text-muted-foreground text-xs'>{patient.insurance}</span>
+                      <span className='text-muted-foreground text-xs'>
+                        CMND: {patient.cmnd}
+                      </span>
+                      <span className='text-muted-foreground text-xs'>
+                        {patient.insurance}
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className='flex flex-col'>
                       <span className='font-medium'>{patient.lastVisit}</span>
-                      <span className='text-muted-foreground text-xs'>{patient.lastVisitReason}</span>
+                      <span className='text-muted-foreground text-xs'>
+                        {patient.lastVisitReason}
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell>
@@ -131,9 +158,12 @@ export function PatientTable({
                         variant='secondary'
                         className={cn(
                           'rounded-full font-normal',
-                          patient.status === 'Active' && 'bg-emerald-100 text-emerald-700 hover:bg-emerald-100/80',
-                          patient.status === 'Inactive' && 'bg-slate-100 text-slate-700 hover:bg-slate-100/80',
-                          patient.status === 'Blocked' && 'bg-red-100 text-red-700 hover:bg-red-100/80'
+                          patient.status === 'Active' &&
+                            'bg-emerald-100 text-emerald-700 hover:bg-emerald-100/80',
+                          patient.status === 'Inactive' &&
+                            'bg-slate-100 text-slate-700 hover:bg-slate-100/80',
+                          patient.status === 'Blocked' &&
+                            'bg-red-100 text-red-700 hover:bg-red-100/80'
                         )}
                       >
                         {patient.status}
@@ -168,12 +198,19 @@ export function PatientTable({
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => onPageChange(Math.max(1, page - 1))}
-                className={cn('cursor-pointer', page === 1 && 'pointer-events-none opacity-50')}
+                className={cn(
+                  'cursor-pointer',
+                  page === 1 && 'pointer-events-none opacity-50'
+                )}
               />
             </PaginationItem>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <PaginationItem key={p}>
-                <PaginationLink isActive={page === p} onClick={() => onPageChange(p)} className='cursor-pointer'>
+                <PaginationLink
+                  isActive={page === p}
+                  onClick={() => onPageChange(p)}
+                  className='cursor-pointer'
+                >
                   {p}
                 </PaginationLink>
               </PaginationItem>
@@ -181,7 +218,10 @@ export function PatientTable({
             <PaginationItem>
               <PaginationNext
                 onClick={() => onPageChange(Math.min(totalPages, page + 1))}
-                className={cn('cursor-pointer', page === totalPages && 'pointer-events-none opacity-50')}
+                className={cn(
+                  'cursor-pointer',
+                  page === totalPages && 'pointer-events-none opacity-50'
+                )}
               />
             </PaginationItem>
           </PaginationContent>

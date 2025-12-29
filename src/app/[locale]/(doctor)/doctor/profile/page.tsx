@@ -40,7 +40,9 @@ export default function DoctorDetailPage() {
   if (!user || !profile) {
     return (
       <div className='p-6 text-center'>
-        <p className='text-muted-foreground'>Không tìm thấy thông tin bác sĩ.</p>
+        <p className='text-muted-foreground'>
+          Không tìm thấy thông tin bác sĩ.
+        </p>
       </div>
     );
   }
@@ -49,7 +51,12 @@ export default function DoctorDetailPage() {
   const doctorProfile = profile as DoctorProfileData;
 
   return (
-    <motion.div variants={container} initial='hidden' animate='show' className='p-6 space-y-6'>
+    <motion.div
+      variants={container}
+      initial='hidden'
+      animate='show'
+      className='p-6 space-y-6'
+    >
       <div className='flex flex-col lg:flex-row gap-6'>
         {/* Left Section */}
         <motion.div variants={item} className='lg:w-1/3 space-y-6'>
