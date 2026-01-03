@@ -58,29 +58,32 @@ export const DoctorCard = ({
         )}
       </div>
 
-      <div className='flex-1 space-y-1'>
+      <div className='flex-1 space-y-1 min-w-0'>
         <div className='flex items-center gap-2'>
-          <h4 className='font-bold text-slate-900'>{doctor.name}</h4>
+          <h4 className='font-bold text-slate-900 truncate'>{doctor.name}</h4>
           {doctor.isFemale && (
             <Badge
               variant='outline'
-              className='h-5 border-pink-200 bg-pink-50 text-[10px] text-pink-600'
+              className='h-5 shrink-0 border-pink-200 bg-pink-50 text-[10px] text-pink-600'
             >
               Bác sĩ nữ
             </Badge>
           )}
         </div>
 
-        <p className='text-sm text-slate-600'>
+        <p className='text-sm text-slate-600 truncate'>
           {doctor.specialty} • {doctor.experience}
         </p>
 
         <div className='flex flex-wrap gap-2 pt-1'>
           <Badge
             variant='secondary'
-            className='bg-slate-100 font-normal text-slate-600'
+            className='max-w-full bg-slate-100 font-normal text-slate-600'
+            title={doctor.location}
           >
-            {doctor.location}
+            {doctor.location && doctor.location.length > 40
+              ? `${doctor.location.substring(0, 40)}...`
+              : doctor.location}
           </Badge>
           {doctor.tags
             ?.filter((t) => t !== 'Được đánh giá cao')
