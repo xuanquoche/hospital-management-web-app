@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { clientFetcher } from '@/lib/fetcher';
+import { APIResponse, CreatedDoctorData } from '@/types/api-responses';
 
 import { AwardsInfoForm } from './AwardsInfoForm';
 import { CertificationsInfoForm } from './CertificationsInfoForm';
@@ -75,6 +76,9 @@ export const CreateDoctorMain = () => {
   const [maxStep, setMaxStep] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
   const [formData, setFormData] = useState<DoctorFormData>(initialFormData);
+  const [createdDoctor, setCreatedDoctor] = useState<CreatedDoctorData | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpdateFormData = (data: Partial<DoctorFormData>) => {
@@ -121,9 +125,18 @@ export const CreateDoctorMain = () => {
         })),
       };
 
-      await clientFetcher.post('/admin/doctors', payload);
-      toast.success('Doctor created successfully');
-      setIsComplete(true);
+      const res = await clientFetcher.post<APIResponse>(
+        '/admin/doctors',
+        payload
+      );
+
+      if (res.statusCode === 201 && res.success) {
+        setCreatedDoctor(res.data);
+        toast.success(res.message || 'Doctor created successfully');
+        setIsComplete(true);
+      } else {
+        throw new Error(res.message || 'Failed to create doctor');
+      }
     } catch (error: any) {
       console.error('Error creating doctor:', error);
       toast.error(error.message || 'Failed to create doctor');
@@ -136,7 +149,7 @@ export const CreateDoctorMain = () => {
   if (isComplete) {
     return (
       <div className='flex min-h-screen flex-col bg-slate-50 p-6'>
-        <DoctorCreationComplete />
+        {createdDoctor && <DoctorCreationComplete doctor={createdDoctor} />}
       </div>
     );
   }

@@ -46,6 +46,7 @@ export interface Doctor {
 interface DoctorTableProps {
   doctors: Doctor[];
   loading: boolean;
+  totalItems: number;
   onAddSchedule: (doctor: Doctor) => void;
 }
 
@@ -63,6 +64,7 @@ const getStatusColor = (status: string) => {
 const DoctorTable: React.FC<DoctorTableProps> = ({
   doctors,
   loading,
+  totalItems,
   onAddSchedule,
 }) => {
   const router = useRouter();
@@ -77,7 +79,7 @@ const DoctorTable: React.FC<DoctorTableProps> = ({
       <div className='flex items-center justify-between border-b border-slate-100 px-6 py-4'>
         <div className='text-sm text-slate-500'>
           {t('title')} <span className='mx-2'>•</span> {t('showing')}{' '}
-          {doctors.length} results
+          {totalItems} results
         </div>
         <div className='flex gap-2'>
           <Button variant='ghost' size='sm' className='h-8 text-slate-500'>

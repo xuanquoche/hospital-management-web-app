@@ -97,7 +97,13 @@
         "missingDocuments": "Missing documents",
         "pendingApprovals": "Pending approvals",
         "reviewIncomplete": "Review incomplete"
-      }
+      },
+      "quickFilters": "Quick filters",
+      "commonDoctorViews": "Common doctor views",
+      "allDoctors": "All doctors",
+      "availableToday": "Available today",
+      "newlyAdded": "Newly added",
+      "onLeave": "On leave"
     },
     "DoctorFilters": {
       "title": "Filters",

@@ -53,8 +53,15 @@ const DoctorFilters: React.FC<DoctorFiltersProps> = ({
     fetchSpecialties();
   }, []);
 
+  const isFirstRun = React.useRef(true);
+
   // Debounce search input locally
   useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+
     const timer = setTimeout(() => {
       onSearch(searchTerm);
     }, 500);
