@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { AIDoctorInfo, AIResponseSuggestion } from '@/types/ai-booking';
 import { Doctor } from '@/types/doctor';
 import { PaymentMethod } from '@/types/payment';
 
@@ -15,7 +16,7 @@ export interface PatientInfo {
 
 interface AppointmentState {
   currentStep: number;
-  selectedDoctor: Doctor | null;
+  selectedDoctor: Doctor | AIDoctorInfo | null;
   selectedDate: Date | null;
   selectedTime: string | null; // Display time string
   timeSlotId: string | null; // API field
@@ -24,9 +25,10 @@ interface AppointmentState {
   notes: string;
   patientInfo: PatientInfo | null;
   paymentMethod: PaymentMethod | null;
+  aiAnalysis: AIResponseSuggestion | null;
 
   setCurrentStep: (step: number) => void;
-  setSelectedDoctor: (doctor: Doctor | null) => void;
+  setSelectedDoctor: (doctor: Doctor | AIDoctorInfo | null) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedTime: (time: string | null) => void;
   setTimeSlotId: (id: string | null) => void;
@@ -35,6 +37,7 @@ interface AppointmentState {
   setNotes: (notes: string) => void;
   setPatientInfo: (info: PatientInfo | null) => void;
   setPaymentMethod: (method: PaymentMethod | null) => void;
+  setAiAnalysis: (analysis: AIResponseSuggestion | null) => void;
 }
 
 export const useAppointmentStore = create<AppointmentState>((set) => ({
@@ -48,6 +51,7 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
   notes: '',
   patientInfo: null,
   paymentMethod: null,
+  aiAnalysis: null,
 
   setCurrentStep: (step) => set({ currentStep: step }),
   setSelectedDoctor: (doctor) => set({ selectedDoctor: doctor }),
@@ -59,4 +63,5 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
   setNotes: (notes) => set({ notes }),
   setPatientInfo: (info) => set({ patientInfo: info }),
   setPaymentMethod: (method) => set({ paymentMethod: method }),
+  setAiAnalysis: (analysis) => set({ aiAnalysis: analysis }),
 }));

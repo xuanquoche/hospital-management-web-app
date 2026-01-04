@@ -30,24 +30,53 @@ export const BookingSelectedSummary = ({
 
       <div className='mb-6 flex items-start gap-3'>
         <Avatar className='h-12 w-12 border border-slate-100'>
-          <AvatarImage src={selectedDoctor?.image} />
+          <AvatarImage
+            src={
+              selectedDoctor
+                ? 'user' in selectedDoctor
+                  ? selectedDoctor.image
+                  : (selectedDoctor as any).avatar
+                : ''
+            }
+          />
           <AvatarFallback className='bg-teal-50 text-teal-700'>
-            {selectedDoctor?.user?.fullName?.split(' ').pop()?.charAt(0)}
+            {selectedDoctor
+              ? ('user' in selectedDoctor
+                  ? selectedDoctor.user?.fullName
+                  : selectedDoctor.fullName
+                )
+                  ?.split(' ')
+                  .pop()
+                  ?.charAt(0)
+              : ''}
           </AvatarFallback>
         </Avatar>
         <div>
           <h4 className='font-bold text-slate-900 text-sm'>
-            {selectedDoctor?.user?.fullName}
+            {selectedDoctor
+              ? 'user' in selectedDoctor
+                ? selectedDoctor.user?.fullName
+                : selectedDoctor.fullName
+              : ''}
           </h4>
           <p className='text-xs text-slate-500 mb-1'>
-            {selectedDoctor?.specialty} • {selectedDoctor?.experience}
+            {selectedDoctor
+              ? 'primarySpecialty' in selectedDoctor
+                ? selectedDoctor.primarySpecialty?.name
+                : selectedDoctor.specialty
+              : ''}{' '}
+            • {selectedDoctor?.yearsOfExperience} years
           </p>
           <div className='flex flex-wrap gap-1'>
             <Badge
               variant='secondary'
               className='bg-slate-100 text-[10px] text-slate-600 h-5 px-1.5'
             >
-              {selectedDoctor?.location}
+              {selectedDoctor
+                ? 'user' in selectedDoctor
+                  ? selectedDoctor.user?.address
+                  : 'Hospital'
+                : 'Hospital'}
             </Badge>
             <Badge
               variant='secondary'

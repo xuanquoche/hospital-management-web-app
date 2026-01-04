@@ -19,6 +19,9 @@ export interface DoctorProps {
   image?: string;
   tags?: string[];
   isFemale?: boolean;
+  matchScore?: number;
+  matchReasons?: string[];
+  analysis?: string;
 }
 
 interface DoctorCardProps {
@@ -74,6 +77,30 @@ export const DoctorCard = ({
         <p className='text-sm text-slate-600 truncate'>
           {doctor.specialty} • {doctor.experience}
         </p>
+
+        {doctor.matchScore && (
+          <div className='mt-2 mb-1 p-2 bg-teal-50 rounded-lg border border-teal-100'>
+            <div className='flex items-center justify-between mb-1'>
+              <span className='text-xs font-bold text-teal-700'>
+                Độ phù hợp
+              </span>
+              <span className='text-xs font-bold text-teal-700'>
+                {doctor.matchScore}%
+              </span>
+            </div>
+            <div className='h-1.5 w-full bg-teal-200/50 rounded-full overflow-hidden'>
+              <div
+                className='h-full bg-teal-500 rounded-full'
+                style={{ width: `${doctor.matchScore}%` }}
+              />
+            </div>
+            {doctor.matchReasons && doctor.matchReasons.length > 0 && (
+              <p className='mt-1.5 text-[11px] text-teal-600 leading-tight'>
+                {doctor.matchReasons[0]}
+              </p>
+            )}
+          </div>
+        )}
 
         <div className='flex flex-wrap gap-2 pt-1'>
           <Badge

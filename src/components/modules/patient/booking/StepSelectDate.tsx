@@ -11,10 +11,11 @@ import { Calendar } from '@/components/ui/calendar';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useAppointmentStore } from '@/store/use-appointment-store';
+import { AIDoctorInfo } from '@/types/ai-booking';
 import { Doctor } from '@/types/doctor';
 
 interface StepSelectDateProps {
-  selectedDoctor: Doctor | null;
+  selectedDoctor: Doctor | AIDoctorInfo | null;
 }
 
 export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
@@ -37,9 +38,16 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
 
   // Get time slots for the selected date
 
-  console.log('selectedDoctor: ', selectedDoctor?.schedules);
+  // console.log('selectedDoctor: ', selectedDoctor?.schedules);
   const availableTimeSlots = useMemo(() => {
-    if (!selectedDoctor?.schedules || !selectedDate) return [];
+    // Check if selectedDoctor is null or doesn't have schedules
+    if (
+      !selectedDoctor ||
+      !('schedules' in selectedDoctor) ||
+      !selectedDoctor.schedules ||
+      !selectedDate
+    )
+      return [];
 
     const formattedSelectedDate = format(selectedDate, 'yyyy-MM-dd');
 
@@ -105,7 +113,12 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
           <div className='mb-4'>
             <h3 className='text-lg font-bold text-slate-900'>Chọn ngày khám</h3>
             <p className='text-sm text-slate-500'>
-              Lịch khả dụng của {selectedDoctor?.user?.fullName}
+              Lịch khả dụng của{' '}
+              {selectedDoctor
+                ? 'user' in selectedDoctor
+                  ? selectedDoctor.user?.fullName
+                  : selectedDoctor.fullName
+                : ''}
             </p>
           </div>
 
@@ -239,17 +252,42 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
 
           <div className='flex items-start gap-3'>
             <Avatar className='h-12 w-12 border border-slate-100'>
-              <AvatarImage src={selectedDoctor?.image} />
+              <AvatarImage
+                src={
+                  selectedDoctor
+                    ? 'user' in selectedDoctor
+                      ? selectedDoctor.image
+                      : (selectedDoctor as any).avatar
+                    : undefined
+                }
+              />
               <AvatarFallback className='bg-teal-50 text-teal-700'>
-                {selectedDoctor?.user?.fullName?.split(' ').pop()?.charAt(0)}
+                {selectedDoctor
+                  ? ('user' in selectedDoctor
+                      ? selectedDoctor.user?.fullName
+                      : selectedDoctor.fullName
+                    )
+                      ?.split(' ')
+                      .pop()
+                      ?.charAt(0)
+                  : ''}
               </AvatarFallback>
             </Avatar>
             <div>
               <h4 className='font-bold text-slate-900 text-sm'>
-                {selectedDoctor?.user?.fullName}
+                {selectedDoctor
+                  ? 'user' in selectedDoctor
+                    ? selectedDoctor.user?.fullName
+                    : selectedDoctor.fullName
+                  : ''}
               </h4>
               <p className='text-xs text-slate-500 mb-1'>
-                {selectedDoctor?.primarySpecialty?.name} •{' '}
+                {selectedDoctor
+                  ? 'primarySpecialty' in selectedDoctor
+                    ? selectedDoctor.primarySpecialty?.name
+                    : selectedDoctor.specialty
+                  : ''}
+                {' • '}
                 {selectedDoctor?.yearsOfExperience} years
               </p>
               <div className='flex flex-wrap gap-1'>
@@ -257,7 +295,11 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
                   variant='secondary'
                   className='bg-slate-100 text-[10px] text-slate-600 h-5 px-1.5'
                 >
-                  {selectedDoctor?.user?.address || 'Main Hospital'}
+                  {selectedDoctor
+                    ? 'user' in selectedDoctor
+                      ? selectedDoctor.user?.address
+                      : 'Hospital'
+                    : 'Hospital'}
                 </Badge>
               </div>
             </div>
@@ -277,13 +319,21 @@ export const StepSelectDate = ({ selectedDoctor }: StepSelectDateProps) => {
             <div className='flex justify-between'>
               <span className='text-slate-500'>Bác sĩ</span>
               <span className='font-medium text-slate-900 text-right'>
-                {selectedDoctor?.user?.fullName}
+                {selectedDoctor
+                  ? 'user' in selectedDoctor
+                    ? selectedDoctor.user?.fullName
+                    : selectedDoctor.fullName
+                  : ''}
               </span>
             </div>
             <div className='flex justify-between'>
               <span className='text-slate-500'>Chuyên khoa</span>
               <span className='font-medium text-slate-900 text-right'>
-                {selectedDoctor?.primarySpecialty?.name}
+                {selectedDoctor
+                  ? 'primarySpecialty' in selectedDoctor
+                    ? selectedDoctor.primarySpecialty?.name
+                    : selectedDoctor.specialty
+                  : ''}
               </span>
             </div>
             <div className='flex justify-between'>

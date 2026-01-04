@@ -158,7 +158,13 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
         onComplete={handlePaymentComplete}
         amount={qrAmount}
         description={qrPaymentCode}
-        doctorName={selectedDoctor?.user.fullName || ''}
+        doctorName={
+          selectedDoctor
+            ? 'user' in selectedDoctor
+              ? selectedDoctor.user.fullName
+              : selectedDoctor.fullName
+            : ''
+        }
         appointmentDate={selectedDate || new Date()}
         timeSlot={selectedTime || ''}
       />

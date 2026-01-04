@@ -27,20 +27,40 @@ export const DoctorScheduleInfo = () => {
       <div className='flex items-start gap-4 mb-6'>
         <Avatar className='h-12 w-12 border border-slate-200'>
           <AvatarImage
-            src={selectedDoctor.user.avatar}
-            alt={selectedDoctor.user.fullName}
+            src={
+              selectedDoctor
+                ? 'user' in selectedDoctor
+                  ? selectedDoctor.user.avatar
+                  : (selectedDoctor as any).avatar
+                : ''
+            }
+            alt={
+              selectedDoctor
+                ? 'user' in selectedDoctor
+                  ? selectedDoctor.user.fullName
+                  : selectedDoctor.fullName
+                : ''
+            }
           />
           <AvatarFallback>
-            {selectedDoctor.user.fullName?.charAt(0) ?? 'D'}
+            {('user' in selectedDoctor
+              ? selectedDoctor.user.fullName
+              : selectedDoctor.fullName
+            )?.charAt(0) ?? 'D'}
           </AvatarFallback>
         </Avatar>
         <div>
           <h4 className='font-bold text-slate-900'>
-            {selectedDoctor.professionalTitle}. {selectedDoctor.user.fullName}
+            {selectedDoctor.professionalTitle}.{' '}
+            {'user' in selectedDoctor
+              ? selectedDoctor.user.fullName
+              : selectedDoctor.fullName}
           </h4>
           <p className='text-xs text-slate-500 mt-1'>
-            {selectedDoctor.primarySpecialty.name} •{' '}
-            {selectedDoctor.yearsOfExperience} năm kinh nghiệm
+            {'primarySpecialty' in selectedDoctor
+              ? selectedDoctor.primarySpecialty.name
+              : selectedDoctor.specialty}{' '}
+            • {selectedDoctor.yearsOfExperience} năm kinh nghiệm
           </p>
           <div className='flex gap-2 mt-2'>
             <Badge

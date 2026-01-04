@@ -30,19 +30,31 @@ export const BookingSummary = ({
         <div className='flex justify-between'>
           <span className='text-slate-500'>Chuyên khoa</span>
           <span className='font-medium text-slate-900'>
-            {selectedDoctor ? selectedDoctor.specialty : 'Chưa chọn'}
+            {selectedDoctor
+              ? 'primarySpecialty' in selectedDoctor
+                ? selectedDoctor.primarySpecialty?.name
+                : selectedDoctor.specialty
+              : 'Chưa chọn'}
           </span>
         </div>
         <div className='flex justify-between'>
           <span className='text-slate-500'>Bác sĩ</span>
           <span className='font-medium text-slate-900'>
-            {selectedDoctor ? selectedDoctor.name : 'Chưa chọn'}
+            {selectedDoctor
+              ? 'user' in selectedDoctor
+                ? selectedDoctor.user?.fullName
+                : selectedDoctor.fullName
+              : 'Chưa chọn'}
           </span>
         </div>
         <div className='flex justify-between'>
           <span className='text-slate-500'>Cơ sở khám</span>
           <span className='font-medium text-slate-900'>
-            {selectedDoctor ? selectedDoctor.location : 'Chưa chọn'}
+            {selectedDoctor
+              ? 'user' in selectedDoctor
+                ? selectedDoctor.user?.address
+                : 'Hospital'
+              : 'Chưa chọn'}
           </span>
         </div>
       </div>
