@@ -1,6 +1,7 @@
 export enum PaymentMethod {
   CASH = 'CASH',
   BANK_TRANSFER = 'BANK_TRANSFER',
+  WALLET = 'WALLET',
 }
 
 export enum PaymentStatus {
@@ -51,4 +52,52 @@ export interface PaymentResponse {
   statusCode: number;
   message: string;
   data: Payment[];
+}
+
+export interface TransactionItem {
+  id: string;
+  paymentCode: string;
+  appointmentId: string;
+  method: PaymentMethod;
+  status: PaymentStatus;
+  dataHash: string | null;
+  blockchainTxHash: string | null;
+  createdAt: string;
+  updatedAt: string;
+  appointment: {
+    id: string;
+    appointmentDate: string;
+    consultationFee: number;
+    status: 'PENDING' | 'CONFIRMED' | 'CANCELLED';
+    examinationType: 'IN_PERSON' | 'ONLINE';
+    doctor: {
+      id: string;
+      professionalTitle: string;
+      user: {
+        fullName: string;
+        avatar: string | null;
+      };
+      primarySpecialty: {
+        name: string;
+      };
+    };
+  };
+}
+
+export interface TransactionHistoryMeta {
+  page: number;
+  limit: number;
+  totalItems: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface TransactionHistoryResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: TransactionItem[];
+  meta: TransactionHistoryMeta;
+  timestamp: string;
 }

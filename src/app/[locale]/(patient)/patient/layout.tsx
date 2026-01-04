@@ -9,7 +9,7 @@ const PatientLayout = ({ children }: { children: React.ReactNode }) => (
     <div className='flex'>
       <PortalSidebar />
       <div className='w-[80%]'>
-        <PortalHeader title='Xin chào, Minh Anh' badgeText='Bệnh nhân' />
+        <PortalHeader badgeText='Bệnh nhân' />
         {children}
       </div>
     </div>

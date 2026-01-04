@@ -39,6 +39,7 @@ export const PRIVATE_ROUTES = {
   PATIENT_PROFILE: '/patient/profile',
   PATIENT_BOOKING: '/patient/booking',
   PATIENT_SUPPORT: '/patient/support',
+  PATIENT_TRANSACTIONS: '/patient/transactions',
   // doctor
   DOCTOR_DASHBOARD: '/doctor/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',
@@ -63,6 +64,7 @@ export const PATIENT_ROUTES = {
   APPOINTMENTS: '/patient/appointments',
   PRESCRIPTIONS: '/patient/prescriptions',
   MEDICAL_RECORDS: '/patient/medical-records',
+  TRANSACTIONS: '/patient/transactions',
 } as const;
 
 // Tất cả private routes (cho middleware)

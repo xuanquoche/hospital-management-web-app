@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
-import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
 import { PatientFilters } from '@/components/modules/doctor/my-patient/PatientFilters';
 import { PatientListHeader } from '@/components/modules/doctor/my-patient/PatientListHeader';
 import { PatientSummaryCard } from '@/components/modules/doctor/my-patient/PatientSummaryCard';
@@ -36,7 +35,7 @@ export default function MyPatientsPage() {
     const fetchPatients = async () => {
       try {
         const response = await clientFetcher.get<MyPatientResponse>(
-          '/doctors/my-patients'
+          '/doctors/me/patients'
         );
         if (response?.data) {
           setPatients(response.data);

@@ -68,6 +68,11 @@ export const PATIENT_MENU: MenuItem[] = [
     label: 'support',
     href: PRIVATE_ROUTES.PATIENT_SUPPORT,
   },
+  {
+    icon: CreditCard,
+    label: 'transactions',
+    href: PRIVATE_ROUTES.PATIENT_TRANSACTIONS,
+  },
 ];
 
 export const DOCTOR_MENU: MenuItem[] = [
