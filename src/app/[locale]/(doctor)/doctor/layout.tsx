@@ -9,7 +9,7 @@ const DoctorLayout = ({ children }: { children: React.ReactNode }) => (
     <div className='flex h-screen'>
       <PortalSidebar />
       <div className='w-[80%] overflow-y-auto'>
-        <PortalHeader title='Doctor Portal' badgeText='Doctor' />
+        <PortalHeader badgeText='Doctor' />
         {children}
       </div>
     </div>
