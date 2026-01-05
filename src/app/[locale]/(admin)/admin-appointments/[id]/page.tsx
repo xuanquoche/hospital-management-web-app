@@ -1,40 +1,22 @@
-import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
-import { AppointmentDetail } from '@/components/modules/admin-appointments/appointment-detail/AppointmentDetail';
-import { serverFetcher } from '@/lib/fetcher';
-import { ApiAppointment } from '@/types/appointment-api';
+import AppointmentDetailContainer from '@/components/modules/admin-appointments/AppointmentDetailContainer';
+import GlobalSkeleton from '@/components/ui/GlobalSkeleton';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
-}
-
-interface AppointmentDetailResponse {
-  success: boolean;
-  statusCode: number;
-  message: string;
-  data: ApiAppointment;
-  timestamp: string;
+  }>;
 }
 
 export default async function AppointmentDetailPage({ params }: PageProps) {
-  try {
-    const response = await serverFetcher.get<AppointmentDetailResponse>(
-      `/appointments/${params.id}`
-    );
+  const { id } = await params;
 
-    if (!response?.data) {
-      notFound();
-    }
-
-    return (
-      <div className='p-6'>
-        <AppointmentDetail appointment={response.data} />
-      </div>
-    );
-  } catch (error) {
-    console.error('Failed to fetch appointment details:', error);
-    notFound();
-  }
+  return (
+    <div className='p-6'>
+      <Suspense fallback={<GlobalSkeleton />}>
+        <AppointmentDetailContainer id={id} />
+      </Suspense>
+    </div>
+  );
 }

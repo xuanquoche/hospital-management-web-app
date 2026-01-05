@@ -123,10 +123,6 @@ export function TransactionList() {
     return pageNumbers;
   };
 
-  if (loading && !transactions.length && !filters) {
-    return <div>Loading initial data...</div>;
-  }
-
   return (
     <div className='flex flex-col gap-6'>
       <TransactionListHeader />
@@ -134,7 +130,7 @@ export function TransactionList() {
         <div className='lg:col-span-3 space-y-6'>
           <TransactionFilter onFilterChange={handleFilterChange} />
 
-          <TransactionTable transactions={transactions} />
+          <TransactionTable transactions={transactions} loading={loading} />
 
           {totalPages > 1 && (
             <div className='py-4'>

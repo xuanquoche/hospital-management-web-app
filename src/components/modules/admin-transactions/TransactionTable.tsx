@@ -20,9 +20,13 @@ import { PaymentDetailModal } from './PaymentDetailModal';
 
 interface TransactionTableProps {
   transactions: Payment[];
+  loading?: boolean;
 }
 
-export function TransactionTable({ transactions }: TransactionTableProps) {
+export function TransactionTable({
+  transactions,
+  loading,
+}: TransactionTableProps) {
   const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(
     null
   );
@@ -69,95 +73,141 @@ export function TransactionTable({ transactions }: TransactionTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell className='font-medium'>
-                  {transaction.paymentCode}
-                </TableCell>
-                <TableCell>
-                  <div className='flex flex-col'>
-                    <span>
-                      {format(new Date(transaction.createdAt), 'dd MMM yyyy')}
-                    </span>
-                    <span className='text-muted-foreground text-xs'>
-                      {format(new Date(transaction.createdAt), 'HH:mm')}
-                    </span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className='flex items-center gap-3'>
-                    <Avatar className='size-9'>
-                      <AvatarImage
-                        src={transaction.appointment.patient.user.avatar}
-                        alt={transaction.appointment.patient.user.fullName}
-                      />
-                      <AvatarFallback>
-                        {transaction.appointment.patient.user.fullName?.charAt(
-                          0
-                        ) ?? 'P'}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className='flex flex-col'>
+            {loading
+              ? [...Array(5)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <div className='h-4 w-24 rounded bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell>
+                      <div className='space-y-2'>
+                        <div className='h-4 w-20 rounded bg-slate-200 animate-pulse' />
+                        <div className='h-3 w-12 rounded bg-slate-200 animate-pulse' />
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className='flex items-center gap-3'>
+                        <div className='size-9 rounded-full bg-slate-200 animate-pulse' />
+                        <div className='space-y-2'>
+                          <div className='h-4 w-32 rounded bg-slate-200 animate-pulse' />
+                          <div className='h-3 w-24 rounded bg-slate-200 animate-pulse' />
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className='h-4 w-32 rounded bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell>
+                      <div className='h-4 w-24 rounded bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell>
+                      <div className='h-6 w-20 rounded-full bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell>
+                      <div className='h-4 w-16 rounded bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell className='text-right'>
+                      <div className='flex justify-end gap-2'>
+                        <div className='h-4 w-12 rounded bg-slate-200 animate-pulse' />
+                        <div className='h-4 w-12 rounded bg-slate-200 animate-pulse' />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : transactions.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell className='font-medium'>
+                      {transaction.paymentCode}
+                    </TableCell>
+                    <TableCell>
+                      <div className='flex flex-col'>
+                        <span>
+                          {format(
+                            new Date(transaction.createdAt),
+                            'dd MMM yyyy'
+                          )}
+                        </span>
+                        <span className='text-muted-foreground text-xs'>
+                          {format(new Date(transaction.createdAt), 'HH:mm')}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className='flex items-center gap-3'>
+                        <Avatar className='size-9'>
+                          <AvatarImage
+                            src={transaction.appointment.patient.user.avatar}
+                            alt={transaction.appointment.patient.user.fullName}
+                          />
+                          <AvatarFallback>
+                            {transaction.appointment.patient.user.fullName?.charAt(
+                              0
+                            ) ?? 'P'}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className='flex flex-col'>
+                          <span className='font-medium'>
+                            {transaction.appointment.patient.user.fullName}
+                          </span>
+                          <span className='text-muted-foreground text-xs'>
+                            {transaction.appointment.patient.user.phone}
+                          </span>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
                       <span className='font-medium'>
-                        {transaction.appointment.patient.user.fullName}
+                        {transaction.appointment.doctor.user.fullName}
                       </span>
-                      <span className='text-muted-foreground text-xs'>
-                        {transaction.appointment.patient.user.phone}
+                    </TableCell>
+                    <TableCell>
+                      <span className='font-medium'>
+                        {formatCurrency(
+                          transaction.appointment.consultationFee
+                        )}
                       </span>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className='font-medium'>
-                    {transaction.appointment.doctor.user.fullName}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className='font-medium'>
-                    {formatCurrency(transaction.appointment.consultationFee)}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant='secondary'
-                    className={cn(
-                      'rounded-full font-normal',
-                      transaction.status === PaymentStatus.SUCCESS &&
-                        'bg-emerald-600 text-white hover:bg-emerald-700',
-                      transaction.status === PaymentStatus.PENDING &&
-                        'bg-amber-500 text-white hover:bg-amber-600',
-                      transaction.status === PaymentStatus.FAILED &&
-                        'bg-red-500 text-white hover:bg-red-600',
-                      transaction.status === PaymentStatus.REFUNDED &&
-                        'bg-slate-100 text-slate-500 hover:bg-slate-200'
-                    )}
-                  >
-                    {transaction.status}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>{transaction.method}</span>
-                </TableCell>
-                <TableCell className='text-right'>
-                  <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
-                    <button
-                      className='hover:underline'
-                      onClick={() => handleViewClick(transaction.id)}
-                    >
-                      View
-                    </button>
-                    <span className='text-muted-foreground'>•</span>
-                    <button className='hover:underline'>
-                      {transaction.status === PaymentStatus.SUCCESS
-                        ? 'Refund'
-                        : transaction.status === PaymentStatus.FAILED
-                          ? 'Retry'
-                          : 'Details'}
-                    </button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant='secondary'
+                        className={cn(
+                          'rounded-full font-normal',
+                          transaction.status === PaymentStatus.SUCCESS &&
+                            'bg-emerald-600 text-white hover:bg-emerald-700',
+                          transaction.status === PaymentStatus.PENDING &&
+                            'bg-amber-500 text-white hover:bg-amber-600',
+                          transaction.status === PaymentStatus.FAILED &&
+                            'bg-red-500 text-white hover:bg-red-600',
+                          transaction.status === PaymentStatus.REFUNDED &&
+                            'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                        )}
+                      >
+                        {transaction.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <span className='text-sm'>{transaction.method}</span>
+                    </TableCell>
+                    <TableCell className='text-right'>
+                      <div className='flex items-center justify-end gap-2 text-xs font-medium text-emerald-600'>
+                        <button
+                          className='hover:underline'
+                          onClick={() => handleViewClick(transaction.id)}
+                        >
+                          View
+                        </button>
+                        <span className='text-muted-foreground'>•</span>
+                        <button className='hover:underline'>
+                          {transaction.status === PaymentStatus.SUCCESS
+                            ? 'Refund'
+                            : transaction.status === PaymentStatus.FAILED
+                              ? 'Retry'
+                              : 'Details'}
+                        </button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </div>
