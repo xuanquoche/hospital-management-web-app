@@ -17,6 +17,7 @@ export const PUBLIC_ROUTES = {
 
 export const PRIVATE_ROUTES = {
   DASHBOARD: '/dashboard',
+  ADMIN_DASHBOARD: '/dashboard',
   PROFILE: '/profile',
   SETTINGS: '/settings',
   DEPARTMENT: '/department',

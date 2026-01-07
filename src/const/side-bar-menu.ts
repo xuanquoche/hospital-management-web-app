@@ -10,6 +10,7 @@ import {
   UserRoundPen,
   MessageCircle,
   LucideIcon,
+  LayoutDashboard,
 } from 'lucide-react';
 
 import { PRIVATE_ROUTES } from './routes';
@@ -21,6 +22,11 @@ export interface MenuItem {
 }
 
 export const ADMIN_MENU: MenuItem[] = [
+  {
+    icon: LayoutDashboard,
+    label: 'dashboard',
+    href: PRIVATE_ROUTES.ADMIN_DASHBOARD,
+  },
   { icon: Stethoscope, label: 'doctors', href: PRIVATE_ROUTES.ADMIN_DOCTOR },
   { icon: Users, label: 'patients', href: PRIVATE_ROUTES.ADMIN_PATIENT },
   {
