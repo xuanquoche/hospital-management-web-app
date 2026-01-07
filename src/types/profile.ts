@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const profileSchema = z.object({
   // Personal Info
   fullName: z.string().min(1, 'Vui lòng nhập họ tên'),
+  avatar: z.string().optional(),
   gender: z.enum(['male', 'female', 'other']),
   dateOfBirth: z.date(),
   idNumber: z.string().min(9, 'Số CMND/CCCD không hợp lệ'),

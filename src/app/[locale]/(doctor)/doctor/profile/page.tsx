@@ -27,7 +27,7 @@ const item = {
 };
 
 export default function DoctorDetailPage() {
-  const { user, profile, loading } = useMe();
+  const { user, profile, loading, refetch } = useMe();
 
   if (loading) {
     return (
@@ -50,6 +50,11 @@ export default function DoctorDetailPage() {
   // Cast profile to DoctorProfileData since we are in doctor context
   const doctorProfile = profile as DoctorProfileData;
 
+  const handleProfileUpdate = async () => {
+    // Refetch user data to update avatar
+    await refetch();
+  };
+
   return (
     <motion.div
       variants={container}
@@ -60,7 +65,11 @@ export default function DoctorDetailPage() {
       <div className='flex flex-col lg:flex-row gap-6'>
         {/* Left Section */}
         <motion.div variants={item} className='lg:w-1/3 space-y-6'>
-          <DoctorProfileCard user={user} profile={doctorProfile} />
+          <DoctorProfileCard
+            user={user}
+            profile={doctorProfile}
+            onProfileUpdate={handleProfileUpdate}
+          />
           <DoctorAvailableTime profile={doctorProfile} />
         </motion.div>
 

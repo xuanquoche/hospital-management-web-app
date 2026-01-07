@@ -3,22 +3,29 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { AvatarUploader } from '@/components/ui/avatar-uploader';
 import { Badge } from '@/components/ui/badge';
+import { useMe } from '@/hooks/use-me';
 import { ProfileFormValues } from '@/types/profile';
 
 export const ProfileHeader = () => {
-  const { watch } = useFormContext<ProfileFormValues>();
+  const { watch, setValue } = useFormContext<ProfileFormValues>();
+  const { user } = useMe();
   const values = watch();
 
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='flex items-start gap-4'>
-        <Avatar className='h-16 w-16 border-2 border-white shadow-sm'>
-          <AvatarImage src='https://github.com/shadcn.png' alt='User' />
-          <AvatarFallback>
-            {values.fullName ? values.fullName.charAt(0).toUpperCase() : 'U'}
-          </AvatarFallback>
-        </Avatar>
+        <AvatarUploader
+          src={values.avatar}
+          fallback={
+            values.fullName ? values.fullName.charAt(0).toUpperCase() : 'U'
+          }
+          className='h-16 w-16'
+          onUploadSuccess={(url) =>
+            setValue('avatar', url, { shouldDirty: true })
+          }
+        />
 
         <div className='space-y-1'>
           <h2 className='text-xl font-bold text-slate-900'>

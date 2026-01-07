@@ -1,28 +1,34 @@
 import { Star, CheckCircle } from 'lucide-react';
-import Image from 'next/image';
 
+import { AvatarUploader } from '@/components/ui/avatar-uploader';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { DoctorProfileData, UserData } from '@/hooks/use-me';
+import { clientFetcher } from '@/lib/fetcher';
 
 interface DoctorProfileCardProps {
   user: UserData;
   profile: DoctorProfileData;
+  onProfileUpdate?: () => void;
 }
 
 export default function DoctorProfileCard({
   user,
   profile,
+  onProfileUpdate,
 }: DoctorProfileCardProps) {
   return (
     <Card className='p-6'>
       <div className='flex flex-col items-center text-center'>
-        <Image
-          src={user.avatar || '/images/doctor.png'}
+        <AvatarUploader
+          src={user.avatar}
+          fallback={user.fullName?.charAt(0)}
           alt={user.fullName}
-          width={100}
-          height={100}
-          className='rounded-full aspect-square object-cover'
+          className='w-[100px] h-[100px] rounded-full'
+          onUploadSuccess={async (url) => {
+            await clientFetcher.patch('/users/me', { avatar: url });
+            onProfileUpdate?.();
+          }}
         />
         <h2 className='text-xl font-semibold mt-3'>{user.fullName}</h2>
         <div className='flex items-center mt-1 text-yellow-500'>
