@@ -42,7 +42,8 @@
     "dashboard": "ダッシュボード",
     "booking": "予約",
     "profile": "プロフィール",
-    "myPatients": "私の患者"
+    "myPatients": "私の患者",
+    "healthRecord": "健康記録"
   },
   "Admin": {
     "Dashboard": {

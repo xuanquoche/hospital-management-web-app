@@ -1,9 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { mockVisits } from '@/components/modules/patient/health-record/data';
 import { DoctorSuggestionsCard } from '@/components/modules/patient/health-record/DoctorSuggestionsCard';
 import { DocumentsCard } from '@/components/modules/patient/health-record/DocumentsCard';
 import { HealthOverviewCard } from '@/components/modules/patient/health-record/HealthOverviewCard';
@@ -11,14 +10,22 @@ import { HealthRecordHeader } from '@/components/modules/patient/health-record/H
 import { RecentLabResultsCard } from '@/components/modules/patient/health-record/RecentLabResultsCard';
 import { VisitDetailCard } from '@/components/modules/patient/health-record/VisitDetailCard';
 import { VisitHistoryList } from '@/components/modules/patient/health-record/VisitHistoryList';
+import { useHealthRecord } from '@/hooks/use-health-record';
 
 export default function HealthRecordPage() {
-  const [selectedVisitId, setSelectedVisitId] = useState<string>(
-    mockVisits[0].id
-  );
+  const { user, profile, consultations, totalConsultations, loading } =
+    useHealthRecord();
+
+  const [selectedVisitId, setSelectedVisitId] = useState<string>('');
+
+  useEffect(() => {
+    if (consultations.length > 0 && !selectedVisitId) {
+      setSelectedVisitId(consultations[0].id);
+    }
+  }, [consultations, selectedVisitId]);
 
   const selectedVisit =
-    mockVisits.find((v) => v.id === selectedVisitId) || mockVisits[0];
+    consultations.find((v) => v.id === selectedVisitId) || null;
 
   return (
     <div className='min-h-screen bg-slate-50/50 p-8'>
@@ -29,15 +36,20 @@ export default function HealthRecordPage() {
         </p>
       </div>
 
-      <HealthRecordHeader />
+      <HealthRecordHeader
+        user={user}
+        profile={profile}
+        consultations={consultations}
+        loading={loading}
+      />
 
       <div className='grid grid-cols-1 xl:grid-cols-12 gap-8'>
-        {/* Left Column: History & Details */}
         <div className='xl:col-span-8 space-y-8'>
           <VisitHistoryList
-            visits={mockVisits}
+            consultations={consultations}
             selectedVisitId={selectedVisitId}
             onSelectVisit={setSelectedVisitId}
+            loading={loading}
           />
 
           <AnimatePresence mode='wait'>
@@ -48,14 +60,17 @@ export default function HealthRecordPage() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
             >
-              <VisitDetailCard visit={selectedVisit} />
+              <VisitDetailCard visit={selectedVisit} loading={loading} />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Right Column: Sidebar */}
         <div className='xl:col-span-4'>
-          <HealthOverviewCard />
+          <HealthOverviewCard
+            profile={profile}
+            totalConsultations={totalConsultations}
+            loading={loading}
+          />
           <RecentLabResultsCard />
           <DocumentsCard />
           <DoctorSuggestionsCard />

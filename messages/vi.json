@@ -42,7 +42,8 @@
     "dashboard": "Bảng điều khiển",
     "booking": "Đặt lịch",
     "profile": "Hồ sơ",
-    "myPatients": "Bệnh nhân của tôi"
+    "myPatients": "Bệnh nhân của tôi",
+    "healthRecord": "Hồ sơ sức khỏe"
   },
   "Admin": {
     "Dashboard": {

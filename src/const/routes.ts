@@ -42,6 +42,7 @@ export const PRIVATE_ROUTES = {
   PATIENT_SUPPORT: '/patient/support',
   PATIENT_TRANSACTIONS: '/patient/transactions',
   PATIENT_APPOINTMENTS: '/patient/appointments',
+  PATIENT_HEALTH_RECORD: '/patient/health-record',
   // doctor
   DOCTOR_DASHBOARD: '/doctor/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',
