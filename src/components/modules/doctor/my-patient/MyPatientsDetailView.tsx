@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
 import { PatientDetail } from '@/components/modules/doctor/patient-detail/data';
+import { DocumentsTab } from '@/components/modules/doctor/patient-detail/DocumentsTab';
 import { HistoryTab } from '@/components/modules/doctor/patient-detail/HistoryTab';
 import { OverviewTab } from '@/components/modules/doctor/patient-detail/OverviewTab';
 import { PatientDetailHeader } from '@/components/modules/doctor/patient-detail/PatientDetailHeader';
@@ -128,9 +129,13 @@ export default function MyPatientsDetailView({
               initial='hidden'
               animate='show'
             >
-              <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-                Nội dung tab Xét nghiệm & tài liệu đang được cập nhật...
-              </div>
+              <DocumentsTab
+                patientId={patient.id}
+                appointments={patient.appointments.map((apt) => ({
+                  id: apt.id,
+                  appointmentDate: apt.appointmentDate,
+                }))}
+              />
             </motion.div>
           </TabsContent>
 
