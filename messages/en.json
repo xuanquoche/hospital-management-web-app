@@ -45,6 +45,101 @@
     "myPatients": "My Patients"
   },
   "Admin": {
+    "Dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of hospital system activities",
+      "refresh": "Refresh",
+      "loading": "Loading data...",
+      "statistics": {
+        "totalPatients": "Total Patients",
+        "totalDoctors": "Total Doctors",
+        "todayAppointments": "Today's Appointments",
+        "revenue": "Revenue",
+        "thisMonth": "this month",
+        "new": "new",
+        "pendingAppointments": "Pending",
+        "confirmedAppointments": "Confirmed",
+        "completedAppointments": "Completed",
+        "totalAppointments": "Total Appointments"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "subtitle": "Quick access to functions",
+        "addDoctor": "Add Doctor",
+        "addDoctorDesc": "Create new doctor profile",
+        "manageAppointments": "Appointments",
+        "manageAppointmentsDesc": "View and approve appointments",
+        "patients": "Patients",
+        "patientsDesc": "Manage patient records",
+        "pharmacy": "Pharmacy",
+        "pharmacyDesc": "Import and manage medicines",
+        "transactions": "Transactions",
+        "transactionsDesc": "Track payments",
+        "support": "Support",
+        "supportDesc": "Messages & feedback"
+      },
+      "recentAppointments": {
+        "title": "Recent Appointments",
+        "subtitle": "Manage latest appointments",
+        "viewAll": "View All",
+        "noData": "No appointments yet",
+        "patient": "Patient",
+        "doctor": "Doctor",
+        "time": "Time",
+        "status": "Status",
+        "actions": "Actions",
+        "viewDetails": "View Details"
+      },
+      "statuses": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "noShow": "No Show",
+        "active": "Active",
+        "inactive": "Inactive",
+        "onLeave": "On Leave",
+        "success": "Success",
+        "failed": "Failed",
+        "refunded": "Refunded"
+      },
+      "doctorsActivity": {
+        "title": "Medical Team",
+        "subtitle": "Activity status",
+        "viewAll": "View All",
+        "noData": "No doctor data",
+        "yearsExp": "yrs exp"
+      },
+      "recentPayments": {
+        "title": "Recent Transactions",
+        "subtitle": "Latest payments",
+        "viewAll": "View All",
+        "noData": "No transactions yet"
+      },
+      "charts": {
+        "appointmentsThisWeek": "Appointments This Week",
+        "appointmentsSubtitle": "Daily appointment count",
+        "appointments": "Appointments",
+        "totalThisWeek": "Total this week",
+        "revenueThisWeek": "Revenue This Week",
+        "revenueSubtitle": "Track daily revenue",
+        "revenue": "Revenue",
+        "vndThisWeek": "VND this week",
+        "statusDistribution": "Status Distribution",
+        "statusDistributionSubtitle": "Appointment status ratios",
+        "total": "Total"
+      },
+      "days": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      }
+    },
     "PatientList": {
       "title": "Patients",
       "subtitle": "Manage Patients - List, create, and view details.",

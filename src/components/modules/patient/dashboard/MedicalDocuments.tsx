@@ -1,29 +1,84 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React from 'react';
+import { FileText } from 'lucide-react';
+import Link from 'next/link';
+import React, { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ConsultationHistory } from '@/types/patient-dashboard';
 
-const documents = [
-  {
-    name: 'Xét nghiệm máu tổng quát',
-    type: 'PDF',
-    size: '1.2MB',
-  },
-  {
-    name: 'Phim X-quang ngực',
-    type: 'Ảnh',
-    size: '2 file',
-  },
-  {
-    name: 'MRI cột sống thắt lưng',
-    type: 'DICOM',
-    size: '560MB',
-  },
-];
+interface MedicalDocumentsProps {
+  consultations: ConsultationHistory[];
+}
 
-export const MedicalDocuments = () => {
+interface DocumentItem {
+  name: string;
+  type: string;
+  count: number;
+}
+
+export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
+  const documents = useMemo<DocumentItem[]>(() => {
+    if (!consultations || consultations.length === 0) return [];
+
+    let totalPrescriptions = 0;
+    let totalDiagnosis = 0;
+
+    consultations.forEach((consultation) => {
+      if (consultation.prescriptionItems?.length > 0) {
+        totalPrescriptions += consultation.prescriptionItems.length;
+      }
+      if (consultation.diagnosis) {
+        totalDiagnosis += 1;
+      }
+    });
+
+    const docs: DocumentItem[] = [];
+
+    if (totalPrescriptions > 0) {
+      docs.push({
+        name: 'Đơn thuốc điện tử',
+        type: 'Đơn thuốc',
+        count: totalPrescriptions,
+      });
+    }
+
+    if (totalDiagnosis > 0) {
+      docs.push({
+        name: 'Kết quả chẩn đoán',
+        type: 'Chẩn đoán',
+        count: totalDiagnosis,
+      });
+    }
+
+    return docs;
+  }, [consultations]);
+
+  if (documents.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'
+      >
+        <div className='mb-6'>
+          <h3 className='text-lg font-bold text-slate-900'>Tài liệu y khoa</h3>
+          <p className='text-slate-500'>Đơn thuốc, kết quả khám bệnh.</p>
+        </div>
+
+        <div className='flex flex-col items-center justify-center py-8 text-center'>
+          <FileText className='mb-4 h-12 w-12 text-slate-300' />
+          <p className='mb-2 text-slate-600'>Chưa có tài liệu y khoa</p>
+          <p className='text-sm text-slate-400'>
+            Tài liệu sẽ được tạo sau khi bạn hoàn thành khám bệnh
+          </p>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,7 +88,7 @@ export const MedicalDocuments = () => {
     >
       <div className='mb-6'>
         <h3 className='text-lg font-bold text-slate-900'>Tài liệu y khoa</h3>
-        <p className='text-slate-500'>Kết quả xét nghiệm, phim X-quang, MRI.</p>
+        <p className='text-slate-500'>Đơn thuốc, kết quả khám bệnh.</p>
       </div>
 
       <div className='space-y-4 mb-6'>
@@ -46,18 +101,20 @@ export const MedicalDocuments = () => {
               {doc.name}
             </span>
             <span className='text-xs text-slate-500 whitespace-nowrap'>
-              {doc.type} • {doc.size}
+              {doc.type} • {doc.count} mục
             </span>
           </div>
         ))}
       </div>
 
-      <Button
-        variant='secondary'
-        className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
-      >
-        Quản lý tài liệu
-      </Button>
+      <Link href='/patient/health-record'>
+        <Button
+          variant='secondary'
+          className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
+        >
+          Quản lý tài liệu
+        </Button>
+      </Link>
     </motion.div>
   );
 };

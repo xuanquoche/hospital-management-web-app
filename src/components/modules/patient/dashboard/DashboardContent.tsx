@@ -1,9 +1,11 @@
 'use client';
 
-import { Search, CalendarPlus } from 'lucide-react';
+import { Search, CalendarPlus, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
+import { usePatientDashboard } from '@/hooks/use-patient-dashboard';
 
 import { HealthMetrics } from './HealthMetrics';
 import { MedicalDocuments } from './MedicalDocuments';
@@ -14,9 +16,22 @@ import { RecentHistory } from './RecentHistory';
 import { UpcomingAppointments } from './UpcomingAppointments';
 
 export const DashboardContent = () => {
+  const { profile, upcomingAppointments, consultationHistory, loading } =
+    usePatientDashboard();
+
+  if (loading) {
+    return (
+      <div className='flex min-h-screen items-center justify-center bg-slate-50/50'>
+        <div className='flex flex-col items-center gap-4'>
+          <Loader2 className='h-8 w-8 animate-spin text-teal-600' />
+          <p className='text-slate-500'>Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='min-h-screen bg-slate-50/50 p-8'>
-      {/* Page Header */}
       <div className='mb-8 flex items-end justify-between'>
         <div>
           <h1 className='text-3xl font-bold text-slate-900'>Trang chủ</h1>
@@ -31,17 +46,16 @@ export const DashboardContent = () => {
           >
             <Search className='h-4 w-4' /> Tìm bác sĩ
           </Button>
-          <Button className='gap-2 bg-teal-600 text-white shadow-lg shadow-teal-200 hover:bg-teal-700'>
-            <CalendarPlus className='h-4 w-4' /> Đặt lịch ngay
-          </Button>
+          <Link href='/patient/booking'>
+            <Button className='gap-2 bg-teal-600 text-white shadow-lg shadow-teal-200 hover:bg-teal-700'>
+              <CalendarPlus className='h-4 w-4' /> Đặt lịch ngay
+            </Button>
+          </Link>
         </div>
       </div>
 
-      {/* Main Grid Layout */}
       <div className='grid grid-cols-1 gap-6 lg:grid-cols-12'>
-        {/* Left Column (Main Content) */}
         <div className='space-y-6 lg:col-span-8'>
-          {/* Top Banners Row */}
           <div className='grid grid-cols-1 gap-6 md:grid-cols-5'>
             <div className='md:col-span-3'>
               <PromoBanner />
@@ -51,20 +65,17 @@ export const DashboardContent = () => {
             </div>
           </div>
 
-          {/* Quick Actions */}
           <QuickActions />
 
-          {/* Bottom Row */}
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-            <UpcomingAppointments />
-            <HealthMetrics />
+            <UpcomingAppointments appointments={upcomingAppointments} />
+            <HealthMetrics profile={profile} />
           </div>
         </div>
 
-        {/* Right Column (Sidebar Widgets) */}
         <div className='space-y-6 lg:col-span-4'>
-          <RecentHistory />
-          <MedicalDocuments />
+          <RecentHistory consultations={consultationHistory} />
+          <MedicalDocuments consultations={consultationHistory} />
         </div>
       </div>
     </div>

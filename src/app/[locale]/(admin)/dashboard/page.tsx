@@ -1,11 +1,7 @@
-import { useTranslations } from 'next-intl';
+'use client';
+
+import { AdminDashboardContent } from '@/components/modules/admin-dashboard';
 
 export default function DashboardPage() {
-  const t = useTranslations('Common');
-
-  return (
-    <div className='w-full max-w-md mx-auto'>
-      <h1>{t('dashboard')}</h1>
-    </div>
-  );
+  return <AdminDashboardContent />;
 }
