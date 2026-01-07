@@ -40,6 +40,7 @@ export const PRIVATE_ROUTES = {
   PATIENT_BOOKING: '/patient/booking',
   PATIENT_SUPPORT: '/patient/support',
   PATIENT_TRANSACTIONS: '/patient/transactions',
+  PATIENT_APPOINTMENTS: '/patient/appointments',
   // doctor
   DOCTOR_DASHBOARD: '/doctor/dashboard',
   DOCTOR_PROFILE: '/doctor/profile',

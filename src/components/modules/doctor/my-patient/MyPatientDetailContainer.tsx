@@ -11,7 +11,7 @@ export default async function MyPatientDetailContainer({ id }: { id: string }) {
 
   try {
     const response = await serverFetcher.get<MyPatientDetailResponse>(
-      `/doctors/my-patients/${id}`
+      `/doctors/me/patients/${id}`
     );
 
     if (response?.data) {

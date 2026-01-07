@@ -9,6 +9,7 @@ interface VisitTimelineCardProps {
 }
 
 export const VisitTimelineCard = ({ timeline }: VisitTimelineCardProps) => {
+  console.log('timeline', timeline);
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='flex justify-between items-center mb-4'>

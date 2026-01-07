@@ -9,6 +9,7 @@ import {
   MapPin,
   Phone,
   User,
+  ArrowLeft,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -61,6 +62,14 @@ export function AppointmentDetail({ appointment }: AppointmentDetailProps) {
           <p className='text-sm text-slate-500'>ID: {appointment.id}</p>
         </div>
         <div className='flex items-center gap-3'>
+          <Button
+            variant='ghost'
+            onClick={() => router.back()}
+            className='flex items-center gap-2'
+          >
+            <ArrowLeft className='h-4 w-4' />
+            Back
+          </Button>
           <Badge
             className={cn('text-white', getStatusColor(appointment.status))}
           >

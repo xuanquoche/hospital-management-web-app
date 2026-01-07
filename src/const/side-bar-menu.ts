@@ -73,6 +73,11 @@ export const PATIENT_MENU: MenuItem[] = [
     label: 'transactions',
     href: PRIVATE_ROUTES.PATIENT_TRANSACTIONS,
   },
+  {
+    icon: Calendar,
+    label: 'appointments',
+    href: PRIVATE_ROUTES.PATIENT_APPOINTMENTS,
+  },
 ];
 
 export const DOCTOR_MENU: MenuItem[] = [
