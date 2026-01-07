@@ -1,9 +1,9 @@
 'use client';
 
 import { format } from 'date-fns';
-import { FileText, MoreVertical } from 'lucide-react';
+import { FileText, MoreVertical, Upload } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+
+import { UploadMedicalDocumentModal } from './UploadMedicalDocumentModal';
 
 interface AppointmentHistory {
   id: string;
@@ -45,8 +47,14 @@ interface HistoryTabProps {
 
 export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
   const router = useRouter();
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [selectedAppointmentId, setSelectedAppointmentId] =
+    useState<string>('');
 
-  console.log(appointments.length);
+  const handleOpenUploadModal = (appointmentId: string) => {
+    setSelectedAppointmentId(appointmentId);
+    setUploadModalOpen(true);
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -182,6 +190,12 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                           >
                             Xem chi tiết
                           </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleOpenUploadModal(apt.id)}
+                          >
+                            <Upload className='w-4 h-4 mr-2' />
+                            Upload tài liệu khám
+                          </DropdownMenuItem>
                           <DropdownMenuItem>Tải hồ sơ (PDF)</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -193,6 +207,12 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
           </TableBody>
         </Table>
       </div>
+
+      <UploadMedicalDocumentModal
+        open={uploadModalOpen}
+        onOpenChange={setUploadModalOpen}
+        appointmentId={selectedAppointmentId}
+      />
     </div>
   );
 };
