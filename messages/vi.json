@@ -45,6 +45,101 @@
     "myPatients": "Bệnh nhân của tôi"
   },
   "Admin": {
+    "Dashboard": {
+      "title": "Bảng điều khiển",
+      "subtitle": "Tổng quan hoạt động của hệ thống bệnh viện",
+      "refresh": "Làm mới",
+      "loading": "Đang tải dữ liệu...",
+      "statistics": {
+        "totalPatients": "Tổng bệnh nhân",
+        "totalDoctors": "Tổng bác sĩ",
+        "todayAppointments": "Lịch hẹn hôm nay",
+        "revenue": "Doanh thu",
+        "thisMonth": "tháng này",
+        "new": "mới",
+        "pendingAppointments": "Chờ xác nhận",
+        "confirmedAppointments": "Đã xác nhận",
+        "completedAppointments": "Hoàn thành",
+        "totalAppointments": "Tổng lịch hẹn"
+      },
+      "quickActions": {
+        "title": "Thao tác nhanh",
+        "subtitle": "Truy cập nhanh các chức năng",
+        "addDoctor": "Thêm bác sĩ",
+        "addDoctorDesc": "Tạo hồ sơ bác sĩ mới",
+        "manageAppointments": "Quản lý lịch hẹn",
+        "manageAppointmentsDesc": "Xem và duyệt lịch hẹn",
+        "patients": "Bệnh nhân",
+        "patientsDesc": "Quản lý hồ sơ bệnh nhân",
+        "pharmacy": "Kho thuốc",
+        "pharmacyDesc": "Nhập và quản lý thuốc",
+        "transactions": "Giao dịch",
+        "transactionsDesc": "Theo dõi thanh toán",
+        "support": "Hỗ trợ",
+        "supportDesc": "Tin nhắn & phản hồi"
+      },
+      "recentAppointments": {
+        "title": "Lịch hẹn gần đây",
+        "subtitle": "Quản lý các lịch hẹn mới nhất",
+        "viewAll": "Xem tất cả",
+        "noData": "Chưa có lịch hẹn nào",
+        "patient": "Bệnh nhân",
+        "doctor": "Bác sĩ",
+        "time": "Thời gian",
+        "status": "Trạng thái",
+        "actions": "Hành động",
+        "viewDetails": "Xem chi tiết"
+      },
+      "statuses": {
+        "pending": "Chờ xác nhận",
+        "confirmed": "Đã xác nhận",
+        "inProgress": "Đang khám",
+        "completed": "Hoàn thành",
+        "cancelled": "Đã hủy",
+        "noShow": "Không đến",
+        "active": "Đang hoạt động",
+        "inactive": "Tạm nghỉ",
+        "onLeave": "Nghỉ phép",
+        "success": "Thành công",
+        "failed": "Thất bại",
+        "refunded": "Hoàn tiền"
+      },
+      "doctorsActivity": {
+        "title": "Đội ngũ bác sĩ",
+        "subtitle": "Tình trạng hoạt động",
+        "viewAll": "Xem tất cả",
+        "noData": "Chưa có dữ liệu bác sĩ",
+        "yearsExp": "năm KN"
+      },
+      "recentPayments": {
+        "title": "Giao dịch gần đây",
+        "subtitle": "Thanh toán mới nhất",
+        "viewAll": "Xem tất cả",
+        "noData": "Chưa có giao dịch nào"
+      },
+      "charts": {
+        "appointmentsThisWeek": "Lịch hẹn tuần này",
+        "appointmentsSubtitle": "Số lượng lịch hẹn theo ngày",
+        "appointments": "Lịch hẹn",
+        "totalThisWeek": "Tổng tuần này",
+        "revenueThisWeek": "Doanh thu tuần này",
+        "revenueSubtitle": "Theo dõi doanh thu hàng ngày",
+        "revenue": "Doanh thu",
+        "vndThisWeek": "VNĐ tuần này",
+        "statusDistribution": "Phân bố trạng thái",
+        "statusDistributionSubtitle": "Tỷ lệ các trạng thái lịch hẹn",
+        "total": "Tổng"
+      },
+      "days": {
+        "mon": "T2",
+        "tue": "T3",
+        "wed": "T4",
+        "thu": "T5",
+        "fri": "T6",
+        "sat": "T7",
+        "sun": "CN"
+      }
+    },
     "PatientList": {
       "title": "Danh sách bệnh nhân",
       "subtitle": "Quản lý Bệnh nhân - Danh sách, tạo mới, và xem hồ sơ chi tiết.",

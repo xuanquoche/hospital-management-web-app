@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RefreshCw, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,7 @@ import { RecentPayments } from './RecentPayments';
 import { AppointmentStatusCards, StatisticsCards } from './StatisticsCards';
 
 export const AdminDashboardContent = () => {
+  const t = useTranslations('Admin.Dashboard');
   const {
     stats,
     recentAppointments,
@@ -29,7 +31,7 @@ export const AdminDashboardContent = () => {
       <div className='flex min-h-[60vh] items-center justify-center'>
         <div className='flex flex-col items-center gap-4'>
           <Loader2 className='h-10 w-10 animate-spin text-violet-600' />
-          <p className='text-slate-500'>Đang tải dữ liệu...</p>
+          <p className='text-slate-500'>{t('loading')}</p>
         </div>
       </div>
     );
@@ -44,10 +46,8 @@ export const AdminDashboardContent = () => {
         className='mb-8 flex items-end justify-between'
       >
         <div>
-          <h1 className='text-3xl font-bold text-slate-900'>Dashboard</h1>
-          <p className='mt-2 text-slate-500'>
-            Tổng quan hoạt động của hệ thống bệnh viện
-          </p>
+          <h1 className='text-3xl font-bold text-slate-900'>{t('title')}</h1>
+          <p className='mt-2 text-slate-500'>{t('subtitle')}</p>
         </div>
         <Button
           variant='outline'
@@ -56,7 +56,7 @@ export const AdminDashboardContent = () => {
           className='gap-2 border-slate-200 text-slate-600 hover:bg-slate-50'
         >
           <RefreshCw className='h-4 w-4' />
-          Làm mới
+          {t('refresh')}
         </Button>
       </motion.div>
 

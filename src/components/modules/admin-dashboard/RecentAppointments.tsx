@@ -1,10 +1,11 @@
 'use client';
 
 import { format, parseISO } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import { vi, enUS, ja } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MoreHorizontal, Eye, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -22,19 +23,13 @@ interface RecentAppointmentsProps {
   appointments: AdminAppointment[];
 }
 
-const statusConfig: Record<
-  string,
-  {
-    label: string;
-    variant: 'default' | 'secondary' | 'destructive' | 'outline';
-  }
-> = {
-  PENDING: { label: 'Chờ xác nhận', variant: 'secondary' },
-  CONFIRMED: { label: 'Đã xác nhận', variant: 'default' },
-  IN_PROGRESS: { label: 'Đang khám', variant: 'default' },
-  COMPLETED: { label: 'Hoàn thành', variant: 'outline' },
-  CANCELLED: { label: 'Đã hủy', variant: 'destructive' },
-  NO_SHOW: { label: 'Không đến', variant: 'destructive' },
+const statusKeys: Record<string, string> = {
+  PENDING: 'pending',
+  CONFIRMED: 'confirmed',
+  IN_PROGRESS: 'inProgress',
+  COMPLETED: 'completed',
+  CANCELLED: 'cancelled',
+  NO_SHOW: 'noShow',
 };
 
 const getStatusBadgeClass = (status: string) => {
@@ -56,9 +51,19 @@ const getStatusBadgeClass = (status: string) => {
   }
 };
 
+const localeMap: Record<string, Locale> = {
+  vi: vi,
+  en: enUS,
+  ja: ja,
+};
+
 export const RecentAppointments = ({
   appointments,
 }: RecentAppointmentsProps) => {
+  const t = useTranslations('Admin.Dashboard');
+  const locale = useLocale();
+  const dateLocale = localeMap[locale] || vi;
+
   if (!appointments || appointments.length === 0) {
     return (
       <motion.div
@@ -70,16 +75,16 @@ export const RecentAppointments = ({
         <div className='mb-6 flex items-center justify-between'>
           <div>
             <h3 className='text-lg font-bold text-slate-900'>
-              Lịch hẹn gần đây
+              {t('recentAppointments.title')}
             </h3>
             <p className='text-sm text-slate-500'>
-              Quản lý các lịch hẹn mới nhất
+              {t('recentAppointments.subtitle')}
             </p>
           </div>
         </div>
         <div className='flex flex-col items-center justify-center py-12 text-center'>
           <Calendar className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='text-slate-500'>Chưa có lịch hẹn nào</p>
+          <p className='text-slate-500'>{t('recentAppointments.noData')}</p>
         </div>
       </motion.div>
     );
@@ -94,9 +99,11 @@ export const RecentAppointments = ({
     >
       <div className='flex items-center justify-between border-b border-slate-100 p-6'>
         <div>
-          <h3 className='text-lg font-bold text-slate-900'>Lịch hẹn gần đây</h3>
+          <h3 className='text-lg font-bold text-slate-900'>
+            {t('recentAppointments.title')}
+          </h3>
           <p className='text-sm text-slate-500'>
-            Quản lý các lịch hẹn mới nhất
+            {t('recentAppointments.subtitle')}
           </p>
         </div>
         <Link href='/admin-appointments'>
@@ -105,7 +112,7 @@ export const RecentAppointments = ({
             size='sm'
             className='gap-2 text-sm text-slate-600 hover:text-slate-900'
           >
-            Xem tất cả
+            {t('recentAppointments.viewAll')}
             <ArrowRight className='h-4 w-4' />
           </Button>
         </Link>
@@ -116,26 +123,25 @@ export const RecentAppointments = ({
           <thead>
             <tr className='border-b border-slate-100 bg-slate-50/50'>
               <th className='px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500'>
-                Bệnh nhân
+                {t('recentAppointments.patient')}
               </th>
               <th className='px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500'>
-                Bác sĩ
+                {t('recentAppointments.doctor')}
               </th>
               <th className='px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500'>
-                Thời gian
+                {t('recentAppointments.time')}
               </th>
               <th className='px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500'>
-                Trạng thái
+                {t('recentAppointments.status')}
               </th>
               <th className='px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500'>
-                Hành động
+                {t('recentAppointments.actions')}
               </th>
             </tr>
           </thead>
           <tbody className='divide-y divide-slate-100'>
             {appointments.map((appointment) => {
-              const status =
-                statusConfig[appointment.status] || statusConfig.PENDING;
+              const statusKey = statusKeys[appointment.status] || 'pending';
               return (
                 <tr
                   key={appointment.id}
@@ -185,7 +191,7 @@ export const RecentAppointments = ({
                           parseISO(appointment.appointmentDate),
                           'dd/MM/yyyy',
                           {
-                            locale: vi,
+                            locale: dateLocale,
                           }
                         )}
                       </span>
@@ -200,7 +206,7 @@ export const RecentAppointments = ({
                   </td>
                   <td className='px-6 py-4'>
                     <Badge className={getStatusBadgeClass(appointment.status)}>
-                      {status.label}
+                      {t(`statuses.${statusKey}`)}
                     </Badge>
                   </td>
                   <td className='px-6 py-4 text-right'>
@@ -214,7 +220,7 @@ export const RecentAppointments = ({
                         <Link href={`/admin-appointments/${appointment.id}`}>
                           <DropdownMenuItem className='cursor-pointer'>
                             <Eye className='mr-2 h-4 w-4' />
-                            Xem chi tiết
+                            {t('recentAppointments.viewDetails')}
                           </DropdownMenuItem>
                         </Link>
                       </DropdownMenuContent>

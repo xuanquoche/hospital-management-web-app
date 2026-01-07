@@ -1,10 +1,11 @@
 'use client';
 
 import { format, parseISO } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import { vi, enUS, ja } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { ArrowRight, CreditCard, Wallet, Building } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -28,25 +29,39 @@ const getPaymentMethodIcon = (method: string) => {
   }
 };
 
-const getStatusBadge = (status: string) => {
+const statusKeys: Record<string, string> = {
+  SUCCESS: 'success',
+  PENDING: 'pending',
+  FAILED: 'failed',
+  REFUNDED: 'refunded',
+};
+
+const getStatusBadgeClass = (status: string) => {
   switch (status) {
     case 'SUCCESS':
-      return {
-        label: 'Thành công',
-        className: 'bg-emerald-100 text-emerald-700',
-      };
+      return 'bg-emerald-100 text-emerald-700';
     case 'PENDING':
-      return { label: 'Chờ xử lý', className: 'bg-amber-100 text-amber-700' };
+      return 'bg-amber-100 text-amber-700';
     case 'FAILED':
-      return { label: 'Thất bại', className: 'bg-red-100 text-red-700' };
+      return 'bg-red-100 text-red-700';
     case 'REFUNDED':
-      return { label: 'Hoàn tiền', className: 'bg-blue-100 text-blue-700' };
+      return 'bg-blue-100 text-blue-700';
     default:
-      return { label: status, className: 'bg-slate-100 text-slate-700' };
+      return 'bg-slate-100 text-slate-700';
   }
 };
 
+const localeMap: Record<string, Locale> = {
+  vi: vi,
+  en: enUS,
+  ja: ja,
+};
+
 export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
+  const t = useTranslations('Admin.Dashboard');
+  const locale = useLocale();
+  const dateLocale = localeMap[locale] || vi;
+
   if (!payments || payments.length === 0) {
     return (
       <motion.div
@@ -57,13 +72,15 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
       >
         <div className='mb-6'>
           <h3 className='text-lg font-bold text-slate-900'>
-            Giao dịch gần đây
+            {t('recentPayments.title')}
           </h3>
-          <p className='text-sm text-slate-500'>Thanh toán mới nhất</p>
+          <p className='text-sm text-slate-500'>
+            {t('recentPayments.subtitle')}
+          </p>
         </div>
         <div className='flex flex-col items-center justify-center py-8 text-center'>
           <CreditCard className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='text-slate-500'>Chưa có giao dịch nào</p>
+          <p className='text-slate-500'>{t('recentPayments.noData')}</p>
         </div>
       </motion.div>
     );
@@ -79,9 +96,11 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
       <div className='mb-6 flex items-center justify-between'>
         <div>
           <h3 className='text-lg font-bold text-slate-900'>
-            Giao dịch gần đây
+            {t('recentPayments.title')}
           </h3>
-          <p className='text-sm text-slate-500'>Thanh toán mới nhất</p>
+          <p className='text-sm text-slate-500'>
+            {t('recentPayments.subtitle')}
+          </p>
         </div>
         <Link href='/admin-transactions'>
           <Button
@@ -89,7 +108,7 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
             size='sm'
             className='gap-2 text-sm text-slate-600 hover:text-slate-900'
           >
-            Xem tất cả
+            {t('recentPayments.viewAll')}
             <ArrowRight className='h-4 w-4' />
           </Button>
         </Link>
@@ -97,7 +116,7 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
 
       <div className='space-y-3'>
         {payments.map((payment, index) => {
-          const status = getStatusBadge(payment.status);
+          const statusKey = statusKeys[payment.status] || 'pending';
           return (
             <motion.div
               key={payment.id}
@@ -116,7 +135,7 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
                   </p>
                   <p className='text-xs text-slate-500'>
                     {format(parseISO(payment.createdAt), 'dd/MM/yyyy HH:mm', {
-                      locale: vi,
+                      locale: dateLocale,
                     })}
                   </p>
                 </div>
@@ -133,7 +152,9 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
                     </span>
                   </p>
                 </div>
-                <Badge className={status.className}>{status.label}</Badge>
+                <Badge className={getStatusBadgeClass(payment.status)}>
+                  {t(`statuses.${statusKey}`)}
+                </Badge>
               </div>
             </motion.div>
           );

@@ -45,6 +45,101 @@
     "myPatients": "私の患者"
   },
   "Admin": {
+    "Dashboard": {
+      "title": "ダッシュボード",
+      "subtitle": "病院システム活動の概要",
+      "refresh": "更新",
+      "loading": "データを読み込み中...",
+      "statistics": {
+        "totalPatients": "総患者数",
+        "totalDoctors": "総医師数",
+        "todayAppointments": "今日の予約",
+        "revenue": "収益",
+        "thisMonth": "今月",
+        "new": "新規",
+        "pendingAppointments": "確認待ち",
+        "confirmedAppointments": "確認済み",
+        "completedAppointments": "完了",
+        "totalAppointments": "予約総数"
+      },
+      "quickActions": {
+        "title": "クイックアクション",
+        "subtitle": "機能への素早いアクセス",
+        "addDoctor": "医師を追加",
+        "addDoctorDesc": "新しい医師プロフィールを作成",
+        "manageAppointments": "予約管理",
+        "manageAppointmentsDesc": "予約の表示と承認",
+        "patients": "患者",
+        "patientsDesc": "患者記録の管理",
+        "pharmacy": "薬局",
+        "pharmacyDesc": "薬の入出庫管理",
+        "transactions": "取引",
+        "transactionsDesc": "支払いの追跡",
+        "support": "サポート",
+        "supportDesc": "メッセージとフィードバック"
+      },
+      "recentAppointments": {
+        "title": "最近の予約",
+        "subtitle": "最新の予約を管理",
+        "viewAll": "すべて表示",
+        "noData": "予約がありません",
+        "patient": "患者",
+        "doctor": "医師",
+        "time": "時間",
+        "status": "ステータス",
+        "actions": "アクション",
+        "viewDetails": "詳細を見る"
+      },
+      "statuses": {
+        "pending": "確認待ち",
+        "confirmed": "確認済み",
+        "inProgress": "診察中",
+        "completed": "完了",
+        "cancelled": "キャンセル",
+        "noShow": "不参加",
+        "active": "アクティブ",
+        "inactive": "非アクティブ",
+        "onLeave": "休暇中",
+        "success": "成功",
+        "failed": "失敗",
+        "refunded": "返金済み"
+      },
+      "doctorsActivity": {
+        "title": "医療チーム",
+        "subtitle": "活動状況",
+        "viewAll": "すべて表示",
+        "noData": "医師データがありません",
+        "yearsExp": "年経験"
+      },
+      "recentPayments": {
+        "title": "最近の取引",
+        "subtitle": "最新の支払い",
+        "viewAll": "すべて表示",
+        "noData": "取引がありません"
+      },
+      "charts": {
+        "appointmentsThisWeek": "今週の予約",
+        "appointmentsSubtitle": "日別予約数",
+        "appointments": "予約",
+        "totalThisWeek": "今週の合計",
+        "revenueThisWeek": "今週の収益",
+        "revenueSubtitle": "日別収益を追跡",
+        "revenue": "収益",
+        "vndThisWeek": "今週のVND",
+        "statusDistribution": "ステータス分布",
+        "statusDistributionSubtitle": "予約ステータスの割合",
+        "total": "合計"
+      },
+      "days": {
+        "mon": "月",
+        "tue": "火",
+        "wed": "水",
+        "thu": "木",
+        "fri": "金",
+        "sat": "土",
+        "sun": "日"
+      }
+    },
     "PatientList": {
       "title": "患者リスト",
       "subtitle": "患者管理 - リスト、新規作成、詳細表示。",

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useMemo } from 'react';
 
 import { DashboardStats } from '@/types/admin-dashboard';
@@ -23,7 +24,32 @@ const formatCurrency = (value: number): string => {
   return value.toString();
 };
 
+const dayKeyMap: Record<string, string> = {
+  T2: 'mon',
+  T3: 'tue',
+  T4: 'wed',
+  T5: 'thu',
+  T6: 'fri',
+  T7: 'sat',
+  CN: 'sun',
+  Mon: 'mon',
+  Tue: 'tue',
+  Wed: 'wed',
+  Thu: 'thu',
+  Fri: 'fri',
+  Sat: 'sat',
+  Sun: 'sun',
+  月: 'mon',
+  火: 'tue',
+  水: 'wed',
+  木: 'thu',
+  金: 'fri',
+  土: 'sat',
+  日: 'sun',
+};
+
 export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
+  const t = useTranslations('Admin.Dashboard');
   const { weeklyData, weeklyTotalAppointments } = stats;
 
   const maxAppointments = useMemo(() => {
@@ -41,9 +67,11 @@ export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
       <div className='mb-6 flex items-start justify-between'>
         <div>
           <h3 className='text-lg font-bold text-slate-900'>
-            Lịch hẹn tuần này
+            {t('charts.appointmentsThisWeek')}
           </h3>
-          <p className='text-sm text-slate-500'>Số lượng lịch hẹn theo ngày</p>
+          <p className='text-sm text-slate-500'>
+            {t('charts.appointmentsSubtitle')}
+          </p>
         </div>
         {weeklyTotalAppointments > 0 && (
           <div className='flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1'>
@@ -61,6 +89,7 @@ export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
             data.appointments > 0
               ? (data.appointments / maxAppointments) * 100
               : 0;
+          const dayKey = dayKeyMap[data.day] || 'mon';
           return (
             <div
               key={data.day}
@@ -89,7 +118,7 @@ export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
                   {data.appointments}
                 </span>
                 <span className='text-xs font-medium text-slate-500'>
-                  {data.day}
+                  {t(`days.${dayKey}`)}
                 </span>
               </div>
             </div>
@@ -100,13 +129,15 @@ export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
       <div className='mt-6 flex items-center justify-between border-t border-slate-100 pt-4'>
         <div className='flex items-center gap-2'>
           <div className='h-3 w-3 rounded-full bg-violet-500' />
-          <span className='text-sm text-slate-600'>Lịch hẹn</span>
+          <span className='text-sm text-slate-600'>
+            {t('charts.appointments')}
+          </span>
         </div>
         <div className='text-right'>
           <p className='text-2xl font-bold text-slate-900'>
             {weeklyTotalAppointments}
           </p>
-          <p className='text-xs text-slate-500'>Tổng tuần này</p>
+          <p className='text-xs text-slate-500'>{t('charts.totalThisWeek')}</p>
         </div>
       </div>
     </motion.div>
@@ -114,6 +145,7 @@ export const AppointmentChart = ({ stats }: DashboardChartsProps) => {
 };
 
 export const RevenueChart = ({ stats }: DashboardChartsProps) => {
+  const t = useTranslations('Admin.Dashboard');
   const { weeklyData, weeklyTotalRevenue } = stats;
 
   const maxRevenue = useMemo(() => {
@@ -157,9 +189,11 @@ export const RevenueChart = ({ stats }: DashboardChartsProps) => {
       <div className='mb-6 flex items-start justify-between'>
         <div>
           <h3 className='text-lg font-bold text-slate-900'>
-            Doanh thu tuần này
+            {t('charts.revenueThisWeek')}
           </h3>
-          <p className='text-sm text-slate-500'>Theo dõi doanh thu hàng ngày</p>
+          <p className='text-sm text-slate-500'>
+            {t('charts.revenueSubtitle')}
+          </p>
         </div>
         {weeklyTotalRevenue > 0 && (
           <div className='flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1'>
@@ -209,24 +243,30 @@ export const RevenueChart = ({ stats }: DashboardChartsProps) => {
         </svg>
 
         <div className='absolute bottom-0 left-0 right-0 flex justify-between px-2'>
-          {weeklyData.map((data) => (
-            <span key={data.day} className='text-xs font-medium text-slate-500'>
-              {data.day}
-            </span>
-          ))}
+          {weeklyData.map((data) => {
+            const dayKey = dayKeyMap[data.day] || 'mon';
+            return (
+              <span
+                key={data.day}
+                className='text-xs font-medium text-slate-500'
+              >
+                {t(`days.${dayKey}`)}
+              </span>
+            );
+          })}
         </div>
       </div>
 
       <div className='mt-6 flex items-center justify-between border-t border-slate-100 pt-4'>
         <div className='flex items-center gap-2'>
           <div className='h-3 w-3 rounded-full bg-emerald-500' />
-          <span className='text-sm text-slate-600'>Doanh thu</span>
+          <span className='text-sm text-slate-600'>{t('charts.revenue')}</span>
         </div>
         <div className='text-right'>
           <p className='text-2xl font-bold text-slate-900'>
             {formatCurrency(weeklyTotalRevenue)}
           </p>
-          <p className='text-xs text-slate-500'>VNĐ tuần này</p>
+          <p className='text-xs text-slate-500'>{t('charts.vndThisWeek')}</p>
         </div>
       </div>
     </motion.div>
@@ -234,6 +274,8 @@ export const RevenueChart = ({ stats }: DashboardChartsProps) => {
 };
 
 export const AppointmentStatusPieChart = ({ stats }: DashboardChartsProps) => {
+  const t = useTranslations('Admin.Dashboard');
+
   const total =
     stats.pendingAppointments +
     stats.confirmedAppointments +
@@ -249,19 +291,19 @@ export const AppointmentStatusPieChart = ({ stats }: DashboardChartsProps) => {
     {
       percent: completedPercent,
       color: '#10b981',
-      label: 'Hoàn thành',
+      labelKey: 'completed',
       value: stats.completedAppointments,
     },
     {
       percent: confirmedPercent,
       color: '#3b82f6',
-      label: 'Đã xác nhận',
+      labelKey: 'confirmed',
       value: stats.confirmedAppointments,
     },
     {
       percent: pendingPercent,
       color: '#f59e0b',
-      label: 'Chờ xử lý',
+      labelKey: 'pending',
       value: stats.pendingAppointments,
     },
   ];
@@ -276,8 +318,12 @@ export const AppointmentStatusPieChart = ({ stats }: DashboardChartsProps) => {
       className='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm'
     >
       <div className='mb-6'>
-        <h3 className='text-lg font-bold text-slate-900'>Phân bố trạng thái</h3>
-        <p className='text-sm text-slate-500'>Tỷ lệ các trạng thái lịch hẹn</p>
+        <h3 className='text-lg font-bold text-slate-900'>
+          {t('charts.statusDistribution')}
+        </h3>
+        <p className='text-sm text-slate-500'>
+          {t('charts.statusDistributionSubtitle')}
+        </p>
       </div>
 
       <div className='flex items-center justify-center gap-8'>
@@ -290,7 +336,7 @@ export const AppointmentStatusPieChart = ({ stats }: DashboardChartsProps) => {
 
               return (
                 <motion.circle
-                  key={segment.label}
+                  key={segment.labelKey}
                   initial={{ strokeDasharray: '0 100' }}
                   animate={{ strokeDasharray }}
                   transition={{ duration: 1, delay: 0.7 + index * 0.2 }}
@@ -308,20 +354,20 @@ export const AppointmentStatusPieChart = ({ stats }: DashboardChartsProps) => {
           </svg>
           <div className='absolute inset-0 flex flex-col items-center justify-center'>
             <span className='text-3xl font-bold text-slate-900'>{total}</span>
-            <span className='text-xs text-slate-500'>Tổng</span>
+            <span className='text-xs text-slate-500'>{t('charts.total')}</span>
           </div>
         </div>
 
         <div className='space-y-3'>
           {segments.map((segment) => (
-            <div key={segment.label} className='flex items-center gap-3'>
+            <div key={segment.labelKey} className='flex items-center gap-3'>
               <div
                 className='h-3 w-3 rounded-full'
                 style={{ backgroundColor: segment.color }}
               />
               <div>
                 <p className='text-sm font-medium text-slate-700'>
-                  {segment.label}
+                  {t(`statuses.${segment.labelKey}`)}
                 </p>
                 <p className='text-xs text-slate-500'>
                   {segment.value} ({segment.percent.toFixed(0)}%)

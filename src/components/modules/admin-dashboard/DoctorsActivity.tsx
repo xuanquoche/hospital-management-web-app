@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Star, Activity } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -14,23 +15,28 @@ interface DoctorsActivityProps {
   doctors: AdminDoctor[];
 }
 
-const getStatusBadge = (status: string) => {
+const statusKeys: Record<string, string> = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
+  ON_LEAVE: 'onLeave',
+};
+
+const getStatusBadgeClass = (status: string) => {
   switch (status) {
     case 'ACTIVE':
-      return {
-        label: 'Đang hoạt động',
-        className: 'bg-emerald-100 text-emerald-700',
-      };
+      return 'bg-emerald-100 text-emerald-700';
     case 'INACTIVE':
-      return { label: 'Tạm nghỉ', className: 'bg-slate-100 text-slate-700' };
+      return 'bg-slate-100 text-slate-700';
     case 'ON_LEAVE':
-      return { label: 'Nghỉ phép', className: 'bg-amber-100 text-amber-700' };
+      return 'bg-amber-100 text-amber-700';
     default:
-      return { label: status, className: 'bg-slate-100 text-slate-700' };
+      return 'bg-slate-100 text-slate-700';
   }
 };
 
 export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
+  const t = useTranslations('Admin.Dashboard');
+
   if (!doctors || doctors.length === 0) {
     return (
       <motion.div
@@ -40,12 +46,16 @@ export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
         className='rounded-2xl border border-slate-200 bg-white p-6 shadow-sm'
       >
         <div className='mb-6'>
-          <h3 className='text-lg font-bold text-slate-900'>Đội ngũ bác sĩ</h3>
-          <p className='text-sm text-slate-500'>Tình trạng hoạt động</p>
+          <h3 className='text-lg font-bold text-slate-900'>
+            {t('doctorsActivity.title')}
+          </h3>
+          <p className='text-sm text-slate-500'>
+            {t('doctorsActivity.subtitle')}
+          </p>
         </div>
         <div className='flex flex-col items-center justify-center py-8 text-center'>
           <Activity className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='text-slate-500'>Chưa có dữ liệu bác sĩ</p>
+          <p className='text-slate-500'>{t('doctorsActivity.noData')}</p>
         </div>
       </motion.div>
     );
@@ -60,8 +70,12 @@ export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
     >
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h3 className='text-lg font-bold text-slate-900'>Đội ngũ bác sĩ</h3>
-          <p className='text-sm text-slate-500'>Tình trạng hoạt động</p>
+          <h3 className='text-lg font-bold text-slate-900'>
+            {t('doctorsActivity.title')}
+          </h3>
+          <p className='text-sm text-slate-500'>
+            {t('doctorsActivity.subtitle')}
+          </p>
         </div>
         <Link href='/admin-doctor'>
           <Button
@@ -69,7 +83,7 @@ export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
             size='sm'
             className='gap-2 text-sm text-slate-600 hover:text-slate-900'
           >
-            Xem tất cả
+            {t('doctorsActivity.viewAll')}
             <ArrowRight className='h-4 w-4' />
           </Button>
         </Link>
@@ -77,7 +91,7 @@ export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
 
       <div className='space-y-4'>
         {doctors.map((doctor, index) => {
-          const status = getStatusBadge(doctor.status);
+          const statusKey = statusKeys[doctor.status] || 'inactive';
           return (
             <motion.div
               key={doctor.id}
@@ -93,22 +107,26 @@ export const DoctorsActivity = ({ doctors }: DoctorsActivityProps) => {
                 </AvatarFallback>
               </Avatar>
 
-              <div className='flex-1 min-w-0'>
+              <div className='min-w-0 flex-1'>
                 <div className='flex items-center gap-2'>
-                  <p className='font-semibold text-slate-900 truncate'>
+                  <p className='truncate font-semibold text-slate-900'>
                     {doctor.professionalTitle} {doctor.user.fullName}
                   </p>
                 </div>
-                <p className='text-sm text-slate-500 truncate'>
+                <p className='truncate text-sm text-slate-500'>
                   {doctor.primarySpecialty?.name}
                 </p>
               </div>
 
               <div className='flex flex-col items-end gap-2'>
-                <Badge className={status.className}>{status.label}</Badge>
+                <Badge className={getStatusBadgeClass(doctor.status)}>
+                  {t(`statuses.${statusKey}`)}
+                </Badge>
                 <div className='flex items-center gap-1 text-xs text-slate-500'>
                   <Star className='h-3 w-3 fill-amber-400 text-amber-400' />
-                  <span>{doctor.yearsOfExperience} năm KN</span>
+                  <span>
+                    {doctor.yearsOfExperience} {t('doctorsActivity.yearsExp')}
+                  </span>
                 </div>
               </div>
             </motion.div>

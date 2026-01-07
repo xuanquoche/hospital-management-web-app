@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Calendar,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { DashboardStats } from '@/types/admin-dashboard';
@@ -74,6 +75,8 @@ const StatCard = ({
 );
 
 export const StatisticsCards = ({ stats }: StatisticsCardsProps) => {
+  const t = useTranslations('Admin.Dashboard.statistics');
+
   const formatCurrency = (value: number) => {
     if (value >= 1000000) {
       return `${(value / 1000000).toFixed(1)}M`;
@@ -87,27 +90,27 @@ export const StatisticsCards = ({ stats }: StatisticsCardsProps) => {
   return (
     <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'>
       <StatCard
-        title='Tổng bệnh nhân'
+        title={t('totalPatients')}
         value={stats.totalPatients.toLocaleString()}
         icon={<Users className='h-6 w-6 text-white' />}
-        trend='+12% tháng này'
+        trend={`+12% ${t('thisMonth')}`}
         trendUp={true}
         bgGradient='bg-gradient-to-br from-violet-500 to-purple-600'
         iconBg='bg-white/20'
         delay={0}
       />
       <StatCard
-        title='Tổng bác sĩ'
+        title={t('totalDoctors')}
         value={stats.totalDoctors.toLocaleString()}
         icon={<Stethoscope className='h-6 w-6 text-white' />}
-        trend='+3 mới'
+        trend={`+3 ${t('new')}`}
         trendUp={true}
         bgGradient='bg-gradient-to-br from-cyan-500 to-blue-600'
         iconBg='bg-white/20'
         delay={0.1}
       />
       <StatCard
-        title='Lịch hẹn hôm nay'
+        title={t('todayAppointments')}
         value={stats.todayAppointments}
         icon={<Calendar className='h-6 w-6 text-white' />}
         bgGradient='bg-gradient-to-br from-amber-500 to-orange-600'
@@ -115,10 +118,10 @@ export const StatisticsCards = ({ stats }: StatisticsCardsProps) => {
         delay={0.2}
       />
       <StatCard
-        title='Doanh thu'
+        title={t('revenue')}
         value={`${formatCurrency(stats.totalRevenue)} VNĐ`}
         icon={<DollarSign className='h-6 w-6 text-white' />}
-        trend='+8% tháng này'
+        trend={`+8% ${t('thisMonth')}`}
         trendUp={true}
         bgGradient='bg-gradient-to-br from-emerald-500 to-teal-600'
         iconBg='bg-white/20'
@@ -129,9 +132,11 @@ export const StatisticsCards = ({ stats }: StatisticsCardsProps) => {
 };
 
 export const AppointmentStatusCards = ({ stats }: StatisticsCardsProps) => {
+  const t = useTranslations('Admin.Dashboard.statistics');
+
   const statusCards = [
     {
-      title: 'Chờ xác nhận',
+      title: t('pendingAppointments'),
       value: stats.pendingAppointments,
       icon: <Clock className='h-5 w-5 text-amber-600' />,
       bgColor: 'bg-amber-50',
@@ -139,7 +144,7 @@ export const AppointmentStatusCards = ({ stats }: StatisticsCardsProps) => {
       borderColor: 'border-amber-200',
     },
     {
-      title: 'Đã xác nhận',
+      title: t('confirmedAppointments'),
       value: stats.confirmedAppointments,
       icon: <CalendarCheck className='h-5 w-5 text-blue-600' />,
       bgColor: 'bg-blue-50',
@@ -147,7 +152,7 @@ export const AppointmentStatusCards = ({ stats }: StatisticsCardsProps) => {
       borderColor: 'border-blue-200',
     },
     {
-      title: 'Hoàn thành',
+      title: t('completedAppointments'),
       value: stats.completedAppointments,
       icon: <CheckCircle2 className='h-5 w-5 text-emerald-600' />,
       bgColor: 'bg-emerald-50',
@@ -155,7 +160,7 @@ export const AppointmentStatusCards = ({ stats }: StatisticsCardsProps) => {
       borderColor: 'border-emerald-200',
     },
     {
-      title: 'Tổng lịch hẹn',
+      title: t('totalAppointments'),
       value: stats.totalAppointments,
       icon: <CalendarCheck className='h-5 w-5 text-slate-600' />,
       bgColor: 'bg-slate-50',
@@ -168,7 +173,7 @@ export const AppointmentStatusCards = ({ stats }: StatisticsCardsProps) => {
     <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
       {statusCards.map((card, index) => (
         <motion.div
-          key={card.title}
+          key={index}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
