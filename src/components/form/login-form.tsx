@@ -46,18 +46,33 @@ export default function LoginForm() {
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
+    console.log('🔐 [LOGIN] Submitting...');
     const res = await signIn('credentials', {
       redirect: false,
       email: values.email,
       password: values.password,
     });
 
+    console.log('🔐 [LOGIN] SignIn response:', res);
+
     if (res?.error) {
+      console.log('❌ [LOGIN] Error:', res.error);
       toast.error('Invalid email or password');
       setIsLoading(false);
     } else {
-      router.refresh();
-      router.push('/');
+      console.log('✅ [LOGIN] Success, checking session...');
+      const session = await getSession();
+      console.log('🔐 [LOGIN] Session:', session);
+
+      if (session) {
+        console.log('✅ [LOGIN] Session found, redirecting...');
+        router.refresh();
+        router.push('/');
+      } else {
+        console.log('❌ [LOGIN] No session found!');
+        toast.error('Login failed - session not created');
+        setIsLoading(false);
+      }
     }
   };
 
