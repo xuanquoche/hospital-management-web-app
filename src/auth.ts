@@ -89,7 +89,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
+      console.log('🔑 [JWT] Callback called, user:', !!user);
       if (user) {
+        console.log('🔑 [JWT] Creating token for:', user.email);
         return {
           ...token,
           accessToken: (user as any).accessToken,
@@ -108,10 +110,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
       }
 
+      console.log('🔄 [JWT] Refreshing token...');
       return refreshAccessToken(token);
     },
 
     async session({ session, token }) {
+      console.log('📦 [SESSION] Callback called');
       session.user = {
         id: token.user?.id as string,
         email: token.user?.email as string,
@@ -121,7 +125,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       (session as any).accessToken = token.accessToken;
       (session as any).refreshToken = token.refreshToken;
       (session as any).error = token.error;
-      console.log('final session:', session);
+      console.log('✅ [SESSION] Created for:', session.user?.email);
       return session;
     },
   },
