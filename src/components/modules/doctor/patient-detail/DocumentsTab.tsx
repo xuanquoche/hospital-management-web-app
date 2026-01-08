@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { BlockchainFileVerify } from '@/components/modules/common/BlockchainFileVerify';
+import { BlockchainVerifyButton } from '@/components/modules/common/BlockchainVerifyButton';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,6 +30,11 @@ import { clientFetcher } from '@/lib/fetcher';
 
 import { UploadMedicalDocumentModal } from './UploadMedicalDocumentModal';
 
+interface BlockchainInfo {
+  dataHash: string;
+  txHash: string;
+}
+
 interface PatientDocument {
   id: string;
   title: string;
@@ -38,6 +45,8 @@ interface PatientDocument {
   appointmentId: string;
   appointmentDate: string;
   doctorName: string;
+  fileContentHash: string | null;
+  blockchain: BlockchainInfo | null;
 }
 
 interface DocumentsTabProps {
@@ -237,6 +246,21 @@ export const DocumentsTab = ({
                   </TableCell>
                   <TableCell className='text-right'>
                     <div className='flex justify-end gap-1'>
+                      {doc.blockchain && (
+                        <>
+                          <BlockchainVerifyButton
+                            documentId={doc.id}
+                            dataHash={doc.blockchain.dataHash}
+                            txHash={doc.blockchain.txHash}
+                          />
+                          <BlockchainFileVerify
+                            documentId={doc.id}
+                            txHash={doc.blockchain.txHash}
+                            documentTitle={doc.title}
+                            originalFileHash={doc.fileContentHash}
+                          />
+                        </>
+                      )}
                       <Button
                         variant='ghost'
                         size='icon'
