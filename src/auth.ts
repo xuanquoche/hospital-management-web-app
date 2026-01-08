@@ -37,29 +37,49 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials) return null;
+        console.log('🔐 [AUTH] Starting login...');
+        console.log('🔐 [AUTH] Backend URL:', baseURL);
 
-        const res = await fetch(`${baseURL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        });
+        if (!credentials) {
+          console.log('❌ [AUTH] No credentials provided');
+          return null;
+        }
 
-        if (!res.ok) return null;
+        try {
+          console.log('🔐 [AUTH] Calling:', `${baseURL}/auth/login`);
+          const res = await fetch(`${baseURL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          });
 
-        const data = await res.json();
-        const { user, accessToken, refreshToken } = data.data;
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.fullName,
-          role: user.role,
-          accessToken,
-          refreshToken,
-        };
+          console.log('🔐 [AUTH] Response status:', res.status);
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.log('❌ [AUTH] Login failed:', errorText);
+            return null;
+          }
+
+          const data = await res.json();
+          console.log('✅ [AUTH] Login success, user:', data.data?.user?.email);
+
+          const { user, accessToken, refreshToken } = data.data;
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.fullName,
+            role: user.role,
+            accessToken,
+            refreshToken,
+          };
+        } catch (error) {
+          console.error('❌ [AUTH] Exception:', error);
+          return null;
+        }
       },
     }),
   ],
