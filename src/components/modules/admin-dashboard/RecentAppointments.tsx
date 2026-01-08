@@ -1,6 +1,6 @@
 'use client';
 
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, Locale } from 'date-fns';
 import { vi, enUS, ja } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MoreHorizontal, Eye, ArrowRight } from 'lucide-react';
