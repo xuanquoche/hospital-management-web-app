@@ -11,6 +11,7 @@ import {
   MessageCircle,
   LucideIcon,
   LayoutDashboard,
+  ClipboardList,
 } from 'lucide-react';
 
 import { PRIVATE_ROUTES } from './routes';
@@ -63,6 +64,11 @@ export const PATIENT_MENU: MenuItem[] = [
     icon: Calendar,
     label: 'booking',
     href: PRIVATE_ROUTES.PATIENT_BOOKING,
+  },
+  {
+    icon: ClipboardList,
+    label: 'healthRecord',
+    href: PRIVATE_ROUTES.PATIENT_HEALTH_RECORD,
   },
   {
     icon: UserRoundPen,
