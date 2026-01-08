@@ -1,6 +1,5 @@
 'use client';
 
-import { format } from 'date-fns';
 import {
   CheckCircle2,
   ExternalLink,
@@ -25,43 +24,35 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  getDocumentFromBlockchain,
-  getPolygonscanUrl,
-  type BlockchainRecord,
-} from '@/lib/blockchain';
+import { getPolygonscanUrl } from '@/lib/blockchain';
+import { clientFetcher } from '@/lib/fetcher';
 
 interface BlockchainFileVerifyProps {
   documentId: string;
   txHash?: string | null;
   documentTitle?: string;
-  originalFileHash?: string | null;
 }
 
-async function calculateFileHash(file: File): Promise<string> {
-  const arrayBuffer = await file.arrayBuffer();
-  const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+interface VerifyResult {
+  isValid: boolean;
+  isRevoked: boolean;
+  recordType: number;
+  timestamp: number;
+  message: string;
+  uploadedFileHash?: string;
+  calculatedDataHash?: string;
+  originalDataHash?: string;
 }
 
 export const BlockchainFileVerify = ({
   documentId,
   txHash,
   documentTitle,
-  originalFileHash,
 }: BlockchainFileVerifyProps) => {
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [blockchainRecord, setBlockchainRecord] =
-    useState<BlockchainRecord | null>(null);
-  const [verifyResult, setVerifyResult] = useState<{
-    isValid: boolean;
-    uploadedHash: string;
-    blockchainHash: string;
-    message: string;
-  } | null>(null);
+  const [verifyResult, setVerifyResult] = useState<VerifyResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,40 +86,15 @@ export const BlockchainFileVerify = ({
     setVerifyResult(null);
 
     try {
-      const record = await getDocumentFromBlockchain(documentId);
-      setBlockchainRecord(record);
+      const formData = new FormData();
+      formData.append('file', file);
 
-      if (!record) {
-        setError('Tài liệu này chưa được ghi lên blockchain');
-        return;
-      }
+      const response = await clientFetcher.postFormData(
+        `/upload/document/${documentId}/blockchain/verify-file`,
+        formData
+      );
 
-      if (!originalFileHash) {
-        setError('Không có hash file gốc để so sánh');
-        return;
-      }
-
-      const uploadedHash = await calculateFileHash(file);
-      const normalizedUploadedHash = uploadedHash.toLowerCase();
-      const normalizedOriginalHash = originalFileHash.toLowerCase();
-
-      const isContentMatch = normalizedUploadedHash === normalizedOriginalHash;
-
-      if (isContentMatch) {
-        setVerifyResult({
-          isValid: true,
-          uploadedHash: normalizedUploadedHash,
-          blockchainHash: normalizedOriginalHash,
-          message: 'File khớp với bản gốc đã ghi blockchain!',
-        });
-      } else {
-        setVerifyResult({
-          isValid: false,
-          uploadedHash: normalizedUploadedHash,
-          blockchainHash: normalizedOriginalHash,
-          message: 'File KHÔNG khớp với bản gốc. File có thể đã bị chỉnh sửa.',
-        });
-      }
+      setVerifyResult(response.data);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : 'Đã xảy ra lỗi khi xác minh'
@@ -142,7 +108,6 @@ export const BlockchainFileVerify = ({
     setOpen(false);
     setFile(null);
     setVerifyResult(null);
-    setBlockchainRecord(null);
     setError(null);
   };
 
@@ -161,6 +126,20 @@ export const BlockchainFileVerify = ({
 
     if (!verifyResult) return null;
 
+    if (verifyResult.isRevoked) {
+      return (
+        <div className='flex flex-col items-center justify-center py-6'>
+          <ShieldX className='w-14 h-14 text-red-500 mb-3' />
+          <h4 className='text-base font-semibold text-red-600 mb-1'>
+            Tài liệu đã bị thu hồi
+          </h4>
+          <p className='text-sm text-slate-500 text-center mb-3'>
+            {verifyResult.message}
+          </p>
+        </div>
+      );
+    }
+
     if (verifyResult.isValid) {
       return (
         <div className='flex flex-col items-center justify-center py-6'>
@@ -173,7 +152,7 @@ export const BlockchainFileVerify = ({
           </p>
           <div className='flex items-center gap-2 text-sm text-green-600'>
             <CheckCircle2 className='w-4 h-4' />
-            <span>File chưa bị chỉnh sửa</span>
+            <span>Xác minh qua blockchain thành công</span>
           </div>
         </div>
       );
@@ -204,7 +183,7 @@ export const BlockchainFileVerify = ({
           size='icon'
           className='h-7 w-7 text-slate-500 hover:text-blue-600'
           onClick={() => setOpen(true)}
-          title='Xác minh file tải về'
+          title='Xác minh file tải về (Trustless)'
         >
           <FileUp className='w-4 h-4' />
         </Button>
@@ -217,7 +196,7 @@ export const BlockchainFileVerify = ({
             Xác minh file đã tải về
           </DialogTitle>
           <DialogDescription>
-            Upload file bạn đã tải về để kiểm tra xem có bị chỉnh sửa không
+            Upload file để xác minh trực tiếp với blockchain (Trustless)
             {documentTitle && (
               <span className='block mt-1 font-medium text-slate-700'>
                 Tài liệu: {documentTitle}
@@ -289,7 +268,7 @@ export const BlockchainFileVerify = ({
                 ) : (
                   <>
                     <ShieldCheck className='w-4 h-4 mr-2' />
-                    Xác minh
+                    Xác minh Blockchain
                   </>
                 )}
               </Button>
@@ -299,43 +278,41 @@ export const BlockchainFileVerify = ({
 
         {renderResult()}
 
-        {(verifyResult || error) && blockchainRecord && (
+        {(verifyResult || error) && (
           <div className='border-t border-slate-100 pt-4 space-y-3'>
             <Label className='text-sm font-semibold text-slate-700'>
-              Chi tiết blockchain
+              Chi tiết xác minh
             </Label>
             <div className='space-y-2 text-sm bg-slate-50 rounded-lg p-3'>
-              <div className='flex justify-between'>
-                <span className='text-slate-500'>Loại:</span>
-                <span className='font-medium'>
-                  {blockchainRecord.recordTypeLabel}
-                </span>
-              </div>
-              <div className='flex justify-between'>
-                <span className='text-slate-500'>Ghi lúc:</span>
-                <span className='font-medium'>
-                  {format(blockchainRecord.recordedAt, 'dd/MM/yyyy HH:mm')}
-                </span>
-              </div>
-              {verifyResult && (
-                <>
-                  <div className='border-t border-slate-200 pt-2 mt-2'>
-                    <p className='text-xs text-slate-500 mb-1'>
-                      Hash file bạn upload:
-                    </p>
-                    <code className='text-xs bg-white px-2 py-1 rounded block truncate'>
-                      {verifyResult.uploadedHash}
-                    </code>
-                  </div>
-                  <div>
-                    <p className='text-xs text-slate-500 mb-1'>
-                      Hash trên blockchain:
-                    </p>
-                    <code className='text-xs bg-white px-2 py-1 rounded block truncate'>
-                      {verifyResult.blockchainHash}
-                    </code>
-                  </div>
-                </>
+              {verifyResult?.uploadedFileHash && (
+                <div>
+                  <p className='text-xs text-slate-500 mb-1'>
+                    Hash file upload:
+                  </p>
+                  <code className='text-xs bg-white px-2 py-1 rounded block truncate'>
+                    {verifyResult.uploadedFileHash}
+                  </code>
+                </div>
+              )}
+              {verifyResult?.calculatedDataHash && (
+                <div className='border-t border-slate-200 pt-2 mt-2'>
+                  <p className='text-xs text-slate-500 mb-1'>
+                    Data hash tính từ file:
+                  </p>
+                  <code className='text-xs bg-white px-2 py-1 rounded block truncate'>
+                    {verifyResult.calculatedDataHash}
+                  </code>
+                </div>
+              )}
+              {verifyResult?.originalDataHash && !verifyResult.isValid && (
+                <div>
+                  <p className='text-xs text-slate-500 mb-1'>
+                    Data hash gốc (blockchain):
+                  </p>
+                  <code className='text-xs bg-white px-2 py-1 rounded block truncate'>
+                    {verifyResult.originalDataHash}
+                  </code>
+                </div>
               )}
             </div>
             {txHash && (

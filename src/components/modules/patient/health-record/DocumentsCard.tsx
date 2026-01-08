@@ -160,14 +160,12 @@ export const DocumentsCard = () => {
                       <>
                         <BlockchainVerifyButton
                           documentId={doc.id}
-                          dataHash={doc.blockchain.dataHash}
                           txHash={doc.blockchain.txHash}
                         />
                         <BlockchainFileVerify
                           documentId={doc.id}
                           txHash={doc.blockchain.txHash}
                           documentTitle={doc.title}
-                          originalFileHash={doc.fileContentHash}
                         />
                       </>
                     )}
