@@ -143,7 +143,7 @@ export function PrescriptionForm({
       };
 
       await clientFetcher.patch(
-        `/doctors/appointments/${appointmentId}/prescription`,
+        `/doctors/me/appointments/${appointmentId}/prescription`,
         {
           ...payload,
         }

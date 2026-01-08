@@ -2,11 +2,18 @@
 
 import { format } from 'date-fns';
 import { FileText, MoreVertical, Upload } from 'lucide-react';
+import { Pill } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +30,7 @@ import {
 } from '@/components/ui/table';
 
 import { UploadMedicalDocumentModal } from './UploadMedicalDocumentModal';
+import { PrescriptionDetailView } from '../my-patient/PrescriptionDetailView';
 
 interface AppointmentHistory {
   id: string;
@@ -48,6 +56,7 @@ interface HistoryTabProps {
 export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
   const router = useRouter();
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [prescriptionModalOpen, setPrescriptionModalOpen] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] =
     useState<string>('');
 
@@ -156,6 +165,23 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                   <TableCell>{getStatusBadge(apt.status)}</TableCell>
                   <TableCell className='text-right'>
                     <div className='flex justify-end gap-2'>
+                      {/* View Prescription Button Check */}
+                      {(apt.status === 'CONFIRMED' ||
+                        apt.status === 'COMPLETED') && (
+                        <Button
+                          variant='ghost'
+                          size='sm'
+                          className='text-blue-600 hover:text-blue-700 hover:bg-blue-50 h-8 px-2 flex items-center gap-1'
+                          onClick={() => {
+                            setSelectedAppointmentId(apt.id);
+                            setPrescriptionModalOpen(true);
+                          }}
+                        >
+                          <Pill className='w-4 h-4' />
+                          <span className='text-xs'>Xem đơn</span>
+                        </Button>
+                      )}
+
                       <Button
                         variant='ghost'
                         size='sm'
@@ -213,6 +239,20 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
         onOpenChange={setUploadModalOpen}
         appointmentId={selectedAppointmentId}
       />
+
+      <Dialog
+        open={prescriptionModalOpen}
+        onOpenChange={setPrescriptionModalOpen}
+      >
+        <DialogContent className='sm:max-w-[80%] max-h-[90vh] overflow-y-auto'>
+          <DialogHeader>
+            <DialogTitle>Chi tiết đơn thuốc</DialogTitle>
+          </DialogHeader>
+          {selectedAppointmentId && (
+            <PrescriptionDetailView appointmentId={selectedAppointmentId} />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

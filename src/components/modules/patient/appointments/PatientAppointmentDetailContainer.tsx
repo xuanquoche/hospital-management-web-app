@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { AppointmentDetail } from '@/components/modules/admin-appointments/appointment-detail/AppointmentDetail';
+import { PatientPrescriptionView } from '@/components/modules/patient/appointments/PatientPrescriptionView';
 import { serverFetcher } from '@/lib/fetcher';
 import { ApiAppointment } from '@/types/appointment-api';
 
@@ -21,12 +22,19 @@ export default async function PatientAppointmentDetailContainer({
     const response = await serverFetcher.get<AppointmentDetailResponse>(
       `/appointments/${id}`
     );
-
+    console.log('Appointment detail response: ', response);
     if (!response?.data) {
       notFound();
     }
 
-    return <AppointmentDetail appointment={response.data} />;
+    return (
+      <div className='space-y-8'>
+        <AppointmentDetail appointment={response.data} />
+        {['CONFIRMED', 'COMPLETED'].includes(response.data.status) && (
+          <PatientPrescriptionView appointmentId={id} />
+        )}
+      </div>
+    );
   } catch (error) {
     console.error('Failed to fetch appointment details:', error);
     notFound();
