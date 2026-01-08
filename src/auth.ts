@@ -89,40 +89,58 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        return {
-          ...token,
-          accessToken: (user as any).accessToken,
-          refreshToken: (user as any).refreshToken,
-          accessTokenExpires: Date.now() + 60 * 60 * 1000 * 24,
-          user: {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            role: (user as any).role,
-          },
-        };
-      }
+      console.log('🔑 [JWT] Callback called');
+      console.log('🔑 [JWT] User exists:', !!user);
 
-      if (Date.now() < (token.accessTokenExpires as number)) {
-        return token;
-      }
+      try {
+        if (user) {
+          console.log('🔑 [JWT] Creating new token for user:', user.email);
+          const newToken = {
+            ...token,
+            accessToken: (user as any).accessToken,
+            refreshToken: (user as any).refreshToken,
+            accessTokenExpires: Date.now() + 60 * 60 * 1000 * 24,
+            user: {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              role: (user as any).role,
+            },
+          };
+          console.log('✅ [JWT] Token created successfully');
+          return newToken;
+        }
 
-      return refreshAccessToken(token);
+        if (Date.now() < (token.accessTokenExpires as number)) {
+          return token;
+        }
+
+        console.log('🔄 [JWT] Token expired, refreshing...');
+        return refreshAccessToken(token);
+      } catch (error) {
+        console.error('❌ [JWT] Error:', error);
+        throw error;
+      }
     },
 
     async session({ session, token }) {
-      session.user = {
-        id: token.user?.id as string,
-        email: token.user?.email as string,
-        name: token.user?.name as string,
-        role: token.user?.role as string,
-      } as any;
-      (session as any).accessToken = token.accessToken;
-      (session as any).refreshToken = token.refreshToken;
-      (session as any).error = token.error;
-      console.log('final session:', session);
-      return session;
+      console.log('📦 [SESSION] Callback called');
+      try {
+        session.user = {
+          id: token.user?.id as string,
+          email: token.user?.email as string,
+          name: token.user?.name as string,
+          role: token.user?.role as string,
+        } as any;
+        (session as any).accessToken = token.accessToken;
+        (session as any).refreshToken = token.refreshToken;
+        (session as any).error = token.error;
+        console.log('✅ [SESSION] Created:', session.user?.email);
+        return session;
+      } catch (error) {
+        console.error('❌ [SESSION] Error:', error);
+        throw error;
+      }
     },
   },
   secret: process.env.AUTH_SECRET,
