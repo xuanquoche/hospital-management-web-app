@@ -11,7 +11,7 @@ import { StepEnterInfo } from '@/components/modules/patient/booking/StepEnterInf
 import { StepSelectDate } from '@/components/modules/patient/booking/StepSelectDate';
 import { StepSelectDoctor } from '@/components/modules/patient/booking/StepSelectDoctor';
 import { useAppointmentStore } from '@/store/use-appointment-store';
-import { UserProfileResponse } from '@/types/user';
+import { UserProfileResponse, ProfileData } from '@/types/user';
 
 interface PatientBookingViewProps {
   initialUserInfo: UserProfileResponse['data'] | null;
@@ -32,14 +32,15 @@ export default function PatientBookingView({
 
   useEffect(() => {
     if (initialUserInfo) {
+      const profile = initialUserInfo.profile as ProfileData;
       setPatientInfo({
         fullName: initialUserInfo.user.fullName,
-        dateOfBirth: initialUserInfo.profile.dateOfBirth,
-        gender: initialUserInfo.profile.gender,
+        dateOfBirth: profile.dateOfBirth,
+        gender: profile.gender,
         phone: initialUserInfo.user.phone,
         email: initialUserInfo.user.email,
         address: initialUserInfo.user.address,
-        insuranceNumber: initialUserInfo.profile.healthInsuranceNumber,
+        insuranceNumber: profile.healthInsuranceNumber,
       });
     }
   }, [initialUserInfo, setPatientInfo]);
