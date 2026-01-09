@@ -11,35 +11,37 @@ export enum PaymentStatus {
   REFUNDED = 'REFUNDED',
 }
 
+export enum PaymentType {
+  CONSULTATION = 'CONSULTATION',
+  MEDICINE = 'MEDICINE',
+}
+
 export interface Payment {
   id: string;
   paymentCode: string;
   appointmentId: string;
+  type: PaymentType;
+  amount: number;
   method: PaymentMethod;
   status: PaymentStatus;
+  dataHash: string | null;
+  blockchainTxHash: string | null;
   createdAt: string;
   updatedAt: string;
   appointment: {
     id: string;
     appointmentDate: string;
     consultationFee: number;
-    status?: string;
-    examinationType?: string;
-    symptoms?: string;
-    notes?: string;
-    createdAt?: string;
     patient: {
       id: string;
       user: {
         fullName: string;
         phone: string;
-        email?: string;
-        avatar?: string;
+        avatar?: string | null;
       };
     };
     doctor: {
       id: string;
-      professionalTitle?: string;
       user: {
         fullName: string;
       };
@@ -47,11 +49,36 @@ export interface Payment {
   };
 }
 
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  totalItems: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
 export interface PaymentResponse {
   success: boolean;
   statusCode: number;
   message: string;
   data: Payment[];
+}
+
+export interface AdminPaymentListResponse {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Payment[];
+  meta: PaginationMeta;
+  timestamp: string;
+}
+
+export interface PaymentTransactionItem {
+  id: number;
+  amountIn: number;
+  transactionDate: string;
+  transactionContent: string | null;
 }
 
 export interface TransactionItem {

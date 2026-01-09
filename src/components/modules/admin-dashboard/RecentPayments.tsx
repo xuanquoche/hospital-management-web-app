@@ -36,6 +36,28 @@ const statusKeys: Record<string, string> = {
   REFUNDED: 'refunded',
 };
 
+const getPaymentTypeLabel = (type: string) => {
+  switch (type) {
+    case 'CONSULTATION':
+      return 'Phí khám';
+    case 'MEDICINE':
+      return 'Tiền thuốc';
+    default:
+      return type;
+  }
+};
+
+const getPaymentTypeBadgeClass = (type: string) => {
+  switch (type) {
+    case 'CONSULTATION':
+      return 'bg-blue-50 text-blue-600 border-blue-200';
+    case 'MEDICINE':
+      return 'bg-amber-50 text-amber-600 border-amber-200';
+    default:
+      return 'bg-slate-50 text-slate-600 border-slate-200';
+  }
+};
+
 const getStatusBadgeClass = (status: string) => {
   switch (status) {
     case 'SUCCESS':
@@ -130,9 +152,17 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
                   {getPaymentMethodIcon(payment.method)}
                 </div>
                 <div>
-                  <p className='font-medium text-slate-900'>
-                    {payment.paymentCode}
-                  </p>
+                  <div className='flex items-center gap-2'>
+                    <p className='font-medium text-slate-900'>
+                      {payment.paymentCode}
+                    </p>
+                    <Badge
+                      variant='outline'
+                      className={`text-[10px] h-5 px-1.5 ${getPaymentTypeBadgeClass(payment.type)}`}
+                    >
+                      {getPaymentTypeLabel(payment.type)}
+                    </Badge>
+                  </div>
                   <p className='text-xs text-slate-500'>
                     {format(parseISO(payment.createdAt), 'dd/MM/yyyy HH:mm', {
                       locale: dateLocale,
@@ -144,9 +174,7 @@ export const RecentPayments = ({ payments }: RecentPaymentsProps) => {
               <div className='flex items-center gap-4'>
                 <div className='text-right'>
                   <p className='font-semibold text-slate-900'>
-                    {(payment.appointment?.consultationFee || 0).toLocaleString(
-                      'vi-VN'
-                    )}{' '}
+                    {(payment.amount || 0).toLocaleString('vi-VN')}{' '}
                     <span className='text-xs font-normal text-slate-500'>
                       VNĐ
                     </span>

@@ -125,8 +125,8 @@ export const useAdminDashboard = () => {
 
       const payments = paymentsRes.success ? paymentsRes.data : [];
       const totalRevenue = payments.reduce((sum, p) => {
-        if (p.status === 'SUCCESS' && p.appointment) {
-          return sum + (p.appointment.consultationFee || 0);
+        if (p.status === 'SUCCESS') {
+          return sum + (p.amount || 0);
         }
         return sum;
       }, 0);
@@ -148,8 +148,15 @@ export const useAdminDashboard = () => {
         const existing = weeklyDataMap.get(dateStr);
         if (existing) {
           existing.appointments += 1;
-          if (apt.payment?.status === 'SUCCESS') {
-            existing.revenue += apt.consultationFee || 0;
+        }
+      });
+
+      payments.forEach((payment) => {
+        if (payment.status === 'SUCCESS' && payment.createdAt) {
+          const paymentDate = payment.createdAt.split('T')[0];
+          const existing = weeklyDataMap.get(paymentDate);
+          if (existing) {
+            existing.revenue += payment.amount || 0;
           }
         }
       });
