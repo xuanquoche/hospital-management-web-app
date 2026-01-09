@@ -18,6 +18,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DocumentType, DocumentTypeLabels } from '@/const/enum';
 import { clientFetcher } from '@/lib/fetcher';
+import { downloadDocument, viewDocument } from '@/utils/Helpers';
 
 interface BlockchainInfo {
   dataHash: string;
@@ -173,8 +174,8 @@ export const DocumentsCard = () => {
                       variant='ghost'
                       size='icon'
                       className='h-7 w-7 text-slate-500 hover:text-teal-600'
-                      onClick={() => window.open(doc.documentUrl, '_blank')}
-                      title='Xem'
+                      onClick={() => viewDocument(doc.id)}
+                      title='Xem file'
                     >
                       <ExternalLink className='w-4 h-4' />
                     </Button>
@@ -182,12 +183,7 @@ export const DocumentsCard = () => {
                       variant='ghost'
                       size='icon'
                       className='h-7 w-7 text-slate-500 hover:text-teal-600'
-                      onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = doc.documentUrl;
-                        link.download = doc.title;
-                        link.click();
-                      }}
+                      onClick={() => downloadDocument(doc.id)}
                       title='Tải xuống'
                     >
                       <Download className='w-4 h-4' />
