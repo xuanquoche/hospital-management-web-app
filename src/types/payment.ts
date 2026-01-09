@@ -54,21 +54,35 @@ export interface PaymentResponse {
   data: Payment[];
 }
 
+export interface PaymentTransactionItem {
+  id: number;
+  amountIn: number;
+  transactionDate: string;
+  transactionContent: string | null;
+}
+
+export type PaymentType = 'CONSULTATION' | 'MEDICINE';
+
 export interface TransactionItem {
   id: string;
   paymentCode: string;
   appointmentId: string;
+  type: PaymentType;
+  amount: number;
   method: PaymentMethod;
   status: PaymentStatus;
   dataHash: string | null;
   blockchainTxHash: string | null;
   createdAt: string;
   updatedAt: string;
+  transactions: PaymentTransactionItem[];
   appointment: {
     id: string;
     appointmentDate: string;
     consultationFee: number;
-    status: 'PENDING' | 'CONFIRMED' | 'CANCELLED';
+    medicineFee: number;
+    totalFee: number;
+    status: 'PENDING' | 'CONFIRMED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
     examinationType: 'IN_PERSON' | 'ONLINE';
     doctor: {
       id: string;

@@ -213,7 +213,9 @@ export function AppointmentDetail({ appointment }: AppointmentDetailProps) {
                   <p className='text-sm font-medium text-slate-500'>
                     Payment Method
                   </p>
-                  <p className='font-medium'>{appointment.payment.method}</p>
+                  <p className='font-medium'>
+                    {appointment.payment?.method ?? '-'}
+                  </p>
                 </div>
                 <div>
                   <p className='text-sm font-medium text-slate-500'>
@@ -221,12 +223,12 @@ export function AppointmentDetail({ appointment }: AppointmentDetailProps) {
                   </p>
                   <Badge
                     variant={
-                      appointment.payment.status === 'PAID'
+                      appointment.payment?.status === 'PAID'
                         ? 'default'
                         : 'secondary'
                     }
                   >
-                    {appointment.payment.status}
+                    {appointment.payment?.status ?? '-'}
                   </Badge>
                 </div>
               </div>

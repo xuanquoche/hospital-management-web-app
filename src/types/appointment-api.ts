@@ -29,9 +29,13 @@ export interface ApiAppointmentTimeSlot {
   endTime: string;
 }
 
+export type PaymentType = 'CONSULTATION' | 'MEDICINE';
+
 export interface ApiAppointmentPayment {
   id: string;
   paymentCode: string;
+  type: PaymentType;
+  amount: number;
   method: string;
   status: string;
 }
@@ -50,7 +54,9 @@ export interface ApiAppointment {
   doctor: ApiAppointmentDoctor;
   timeSlot: ApiAppointmentTimeSlot;
   createdAt: string;
-  payment: ApiAppointmentPayment;
+  payment?: ApiAppointmentPayment;
+  medicinePayment?: ApiAppointmentPayment;
+  payments: ApiAppointmentPayment[];
 }
 
 export interface AppointmentListResponse {

@@ -29,23 +29,26 @@ export default async function PatientAppointmentDetailContainer({
     }
 
     const appointment = response.data;
-    const { status, payment, medicineFee, totalFee } = appointment;
+    const { status, medicinePayment } = appointment;
+    const medicineFee = appointment.medicineFee ?? 0;
+    const totalFee = appointment.totalFee ?? 0;
     const isCompleted = status === 'COMPLETED';
-    const isPaid = payment?.status === 'SUCCESS';
     const isInProgress = status === 'IN_PROGRESS';
     const hasMedicineFee = medicineFee > 0;
-    const needsPayment = isInProgress && !isPaid && hasMedicineFee;
-    const canViewPrescription = isCompleted && isPaid;
+    const isMedicinePaid = medicinePayment?.status === 'SUCCESS';
+    const needsMedicinePayment =
+      isInProgress && hasMedicineFee && !isMedicinePaid;
+    const canViewPrescription = isCompleted;
 
     return (
       <div className='space-y-8'>
         <AppointmentDetail appointment={appointment} />
-        {needsPayment && (
+        {needsMedicinePayment && medicinePayment && (
           <PrescriptionPaymentSection
             appointmentId={id}
             medicineFee={medicineFee}
             totalFee={totalFee}
-            paymentCode={payment?.paymentCode || ''}
+            paymentCode={medicinePayment.paymentCode}
             doctorName={appointment.doctor.name}
             appointmentDate={appointment.appointmentDate}
             timeSlot={`${appointment.timeSlot.startTime} - ${appointment.timeSlot.endTime}`}
