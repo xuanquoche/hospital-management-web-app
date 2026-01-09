@@ -12,7 +12,9 @@ interface TodayScheduleProps {
   appointments: Appointment[];
 }
 
-export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
+export const TodaySchedule = React.memo(function TodaySchedule({
+  appointments,
+}: TodayScheduleProps) {
   const t = useTranslations('Doctor.Dashboard.TodaySchedule');
 
   return (
@@ -133,4 +135,4 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
       </div>
     </div>
   );
-};
+});

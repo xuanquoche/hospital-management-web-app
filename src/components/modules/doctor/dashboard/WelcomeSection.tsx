@@ -5,7 +5,7 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
-export const WelcomeSection = () => {
+export const WelcomeSection = React.memo(function WelcomeSection() {
   const t = useTranslations('Doctor.Dashboard.Welcome');
 
   return (
@@ -71,4 +71,4 @@ export const WelcomeSection = () => {
       </div>
     </div>
   );
-};
+});

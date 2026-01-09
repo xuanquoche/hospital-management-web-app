@@ -1,37 +1,54 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
+// Above-the-fold components - loaded synchronously for LCP
+import { DashboardCardSkeleton } from '@/components/modules/doctor/dashboard/DashboardSkeleton';
 import {
   mockAppointments,
   mockRecentPatients,
 } from '@/components/modules/doctor/dashboard/data';
-import { DoctorProfileCard } from '@/components/modules/doctor/dashboard/DoctorProfileCard';
-import { DocumentStatusCard } from '@/components/modules/doctor/dashboard/DocumentStatusCard';
 import { QuickActions } from '@/components/modules/doctor/dashboard/QuickActions';
 import { QuickStats } from '@/components/modules/doctor/dashboard/QuickStats';
 import { RecentPatients } from '@/components/modules/doctor/dashboard/RecentPatients';
-import { ShiftNotesCard } from '@/components/modules/doctor/dashboard/ShiftNotesCard';
 import { TodaySchedule } from '@/components/modules/doctor/dashboard/TodaySchedule';
 import { WelcomeSection } from '@/components/modules/doctor/dashboard/WelcomeSection';
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+// Below-the-fold components - lazy loaded with ssr: false to reduce TBT
+const ShiftNotesCard = dynamic(
+  () =>
+    import('@/components/modules/doctor/dashboard/ShiftNotesCard').then(
+      (m) => m.ShiftNotesCard
+    ),
+  {
+    ssr: false,
+    loading: () => <DashboardCardSkeleton />,
+  }
+);
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-};
+const DocumentStatusCard = dynamic(
+  () =>
+    import('@/components/modules/doctor/dashboard/DocumentStatusCard').then(
+      (m) => m.DocumentStatusCard
+    ),
+  {
+    ssr: false,
+    loading: () => <DashboardCardSkeleton />,
+  }
+);
+
+const DoctorProfileCard = dynamic(
+  () =>
+    import('@/components/modules/doctor/dashboard/DoctorProfileCard').then(
+      (m) => m.DoctorProfileCard
+    ),
+  {
+    ssr: false,
+    loading: () => <DashboardCardSkeleton />,
+  }
+);
 
 export default function DoctorDashboardPage() {
   const t = useTranslations('Doctor.Dashboard');
@@ -44,49 +61,36 @@ export default function DoctorDashboardPage() {
         </h1>
       </div>
 
-      <motion.div
-        variants={container}
-        initial='hidden'
-        animate='show'
-        className='grid grid-cols-1 xl:grid-cols-12 gap-6'
-      >
-        {/* Left Column: Main Content */}
+      <div className='grid grid-cols-1 xl:grid-cols-12 gap-6'>
+        {/* Left Column: Main Content - Critical path, no animation delay */}
         <div className='xl:col-span-8 space-y-6'>
-          <motion.div variants={item}>
-            <WelcomeSection />
-          </motion.div>
-          <motion.div variants={item}>
-            <QuickActions />
-          </motion.div>
+          <WelcomeSection />
+          <QuickActions />
 
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-            <motion.div variants={item} className='h-full'>
+            <div className='h-full'>
               <TodaySchedule appointments={mockAppointments} />
-            </motion.div>
+            </div>
             <div className='space-y-6'>
-              <motion.div variants={item}>
-                <QuickStats />
-              </motion.div>
-              <motion.div variants={item}>
-                <RecentPatients patients={mockRecentPatients} />
-              </motion.div>
+              <QuickStats />
+              <RecentPatients patients={mockRecentPatients} />
             </div>
           </div>
         </div>
 
-        {/* Right Column: Sidebar Widgets */}
+        {/* Right Column: Sidebar Widgets - Lazy loaded to reduce TBT */}
         <div className='xl:col-span-4 space-y-6'>
-          <motion.div variants={item}>
+          <Suspense fallback={<DashboardCardSkeleton />}>
             <ShiftNotesCard />
-          </motion.div>
-          <motion.div variants={item}>
+          </Suspense>
+          <Suspense fallback={<DashboardCardSkeleton />}>
             <DocumentStatusCard />
-          </motion.div>
-          <motion.div variants={item}>
+          </Suspense>
+          <Suspense fallback={<DashboardCardSkeleton />}>
             <DoctorProfileCard />
-          </motion.div>
+          </Suspense>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,9 @@ interface RecentPatientsProps {
   patients: Patient[];
 }
 
-export const RecentPatients = ({ patients }: RecentPatientsProps) => {
+export const RecentPatients = React.memo(function RecentPatients({
+  patients,
+}: RecentPatientsProps) {
   const t = useTranslations('Doctor.Dashboard.RecentPatients');
 
   return (
@@ -60,4 +62,4 @@ export const RecentPatients = ({ patients }: RecentPatientsProps) => {
       </div>
     </div>
   );
-};
+});

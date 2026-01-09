@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 
-export const ShiftNotesCard = () => {
+export const ShiftNotesCard = React.memo(function ShiftNotesCard() {
   const t = useTranslations('Doctor.Dashboard.ShiftNotes');
 
   return (
@@ -38,4 +38,4 @@ export const ShiftNotesCard = () => {
       </Button>
     </div>
   );
-};
+});

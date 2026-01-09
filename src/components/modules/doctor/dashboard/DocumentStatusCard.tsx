@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-export const DocumentStatusCard = () => {
+export const DocumentStatusCard = React.memo(function DocumentStatusCard() {
   const t = useTranslations('Doctor.Dashboard.DocumentStatus');
 
   return (
@@ -44,4 +44,4 @@ export const DocumentStatusCard = () => {
       </div>
     </div>
   );
-};
+});

@@ -2,7 +2,7 @@ import { Stethoscope, UserSearch, Upload } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-export const QuickActions = () => {
+export const QuickActions = React.memo(function QuickActions() {
   const t = useTranslations('Doctor.Dashboard.QuickActions');
   return (
     <div className='mb-6'>
@@ -54,4 +54,4 @@ export const QuickActions = () => {
       </div>
     </div>
   );
-};
+});

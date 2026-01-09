@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
-
-export const DoctorProfileCard = () => {
+export const DoctorProfileCard = React.memo(function DoctorProfileCard() {
   const t = useTranslations('Doctor.Dashboard.ProfileCard');
 
   return (
@@ -42,4 +40,4 @@ export const DoctorProfileCard = () => {
       </div>
     </div>
   );
-};
+});

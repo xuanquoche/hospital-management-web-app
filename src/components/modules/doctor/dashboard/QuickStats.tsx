@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-export const QuickStats = () => {
+export const QuickStats = React.memo(function QuickStats() {
   const t = useTranslations('Doctor.Dashboard.QuickStats');
 
   return (
@@ -62,4 +62,4 @@ export const QuickStats = () => {
       </div>
     </div>
   );
-};
+});

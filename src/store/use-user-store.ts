@@ -13,6 +13,8 @@ interface UserState {
   profile: ProfileData | DoctorProfileData | null;
   isLoading: boolean;
   error: Error | null;
+  // Track if initial fetch has been initiated to prevent duplicate calls
+  _hasFetchedOnce: boolean;
 
   fetchMe: () => Promise<void>;
   refetch: () => Promise<void>;
@@ -26,12 +28,17 @@ export const useUserStore = create<UserState>((set, get) => ({
   profile: null,
   isLoading: false,
   error: null,
+  _hasFetchedOnce: false,
 
   fetchMe: async () => {
-    const { user, isLoading } = get();
-    if (user || isLoading) return;
+    const { user, isLoading, _hasFetchedOnce } = get();
+    // Prevent duplicate calls: skip if already loaded, loading, or fetch already initiated
+    if (user || isLoading || _hasFetchedOnce) return;
 
-    set({ isLoading: true, error: null });
+    // Mark that we've initiated fetch BEFORE setting isLoading
+    // This prevents race conditions when multiple components call fetchMe() simultaneously
+    set({ _hasFetchedOnce: true, isLoading: true, error: null });
+
     try {
       const response: UserProfileResponse =
         await clientFetcher.get('/users/me');
@@ -73,5 +80,11 @@ export const useUserStore = create<UserState>((set, get) => ({
   setProfile: (profile) => set({ profile }),
 
   reset: () =>
-    set({ user: null, profile: null, isLoading: false, error: null }),
+    set({
+      user: null,
+      profile: null,
+      isLoading: false,
+      error: null,
+      _hasFetchedOnce: false,
+    }),
 }));
