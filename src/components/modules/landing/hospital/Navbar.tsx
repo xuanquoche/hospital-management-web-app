@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Heart } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,7 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,6 +72,7 @@ export function Navbar() {
             <Button
               variant='ghost'
               className='text-slate-600 hover:text-cyan-600 hover:bg-cyan-50'
+              onClick={() => router.push('/sign-in')}
             >
               Sign In
             </Button>

@@ -34,42 +34,50 @@ export async function middleware(request: NextRequest) {
   // Ensure pathWithoutLocale starts with / and handles empty case
   const normalizedPath = pathWithoutLocale === '' ? '/' : pathWithoutLocale;
 
-  // 3. Check Public Route
+  // 3. Check Routes
   const publicRoutes = Object.values(PUBLIC_ROUTES);
   const isPublicRoute = publicRoutes.some(
     (route) =>
       normalizedPath === route || normalizedPath.startsWith(`${route}/`)
   );
 
+  // Define Auth Routes explicitly (Login/Register) where we want to redirect authenticated users AWAY from
+  const authRoutes = [ROUTES.LOGIN, ROUTES.REGISTER];
+  const isAuthRoute = authRoutes.some((route) => normalizedPath === route);
+
   // 4. Auth Logic
 
-  // CASE A: Authenticated user trying to access public routes (login/register)
-  if (isPublicRoute && isAuthenticated) {
+  // CASE A: Authenticated user trying to access AUTH routes (login/register)
+  // Redirect them to dashboard
+  if (isAuthRoute && isAuthenticated) {
     return NextResponse.redirect(
       new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url)
     );
   }
 
   // CASE B: Unauthenticated user trying to access private routes
-  // Note: '/' is considered private if not in PUBLIC_ROUTES
-  if (!isPublicRoute && !isAuthenticated) {
+  // Note: '/' need special handling below, so we exclude it here if it's considered private default
+  // But wait, if '/' is NOT in PUBLIC_ROUTES, it IS private.
+  // We want '/' to be redirected to landing for unauthenticated.
+
+  if (!isPublicRoute && !isAuthenticated && normalizedPath !== '/') {
     // Redirect to login page with current locale
     const loginUrl = `/${locale}${ROUTES.LOGIN}`;
     return NextResponse.redirect(new URL(loginUrl, request.url));
   }
 
   // CASE C: Root path '/' handling
-  // If we are here, it means:
-  // 1. It's a public route (and user is not authenticated
-  // OR user is authenticated but logic above didn't catch it? No, CASE A catches auth+public)
-  // 2. OR it's a private route and user IS authenticated (CASE B catches not auth)
-
-  // So if it's '/', and it's private (which it is), and we are here, user MUST be authenticated.
   if (normalizedPath === '/') {
     // If authenticated, redirect to dashboard
     if (isAuthenticated) {
       return NextResponse.redirect(
         new URL(LOCALIZED_ROUTES.DASHBOARD_BY_ROLE(role, locale), request.url)
+      );
+    } else {
+      // If NOT authenticated, redirect to Landing Page
+      // We use 307 for temporary redirect or just normal redirect
+      return NextResponse.redirect(
+        new URL(`/${locale}${PUBLIC_ROUTES.LANDING}`, request.url)
       );
     }
   }

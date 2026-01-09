@@ -13,6 +13,7 @@ export const ROUTES = {
 export const PUBLIC_ROUTES = {
   LOGIN: '/sign-in',
   REGISTER: '/sign-up',
+  LANDING: '/hospital', // Add landing page as public
 };
 
 export const PRIVATE_ROUTES = {
