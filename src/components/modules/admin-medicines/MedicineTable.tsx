@@ -1,11 +1,5 @@
 import { format } from 'date-fns';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Columns,
-  Download,
-  Loader2,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Columns, Download } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
@@ -42,8 +36,9 @@ export function MedicineTable({
   }
 
   return (
-    <div className='space-y-4'>
-      <div className='flex items-center justify-between'>
+    <div className='flex flex-col h-full'>
+      {/* Header row */}
+      <div className='flex items-center justify-between mb-4'>
         <div className='text-sm text-muted-foreground'>
           Kho thuốc • Showing {(meta.page - 1) * meta.limit + 1}–
           {Math.min(meta.page * meta.limit, meta.totalItems)} of{' '}
@@ -61,9 +56,10 @@ export function MedicineTable({
         </div>
       </div>
 
-      <div className='rounded-md border bg-card'>
+      {/* Scrollable table container */}
+      <div className='flex-1 overflow-auto rounded-md border bg-card'>
         <Table>
-          <TableHeader className='bg-emerald-50/50'>
+          <TableHeader className='bg-emerald-50/50 sticky top-0'>
             <TableRow>
               <TableHead>Medicine</TableHead>
               <TableHead>Category</TableHead>
@@ -183,13 +179,10 @@ export function MedicineTable({
                               `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
                             );
                           } else if (batch.status === BatchStatus.EXPIRED) {
-                            // Dispose logic?
-                            // For now, let's map "Adjust" case.
                             router.push(
                               `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
                             );
                           } else {
-                            // "Adjust" case
                             router.push(
                               `${PRIVATE_ROUTES.ADMIN_MEDICINES_IMPORT}?id=${batch.id}&mode=edit`
                             );
@@ -211,32 +204,65 @@ export function MedicineTable({
         </Table>
       </div>
 
-      {/* Pagination */}
-      {meta.totalPages > 1 && (
-        <div className='flex items-center justify-end gap-2'>
+      {/* Pagination - Fixed at bottom */}
+      <div className='flex items-center justify-between border-t pt-4 mt-4'>
+        <div className='text-sm text-muted-foreground'>
+          Page {meta.page} of {meta.totalPages}
+        </div>
+        <div className='flex items-center gap-2'>
           <Button
             variant='outline'
             size='sm'
             onClick={() => onPageChange(meta.page - 1)}
-            disabled={!meta.hasPreviousPage}
+            disabled={!meta.hasPreviousPage || loading}
           >
             <ChevronLeft className='h-4 w-4' />
             Previous
           </Button>
-          <div className='text-sm font-medium'>
-            Page {meta.page} of {meta.totalPages}
+
+          {/* Page numbers */}
+          <div className='flex items-center gap-1'>
+            {Array.from({ length: Math.min(meta.totalPages, 5) }, (_, i) => {
+              let pageNum: number;
+              if (meta.totalPages <= 5) {
+                pageNum = i + 1;
+              } else if (meta.page <= 3) {
+                pageNum = i + 1;
+              } else if (meta.page >= meta.totalPages - 2) {
+                pageNum = meta.totalPages - 4 + i;
+              } else {
+                pageNum = meta.page - 2 + i;
+              }
+              return (
+                <Button
+                  key={pageNum}
+                  variant={pageNum === meta.page ? 'default' : 'outline'}
+                  size='sm'
+                  className={cn(
+                    'min-w-[36px]',
+                    pageNum === meta.page &&
+                      'bg-emerald-600 hover:bg-emerald-700'
+                  )}
+                  onClick={() => onPageChange(pageNum)}
+                  disabled={loading}
+                >
+                  {pageNum}
+                </Button>
+              );
+            })}
           </div>
+
           <Button
             variant='outline'
             size='sm'
             onClick={() => onPageChange(meta.page + 1)}
-            disabled={!meta.hasNextPage}
+            disabled={!meta.hasNextPage || loading}
           >
             Next
             <ChevronRight className='h-4 w-4' />
           </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 }

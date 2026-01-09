@@ -92,7 +92,7 @@ export const MedicineList = () => {
 
   return (
     <div className='flex h-[calc(100vh-100px)] gap-6'>
-      <div className='flex flex-1 flex-col gap-6 overflow-hidden rounded-xl bg-white p-6 shadow-sm'>
+      <div className='flex flex-1 flex-col gap-6 rounded-xl bg-white p-6 shadow-sm'>
         <MedicineListHeader />
 
         <MedicineFilter
@@ -109,12 +109,15 @@ export const MedicineList = () => {
           }
         />
 
-        <MedicineTable
-          data={data}
-          loading={loading}
-          meta={meta}
-          onPageChange={handlePageChange}
-        />
+        {/* Table container with flex-1 and overflow-auto for scrollable table */}
+        <div className='flex-1 min-h-0 flex flex-col overflow-hidden'>
+          <MedicineTable
+            data={data}
+            loading={loading}
+            meta={meta}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
 
       <MedicineRightPanel />
