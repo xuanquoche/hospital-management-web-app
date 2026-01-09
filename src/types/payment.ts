@@ -92,23 +92,28 @@ export interface TransactionItem {
   blockchainTxHash: string | null;
   createdAt: string;
   updatedAt: string;
-  transactions: PaymentTransactionItem[];
+  transactions?: PaymentTransactionItem[];
   appointment: {
     id: string;
     appointmentDate: string;
     consultationFee: number;
-    medicineFee: number;
-    totalFee: number;
-    status: 'PENDING' | 'CONFIRMED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
-    examinationType: 'IN_PERSON' | 'ONLINE';
+    medicineFee?: number;
+    totalFee?: number;
+    status?:
+      | 'PENDING'
+      | 'CONFIRMED'
+      | 'IN_PROGRESS'
+      | 'COMPLETED'
+      | 'CANCELLED';
+    examinationType?: 'IN_PERSON' | 'ONLINE';
     doctor: {
       id: string;
-      professionalTitle: string;
+      professionalTitle?: string;
       user: {
         fullName: string;
-        avatar: string | null;
+        avatar?: string | null;
       };
-      primarySpecialty: {
+      primarySpecialty?: {
         name: string;
       };
     };
