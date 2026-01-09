@@ -30,6 +30,20 @@
     "logout": "Log out",
     "loggingOut": "Logging out..."
   },
+  "Portal": {
+    "Header": {
+      "greeting": "Hello, {name}",
+      "admin": "Admin Portal",
+      "doctor": "Doctor Portal",
+      "patient": "Patient Portal"
+    },
+    "Sidebar": {
+      "titleAdmin": "ZenCare Admin",
+      "titleDoctor": "ZenCare Doctor",
+      "titlePatient": "ZenCare Patient",
+      "management": "Management"
+    }
+  },
   "Sidebar": {
     "doctors": "Doctors",
     "patients": "Patients",
@@ -401,6 +415,340 @@
           "boardCertified": "Board-certified",
           "cardioCPD": "Cardio CPD",
           "telehealth": "Telehealth enabled"
+        }
+      }
+    }
+  },
+  "Doctor": {
+    "Dashboard": {
+      "Welcome": {
+        "title": "Home & Dashboard",
+        "subtitle": "Track today's schedule and patient status.",
+        "weekSchedule": "Weekly Schedule",
+        "todayScheduleTitle": "Your Today's Schedule",
+        "shiftInfo": "Shift starts at 08:00 · General Internal Medicine Clinic, 3rd Floor.",
+        "bookedCases": "{count} booked cases",
+        "offlineCases": "{count} in-person",
+        "onlineCases": "{count} remote (video)",
+        "currentStatus": "Current Status",
+        "nextPatient": "Next patient waiting",
+        "startShift": "Start Shift"
+      },
+      "QuickActions": {
+        "title": "Quick Actions",
+        "subtitle": "Quick access to frequently used functions.",
+        "continueShiftTitle": "Continue Current Shift",
+        "continueShiftDesc": "Open notes form, prescription, documents",
+        "findPatientTitle": "Find Patient",
+        "findPatientDesc": "View history, allergies, current medications",
+        "uploadDocsTitle": "Upload Documents",
+        "uploadDocsDesc": "Add lab results, ultrasound images..."
+      },
+      "QuickStats": {
+        "title": "Today's Quick Stats",
+        "subtitle": "Real-time updates.",
+        "totalCases": "Total Cases",
+        "includeRemote": "Includes remote consults",
+        "examined": "Examined",
+        "avgTime": "Avg {min} min/case",
+        "waiting": "Waiting",
+        "priority1": "Priority 1",
+        "highPriorityCount": "{count} high priority patients",
+        "cancelled": "Cancelled/No Show",
+        "stable": "Stable",
+        "noCancelled": "No cancelled cases"
+      },
+      "TodaySchedule": {
+        "title": "Today's Schedule",
+        "subtitle": "List of today's appointments (sorted by time).",
+        "viewAll": "View all {count} cases",
+        "startNext": "Start Next Case",
+        "followUpHypertension": "Hypertension Follow-up",
+        "consultBloodTest": "Blood Test Consultation",
+        "status": {
+          "completed": "Completed",
+          "inProgress": "In Progress",
+          "waiting": "Waiting"
+        },
+        "type": {
+          "offline": "In-person",
+          "online": "Video call"
+        },
+        "patientId": "Patient ID: {id}"
+      },
+      "RecentPatients": {
+        "title": "Recent Patients",
+        "viewProfile": "View Profile",
+        "continue": "Continue",
+        "prepare": "Prepare"
+      },
+      "ShiftNotes": {
+        "title": "Shift Notes",
+        "subtitle": "Quick preparation before the shift.",
+        "note1": "Review patient allergies and medications before prescribing.",
+        "note2": "Clearly record primary and differential diagnoses for patient tracking.",
+        "note3": "Upload lab results, ultrasound images for patient app access.",
+        "openForm": "Open Notes Form"
+      },
+      "DocumentStatus": {
+        "title": "Document Status",
+        "subtitle": "Update documents for recent patients.",
+        "missingDocs": "Profiles needing documents",
+        "uploadedToday": "Files uploaded today",
+        "gotoDocs": "Go to \"Documents & Results\"",
+        "doc1": "BN-19302 · Missing abdominal ultrasound",
+        "doc2": "BN-15021 · Missing latest ECG file",
+        "doc3": "BN-18890 · Update prescription after follow-up"
+      },
+      "ProfileCard": {
+        "title": "Doctor Profile",
+        "subtitle": "Update your Bio and profile picture.",
+        "bio": "Bio",
+        "updated": "Updated {days} days ago",
+        "certs": "Certifications / Degrees",
+        "managedByAdmin": "Managed by Admin",
+        "adminNote": "Certifications/degrees will be verified by Admin to ensure authenticity.",
+        "editProfile": "Edit Doctor Profile"
+      },
+      "Profile": {
+        "experience": "{years} Years Experience Overall",
+        "verified": "Medical Registration Verified",
+        "feedback": "Share your Feedback"
+      }
+    },
+    "MyPatients": {
+      "title": "My Patients",
+      "Filters": {
+        "title": "Assigned Patients List",
+        "subtitle": "Filter by appointment status, date, or patient name.",
+        "total": "Total: {count} patients",
+        "searchPlaceholder": "Search by name, ID...",
+        "statusLabel": "Status",
+        "statusOptions": {
+          "today": "Today",
+          "week": "This Week",
+          "month": "This Month"
+        },
+        "typeLabel": "Visit Type",
+        "typeOptions": {
+          "all": "All",
+          "direct": "In-person",
+          "video": "Video call"
+        },
+        "dateRange": "Date Range",
+        "advancedFilter": "Advanced Filters"
+      },
+      "Table": {
+        "headers": {
+          "no": "#",
+          "patient": "Patient",
+          "lastVisit": "Last Visit",
+          "type": "Type",
+          "info": "Key Info",
+          "status": "Status",
+          "action": "Actions"
+        },
+        "noVisit": "No visits",
+        "visitType": {
+          "direct": "In-person",
+          "video": "Video call"
+        },
+        "allergies": "Allergies",
+        "chronicDisease": "Chronic Disease",
+        "none": "None",
+        "noSymptoms": "No symptoms",
+        "status": {
+          "completed": "Completed",
+          "confirmed": "Waiting",
+          "cancelled": "Cancelled",
+          "new": "New"
+        },
+        "actions": {
+          "prescribe": "Prescribe",
+          "viewProfile": "View Profile"
+        },
+        "footer": "Showing {count} patients"
+      },
+      "Summary": {
+        "title": "Patient Summary Today",
+        "subtitle": "Only counts patients with appointments today.",
+        "total": "Total Patients Today",
+        "examined": "Examined",
+        "waiting": "Waiting",
+        "byType": {
+          "direct": "In-person",
+          "remote": "Remote (video)",
+          "count": "{count} patients"
+        }
+      },
+      "PreExamNotes": {
+        "title": "Pre-Exam Suggestions",
+        "subtitle": "Items to check in patient records.",
+        "note1": "Always review allergies and current medications before prescribing.",
+        "note2": "Check newly uploaded documents (labs, imaging) before entering the room.",
+        "note3": "Write brief notes on next treatment plan for patient app tracking.",
+        "goToExam": "Go to \"Exam & Notes\""
+      },
+      "QuickAccess": {
+        "title": "Quick Access Records",
+        "subtitle": "Frequently monitored patients.",
+        "favorites": "Open Favorited Patients List"
+      },
+      "Detail": {
+        "tabs": {
+          "overview": "Overview",
+          "history": "Visit History",
+          "medications": "Medications & Allergies",
+          "labs": "Labs & Documents",
+          "notes": "Doctor Notes"
+        },
+        "placeholders": {
+          "medications": "Medications & Allergies tab content is being updated...",
+          "notes": "Doctor Notes tab content is being updated..."
+        },
+        "Header": {
+          "breadcrumb": "My Patients",
+          "lastVisit": "Last Visit",
+          "assignedDoctor": "Assigned Doctor",
+          "completed": "Completed",
+          "openVisit": "Open Today's Visit",
+          "currentPlan": "Current Plan",
+          "age": "years old"
+        },
+        "Overview": {
+          "PersonalInfo": {
+            "title": "Personal Information",
+            "priority": "Priority Watch",
+            "subtitle": "Basic info and main risk factors.",
+            "gender": "Gender",
+            "dob": "Date of Birth",
+            "height": "Height",
+            "weight": "Weight",
+            "job": "Occupation",
+            "lifestyle": "Lifestyle"
+          },
+          "VisitSummary": {
+            "title": "Today's Visit",
+            "saved": "Conclusion Saved",
+            "subtitle": "Visit summary at {time} - {room}.",
+            "reason": "Reason for Visit",
+            "diagnosis": "Preliminary Diagnosis",
+            "plan": "Treatment Plan",
+            "prescription": "Prescribed Meds",
+            "quickNotes": "Quick Notes:"
+          },
+          "Vitals": {
+            "title": "Latest Vitals",
+            "stable": "Stable",
+            "subtitle": "Measured during today's visit.",
+            "bp": "Blood Pressure",
+            "bpDetail": "mmHg · At rest",
+            "hr": "Heart Rate",
+            "bpm": "bpm",
+            "temp": "Temperature",
+            "tempDetail": "Skin temp",
+            "spo2": "SpO₂",
+            "spo2Detail": "Room air",
+            "resp": "Resp Rate",
+            "weight": "Weight",
+            "weightChange": "Vs last visit: {change}"
+          },
+          "Timeline": {
+            "title": "Visit Timeline",
+            "recent": "Last 3 visits",
+            "subtitle": "Recent patient visits.",
+            "viewAll": "View full visit history"
+          }
+        },
+        "Sidebar": {
+          "Contact": {
+            "title": "Contact & Reminder",
+            "subtitle": "Contact info and next visit.",
+            "phone": "Phone:",
+            "email": "Email:",
+            "address": "Address:",
+            "suggestedVisit": "Suggested Next Visit",
+            "sendReminderApp": "Send reminder via app",
+            "sendReminder": "Send Reminder",
+            "bookNew": "Book new in-person visit",
+            "createAppt": "Create Appointment"
+          },
+          "Notes": {
+            "title": "Doctor's Notes",
+            "subtitle": "Visible only to doctor, patient cannot see.",
+            "addNote": "Add New Note"
+          },
+          "Documents": {
+            "title": "Documents & Results",
+            "subtitle": "Related tests for headache.",
+            "addDoc": "Add New Document",
+            "notDone": "Not done"
+          },
+          "Allergies": {
+            "title": "Medications & Allergies",
+            "subtitle": "Treatment safety info.",
+            "drugAllergies": "Drug Allergies",
+            "high": "High",
+            "noAllergies": "No allergies recorded.",
+            "otherAllergies": "Other Allergies",
+            "notRecorded": "Not recorded",
+            "currentMeds": "Current Medications",
+            "avoidInteractions": "Interactions to Avoid",
+            "avoidDetails": "Meds containing paracetamol, high dose NSAIDs if not needed",
+            "reminderAvoid": "Reminder: Avoid paracetamol"
+          }
+        },
+        "History": {
+          "title": "Medical History",
+          "totalVisits": "Total {count} visits",
+          "date": "Date",
+          "time": "Time",
+          "type": "Type",
+          "symptoms": "Symptoms",
+          "diagnosis": "Diagnosis",
+          "status": "Status",
+          "actions": "Actions",
+          "noHistory": "No medical history",
+          "inPerson": "In-person",
+          "online": "Online",
+          "viewPrescription": "View Prescription",
+          "prescribe": "Prescribe",
+          "viewDetail": "View Detail",
+          "uploadDocs": "Upload documents",
+          "downloadRecord": "Download Record (PDF)",
+          "prescriptionDetail": "Prescription Details",
+          "statusCompleted": "Completed",
+          "statusConfirmed": "Confirmed",
+          "statusCancelled": "Cancelled",
+          "statusPending": "Pending"
+        },
+        "Documents": {
+          "title": "Tests & Documents",
+          "totalDocs": "Total {count} documents",
+          "refresh": "Refresh",
+          "addDoc": "Add Document",
+          "docName": "Document Name",
+          "type": "Type",
+          "visitDate": "Visit Date",
+          "doctor": "Doctor",
+          "uploadDate": "Uploaded Date",
+          "notes": "Notes",
+          "actions": "Actions",
+          "noDocs": "No documents found",
+          "uploadFirst": "Upload first document",
+          "view": "View Document",
+          "download": "Download",
+          "Types": {
+            "LAB_RESULT": "Lab Result",
+            "X_RAY": "X-Ray",
+            "MRI": "MRI",
+            "CT_SCAN": "CT Scan",
+            "ULTRASOUND": "Ultrasound",
+            "PRESCRIPTION": "Prescription",
+            "MEDICAL_REPORT": "Medical Report",
+            "MEDICAL_CASE": "Medical Case",
+            "OTHER": "Other"
+          }
         }
       }
     }

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 import { PatientFilters } from '@/components/modules/doctor/my-patient/PatientFilters';
@@ -33,12 +34,13 @@ interface MyPatientsViewProps {
 export default function MyPatientsView({
   initialPatients,
 }: MyPatientsViewProps) {
+  const t = useTranslations('Doctor.MyPatients');
   const [patients] = useState<MyPatient[]>(initialPatients);
 
   return (
     <div className='min-h-screen bg-slate-50/50 p-6'>
       <div className='mb-6'>
-        <h1 className='text-xl font-bold text-slate-500'>My Patients</h1>
+        <h1 className='text-xl font-bold text-slate-500'>{t('title')}</h1>
       </div>
 
       <motion.div

@@ -66,7 +66,7 @@ export const PaymentQRModal = ({
   // User provided URL params: acc=10002976003&bank=TPBank
   const bankName = 'TPBank';
   const accountNumber = '10002976003';
-  const accountName = 'MEDIFLOW CLINIC';
+  const accountName = 'Hoang Van Nhat';
   const qrUrl = `https://qr.sepay.vn/img?acc=${accountNumber}&bank=${bankName}&amount=${amount}&des=${description}`;
 
   return (

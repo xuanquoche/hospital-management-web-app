@@ -1,4 +1,5 @@
 import { Star, CheckCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { AvatarUploader } from '@/components/ui/avatar-uploader';
 import { Button } from '@/components/ui/button';
@@ -17,6 +18,8 @@ export default function DoctorProfileCard({
   profile,
   onProfileUpdate,
 }: DoctorProfileCardProps) {
+  const t = useTranslations('Doctor.Profile');
+
   return (
     <Card className='p-6'>
       <div className='flex flex-col items-center text-center'>
@@ -41,16 +44,16 @@ export default function DoctorProfileCard({
         </p>
 
         <p className='text-sm mt-2 text-gray-500'>
-          {profile.yearsOfExperience} Years Experience Overall
+          {t('experience', { years: profile.yearsOfExperience })}
         </p>
 
         <div className='flex items-center gap-1 text-green-600 mt-2'>
           <CheckCircle className='w-4 h-4' />
-          <span className='text-sm'>Medical Registration Verified</span>
+          <span className='text-sm'>{t('verified')}</span>
         </div>
 
         <Button variant='link' className='mt-3 text-sm'>
-          Share your Feedback
+          {t('feedback')}
         </Button>
       </div>
     </Card>

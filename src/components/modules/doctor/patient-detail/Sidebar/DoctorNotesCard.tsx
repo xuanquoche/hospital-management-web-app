@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -10,13 +11,13 @@ interface DoctorNotesCardProps {
 }
 
 export const DoctorNotesCard = ({ notes }: DoctorNotesCardProps) => {
+  const t = useTranslations('Doctor.MyPatients.Detail.Sidebar.Notes');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='mb-4'>
-        <h3 className='text-sm font-bold text-slate-900'>Ghi chú của bác sĩ</h3>
-        <p className='text-xs text-slate-500'>
-          Chỉ hiển thị cho bác sĩ, bệnh nhân không xem được.
-        </p>
+        <h3 className='text-sm font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-xs text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <div className='space-y-4 mb-4'>
@@ -36,7 +37,7 @@ export const DoctorNotesCard = ({ notes }: DoctorNotesCardProps) => {
         className='w-full text-slate-500 hover:text-teal-600 hover:bg-slate-50 h-8 text-xs'
       >
         <Plus className='w-3 h-3 mr-2' />
-        Thêm ghi chú mới
+        {t('addNote')}
       </Button>
     </div>
   );

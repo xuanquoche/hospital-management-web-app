@@ -1,4 +1,5 @@
 import { Upload } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -10,13 +11,13 @@ interface DocumentsCardProps {
 }
 
 export const DocumentsCard = ({ documents }: DocumentsCardProps) => {
+  const t = useTranslations('Doctor.MyPatients.Detail.Sidebar.Documents');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='mb-4'>
-        <h3 className='text-sm font-bold text-slate-900'>Tài liệu & kết quả</h3>
-        <p className='text-xs text-slate-500'>
-          Các xét nghiệm liên quan đau đầu.
-        </p>
+        <h3 className='text-sm font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-xs text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <ul className='space-y-3 mb-4'>
@@ -39,7 +40,7 @@ export const DocumentsCard = ({ documents }: DocumentsCardProps) => {
         className='w-full text-teal-600 border-teal-200 bg-teal-50 hover:bg-teal-100 h-9 text-xs'
       >
         <Upload className='w-3 h-3 mr-2' />
-        Thêm tài liệu mới
+        {t('addDoc')}
       </Button>
     </div>
   );

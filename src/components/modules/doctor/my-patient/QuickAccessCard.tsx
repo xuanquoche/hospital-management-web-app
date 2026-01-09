@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -5,15 +6,13 @@ import { Badge } from '@/components/ui/badge';
 import { mockQuickAccess } from './data';
 
 export const QuickAccessCard = () => {
+  const t = useTranslations('Doctor.MyPatients.QuickAccess');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100'>
       <div className='mb-4'>
-        <h3 className='text-sm font-bold text-slate-900'>
-          Truy cập nhanh hồ sơ
-        </h3>
-        <p className='text-xs text-slate-500'>
-          Một số bệnh nhân bạn thường xuyên theo dõi.
-        </p>
+        <h3 className='text-sm font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-xs text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <div className='space-y-4'>
@@ -43,7 +42,7 @@ export const QuickAccessCard = () => {
 
       <div className='mt-4 pt-4 border-t border-slate-100 text-right'>
         <span className='text-xs text-slate-500 cursor-pointer hover:text-teal-600'>
-          Mở danh sách bệnh nhân yêu thích
+          {t('favorites')}
         </span>
       </div>
     </div>

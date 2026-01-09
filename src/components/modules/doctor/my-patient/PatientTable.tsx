@@ -1,8 +1,7 @@
-'use client';
-
 import { format } from 'date-fns';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -16,19 +15,21 @@ interface PatientTableProps {
 
 export const PatientTable = ({ patients }: PatientTableProps) => {
   const router = useRouter();
+  const t = useTranslations('Doctor.MyPatients.Table');
+
   return (
     <div className='bg-white rounded-b-2xl shadow-sm border border-t-0 border-slate-100 overflow-hidden'>
       <div className='overflow-x-auto'>
         <table className='w-full text-sm text-left'>
           <thead className='bg-teal-50/50 text-slate-600 font-medium border-b border-slate-100'>
             <tr>
-              <th className='px-6 py-4 w-[50px]'>#</th>
-              <th className='px-6 py-4'>Bệnh nhân</th>
-              <th className='px-6 py-4'>Lần khám gần nhất</th>
-              <th className='px-6 py-4'>Loại khám</th>
-              <th className='px-6 py-4'>Thông tin chính</th>
-              <th className='px-6 py-4'>Trạng thái</th>
-              <th className='px-6 py-4 text-right'>Thao tác</th>
+              <th className='px-6 py-4 w-[50px]'>{t('headers.no')}</th>
+              <th className='px-6 py-4'>{t('headers.patient')}</th>
+              <th className='px-6 py-4'>{t('headers.lastVisit')}</th>
+              <th className='px-6 py-4'>{t('headers.type')}</th>
+              <th className='px-6 py-4'>{t('headers.info')}</th>
+              <th className='px-6 py-4'>{t('headers.status')}</th>
+              <th className='px-6 py-4 text-right'>{t('headers.action')}</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-slate-100'>
@@ -76,12 +77,11 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                           )}
                         </p>
                         <p className='text-xs text-slate-500 truncate max-w-[150px]'>
-                          {patient.lastAppointment.symptoms ||
-                            'Không có triệu chứng'}
+                          {patient.lastAppointment.symptoms || t('noSymptoms')}
                         </p>
                       </>
                     ) : (
-                      <p className='text-slate-500 italic'>Chưa khám</p>
+                      <p className='text-slate-500 italic'>{t('noVisit')}</p>
                     )}
                   </td>
                   <td className='px-6 py-4'>
@@ -90,38 +90,40 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                       variant='secondary'
                       className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'
                     >
-                      Khám trực tiếp
+                      {t('visitType.direct')}
                     </Badge>
                   </td>
                   <td className='px-6 py-4 max-w-[200px]'>
                     <p className='text-xs text-slate-600 truncate'>
-                      <span className='text-slate-400'>Dị ứng:</span>{' '}
-                      {patient.allergies || 'Không'}
+                      <span className='text-slate-400'>{t('allergies')}:</span>{' '}
+                      {patient.allergies || t('none')}
                     </p>
                     <p className='text-xs text-slate-600 truncate'>
-                      <span className='text-slate-400'>Bệnh mãn tính:</span>{' '}
-                      {patient.chronicDisease || 'Không'}
+                      <span className='text-slate-400'>
+                        {t('chronicDisease')}:
+                      </span>{' '}
+                      {patient.chronicDisease || t('none')}
                     </p>
                   </td>
                   <td className='px-6 py-4'>
                     {patient.lastAppointment?.status === 'COMPLETED' && (
                       <Badge className='bg-slate-100 text-slate-600 hover:bg-slate-200 border-none font-normal'>
-                        Đã khám
+                        {t('status.completed')}
                       </Badge>
                     )}
                     {patient.lastAppointment?.status === 'CONFIRMED' && (
                       <Badge className='bg-teal-50 text-teal-700 hover:bg-teal-100 border-teal-100 font-normal'>
-                        Đang chờ
+                        {t('status.confirmed')}
                       </Badge>
                     )}
                     {patient.lastAppointment?.status === 'CANCELLED' && (
                       <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-none font-normal'>
-                        Đã hủy
+                        {t('status.cancelled')}
                       </Badge>
                     )}
                     {!patient.lastAppointment && (
                       <Badge className='bg-gray-50 text-gray-500 border-gray-200 font-normal'>
-                        Mới
+                        {t('status.new')}
                       </Badge>
                     )}
                   </td>
@@ -139,7 +141,7 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                           }
                         }}
                       >
-                        Kê đơn thuốc
+                        {t('actions.prescribe')}
                       </Button>
                       <Button
                         variant='ghost'
@@ -150,7 +152,7 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
                           );
                         }}
                       >
-                        Xem hồ sơ
+                        {t('actions.viewProfile')}
                         <ChevronRight className='w-4 h-4' />
                       </Button>
                     </div>
@@ -163,7 +165,7 @@ export const PatientTable = ({ patients }: PatientTableProps) => {
       </div>
 
       <div className='p-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500'>
-        <span>Hiển thị {patients.length} bệnh nhân</span>
+        <span>{t('footer', { count: patients.length })}</span>
         {/* Pagination UI can be implemented later if API supports it in meta */}
       </div>
     </div>

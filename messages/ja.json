@@ -30,6 +30,20 @@
     "logout": "ログアウト",
     "loggingOut": "ログアウト中..."
   },
+  "Portal": {
+    "Header": {
+      "greeting": "こんにちは、{name}さん",
+      "admin": "管理者ポータル",
+      "doctor": "医師ポータル",
+      "patient": "患者ポータル"
+    },
+    "Sidebar": {
+      "titleAdmin": "ZenCare 管理者",
+      "titleDoctor": "ZenCare 医師",
+      "titlePatient": "ZenCare 患者",
+      "management": "管理"
+    }
+  },
   "Sidebar": {
     "doctors": "医師",
     "patients": "患者",
@@ -401,6 +415,340 @@
           "boardCertified": "委員会認定",
           "cardioCPD": "心臓病 CPD",
           "telehealth": "遠隔医療対応"
+        }
+      }
+    }
+  },
+  "Doctor": {
+    "Dashboard": {
+      "Welcome": {
+        "title": "ホーム & ダッシュボード",
+        "subtitle": "今日のスケジュールと患者の状況を確認します。",
+        "weekSchedule": "週間スケジュール",
+        "todayScheduleTitle": "今日のスケジュール",
+        "shiftInfo": "シフト開始 08:00 · 総合内科クリニック 3階",
+        "bookedCases": "{count} 予約件数",
+        "offlineCases": "{count} 対面診療",
+        "onlineCases": "{count} 遠隔診療 (ビデオ)",
+        "currentStatus": "現在の状況",
+        "nextPatient": "次の待機患者",
+        "startShift": "シフト開始"
+      },
+      "QuickActions": {
+        "title": "クイックアクション",
+        "subtitle": "よく使う機能への素早いアクセス。",
+        "continueShiftTitle": "現在のシフトを継続",
+        "continueShiftDesc": "カルテ、処方箋、文書フォームを開く",
+        "findPatientTitle": "患者を検索",
+        "findPatientDesc": "診察歴、アレルギー、服用薬を確認",
+        "uploadDocsTitle": "文書をアップロード",
+        "uploadDocsDesc": "検査結果、超音波画像などを追加"
+      },
+      "QuickStats": {
+        "title": "今日のクイック統計",
+        "subtitle": "リアルタイム更新。",
+        "totalCases": "総件数",
+        "includeRemote": "遠隔診療を含む",
+        "examined": "診察済み",
+        "avgTime": "平均 {min} 分/件",
+        "waiting": "待機中",
+        "priority1": "優先度 1",
+        "highPriorityCount": "{count} 高優先度の患者",
+        "cancelled": "キャンセル/不在",
+        "stable": "安定",
+        "noCancelled": "キャンセルなし"
+      },
+      "TodaySchedule": {
+        "title": "今日のスケジュール",
+        "subtitle": "今日の予約リスト (時間順)。",
+        "viewAll": "全 {count} 件を表示",
+        "startNext": "次の診察を開始",
+        "followUpHypertension": "高血圧フォローアップ",
+        "consultBloodTest": "血液検査結果の相談",
+        "status": {
+          "completed": "完了",
+          "inProgress": "診察中",
+          "waiting": "待機中"
+        },
+        "type": {
+          "offline": "対面",
+          "online": "ビデオ通話"
+        },
+        "patientId": "患者ID: {id}"
+      },
+      "RecentPatients": {
+        "title": "最近の患者",
+        "viewProfile": "プロフィールを見る",
+        "continue": "継続",
+        "prepare": "準備"
+      },
+      "ShiftNotes": {
+        "title": "シフトメモ",
+        "subtitle": "診察前のクイック準備。",
+        "note1": "処方前に患者のアレルギーと服用薬を確認する。",
+        "note2": "患者追跡のために主診断と鑑別診断を明確に記録する。",
+        "note3": "アプリで患者が閲覧できるように検査結果や超音波画像をアップロードする。",
+        "openForm": "メモフォームを開く"
+      },
+      "DocumentStatus": {
+        "title": "文書ステータス",
+        "subtitle": "最近の患者の文書を更新。",
+        "missingDocs": "文書が必要なプロフィール",
+        "uploadedToday": "今日アップロードされたファイル",
+        "gotoDocs": "\"文書 & 結果\" へ移動",
+        "doc1": "BN-19302 · 腹部超音波検査結果なし",
+        "doc2": "BN-15021 · 最新の心電図ファイルなし",
+        "doc3": "BN-18890 · 再診後の処方箋更新"
+      },
+      "ProfileCard": {
+        "title": "医師プロフィール",
+        "subtitle": "Bioとプロフィール写真を更新。",
+        "bio": "Bio",
+        "updated": "{days} 日前に更新",
+        "certs": "資格 / 学位",
+        "managedByAdmin": "管理者による管理",
+        "adminNote": "資格/学位は信頼性を保証するために管理者によって確認されます。",
+        "editProfile": "プロフィールを編集"
+      },
+      "Profile": {
+        "experience": "全体で {years} 年の経験",
+        "verified": "医療登録確認済み",
+        "feedback": "フィードバックを共有"
+      }
+    },
+    "MyPatients": {
+      "title": "私の患者",
+      "Filters": {
+        "title": "担当患者リスト",
+        "subtitle": "予約状況、日付、または患者名でフィルタリング。",
+        "total": "合計: {count} 名",
+        "searchPlaceholder": "名前、IDで検索...",
+        "statusLabel": "ステータス",
+        "statusOptions": {
+          "today": "今日",
+          "week": "今週",
+          "month": "今月"
+        },
+        "typeLabel": "診療タイプ",
+        "typeOptions": {
+          "all": "すべて",
+          "direct": "対面",
+          "video": "ビデオ通話"
+        },
+        "dateRange": "日付範囲",
+        "advancedFilter": "詳細フィルター"
+      },
+      "Table": {
+        "headers": {
+          "no": "#",
+          "patient": "患者",
+          "lastVisit": "前回の診療",
+          "type": "タイプ",
+          "info": "基本情報",
+          "status": "ステータス",
+          "action": "操作"
+        },
+        "noVisit": "受診歴なし",
+        "visitType": {
+          "direct": "対面",
+          "video": "ビデオ通話"
+        },
+        "allergies": "アレルギー",
+        "chronicDisease": "慢性疾患",
+        "none": "なし",
+        "noSymptoms": "症状なし",
+        "status": {
+          "completed": "受診済み",
+          "confirmed": "待機中",
+          "cancelled": "キャンセル",
+          "new": "新規"
+        },
+        "actions": {
+          "prescribe": "処方",
+          "viewProfile": "プロフィールを見る"
+        },
+        "footer": "{count} 名を表示中"
+      },
+      "Summary": {
+        "title": "今日の患者サマリー",
+        "subtitle": "今日の予約がある患者のみ。",
+        "total": "今日の総患者数",
+        "examined": "診察済み",
+        "waiting": "待機中",
+        "byType": {
+          "direct": "対面",
+          "remote": "遠隔 (ビデオ)",
+          "count": "{count} 名"
+        }
+      },
+      "PreExamNotes": {
+        "title": "診察前の提案",
+        "subtitle": "患者記録で確認すべき項目。",
+        "note1": "処方前に必ずアレルギーと現在の服用薬を確認してください。",
+        "note2": "入室前に新しくアップロードされた文書（検査、画像診断）を確認してください。",
+        "note3": "患者アプリでの追跡用に、次の治療計画に関する短いメモを記入してください。",
+        "goToExam": "\"診察 & メモ\" へ移動"
+      },
+      "QuickAccess": {
+        "title": "クイックアクセス記録",
+        "subtitle": "頻繁に確認する患者。",
+        "favorites": "お気に入り患者リストを開く"
+      },
+      "Detail": {
+        "tabs": {
+          "overview": "概要",
+          "history": "受診履歴",
+          "medications": "薬・アレルギー",
+          "labs": "検査・文書",
+          "notes": "医師メモ"
+        },
+        "placeholders": {
+          "medications": "薬・アレルギーのタブ内容は更新中です...",
+          "notes": "医師メモのタブ内容は更新中です..."
+        },
+        "Header": {
+          "breadcrumb": "私の患者",
+          "lastVisit": "前回の診察",
+          "assignedDoctor": "担当医",
+          "completed": "診察完了",
+          "openVisit": "今日の診察を開く",
+          "currentPlan": "現在の計画",
+          "age": "歳"
+        },
+        "Overview": {
+          "PersonalInfo": {
+            "title": "個人情報",
+            "priority": "優先監視",
+            "subtitle": "基本情報と主な危険因子。",
+            "gender": "性別",
+            "dob": "生年月日",
+            "height": "身長",
+            "weight": "体重",
+            "job": "職業",
+            "lifestyle": "生活習慣"
+          },
+          "VisitSummary": {
+            "title": "今日の診察",
+            "saved": "結論保存済み",
+            "subtitle": "{time} - {room} の診察サマリー。",
+            "reason": "受診理由",
+            "diagnosis": "予備診断",
+            "plan": "治療計画",
+            "prescription": "処方薬",
+            "quickNotes": "クイックメモ:"
+          },
+          "Vitals": {
+            "title": "最新バイタル",
+            "stable": "安定",
+            "subtitle": "今日の診察中に測定。",
+            "bp": "血圧",
+            "bpDetail": "mmHg · 安静時",
+            "hr": "心拍数",
+            "bpm": "回/分",
+            "temp": "体温",
+            "tempDetail": "皮膚温",
+            "spo2": "SpO₂",
+            "spo2Detail": "室内気",
+            "resp": "呼吸数",
+            "weight": "体重",
+            "weightChange": "前回比: {change}"
+          },
+          "Timeline": {
+            "title": "診察タイムライン",
+            "recent": "最近の3回",
+            "subtitle": "患者の最近の受診。",
+            "viewAll": "受診履歴をすべて見る"
+          }
+        },
+        "Sidebar": {
+          "Contact": {
+            "title": "連絡先・リマインダー",
+            "subtitle": "連絡先情報と次の受診予定。",
+            "phone": "電話番号:",
+            "email": "メール:",
+            "address": "住所:",
+            "suggestedVisit": "推奨される次回の受診",
+            "sendReminderApp": "アプリでリマインダーを送信",
+            "sendReminder": "リマインダー送信",
+            "bookNew": "新しい対面診察を予約",
+            "createAppt": "予約作成"
+          },
+          "Notes": {
+            "title": "医師メモ",
+            "subtitle": "医師のみ閲覧可能、患者には非表示。",
+            "addNote": "新しいメモを追加"
+          },
+          "Documents": {
+            "title": "文書・結果",
+            "subtitle": "頭痛に関連する検査。",
+            "addDoc": "新しい文書を追加",
+            "notDone": "未実施"
+          },
+          "Allergies": {
+            "title": "薬・アレルギー",
+            "subtitle": "治療安全情報。",
+            "drugAllergies": "薬剤アレルギー",
+            "high": "高",
+            "noAllergies": "アレルギー記録なし。",
+            "otherAllergies": "その他のアレルギー",
+            "notRecorded": "記録なし",
+            "currentMeds": "服用中の薬",
+            "avoidInteractions": "避けるべき相互作用",
+            "avoidDetails": "パラセタモールを含む薬、不要な高用量NSAIDs",
+            "reminderAvoid": "注意: パラセタモールを避ける"
+          }
+        },
+        "History": {
+          "title": "診療履歴",
+          "totalVisits": "計 {count} 回の診察",
+          "date": "診察日",
+          "time": "時間",
+          "type": "タイプ",
+          "symptoms": "症状",
+          "diagnosis": "診断",
+          "status": "ステータス",
+          "actions": "操作",
+          "noHistory": "診療履歴なし",
+          "inPerson": "対面",
+          "online": "オンライン",
+          "viewPrescription": "処方箋を見る",
+          "prescribe": "処方する",
+          "viewDetail": "詳細を見る",
+          "uploadDocs": "医療文書をアップロード",
+          "downloadRecord": "記録をダウンロード (PDF)",
+          "prescriptionDetail": "処方箋詳細",
+          "statusCompleted": "完了",
+          "statusConfirmed": "確認済み",
+          "statusCancelled": "キャンセル済み",
+          "statusPending": "保留中"
+        },
+        "Documents": {
+          "title": "検査・文書",
+          "totalDocs": "計 {count} 件の文書",
+          "refresh": "更新",
+          "addDoc": "文書を追加",
+          "docName": "文書名",
+          "type": "タイプ",
+          "visitDate": "診察日",
+          "doctor": "医師",
+          "uploadDate": "アップロード日",
+          "notes": "メモ",
+          "actions": "操作",
+          "noDocs": "文書が見つかりません",
+          "uploadFirst": "最初の文書をアップロード",
+          "view": "文書を見る",
+          "download": "ダウンロード",
+          "Types": {
+            "LAB_RESULT": "検査結果",
+            "X_RAY": "レントゲン",
+            "MRI": "MRI",
+            "CT_SCAN": "CTスキャン",
+            "ULTRASOUND": "超音波",
+            "PRESCRIPTION": "処方箋",
+            "MEDICAL_REPORT": "診断書",
+            "MEDICAL_CASE": "カルテ",
+            "OTHER": "その他"
+          }
         }
       }
     }

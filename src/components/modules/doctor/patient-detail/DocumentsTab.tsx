@@ -11,6 +11,7 @@ import {
   Plus,
   RefreshCw,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { BlockchainFileVerify } from '@/components/modules/common/BlockchainFileVerify';
@@ -25,7 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { DocumentType, DocumentTypeLabels } from '@/const/enum';
+import { DocumentType } from '@/const/enum';
 import { clientFetcher } from '@/lib/fetcher';
 
 import { UploadMedicalDocumentModal } from './UploadMedicalDocumentModal';
@@ -94,6 +95,7 @@ export const DocumentsTab = ({
   patientId,
   appointments,
 }: DocumentsTabProps) => {
+  const t = useTranslations('Doctor.MyPatients.Detail.Documents');
   const [documents, setDocuments] = useState<PatientDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
@@ -141,9 +143,9 @@ export const DocumentsTab = ({
     <div className='bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm'>
       <div className='p-6 border-b border-slate-100 flex justify-between items-center'>
         <div>
-          <h3 className='font-bold text-slate-900'>Xét nghiệm & tài liệu</h3>
+          <h3 className='font-bold text-slate-900'>{t('title')}</h3>
           <p className='text-xs text-slate-500 mt-1'>
-            Tổng cộng {documents.length} tài liệu
+            {t('totalDocs', { count: documents.length })}
           </p>
         </div>
         <div className='flex gap-2'>
@@ -154,7 +156,7 @@ export const DocumentsTab = ({
             className='h-8'
           >
             <RefreshCw className='w-4 h-4 mr-1' />
-            Làm mới
+            {t('refresh')}
           </Button>
           {appointments.length > 0 && (
             <Button
@@ -163,7 +165,7 @@ export const DocumentsTab = ({
               className='bg-teal-600 hover:bg-teal-700 h-8'
             >
               <Plus className='w-4 h-4 mr-1' />
-              Thêm tài liệu
+              {t('addDoc')}
             </Button>
           )}
         </div>
@@ -173,13 +175,15 @@ export const DocumentsTab = ({
         <Table>
           <TableHeader className='bg-slate-50/50'>
             <TableRow>
-              <TableHead className='w-[250px]'>Tên tài liệu</TableHead>
-              <TableHead className='w-[150px]'>Loại</TableHead>
-              <TableHead className='w-[120px]'>Ngày khám</TableHead>
-              <TableHead className='w-[150px]'>Bác sĩ</TableHead>
-              <TableHead className='w-[120px]'>Ngày tải lên</TableHead>
-              <TableHead className='max-w-[200px]'>Ghi chú</TableHead>
-              <TableHead className='text-right w-[100px]'>Thao tác</TableHead>
+              <TableHead className='w-[250px]'>{t('docName')}</TableHead>
+              <TableHead className='w-[150px]'>{t('type')}</TableHead>
+              <TableHead className='w-[120px]'>{t('visitDate')}</TableHead>
+              <TableHead className='w-[150px]'>{t('doctor')}</TableHead>
+              <TableHead className='w-[120px]'>{t('uploadDate')}</TableHead>
+              <TableHead className='max-w-[200px]'>{t('notes')}</TableHead>
+              <TableHead className='text-right w-[100px]'>
+                {t('actions')}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -191,7 +195,7 @@ export const DocumentsTab = ({
                 >
                   <div className='flex flex-col items-center gap-2'>
                     <FileText className='w-12 h-12 text-slate-300' />
-                    <p>Chưa có tài liệu nào</p>
+                    <p>{t('noDocs')}</p>
                     {appointments.length > 0 && (
                       <Button
                         size='sm'
@@ -200,7 +204,7 @@ export const DocumentsTab = ({
                         className='mt-2'
                       >
                         <Plus className='w-4 h-4 mr-1' />
-                        Tải lên tài liệu đầu tiên
+                        {t('uploadFirst')}
                       </Button>
                     )}
                   </div>
@@ -226,7 +230,7 @@ export const DocumentsTab = ({
                     <Badge
                       className={`font-normal ${getDocumentTypeBadgeColor(doc.documentType)}`}
                     >
-                      {DocumentTypeLabels[doc.documentType] || doc.documentType}
+                      {t(`Types.${doc.documentType}`)}
                     </Badge>
                   </TableCell>
                   <TableCell className='text-slate-600'>
@@ -264,7 +268,7 @@ export const DocumentsTab = ({
                         size='icon'
                         className='h-8 w-8 text-slate-500 hover:text-teal-600'
                         onClick={() => window.open(doc.documentUrl, '_blank')}
-                        title='Xem tài liệu'
+                        title={t('view')}
                       >
                         <ExternalLink className='w-4 h-4' />
                       </Button>
@@ -293,7 +297,7 @@ export const DocumentsTab = ({
                             window.open(doc.documentUrl, '_blank');
                           }
                         }}
-                        title='Tải xuống'
+                        title={t('download')}
                       >
                         <Download className='w-4 h-4' />
                       </Button>

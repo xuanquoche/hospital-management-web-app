@@ -1,4 +1,5 @@
 import { Play } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -12,14 +13,14 @@ interface TodayScheduleProps {
 }
 
 export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
+  const t = useTranslations('Doctor.Dashboard.TodaySchedule');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 h-full'>
       <div className='flex justify-between items-center mb-6'>
         <div>
-          <h3 className='text-lg font-bold text-slate-900'>Today's Schedule</h3>
-          <p className='text-sm text-slate-500'>
-            Danh sách ca khám hôm nay (sắp xếp theo giờ).
-          </p>
+          <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+          <p className='text-sm text-slate-500'>{t('subtitle')}</p>
         </div>
         <Badge
           variant='secondary'
@@ -61,8 +62,10 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
                     {apt.patientName}
                   </h4>
                   <p className='text-sm text-slate-500 mb-2'>
-                    {apt.type === 'offline' ? 'Khám trực tiếp' : 'Video call'} ·{' '}
-                    {apt.room} · Mã BN: {apt.patientId}
+                    {apt.type === 'offline'
+                      ? t('type.offline')
+                      : t('type.online')}{' '}
+                    · {apt.room} · {t('patientId', { id: apt.patientId })}
                   </p>
                   <div className='flex flex-wrap gap-2'>
                     {apt.tags.map((tag) => (
@@ -81,17 +84,17 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
               <div className='flex flex-col items-end gap-2'>
                 {apt.status === 'completed' && (
                   <Badge className='bg-slate-200 text-slate-600 hover:bg-slate-300 border-none'>
-                    Đã hoàn thành
+                    {t('status.completed')}
                   </Badge>
                 )}
                 {apt.status === 'in-progress' && (
                   <Badge className='bg-teal-100 text-teal-700 hover:bg-teal-200 border-none animate-pulse'>
-                    Đang khám
+                    {t('status.inProgress')}
                   </Badge>
                 )}
                 {apt.status === 'waiting' && (
                   <Badge className='bg-orange-100 text-orange-700 hover:bg-orange-200 border-none'>
-                    Đang chờ
+                    {t('status.waiting')}
                   </Badge>
                 )}
 
@@ -101,7 +104,7 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
                     variant='outline'
                     className='h-7 text-xs bg-white border-teal-200 text-teal-700 hover:bg-teal-50'
                   >
-                    Theo dõi tăng huyết áp
+                    {t('followUpHypertension')}
                   </Button>
                 )}
                 {apt.status === 'waiting' && apt.type === 'online' && (
@@ -110,7 +113,7 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
                     variant='outline'
                     className='h-7 text-xs bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   >
-                    Tư vấn kết quả xét nghiệm máu
+                    {t('consultBloodTest')}
                   </Button>
                 )}
               </div>
@@ -120,10 +123,12 @@ export const TodaySchedule = ({ appointments }: TodayScheduleProps) => {
       </div>
 
       <div className='mt-6 pt-4 border-t border-slate-100 flex justify-between items-center'>
-        <span className='text-sm text-slate-500'>Xem tất cả 8 ca</span>
+        <span className='text-sm text-slate-500'>
+          {t('viewAll', { count: appointments.length || 8 })}
+        </span>
         <Button className='bg-teal-600 hover:bg-teal-700 text-white shadow-md shadow-teal-200'>
           <Play className='w-4 h-4 mr-2' />
-          Bắt đầu ca tiếp theo
+          {t('startNext')}
         </Button>
       </div>
     </div>

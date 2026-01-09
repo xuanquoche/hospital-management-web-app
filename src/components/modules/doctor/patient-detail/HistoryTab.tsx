@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { FileText, MoreVertical, Upload } from 'lucide-react';
 import { Pill } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -55,6 +56,7 @@ interface HistoryTabProps {
 
 export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
   const router = useRouter();
+  const t = useTranslations('Doctor.MyPatients.Detail.History');
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [prescriptionModalOpen, setPrescriptionModalOpen] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] =
@@ -70,25 +72,25 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
       case 'COMPLETED':
         return (
           <Badge className='bg-green-50 text-green-700 hover:bg-green-100 border-green-100 font-normal'>
-            Đã hoàn thành
+            {t('statusCompleted')}
           </Badge>
         );
       case 'CONFIRMED':
         return (
           <Badge className='bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-100 font-normal'>
-            Đã xác nhận
+            {t('statusConfirmed')}
           </Badge>
         );
       case 'CANCELLED':
         return (
           <Badge className='bg-red-50 text-red-700 hover:bg-red-100 border-red-100 font-normal'>
-            Đã hủy
+            {t('statusCancelled')}
           </Badge>
         );
       case 'PENDING':
         return (
           <Badge className='bg-yellow-50 text-yellow-700 hover:bg-yellow-100 border-yellow-100 font-normal'>
-            Chờ xử lý
+            {t('statusPending')}
           </Badge>
         );
       default:
@@ -99,9 +101,9 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
   return (
     <div className='bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm'>
       <div className='p-6 border-b border-slate-100 flex justify-between items-center'>
-        <h3 className='font-bold text-slate-900'>Lịch sử khám bệnh</h3>
+        <h3 className='font-bold text-slate-900'>{t('title')}</h3>
         <span className='text-xs text-slate-500'>
-          Tổng cộng {appointments.length} lần khám
+          {t('totalVisits', { count: appointments.length })}
         </span>
       </div>
 
@@ -109,13 +111,13 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
         <Table>
           <TableHeader className='bg-slate-50/50'>
             <TableRow>
-              <TableHead className='w-[150px]'>Ngày khám</TableHead>
-              <TableHead className='w-[100px]'>Giờ</TableHead>
-              <TableHead className='w-[150px]'>Loại hình</TableHead>
-              <TableHead className='max-w-[200px]'>Triệu chứng</TableHead>
-              <TableHead className='max-w-[200px]'>Chẩn đoán</TableHead>
-              <TableHead>Trạng thái</TableHead>
-              <TableHead className='text-right'>Thao tác</TableHead>
+              <TableHead className='w-[150px]'>{t('date')}</TableHead>
+              <TableHead className='w-[100px]'>{t('time')}</TableHead>
+              <TableHead className='w-[150px]'>{t('type')}</TableHead>
+              <TableHead className='max-w-[200px]'>{t('symptoms')}</TableHead>
+              <TableHead className='max-w-[200px]'>{t('diagnosis')}</TableHead>
+              <TableHead>{t('status')}</TableHead>
+              <TableHead className='text-right'>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -125,7 +127,7 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                   colSpan={7}
                   className='text-center py-12 text-slate-500'
                 >
-                  Chưa có lịch sử khám bệnh
+                  {t('noHistory')}
                 </TableCell>
               </TableRow>
             ) : (
@@ -146,8 +148,8 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                       className='font-normal border-slate-200 text-slate-600'
                     >
                       {apt.examinationType === 'IN_PERSON'
-                        ? 'Trực tiếp'
-                        : 'Trực tuyến'}
+                        ? t('inPerson')
+                        : t('online')}
                     </Badge>
                   </TableCell>
                   <TableCell
@@ -178,7 +180,9 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                           }}
                         >
                           <Pill className='w-4 h-4' />
-                          <span className='text-xs'>Xem đơn</span>
+                          <span className='text-xs'>
+                            {t('viewPrescription')}
+                          </span>
                         </Button>
                       )}
 
@@ -193,7 +197,7 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                         }
                       >
                         <FileText className='w-4 h-4' />
-                        <span className='text-xs'>Kê đơn</span>
+                        <span className='text-xs'>{t('prescribe')}</span>
                       </Button>
 
                       <DropdownMenu>
@@ -214,15 +218,17 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
                               )
                             }
                           >
-                            Xem chi tiết
+                            {t('viewDetail')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => handleOpenUploadModal(apt.id)}
                           >
                             <Upload className='w-4 h-4 mr-2' />
-                            Upload tài liệu khám
+                            {t('uploadDocs')}
                           </DropdownMenuItem>
-                          <DropdownMenuItem>Tải hồ sơ (PDF)</DropdownMenuItem>
+                          <DropdownMenuItem>
+                            {t('downloadRecord')}
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
@@ -246,7 +252,7 @@ export const HistoryTab = ({ patientId, appointments }: HistoryTabProps) => {
       >
         <DialogContent className='sm:max-w-[80%] max-h-[90vh] overflow-y-auto'>
           <DialogHeader>
-            <DialogTitle>Chi tiết đơn thuốc</DialogTitle>
+            <DialogTitle>{t('prescriptionDetail')}</DialogTitle>
           </DialogHeader>
           {selectedAppointmentId && (
             <PrescriptionDetailView appointmentId={selectedAppointmentId} />

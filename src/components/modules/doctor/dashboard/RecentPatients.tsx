@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,12 +11,14 @@ interface RecentPatientsProps {
 }
 
 export const RecentPatients = ({ patients }: RecentPatientsProps) => {
+  const t = useTranslations('Doctor.Dashboard.RecentPatients');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100'>
       <div className='flex justify-between items-center mb-4'>
-        <h3 className='text-sm font-bold text-slate-900'>Bệnh nhân gần đây</h3>
+        <h3 className='text-sm font-bold text-slate-900'>{t('title')}</h3>
         <span className='text-xs text-teal-600 cursor-pointer hover:underline'>
-          Xem hồ sơ
+          {t('viewProfile')}
         </span>
       </div>
 
@@ -42,14 +45,14 @@ export const RecentPatients = ({ patients }: RecentPatientsProps) => {
                 variant='secondary'
                 className='bg-teal-50 text-teal-700 text-[10px] h-5 px-1.5'
               >
-                Tiếp tục
+                {t('continue')}
               </Badge>
             ) : (
               <Badge
                 variant='secondary'
                 className='bg-slate-100 text-slate-600 text-[10px] h-5 px-1.5'
               >
-                Chuẩn bị
+                {t('prepare')}
               </Badge>
             )}
           </div>

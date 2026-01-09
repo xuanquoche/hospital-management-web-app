@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
 import { PatientDetail } from '@/components/modules/doctor/patient-detail/data';
@@ -40,6 +41,7 @@ export default function MyPatientsDetailView({
 }: MyPatientsDetailViewProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeTab, setActiveTab] = useState('overview');
+  const t = useTranslations('Doctor.MyPatients.Detail');
 
   return (
     <div className='min-h-screen bg-slate-50/50 p-6'>
@@ -59,31 +61,31 @@ export default function MyPatientsDetailView({
                 value='overview'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
               >
-                Tổng quan
+                {t('tabs.overview')}
               </TabsTrigger>
               <TabsTrigger
                 value='history'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
               >
-                Lịch sử khám
+                {t('tabs.history')}
               </TabsTrigger>
               <TabsTrigger
                 value='medications'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
               >
-                Thuốc & dị ứng
+                {t('tabs.medications')}
               </TabsTrigger>
               <TabsTrigger
                 value='labs'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
               >
-                Xét nghiệm & tài liệu
+                {t('tabs.labs')}
               </TabsTrigger>
               <TabsTrigger
                 value='notes'
                 className='bg-transparent data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-teal-600 rounded-none px-0 py-2 text-slate-500 data-[state=active]:text-teal-700 font-medium'
               >
-                Ghi chú của bác sĩ
+                {t('tabs.notes')}
               </TabsTrigger>
             </TabsList>
           </motion.div>
@@ -118,7 +120,7 @@ export default function MyPatientsDetailView({
               animate='show'
             >
               <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-                Nội dung tab Thuốc & dị ứng đang được cập nhật...
+                {t('placeholders.medications')}
               </div>
             </motion.div>
           </TabsContent>
@@ -146,7 +148,7 @@ export default function MyPatientsDetailView({
               animate='show'
             >
               <div className='p-12 text-center text-slate-500 bg-white rounded-2xl border border-slate-100'>
-                Nội dung tab Ghi chú của bác sĩ đang được cập nhật...
+                {t('placeholders.notes')}
               </div>
             </motion.div>
           </TabsContent>

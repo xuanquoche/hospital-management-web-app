@@ -1,7 +1,6 @@
-'use client';
-
-import { ArrowLeft, Edit3, Calendar } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -19,6 +18,7 @@ interface PatientDetailHeaderProps {
 export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
   const { user } = useMe();
   const router = useRouter();
+  const t = useTranslations('Doctor.MyPatients.Detail.Header');
 
   return (
     <div className='bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6'>
@@ -27,7 +27,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
         onClick={() => router.back()}
       >
         <ArrowLeft className='w-4 h-4' />
-        <span>Bệnh nhân của tôi</span>
+        <span>{t('breadcrumb')}</span>
         <span>/</span>
         <span className='font-bold text-slate-900'>{patient.id}</span>
       </div>
@@ -51,7 +51,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
               </Badge>
             </div>
             <p className='text-sm text-slate-500 mb-2'>
-              {patient.gender} · {patient.age} tuổi · {patient.dob} ·{' '}
+              {patient.gender} · {patient.age} {t('age')} · {patient.dob} ·{' '}
               {patient.address}
             </p>
             <div className='flex flex-wrap gap-2'>
@@ -59,7 +59,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
                 <Badge
                   key={index}
                   variant='secondary'
-                  className={`font-normal ${tag.includes('Dị ứng') ? 'bg-red-50 text-red-700' : 'bg-teal-50 text-teal-700'}`}
+                  className={`font-normal ${tag.includes('Dị ứng') || tag.includes('Allergy') ? 'bg-red-50 text-red-700' : 'bg-teal-50 text-teal-700'}`}
                 >
                   {tag}
                 </Badge>
@@ -71,15 +71,15 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
         <div className='flex flex-col items-end gap-2 w-full md:w-auto'>
           <div className='text-right text-xs text-slate-500 mb-2'>
             <p>
-              Lần khám gần nhất:{' '}
-              <span className='font-bold text-slate-900'>Hôm nay - 08:00</span>
+              {t('lastVisit')}:{' '}
+              <span className='font-bold text-slate-900'>08:00</span>
             </p>
             <p>
-              Bác sĩ phụ trách:{' '}
+              {t('assignedDoctor')}:{' '}
               <span className='font-bold text-slate-900'>{user?.fullName}</span>
             </p>
             <Badge className='bg-green-500 hover:bg-green-600 text-white border-none mt-1'>
-              Đã khám xong
+              {t('completed')}
             </Badge>
           </div>
           <div className='flex gap-2 w-full md:w-auto'>
@@ -88,7 +88,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
               className='flex-1 md:flex-none text-teal-600 border-teal-200 bg-teal-50 hover:bg-teal-100'
             >
               <Calendar className='w-4 h-4 mr-2' />
-              Mở buổi khám hôm nay
+              {t('openVisit')}
             </Button>
             <CreatePrescriptionModal appointmentId={patient.todayVisit.id} />
           </div>
@@ -97,7 +97,7 @@ export const PatientDetailHeader = ({ patient }: PatientDetailHeaderProps) => {
 
       <div className='mt-4 pt-4 border-t border-slate-100 flex items-start gap-2 text-xs text-slate-600'>
         <span className='font-bold text-slate-900 whitespace-nowrap'>
-          Kế hoạch hiện tại:
+          {t('currentPlan')}:
         </span>
         <span>{patient.currentPlan}</span>
       </div>

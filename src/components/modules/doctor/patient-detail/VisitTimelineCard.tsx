@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -9,23 +10,20 @@ interface VisitTimelineCardProps {
 }
 
 export const VisitTimelineCard = ({ timeline }: VisitTimelineCardProps) => {
-  console.log('timeline', timeline);
+  const t = useTranslations('Doctor.MyPatients.Detail.Overview.Timeline');
+
   return (
     <div className='bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-6'>
       <div className='flex justify-between items-center mb-4'>
-        <h3 className='text-sm font-bold text-slate-900'>
-          Dòng thời gian khám
-        </h3>
+        <h3 className='text-sm font-bold text-slate-900'>{t('title')}</h3>
         <Badge
           variant='secondary'
           className='bg-teal-50 text-teal-700 hover:bg-teal-100 font-normal'
         >
-          3 lần gần nhất
+          {t('recent')}
         </Badge>
       </div>
-      <p className='text-xs text-slate-500 mb-6'>
-        Một số lần khám gần đây của bệnh nhân.
-      </p>
+      <p className='text-xs text-slate-500 mb-6'>{t('subtitle')}</p>
 
       <div className='space-y-6 relative pl-2'>
         <div className='absolute left-[5px] top-2 bottom-2 w-[1px] bg-slate-200' />
@@ -53,7 +51,7 @@ export const VisitTimelineCard = ({ timeline }: VisitTimelineCardProps) => {
 
       <div className='mt-6 text-right'>
         <span className='text-xs text-slate-500 cursor-pointer hover:text-teal-600'>
-          Xem toàn bộ lịch sử khám
+          {t('viewAll')}
         </span>
       </div>
     </div>

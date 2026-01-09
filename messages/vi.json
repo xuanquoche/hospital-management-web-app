@@ -30,6 +30,20 @@
     "logout": "Đăng xuất",
     "loggingOut": "Đang đăng xuất..."
   },
+  "Portal": {
+    "Header": {
+      "greeting": "Xin chào, {name}",
+      "admin": "Cổng Quản trị",
+      "doctor": "Cổng Bác sĩ",
+      "patient": "Cổng Bệnh nhân"
+    },
+    "Sidebar": {
+      "titleAdmin": "ZenCare Admin",
+      "titleDoctor": "ZenCare Bác sĩ",
+      "titlePatient": "ZenCare Bệnh nhân",
+      "management": "Quản lý"
+    }
+  },
   "Sidebar": {
     "doctors": "Bác sĩ",
     "patients": "Bệnh nhân",
@@ -400,6 +414,335 @@
           "boardCertified": "Được hội đồng chứng nhận",
           "cardioCPD": "Tim mạch CPD",
           "telehealth": "Hỗ trợ khám từ xa"
+        }
+      }
+    }
+  },
+  "Doctor": {
+    "Dashboard": {
+      "Welcome": {
+        "title": "Trang chủ & Dashboard",
+        "subtitle": "Theo dõi lịch khám hôm nay và tình hình bệnh nhân trong ngày.",
+        "weekSchedule": "Toàn bộ lịch trong tuần",
+        "todayScheduleTitle": "Lịch khám hôm nay của bạn",
+        "shiftInfo": "Bắt đầu ca làm việc lúc 08:00 · Phòng khám Nội tổng quát tầng 3.",
+        "bookedCases": "{count} ca khám đã đặt",
+        "offlineCases": "{count} khám trực tiếp",
+        "onlineCases": "{count} khám từ xa (video)",
+        "currentStatus": "Trạng thái hiện tại",
+        "nextPatient": "Bệnh nhân đang chờ tiếp theo",
+        "startShift": "Bắt đầu ca khám"
+      },
+      "QuickActions": {
+        "title": "Hành động nhanh",
+        "subtitle": "Truy cập nhanh các chức năng thường dùng.",
+        "continueShiftTitle": "Tiếp tục ca khám hiện tại",
+        "continueShiftDesc": "Mở form ghi chép, đơn thuốc, tài liệu",
+        "findPatientTitle": "Tìm bệnh nhân",
+        "findPatientDesc": "Xem lịch sử khám, dị ứng, thuốc đang dùng",
+        "uploadDocsTitle": "Tải tài liệu",
+        "uploadDocsDesc": "Thêm kết quả xét nghiệm, siêu âm..."
+      },
+      "QuickStats": {
+        "title": "Thống kê nhanh hôm nay",
+        "subtitle": "Cập nhật theo thời gian thực.",
+        "totalCases": "Tổng số ca",
+        "includeRemote": "Bao gồm cả khám từ xa",
+        "examined": "Đã khám",
+        "avgTime": "Trung bình {min} phút/ca",
+        "waiting": "Đang chờ",
+        "priority1": "Ưu tiên 1",
+        "highPriorityCount": "{count} bệnh nhân ưu tiên cao",
+        "cancelled": "Hủy/Không đến",
+        "stable": "Ổn định",
+        "noCancelled": "Không có ca bị hủy"
+      },
+      "TodaySchedule": {
+        "title": "Lịch khám hôm nay",
+        "subtitle": "Danh sách ca khám hôm nay (sắp xếp theo giờ).",
+        "viewAll": "Xem tất cả {count} ca",
+        "startNext": "Bắt đầu ca tiếp theo",
+        "followUpHypertension": "Theo dõi tăng huyết áp",
+        "consultBloodTest": "Tư vấn kết quả xét nghiệm máu",
+        "status": {
+          "completed": "Đã hoàn thành",
+          "inProgress": "Đang khám",
+          "waiting": "Đang chờ"
+        },
+        "type": {
+          "offline": "Khám trực tiếp",
+          "online": "Video call"
+        },
+        "patientId": "Mã BN: {id}"
+      },
+      "RecentPatients": {
+        "title": "Bệnh nhân gần đây",
+        "viewProfile": "Xem hồ sơ",
+        "continue": "Tiếp tục",
+        "prepare": "Chuẩn bị"
+      },
+      "ShiftNotes": {
+        "title": "Ghi chú ca khám",
+        "subtitle": "Chuẩn bị nhanh trước khi vào buổi khám.",
+        "note1": "Ôn lại dị ứng và thuốc đang dùng của bệnh nhân trước khi kê đơn.",
+        "note2": "Ghi rõ chẩn đoán chính và chẩn đoán phân biệt để bệnh nhân theo dõi.",
+        "note3": "Tải lên kết quả xét nghiệm, hình ảnh siêu âm sau khi có để bệnh nhân xem trên app.",
+        "openForm": "Mở form ghi chép"
+      },
+      "DocumentStatus": {
+        "title": "Tình trạng tài liệu",
+        "subtitle": "Cập nhật tài liệu cho các bệnh nhân gần đây.",
+        "missingDocs": "Hồ sơ cần bổ sung tài liệu",
+        "uploadedToday": "File vừa tải hôm nay",
+        "gotoDocs": "Đi tới \"Tài liệu & kết quả\"",
+        "doc1": "BN-19302 · Thiếu kết quả siêu âm bụng",
+        "doc2": "BN-15021 · Thiếu file ECG mới nhất",
+        "doc3": "BN-18890 · Cập nhật đơn thuốc sau tái khám"
+      },
+      "ProfileCard": {
+        "title": "Hồ sơ bác sĩ",
+        "subtitle": "Cập nhật Bio và ảnh đại diện của bạn.",
+        "bio": "Bio",
+        "updated": "Đã cập nhật {days} ngày trước",
+        "certs": "Chứng chỉ / Bằng cấp",
+        "managedByAdmin": "Do Admin quản lý",
+        "adminNote": "Thông tin chứng chỉ/bằng cấp sẽ được kiểm duyệt bởi Admin để đảm bảo tính xác thực.",
+        "editProfile": "Chỉnh sửa hồ sơ bác sĩ"
+      }
+    },
+    "MyPatients": {
+      "title": "Bệnh nhân của tôi",
+      "Filters": {
+        "title": "Danh sách bệnh nhân được phân công",
+        "subtitle": "Lọc theo trạng thái hẹn, ngày, hoặc tên bệnh nhân.",
+        "total": "Tổng: {count} bệnh nhân",
+        "searchPlaceholder": "Tìm theo tên, ID...",
+        "statusLabel": "Trạng thái",
+        "statusOptions": {
+          "today": "Hôm nay",
+          "week": "Tuần này",
+          "month": "Tháng này"
+        },
+        "typeLabel": "Loại khám",
+        "typeOptions": {
+          "all": "Tất cả",
+          "direct": "Trực tiếp",
+          "video": "Video call"
+        },
+        "dateRange": "Khoảng thời gian",
+        "advancedFilter": "Lọc nâng cao"
+      },
+      "Table": {
+        "headers": {
+          "no": "#",
+          "patient": "Bệnh nhân",
+          "lastVisit": "Lần khám cuối",
+          "type": "Loại",
+          "info": "Thông tin chính",
+          "status": "Trạng thái",
+          "action": "Thao tác"
+        },
+        "noVisit": "Không có lịch khám",
+        "visitType": {
+          "direct": "Trực tiếp",
+          "video": "Video call"
+        },
+        "allergies": "Dị ứng",
+        "chronicDisease": "Bệnh mãn tính",
+        "none": "Không",
+        "noSymptoms": "Không triệu chứng",
+        "status": {
+          "completed": "Hoàn thành",
+          "confirmed": "Đang đợi",
+          "cancelled": "Đã hủy",
+          "new": "Mới"
+        },
+        "actions": {
+          "prescribe": "Kê đơn",
+          "viewProfile": "Xem hồ sơ"
+        },
+        "footer": "Hiển thị {count} bệnh nhân"
+      },
+      "Summary": {
+        "title": "Tổng hợp bệnh nhân hôm nay",
+        "subtitle": "Chỉ tính bệnh nhân có lịch hẹn hôm nay.",
+        "total": "Tổng bệnh nhân hôm nay",
+        "examined": "Đã khám",
+        "waiting": "Đang đợi",
+        "byType": {
+          "direct": "Trực tiếp",
+          "remote": "Từ xa (video)",
+          "count": "{count} bệnh nhân"
+        }
+      },
+      "PreExamNotes": {
+        "title": "Gợi ý trước khám",
+        "subtitle": "Các mục cần kiểm tra trong hồ sơ bệnh nhân.",
+        "note1": "Luôn xem lại dị ứng và thuốc đang dùng trước khi kê đơn.",
+        "note2": "Kiểm tra tài liệu mới tải lên (xét nghiệm, chẩn đoán hình ảnh) trước khi vào phòng.",
+        "note3": "Ghi chú ngắn gọn về kế hoạch điều trị tiếp theo để bệnh nhân theo dõi trên app.",
+        "goToExam": "Đi tới \"Khám & Ghi chú\""
+      },
+      "QuickAccess": {
+        "title": "Truy cập nhanh hồ sơ",
+        "subtitle": "Bệnh nhân thường xuyên theo dõi.",
+        "favorites": "Mở danh sách bệnh nhân yêu thích"
+      },
+      "Detail": {
+        "tabs": {
+          "overview": "Tổng quan",
+          "history": "Lịch sử khám",
+          "medications": "Thuốc & Dị ứng",
+          "labs": "Tài liệu & Xét nghiệm",
+          "notes": "Ghi chú bác sĩ"
+        },
+        "placeholders": {
+          "medications": "Tab Thuốc & Dị ứng đang được cập nhật...",
+          "notes": "Tab Ghi chú bác sĩ đang được cập nhật..."
+        },
+        "Header": {
+          "breadcrumb": "Bệnh nhân của tôi",
+          "lastVisit": "Lần khám cuối",
+          "assignedDoctor": "Bác sĩ phụ trách",
+          "completed": "Đã hoàn thành",
+          "openVisit": "Mở ca khám hôm nay",
+          "currentPlan": "Kế hoạch hiện tại",
+          "age": "tuổi"
+        },
+        "Overview": {
+          "PersonalInfo": {
+            "title": "Thông tin cá nhân",
+            "priority": "Theo dõi ưu tiên",
+            "subtitle": "Thông tin cơ bản và yếu tố nguy cơ chính.",
+            "gender": "Giới tính",
+            "dob": "Ngày sinh",
+            "height": "Chiều cao",
+            "weight": "Cân nặng",
+            "job": "Nghề nghiệp",
+            "lifestyle": "Lối sống"
+          },
+          "VisitSummary": {
+            "title": "Lần khám hôm nay",
+            "saved": "Đã lưu kết luận",
+            "subtitle": "Tóm tắt khám lúc {time} - {room}.",
+            "reason": "Lý do khám",
+            "diagnosis": "Chẩn đoán sơ bộ",
+            "plan": "Phương hướng điều trị",
+            "prescription": "Thuốc đã kê",
+            "quickNotes": "Ghi chú nhanh:"
+          },
+          "Vitals": {
+            "title": "Chỉ số sinh tồn mới nhất",
+            "stable": "Ổn định",
+            "subtitle": "Đo trong lần khám hôm nay.",
+            "bp": "Huyết áp",
+            "bpDetail": "mmHg · Nghỉ ngơi",
+            "hr": "Nhịp tim",
+            "bpm": "lần/phút",
+            "temp": "Nhiệt độ",
+            "tempDetail": "Nhiệt độ da",
+            "spo2": "SpO₂",
+            "spo2Detail": "Khí phòng",
+            "resp": "Nhịp thở",
+            "weight": "Cân nặng",
+            "weightChange": "So với lần trước: {change}"
+          },
+          "Timeline": {
+            "title": "Dòng thời gian khám",
+            "recent": "3 lần gần nhất",
+            "subtitle": "Các lần khám gần đây của bệnh nhân.",
+            "viewAll": "Xem toàn bộ lịch sử"
+          }
+        },
+        "Sidebar": {
+          "Contact": {
+            "title": "Liên hệ & Nhắc nhở",
+            "subtitle": "Thông tin liên lạc và lần khám tới.",
+            "phone": "Điện thoại:",
+            "email": "Email:",
+            "address": "Địa chỉ:",
+            "suggestedVisit": "Đề xuất tái khám",
+            "sendReminderApp": "Gửi nhắc nhở qua app",
+            "sendReminder": "Gửi nhắc nhở",
+            "bookNew": "Đặt lịch tái khám trực tiếp mới",
+            "createAppt": "Tạo lịch khám"
+          },
+          "Notes": {
+            "title": "Ghi chú riêng tư",
+            "subtitle": "Chỉ bác sĩ nhìn thấy, bệnh nhân không thấy.",
+            "addNote": "Thêm ghi chú mới"
+          },
+          "Documents": {
+            "title": "Tài liệu & Kết quả",
+            "subtitle": "Các xét nghiệm liên quan.",
+            "addDoc": "Thêm tài liệu mới",
+            "notDone": "Chưa thực hiện"
+          },
+          "Allergies": {
+            "title": "Thuốc & Dị ứng",
+            "subtitle": "Thông tin an toàn điều trị.",
+            "drugAllergies": "Dị ứng thuốc",
+            "high": "Cao",
+            "noAllergies": "Chưa ghi nhận dị ứng.",
+            "otherAllergies": "Dị ứng khác",
+            "notRecorded": "Chưa ghi nhận",
+            "currentMeds": "Thuốc đang dùng",
+            "avoidInteractions": "Tương tác cần tránh",
+            "avoidDetails": "Thuốc chứa paracetamol, NSAIDs liều cao nếu không cần thiết",
+            "reminderAvoid": "Nhắc: Tránh kê paracetamol"
+          }
+        },
+        "History": {
+          "title": "Lịch sử khám bệnh",
+          "totalVisits": "Tổng cộng {count} lần khám",
+          "date": "Ngày khám",
+          "time": "Giờ",
+          "type": "Loại hình",
+          "symptoms": "Triệu chứng",
+          "diagnosis": "Chẩn đoán",
+          "status": "Trạng thái",
+          "actions": "Thao tác",
+          "noHistory": "Chưa có lịch sử khám bệnh",
+          "inPerson": "Trực tiếp",
+          "online": "Trực tuyến",
+          "viewPrescription": "Xem đơn",
+          "prescribe": "Kê đơn",
+          "viewDetail": "Xem chi tiết",
+          "uploadDocs": "Upload tài liệu khám",
+          "downloadRecord": "Tải hồ sơ (PDF)",
+          "prescriptionDetail": "Chi tiết đơn thuốc",
+          "statusCompleted": "Đã hoàn thành",
+          "statusConfirmed": "Đã xác nhận",
+          "statusCancelled": "Đã hủy",
+          "statusPending": "Chờ xử lý"
+        },
+        "Documents": {
+          "title": "Xét nghiệm & tài liệu",
+          "totalDocs": "Tổng cộng {count} tài liệu",
+          "refresh": "Làm mới",
+          "addDoc": "Thêm tài liệu",
+          "docName": "Tên tài liệu",
+          "type": "Loại",
+          "visitDate": "Ngày khám",
+          "doctor": "Bác sĩ",
+          "uploadDate": "Ngày tải lên",
+          "notes": "Ghi chú",
+          "actions": "Thao tác",
+          "noDocs": "Chưa có tài liệu nào",
+          "uploadFirst": "Tải lên tài liệu đầu tiên",
+          "view": "Xem tài liệu",
+          "download": "Tải xuống",
+          "Types": {
+            "LAB_RESULT": "Kết quả xét nghiệm",
+            "X_RAY": "X-Quang",
+            "MRI": "MRI",
+            "CT_SCAN": "CT Scan",
+            "ULTRASOUND": "Siêu âm",
+            "PRESCRIPTION": "Đơn thuốc",
+            "MEDICAL_REPORT": "Báo cáo y tế",
+            "MEDICAL_CASE": "Bệnh án",
+            "OTHER": "Khác"
+          }
         }
       }
     }

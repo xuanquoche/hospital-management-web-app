@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { DashboardHeader } from '@/components/modules/doctor/dashboard/DashboardHeader';
@@ -33,10 +34,14 @@ const item = {
 };
 
 export default function DoctorDashboardPage() {
+  const t = useTranslations('Doctor.Dashboard');
+
   return (
     <div className='min-h-screen bg-slate-50/50 p-6'>
       <div className='mb-6'>
-        <h1 className='text-xl font-bold text-slate-500'>Doctor Dashboard</h1>
+        <h1 className='text-xl font-bold text-slate-500'>
+          {t('Welcome.title')}
+        </h1>
       </div>
 
       <motion.div

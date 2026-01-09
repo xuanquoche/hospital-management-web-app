@@ -13,12 +13,26 @@ import PortalSidebarItem from './PortalSidebarItem';
 import PortalSidebarStats from './PortalSidebarStats';
 
 const PortalSidebar = () => {
-  const t = useTranslations('Sidebar');
+  const tHeader = useTranslations('Sidebar');
+  const tSidebar = useTranslations('Portal.Sidebar');
   const pathname = usePathname();
   const { data: session, status } = useSession();
 
+  const sidebarTitle = useMemo(() => {
+    switch (session?.user?.role) {
+      case Role.ADMIN:
+        return tSidebar('titleAdmin');
+      case Role.DOCTOR:
+        return tSidebar('titleDoctor');
+      case Role.PATIENT:
+        return tSidebar('titlePatient');
+      default:
+        return 'ZenCare';
+    }
+  }, [session?.user?.role, tSidebar]);
+
   // 3. Logic check Active linh hoạt hơn (không hardcode /en)
-  // Logic này kiểm tra xem pathname hiện tại có chứa route đích hay không
+  // ... (keeping existing checkActive)
   const checkActive = (href: string) => {
     // Remove locale prefix (e.g., /en, /vi) from pathname to compare with href
     const normalizedPathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
@@ -53,12 +67,12 @@ const PortalSidebar = () => {
   return (
     <div className='sticky top-0 flex h-screen w-[20%] flex-col border-r bg-[#F0FDF9]'>
       <div className='p-6'>
-        <h1 className='text-xl font-bold text-teal-800'>MediFlow Admin</h1>
+        <h1 className='text-xl font-bold text-teal-800'>{sidebarTitle}</h1>
       </div>
 
       <div className='flex-1 px-4 py-2'>
         <h2 className='mb-2 px-2 text-xs font-semibold tracking-wider text-slate-400 uppercase'>
-          Management
+          {tSidebar('management')}
         </h2>
 
         <div className='space-y-1'>
@@ -66,7 +80,7 @@ const PortalSidebar = () => {
             <Link key={item.href} href={item.href} className='block'>
               <PortalSidebarItem
                 icon={item.icon}
-                label={t(item.label)}
+                label={tHeader(item.label)}
                 isActive={checkActive(item.href)}
               />
             </Link>
