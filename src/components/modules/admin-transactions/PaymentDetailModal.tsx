@@ -12,7 +12,29 @@ import {
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { clientFetcher } from '@/lib/fetcher';
-import { Payment, PaymentStatus } from '@/types/payment';
+import { Payment, PaymentStatus, PaymentType } from '@/types/payment';
+
+const getPaymentTypeLabel = (type: PaymentType) => {
+  switch (type) {
+    case PaymentType.CONSULTATION:
+      return 'Phí khám';
+    case PaymentType.MEDICINE:
+      return 'Tiền thuốc';
+    default:
+      return type;
+  }
+};
+
+const getPaymentTypeBadgeClass = (type: PaymentType) => {
+  switch (type) {
+    case PaymentType.CONSULTATION:
+      return 'bg-blue-50 text-blue-600 border-blue-200';
+    case PaymentType.MEDICINE:
+      return 'bg-amber-50 text-amber-600 border-amber-200';
+    default:
+      return 'bg-slate-50 text-slate-600 border-slate-200';
+  }
+};
 
 interface PaymentDetailModalProps {
   paymentId: string | null;
@@ -79,9 +101,17 @@ export function PaymentDetailModal({
             <div className='flex items-center justify-between bg-slate-50 p-4 rounded-lg'>
               <div>
                 <p className='text-sm text-muted-foreground'>Mã thanh toán</p>
-                <p className='text-lg font-bold text-slate-900'>
-                  {payment.paymentCode}
-                </p>
+                <div className='flex items-center gap-2'>
+                  <p className='text-lg font-bold text-slate-900'>
+                    {payment.paymentCode}
+                  </p>
+                  <Badge
+                    variant='outline'
+                    className={`text-xs ${getPaymentTypeBadgeClass(payment.type)}`}
+                  >
+                    {getPaymentTypeLabel(payment.type)}
+                  </Badge>
+                </div>
               </div>
               <Badge
                 variant='secondary'
@@ -106,25 +136,25 @@ export function PaymentDetailModal({
                 </h3>
                 <div className='grid grid-cols-2 gap-4 text-sm'>
                   <div>
-                    <p className='text-muted-foreground'>Phương thức</p>
-                    <p className='font-medium'>{payment.method}</p>
+                    <p className='text-muted-foreground'>Loại thanh toán</p>
+                    <p className='font-medium'>
+                      {getPaymentTypeLabel(payment.type)}
+                    </p>
                   </div>
                   <div>
                     <p className='text-muted-foreground'>Số tiền</p>
-                    <p className='font-medium text-emerald-600'>
-                      {formatCurrency(payment.appointment.consultationFee)}
+                    <p className='font-medium text-emerald-600 text-lg'>
+                      {formatCurrency(payment.amount)}
                     </p>
+                  </div>
+                  <div>
+                    <p className='text-muted-foreground'>Phương thức</p>
+                    <p className='font-medium'>{payment.method}</p>
                   </div>
                   <div>
                     <p className='text-muted-foreground'>Ngày tạo</p>
                     <p className='font-medium'>
                       {format(new Date(payment.createdAt), 'dd/MM/yyyy HH:mm')}
-                    </p>
-                  </div>
-                  <div>
-                    <p className='text-muted-foreground'>Cập nhật cuối</p>
-                    <p className='font-medium'>
-                      {format(new Date(payment.updatedAt), 'dd/MM/yyyy HH:mm')}
                     </p>
                   </div>
                 </div>
@@ -139,7 +169,7 @@ export function PaymentDetailModal({
                 <div className='flex items-center gap-3'>
                   <Avatar className='size-12'>
                     <AvatarImage
-                      src={payment.appointment.patient.user.avatar}
+                      src={payment.appointment.patient.user.avatar ?? undefined}
                       alt={payment.appointment.patient.user.fullName}
                     />
                     <AvatarFallback>
@@ -154,11 +184,6 @@ export function PaymentDetailModal({
                     <p className='text-sm text-muted-foreground'>
                       {payment.appointment.patient.user.phone}
                     </p>
-                    {payment.appointment.patient.user.email && (
-                      <p className='text-sm text-muted-foreground'>
-                        {payment.appointment.patient.user.email}
-                      </p>
-                    )}
                   </div>
                 </div>
               </div>
@@ -177,8 +202,6 @@ export function PaymentDetailModal({
                   <div>
                     <p className='text-muted-foreground'>Bác sĩ phụ trách</p>
                     <p className='font-medium'>
-                      {payment.appointment.doctor.professionalTitle &&
-                        `${payment.appointment.doctor.professionalTitle}. `}
                       {payment.appointment.doctor.user.fullName}
                     </p>
                   </div>
@@ -191,24 +214,15 @@ export function PaymentDetailModal({
                       )}
                     </p>
                   </div>
-                  <div>
-                    <p className='text-muted-foreground'>Loại hình khám</p>
-                    <Badge variant='outline'>
-                      {payment.appointment.examinationType}
-                    </Badge>
-                  </div>
                 </div>
                 <div className='space-y-3'>
                   <div>
-                    <p className='text-muted-foreground'>Triệu chứng</p>
+                    <p className='text-muted-foreground'>Phí khám</p>
                     <p className='font-medium'>
-                      {payment.appointment.symptoms || 'Không có'}
-                    </p>
-                  </div>
-                  <div>
-                    <p className='text-muted-foreground'>Ghi chú</p>
-                    <p className='font-medium'>
-                      {payment.appointment.notes || 'Không có'}
+                      {payment.appointment.consultationFee?.toLocaleString(
+                        'vi-VN'
+                      ) ?? 0}{' '}
+                      VNĐ
                     </p>
                   </div>
                 </div>

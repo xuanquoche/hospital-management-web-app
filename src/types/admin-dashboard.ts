@@ -74,9 +74,13 @@ export interface AdminPatient {
   };
 }
 
+export type PaymentType = 'CONSULTATION' | 'MEDICINE';
+
 export interface AdminPayment {
   id: string;
   paymentCode: string;
+  type: PaymentType;
+  amount: number;
   status: string;
   method: string;
   createdAt: string;
