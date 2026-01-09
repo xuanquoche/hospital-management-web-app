@@ -10,7 +10,7 @@ export const PriceBreakdown = () => {
   if (!selectedDoctor) return null;
 
   const consultationFee = selectedDoctor.consultationFee;
-  const bookingFee = 20000;
+  const bookingFee = 0;
   const discount = 0;
   const total = consultationFee + bookingFee - discount;
 
