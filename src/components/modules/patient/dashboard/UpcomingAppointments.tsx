@@ -1,10 +1,11 @@
 'use client';
 
 import { format, parseISO } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import { vi, enUS, ja } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { CalendarClock } from 'lucide-react';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -15,41 +16,55 @@ interface UpcomingAppointmentsProps {
   appointments: DashboardAppointment[];
 }
 
-const statusMap: Record<string, { label: string; className: string }> = {
-  PENDING: {
-    label: 'Chờ xác nhận',
-    className: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100',
-  },
-  CONFIRMED: {
-    label: 'Đã xác nhận',
-    className: 'bg-teal-50 text-teal-700 hover:bg-teal-100',
-  },
-  IN_PROGRESS: {
-    label: 'Đang khám',
-    className: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
-  },
-  COMPLETED: {
-    label: 'Hoàn thành',
-    className: 'bg-green-50 text-green-700 hover:bg-green-100',
-  },
-  CANCELLED: {
-    label: 'Đã hủy',
-    className: 'bg-red-50 text-red-700 hover:bg-red-100',
-  },
-};
-
-const formatAppointmentDate = (dateString: string) => {
-  const date = parseISO(dateString);
-  return format(date, 'EEEE, dd/MM/yyyy', { locale: vi });
-};
-
-const formatTimeSlot = (startTime: string, endTime: string) => {
-  return `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}`;
-};
-
 export const UpcomingAppointments = ({
   appointments,
 }: UpcomingAppointmentsProps) => {
+  const t = useTranslations('Patient.Dashboard.Upcoming');
+  const localeStr = useLocale();
+
+  const getLocale = () => {
+    switch (localeStr) {
+      case 'vi':
+        return vi;
+      case 'ja':
+        return ja;
+      default:
+        return enUS;
+    }
+  };
+
+  const statusMap: Record<string, { label: string; className: string }> = {
+    PENDING: {
+      label: t('status.pending'),
+      className: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100',
+    },
+    CONFIRMED: {
+      label: t('status.confirmed'),
+      className: 'bg-teal-50 text-teal-700 hover:bg-teal-100',
+    },
+    IN_PROGRESS: {
+      label: t('status.inProgress'),
+      className: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
+    },
+    COMPLETED: {
+      label: t('status.completed'),
+      className: 'bg-green-50 text-green-700 hover:bg-green-100',
+    },
+    CANCELLED: {
+      label: t('status.cancelled'),
+      className: 'bg-red-50 text-red-700 hover:bg-red-100',
+    },
+  };
+
+  const formatAppointmentDate = (dateString: string) => {
+    const date = parseISO(dateString);
+    return format(date, 'EEEE, dd/MM/yyyy', { locale: getLocale() });
+  };
+
+  const formatTimeSlot = (startTime: string, endTime: string) => {
+    return `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}`;
+  };
+
   const upcomingAppointment = appointments[0];
 
   if (!upcomingAppointment) {
@@ -62,27 +77,21 @@ export const UpcomingAppointments = ({
       >
         <div className='mb-6 flex items-center justify-between'>
           <div>
-            <h3 className='text-lg font-bold text-slate-900'>
-              Lịch khám sắp tới
-            </h3>
-            <p className='text-slate-500'>
-              Hiển thị cuộc hẹn gần nhất của bạn.
-            </p>
+            <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+            <p className='text-slate-500'>{t('subtitle')}</p>
           </div>
         </div>
 
         <div className='flex flex-col items-center justify-center py-8 text-center'>
           <CalendarClock className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='mb-2 text-slate-600'>Bạn chưa có lịch hẹn nào</p>
-          <p className='text-sm text-slate-400'>
-            Đặt lịch khám ngay để được tư vấn bởi bác sĩ chuyên khoa
-          </p>
+          <p className='mb-2 text-slate-600'>{t('noAppointments')}</p>
+          <p className='text-sm text-slate-400'>{t('noAppointmentsDetail')}</p>
         </div>
 
         <div className='mt-4'>
           <Link href='/patient/booking'>
             <Button className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100 border border-teal-100 shadow-none'>
-              Đặt lịch ngay
+              {t('bookNow')}
             </Button>
           </Link>
         </div>
@@ -101,10 +110,8 @@ export const UpcomingAppointments = ({
     >
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h3 className='text-lg font-bold text-slate-900'>
-            Lịch khám sắp tới
-          </h3>
-          <p className='text-slate-500'>Hiển thị cuộc hẹn gần nhất của bạn.</p>
+          <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+          <p className='text-slate-500'>{t('subtitle')}</p>
         </div>
         <Badge variant='secondary' className={status.className}>
           {status.label}
@@ -113,11 +120,11 @@ export const UpcomingAppointments = ({
 
       <div className='mb-6'>
         <h4 className='mb-2 text-lg font-bold text-slate-800'>
-          Khám{' '}
+          {t('visit')}{' '}
           {upcomingAppointment.examinationType === 'GENERAL'
-            ? 'tổng quát'
-            : 'chuyên khoa'}{' '}
-          với {upcomingAppointment.doctor.professionalTitle}{' '}
+            ? t('general')
+            : t('specialist')}{' '}
+          {t('with')} {upcomingAppointment.doctor.professionalTitle}{' '}
           {upcomingAppointment.doctor.name}
         </h4>
         <div className='flex gap-2 mb-4'>
@@ -128,7 +135,7 @@ export const UpcomingAppointments = ({
 
         <div className='space-y-3 text-sm'>
           <div className='flex justify-between border-b border-dashed border-slate-100 pb-2'>
-            <span className='text-slate-500'>Thời gian</span>
+            <span className='text-slate-500'>{t('time')}</span>
             <span className='font-semibold text-slate-900'>
               {formatAppointmentDate(upcomingAppointment.appointmentDate)} •{' '}
               {formatTimeSlot(
@@ -138,15 +145,18 @@ export const UpcomingAppointments = ({
             </span>
           </div>
           <div className='flex justify-between border-b border-dashed border-slate-100 pb-2'>
-            <span className='text-slate-500'>Mã thanh toán</span>
+            <span className='text-slate-500'>{t('paymentCode')}</span>
             <span className='font-semibold text-slate-900'>
               {upcomingAppointment.payment?.paymentCode || 'N/A'}
             </span>
           </div>
           <div className='flex justify-between'>
-            <span className='text-slate-500'>Phí khám</span>
+            <span className='text-slate-500'>{t('consultationFee')}</span>
             <span className='font-semibold text-teal-600'>
-              {upcomingAppointment.consultationFee.toLocaleString('vi-VN')} VNĐ
+              {upcomingAppointment.consultationFee.toLocaleString(
+                localeStr === 'vi' ? 'vi-VN' : 'en-US'
+              )}{' '}
+              {t('currency')}
             </span>
           </div>
         </div>
@@ -158,12 +168,12 @@ export const UpcomingAppointments = ({
           className='flex-1'
         >
           <Button className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100 border border-teal-100 shadow-none'>
-            Xem chi tiết
+            {t('viewDetail')}
           </Button>
         </Link>
         <Link href='/patient/appointments' className='flex-1'>
           <Button variant='ghost' className='w-full text-slate-500'>
-            Xem tất cả lịch hẹn
+            {t('viewAll')}
           </Button>
         </Link>
       </div>

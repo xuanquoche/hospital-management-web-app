@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { FileText } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import React, { useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ interface DocumentItem {
 }
 
 export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
+  const t = useTranslations('Patient.Dashboard.Documents');
   const documents = useMemo<DocumentItem[]>(() => {
     if (!consultations || consultations.length === 0) return [];
 
@@ -38,22 +40,22 @@ export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
 
     if (totalPrescriptions > 0) {
       docs.push({
-        name: 'Đơn thuốc điện tử',
-        type: 'Đơn thuốc',
+        name: t('docType.prescription'),
+        type: t('docType.prescription').split(' ')[0], // Simulating a type label
         count: totalPrescriptions,
       });
     }
 
     if (totalDiagnosis > 0) {
       docs.push({
-        name: 'Kết quả chẩn đoán',
-        type: 'Chẩn đoán',
+        name: t('docType.diagnosis'),
+        type: t('docType.diagnosis').split(' ')[0],
         count: totalDiagnosis,
       });
     }
 
     return docs;
-  }, [consultations]);
+  }, [consultations, t]);
 
   if (documents.length === 0) {
     return (
@@ -64,16 +66,14 @@ export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
         className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'
       >
         <div className='mb-6'>
-          <h3 className='text-lg font-bold text-slate-900'>Tài liệu y khoa</h3>
-          <p className='text-slate-500'>Đơn thuốc, kết quả khám bệnh.</p>
+          <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+          <p className='text-slate-500'>{t('subtitle')}</p>
         </div>
 
         <div className='flex flex-col items-center justify-center py-8 text-center'>
           <FileText className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='mb-2 text-slate-600'>Chưa có tài liệu y khoa</p>
-          <p className='text-sm text-slate-400'>
-            Tài liệu sẽ được tạo sau khi bạn hoàn thành khám bệnh
-          </p>
+          <p className='mb-2 text-slate-600'>{t('noDocs')}</p>
+          <p className='text-sm text-slate-400'>{t('noDocsDetail')}</p>
         </div>
       </motion.div>
     );
@@ -87,8 +87,8 @@ export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
       className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'
     >
       <div className='mb-6'>
-        <h3 className='text-lg font-bold text-slate-900'>Tài liệu y khoa</h3>
-        <p className='text-slate-500'>Đơn thuốc, kết quả khám bệnh.</p>
+        <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <div className='space-y-4 mb-6'>
@@ -101,7 +101,7 @@ export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
               {doc.name}
             </span>
             <span className='text-xs text-slate-500 whitespace-nowrap'>
-              {doc.type} • {doc.count} mục
+              {doc.type} • {doc.count} {t('items')}
             </span>
           </div>
         ))}
@@ -112,7 +112,7 @@ export const MedicalDocuments = ({ consultations }: MedicalDocumentsProps) => {
           variant='secondary'
           className='w-full bg-teal-50 text-teal-700 hover:bg-teal-100'
         >
-          Quản lý tài liệu
+          {t('manageDocs')}
         </Button>
       </Link>
     </motion.div>

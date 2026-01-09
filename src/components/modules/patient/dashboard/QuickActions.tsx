@@ -2,40 +2,44 @@
 
 import { motion } from 'framer-motion';
 import { Calendar, Stethoscope, FileText } from 'lucide-react';
-import React from 'react';
-
-const actions = [
-  {
-    icon: Calendar,
-    title: 'Đặt lịch khám',
-    description: 'Chọn bác sĩ, chuyên khoa, khung giờ.',
-    color: 'bg-teal-50 text-teal-600',
-    borderColor: 'border-teal-100',
-  },
-  {
-    icon: Stethoscope,
-    title: 'Tìm bác sĩ',
-    description: 'Lọc theo chuyên khoa, kinh nghiệm.',
-    color: 'bg-emerald-50 text-emerald-600',
-    borderColor: 'border-emerald-100',
-  },
-  {
-    icon: FileText,
-    title: 'Hồ sơ sức khỏe',
-    description: 'Xem lịch sử khám, đơn thuốc.',
-    color: 'bg-cyan-50 text-cyan-600',
-    borderColor: 'border-cyan-100',
-  },
-];
+import { useTranslations } from 'next-intl';
+import React, { useMemo } from 'react';
 
 export const QuickActions = () => {
+  const t = useTranslations('Patient.Dashboard.QuickActions');
+
+  const actions = useMemo(
+    () => [
+      {
+        icon: Calendar,
+        title: t('bookingTitle'),
+        description: t('bookingDesc'),
+        color: 'bg-teal-50 text-teal-600',
+        borderColor: 'border-teal-100',
+      },
+      {
+        icon: Stethoscope,
+        title: t('searchTitle'),
+        description: t('searchDesc'),
+        color: 'bg-emerald-50 text-emerald-600',
+        borderColor: 'border-emerald-100',
+      },
+      {
+        icon: FileText,
+        title: t('healthRecordTitle'),
+        description: t('healthRecordDesc'),
+        color: 'bg-cyan-50 text-cyan-600',
+        borderColor: 'border-cyan-100',
+      },
+    ],
+    [t]
+  );
+
   return (
     <div className='space-y-4'>
       <div className='mb-4'>
-        <h3 className='text-lg font-bold text-slate-900'>Thao tác nhanh</h3>
-        <p className='text-slate-500'>
-          Đặt lịch, tìm bác sĩ, quản lý thông tin.
-        </p>
+        <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>

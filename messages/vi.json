@@ -746,5 +746,241 @@
         }
       }
     }
-  }
+  },
+  "Patient": {
+      "Dashboard": {
+        "loading": "Đang tải dữ liệu...",
+        "title": "Trang chủ",
+        "subtitle": "Đặt lịch nhanh, xem lịch khám sắp tới và theo dõi sức khỏe.",
+        "searchDoctor": "Tìm bác sĩ",
+        "bookNow": "Đặt lịch ngay",
+        "Promo": {
+          "title": "Ưu đãi gói khám tổng quát tháng này",
+          "subtitle": "Giảm đến 20% cho gói khám sức khỏe tổng quát, tầm soát tim mạch và tiểu đường. Áp dụng đến 30/11.",
+          "news": "Tin tức y tế",
+          "promo": "Khuyến mãi gói khám",
+          "screening": "Tầm soát định kỳ",
+          "register": "Đăng ký gói khám",
+          "viewMore": "Xem thêm tin tức"
+        },
+        "News": {
+          "title": "Bản tin mới nhất",
+          "new": "Mới",
+          "news1": {
+            "title": "Cập nhật lịch tiêm vắc xin cúm mùa 2025",
+            "subtitle": "Hướng dẫn khám chuyên khoa Tim mạch không chờ đợi"
+          },
+          "viewMore": "Xem tất cả tin"
+        },
+        "QuickActions": {
+          "title": "Thao tác nhanh",
+          "subtitle": "Đặt lịch, tìm bác sĩ, quản lý thông tin.",
+          "bookingTitle": "Đặt lịch khám",
+          "bookingDesc": "Chọn bác sĩ, chuyên khoa, khung giờ.",
+          "searchTitle": "Tìm bác sĩ",
+          "searchDesc": "Lọc theo chuyên khoa, kinh nghiệm.",
+          "healthRecordTitle": "Hồ sơ sức khỏe",
+          "healthRecordDesc": "Xem lịch sử khám, đơn thuốc."
+        },
+        "Upcoming": {
+          "title": "Lịch khám sắp tới",
+          "subtitle": "Hiển thị cuộc hẹn gần nhất của bạn.",
+          "noAppointments": "Bạn chưa có lịch hẹn nào",
+          "noAppointmentsDetail": "Đặt lịch khám ngay để được tư vấn bởi bác sĩ chuyên khoa",
+          "bookNow": "Đặt lịch ngay",
+          "visit": "Khám",
+          "general": "tổng quát",
+          "specialist": "chuyên khoa",
+          "with": "với",
+          "time": "Thời gian",
+          "paymentCode": "Mã thanh toán",
+          "consultationFee": "Phí khám",
+          "currency": "VNĐ",
+          "viewDetail": "Xem chi tiết",
+          "viewAll": "Xem tất cả lịch hẹn",
+          "status": {
+            "pending": "Chờ xác nhận",
+            "confirmed": "Đã xác nhận",
+            "inProgress": "Đang khám",
+            "completed": "Hoàn thành",
+            "cancelled": "Đã hủy"
+          }
+        },
+        "HealthMetrics": {
+          "title": "Chỉ số sức khỏe",
+          "subtitle": "Tổng quan hồ sơ cá nhân của bạn.",
+          "update": "Cập nhật",
+          "height": "Chiều cao",
+          "weight": "Cân nặng",
+          "bmi": "BMI ước tính",
+          "bloodType": "Nhóm máu",
+          "allergies": "Dị ứng",
+          "insuranceNumber": "Số BHYT",
+          "notUpdated": "Chưa cập nhật",
+          "none": "Không ghi nhận",
+          "cm": "cm",
+          "kg": "kg"
+        },
+        "History": {
+          "title": "Lịch sử khám gần đây",
+          "subtitle": "Xem lại các lần khám gần đây.",
+          "noHistory": "Chưa có lịch sử khám bệnh",
+          "noHistoryDetail": "Thông tin lịch sử khám sẽ hiển thị tại đây sau khi bạn hoàn thành khám",
+          "status": {
+            "completed": "Đã khám",
+            "inProgress": "Đang khám"
+          },
+          "visit": "Khám",
+          "general": "Tổng quát",
+          "prescription": "Đơn thuốc",
+          "items": "mục",
+          "viewFullRecord": "Xem toàn bộ hồ sơ"
+        },
+        "Documents": {
+          "title": "Tài liệu y khoa",
+          "subtitle": "Đơn thuốc, kết quả khám bệnh.",
+          "noDocs": "Chưa có tài liệu y khoa",
+          "noDocsDetail": "Tài liệu sẽ được tạo sau khi bạn hoàn thành khám bệnh",
+          "items": "mục",
+          "manageDocs": "Quản lý tài liệu"
+        },
+        "Booking": {
+          "Steps": {
+            "selectService": "Chọn dịch vụ",
+            "selectDoctorTime": "Chọn bác sĩ & thời gian",
+            "patientInfo": "Thông tin bệnh nhân",
+            "confirmPay": "Xác nhận & Thanh toán"
+          },
+          "Common": {
+            "back": "Quay lại",
+            "continue": "Tiếp tục",
+            "step": "Bước",
+            "loading": "Đang tải...",
+            "required": "Bắt buộc",
+            "change": "Thay đổi",
+            "notSelected": "Chưa chọn",
+            "years": "năm",
+            "yearsExp": "{count} năm kinh nghiệm"
+          },
+          "EnterInfo": {
+            "consent": {
+              "title": "Đồng ý & chia sẻ thông tin",
+              "subtitle": "Giúp bác sĩ có thêm dữ liệu để chẩn đoán chính xác hơn.",
+              "shareHistory": "Tôi đồng ý chia sẻ thông tin bệnh lý và tiền sử khám chữa bệnh cho bác sĩ phụ trách cuộc hẹn này.",
+              "confirmInfo": "Tôi xác nhận các thông tin trên là chính xác và chịu trách nhiệm với thông tin đã cung cấp.",
+              "tipTitle": "Gợi ý",
+              "tipContent": "Thông tin càng đầy đủ, bác sĩ càng dễ đánh giá và rút ngắn thời gian hỏi bệnh."
+            },
+            "backToStep2": "Quay lại — Bước 2",
+            "continueToStep4": "Tiếp tục — Bước 4: Xác nhận & thanh toán"
+          },
+          "PatientInfo": {
+            "title": "Thông tin bệnh nhân",
+            "subtitle": "Chọn đúng người sẽ đi khám để bệnh viện chuẩn bị hồ sơ.",
+            "subject": "Đối tượng khám",
+            "subjectSubtitle": "Bạn có thể đặt giúp người thân",
+            "me": "Tôi",
+            "relative": "Người thân",
+            "fullName": "Họ và tên",
+            "gender": "Giới tính",
+            "placeholderGender": "Chọn giới tính",
+            "male": "Nam",
+            "female": "Nữ",
+            "other": "Khác",
+            "dob": "Ngày sinh",
+            "phone": "Số điện thoại",
+            "address": "Địa chỉ"
+          },
+          "ContactInsurance": {
+            "title": "Thông tin liên hệ & bảo hiểm",
+            "subtitle": "Dùng để gửi mã xác nhận và xuất hóa đơn.",
+            "contactPhone": "Số điện thoại liên hệ",
+            "contactEmail": "Email nhận thông tin",
+            "currentAddress": "Địa chỉ hiện tại",
+            "addressSubtitle": "Phục vụ cho việc xuất hóa đơn / liên hệ",
+            "placeholderAddress": "Nhập số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố...",
+            "healthInsurance": "Bảo hiểm y tế",
+            "placeholderInsurance": "Chọn loại bảo hiểm",
+            "insuranceType": {
+              "gov": "BHYT - Bảo hiểm y tế nhà nước",
+              "private": "Bảo hiểm tư nhân",
+              "none": "Không có"
+            },
+            "insuranceCode": "Mã số thẻ BHYT",
+            "insuranceCodeSubtitle": "Nếu sử dụng BHYT",
+            "placeholderInsuranceCode": "Nhập mã số thẻ bảo hiểm...",
+            "emergencyContact": "Liên hệ khẩn cấp (tùy chọn)",
+            "placeholderEmergencyName": "Tên người liên hệ",
+            "emergencySubtitle": "Người thân trong trường hợp khẩn cấp",
+            "placeholderEmergencyPhone": "Số điện thoại",
+            "saveForNextTime": "Sử dụng thông tin liên hệ này cho các lần đặt lịch tiếp theo."
+          },
+          "SelectedSummary": {
+            "title": "Bác sĩ & lịch đã chọn",
+            "subtitle": "Thông tin từ Bước 1 & 2.",
+            "room": "Phòng khám số 302",
+            "date": "Ngày khám",
+            "timeSlot": "Khung giờ",
+            "type": "Hình thức",
+            "directExam": "Khám trực tiếp tại cơ sở"
+          },
+          "SelectDoctor": {
+            "title": "Triệu chứng & Nhu cầu khám",
+            "label": "Mô tả triệu chứng của bạn",
+            "placeholder": "Ví dụ: Tôi bị đau đầu dữ dội 3 ngày nay, kèm theo chóng mặt...",
+            "analyzing": "Đang phân tích...",
+            "findDoctor": "Tìm bác sĩ phù hợp",
+            "analysisTitle": "Phân tích y khoa",
+            "highestPossibility": "Khả năng cao nhất",
+            "urgencyLevel": "Mức độ khẩn cấp",
+            "specialty": "Chuyên khoa",
+            "fallback": "Nhập triệu chứng để nhận gợi ý bác sĩ tốt nhất."
+          },
+          "SelectDate": {
+            "title": "Chọn ngày khám",
+            "availableFor": "Lịch khả dụng của {name}",
+            "selectTime": {
+              "title": "Chọn khung giờ",
+              "subtitle": "Khung giờ trống trong ngày",
+              "noSlots": "Không có lịch khám cho ngày này.",
+              "morning": "Buổi sáng",
+              "afternoon": "Buổi chiều",
+              "evening": "Buổi tối"
+            },
+            "summary": {
+              "doctorTitle": "Bác sĩ & cơ sở khám",
+              "appointmentTitle": "Tóm tắt lịch hẹn",
+              "appointmentSubtitle": "Kiểm tra lại trước khi sang Bước 3.",
+              "doctor": "Bác sĩ",
+              "specialty": "Chuyên khoa",
+              "date": "Ngày khám",
+              "timeSlot": "Khung giờ",
+              "type": "Hình thức",
+              "inPerson": "Khám trực tiếp",
+              "online": "Khám online"
+            },
+            "notes": {
+              "title": "Triệu chứng & ghi chú",
+              "subtitle": "Giúp bác sĩ chuẩn bị trước cho buổi khám.",
+              "symptoms": "Triệu chứng chính",
+              "symptomsPlaceholder": "Ví dụ: sốt nhẹ, ho khan...",
+              "symptomsPlaceholderMain": "Mô tả ngắn các triệu chứng mà bạn đang gặp...",
+              "doctorNotes": "Ghi chú cho bác sĩ",
+              "optional": "Không bắt buộc",
+              "doctorNotesPlaceholder": "Thêm thông tin về tiền sử bệnh, thuốc đang dùng..."
+            }
+          },
+          "Confirm": {
+            "backToStep3": "Quay lại — Bước 3",
+            "confirmBtn": "Xác nhận & thanh toán ngay",
+            "success": "Đặt lịch thành công!",
+            "processing": "Đang xử lý...",
+            "errors": {
+              "selectPayment": "Vui lòng chọn hình thức thanh toán",
+              "failed": "Đặt lịch thất bại. Vui lòng thử lại."
+            }
+          }
+        }
+      }
+    }
 }

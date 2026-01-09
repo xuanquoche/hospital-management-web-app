@@ -1,10 +1,11 @@
 'use client';
 
 import { format, parseISO } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import { vi, enUS, ja } from 'date-fns/locale';
 import { motion } from 'framer-motion';
 import { ClipboardList } from 'lucide-react';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -15,23 +16,37 @@ interface RecentHistoryProps {
   consultations: ConsultationHistory[];
 }
 
-const statusMap: Record<string, { label: string; className: string }> = {
-  COMPLETED: {
-    label: 'Đã khám',
-    className: 'bg-slate-100 text-slate-600 hover:bg-slate-200',
-  },
-  IN_PROGRESS: {
-    label: 'Đang khám',
-    className: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
-  },
-};
-
-const formatDate = (dateString: string) => {
-  const date = parseISO(dateString);
-  return format(date, 'dd/MM/yyyy', { locale: vi });
-};
-
 export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
+  const t = useTranslations('Patient.Dashboard.History');
+  const localeStr = useLocale();
+
+  const getLocale = () => {
+    switch (localeStr) {
+      case 'vi':
+        return vi;
+      case 'ja':
+        return ja;
+      default:
+        return enUS;
+    }
+  };
+
+  const statusMap: Record<string, { label: string; className: string }> = {
+    COMPLETED: {
+      label: t('status.completed'),
+      className: 'bg-slate-100 text-slate-600 hover:bg-slate-200',
+    },
+    IN_PROGRESS: {
+      label: t('status.inProgress'),
+      className: 'bg-blue-50 text-blue-700 hover:bg-blue-100',
+    },
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = parseISO(dateString);
+    return format(date, 'dd/MM/yyyy', { locale: getLocale() });
+  };
+
   if (!consultations || consultations.length === 0) {
     return (
       <motion.div
@@ -41,19 +56,14 @@ export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
         className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'
       >
         <div className='mb-6'>
-          <h3 className='text-lg font-bold text-slate-900'>
-            Lịch sử khám gần đây
-          </h3>
-          <p className='text-slate-500'>Xem lại các lần khám gần đây.</p>
+          <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+          <p className='text-slate-500'>{t('subtitle')}</p>
         </div>
 
         <div className='flex flex-col items-center justify-center py-8 text-center'>
           <ClipboardList className='mb-4 h-12 w-12 text-slate-300' />
-          <p className='mb-2 text-slate-600'>Chưa có lịch sử khám bệnh</p>
-          <p className='text-sm text-slate-400'>
-            Thông tin lịch sử khám sẽ hiển thị tại đây sau khi bạn hoàn thành
-            khám
-          </p>
+          <p className='mb-2 text-slate-600'>{t('noHistory')}</p>
+          <p className='text-sm text-slate-400'>{t('noHistoryDetail')}</p>
         </div>
       </motion.div>
     );
@@ -67,10 +77,8 @@ export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
       className='rounded-2xl border border-slate-100 bg-white p-6 shadow-sm'
     >
       <div className='mb-6'>
-        <h3 className='text-lg font-bold text-slate-900'>
-          Lịch sử khám gần đây
-        </h3>
-        <p className='text-slate-500'>Xem lại các lần khám gần đây.</p>
+        <h3 className='text-lg font-bold text-slate-900'>{t('title')}</h3>
+        <p className='text-slate-500'>{t('subtitle')}</p>
       </div>
 
       <div className='space-y-6'>
@@ -86,8 +94,8 @@ export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
               <div className='absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-slate-300 ring-4 ring-white' />
               <div className='flex justify-between items-start mb-1'>
                 <h4 className='font-bold text-slate-800'>
-                  Khám{' '}
-                  {consultation.doctor.primarySpecialty?.name || 'Tổng quát'}
+                  {t('visit')}{' '}
+                  {consultation.doctor.primarySpecialty?.name || t('general')}
                 </h4>
                 <Badge variant='secondary' className={status.className}>
                   {status.label}
@@ -99,7 +107,7 @@ export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
                 {consultation.doctor.user.fullName}
               </p>
               <p className='text-xs text-slate-400'>
-                • Đơn thuốc: {prescriptionCount}
+                • {t('prescription')}: {prescriptionCount} {t('items')}
               </p>
             </div>
           );
@@ -112,7 +120,7 @@ export const RecentHistory = ({ consultations }: RecentHistoryProps) => {
             variant='outline'
             className='w-full border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
           >
-            Xem toàn bộ hồ sơ
+            {t('viewFullRecord')}
           </Button>
         </Link>
       </div>

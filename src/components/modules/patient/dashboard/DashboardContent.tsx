@@ -2,6 +2,7 @@
 
 import { Search, CalendarPlus, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,7 @@ import { RecentHistory } from './RecentHistory';
 import { UpcomingAppointments } from './UpcomingAppointments';
 
 export const DashboardContent = () => {
+  const t = useTranslations('Patient.Dashboard');
   const { profile, upcomingAppointments, consultationHistory, loading } =
     usePatientDashboard();
 
@@ -24,7 +26,7 @@ export const DashboardContent = () => {
       <div className='flex min-h-screen items-center justify-center bg-slate-50/50'>
         <div className='flex flex-col items-center gap-4'>
           <Loader2 className='h-8 w-8 animate-spin text-teal-600' />
-          <p className='text-slate-500'>Đang tải dữ liệu...</p>
+          <p className='text-slate-500'>{t('loading')}</p>
         </div>
       </div>
     );
@@ -34,21 +36,19 @@ export const DashboardContent = () => {
     <div className='min-h-screen bg-slate-50/50 p-8'>
       <div className='mb-8 flex items-end justify-between'>
         <div>
-          <h1 className='text-3xl font-bold text-slate-900'>Trang chủ</h1>
-          <p className='mt-2 text-slate-500'>
-            Đặt lịch nhanh, xem lịch khám sắp tới và theo dõi sức khỏe.
-          </p>
+          <h1 className='text-3xl font-bold text-slate-900'>{t('title')}</h1>
+          <p className='mt-2 text-slate-500'>{t('subtitle')}</p>
         </div>
         <div className='flex gap-3'>
           <Button
             variant='outline'
             className='gap-2 border-teal-200 text-teal-700 hover:bg-teal-50 hover:text-teal-800'
           >
-            <Search className='h-4 w-4' /> Tìm bác sĩ
+            <Search className='h-4 w-4' /> {t('searchDoctor')}
           </Button>
           <Link href='/patient/booking'>
             <Button className='gap-2 bg-teal-600 text-white shadow-lg shadow-teal-200 hover:bg-teal-700'>
-              <CalendarPlus className='h-4 w-4' /> Đặt lịch ngay
+              <CalendarPlus className='h-4 w-4' /> {t('bookNow')}
             </Button>
           </Link>
         </div>
