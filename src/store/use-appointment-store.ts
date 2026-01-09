@@ -18,8 +18,8 @@ interface AppointmentState {
   currentStep: number;
   selectedDoctor: Doctor | AIDoctorInfo | null;
   selectedDate: Date | null;
-  selectedTime: string | null; // Display time string
-  timeSlotId: string | null; // API field
+  selectedTime: string | null;
+  timeSlotId: string | null;
   examinationType: 'IN_PERSON' | 'ONLINE' | 'HOME' | null;
   symptoms: string;
   notes: string;
@@ -38,6 +38,7 @@ interface AppointmentState {
   setPatientInfo: (info: PatientInfo | null) => void;
   setPaymentMethod: (method: PaymentMethod | null) => void;
   setAiAnalysis: (analysis: AIResponseSuggestion | null) => void;
+  reset: () => void;
 }
 
 export const useAppointmentStore = create<AppointmentState>((set) => ({
@@ -64,4 +65,18 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
   setPatientInfo: (info) => set({ patientInfo: info }),
   setPaymentMethod: (method) => set({ paymentMethod: method }),
   setAiAnalysis: (analysis) => set({ aiAnalysis: analysis }),
+  reset: () =>
+    set({
+      currentStep: 1,
+      selectedDoctor: null,
+      selectedDate: null,
+      selectedTime: null,
+      timeSlotId: null,
+      examinationType: 'IN_PERSON',
+      symptoms: '',
+      notes: '',
+      patientInfo: null,
+      paymentMethod: null,
+      aiAnalysis: null,
+    }),
 }));

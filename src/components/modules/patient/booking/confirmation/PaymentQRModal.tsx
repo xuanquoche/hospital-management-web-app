@@ -47,10 +47,13 @@ export const PaymentQRModal = ({
       toast.success('🎉 Thanh toán thành công! Lịch hẹn đã được xác nhận.');
 
       setTimeout(() => {
-        onComplete();
+        onOpenChange(false);
+        setTimeout(() => {
+          onComplete();
+        }, 100);
       }, 2000);
     },
-    [onComplete]
+    [onComplete, onOpenChange]
   );
 
   const { isConnected } = usePaymentSocket({
@@ -146,7 +149,10 @@ export const PaymentQRModal = ({
 
             <Button
               className='w-full bg-teal-600 hover:bg-teal-700 text-white h-12'
-              onClick={onComplete}
+              onClick={() => {
+                onOpenChange(false);
+                setTimeout(() => onComplete(), 100);
+              }}
             >
               Xem lịch hẹn của tôi
             </Button>
