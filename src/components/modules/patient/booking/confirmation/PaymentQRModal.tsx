@@ -1,10 +1,17 @@
+'use client';
+
 import { format } from 'date-fns';
+import { CheckCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import {
+  PaymentSuccessData,
+  usePaymentSocket,
+} from '@/hooks/use-payment-socket';
 
 interface PaymentQRModalProps {
   open: boolean;
@@ -27,10 +34,37 @@ export const PaymentQRModal = ({
   appointmentDate,
   timeSlot,
 }: PaymentQRModalProps) => {
-  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(900);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [successData, setSuccessData] = useState<PaymentSuccessData | null>(
+    null
+  );
+
+  const handlePaymentSuccess = useCallback(
+    (data: PaymentSuccessData) => {
+      setPaymentSuccess(true);
+      setSuccessData(data);
+      toast.success('🎉 Thanh toán thành công! Lịch hẹn đã được xác nhận.');
+
+      setTimeout(() => {
+        onComplete();
+      }, 2000);
+    },
+    [onComplete]
+  );
+
+  const { isConnected } = usePaymentSocket({
+    onPaymentSuccess: handlePaymentSuccess,
+  });
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setPaymentSuccess(false);
+      setSuccessData(null);
+      setTimeLeft(900);
+      return;
+    }
+
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 0) {
@@ -63,17 +97,69 @@ export const PaymentQRModal = ({
     toast.success('Đã sao chép nội dung chuyển khoản');
   };
 
-  // User provided URL params: acc=10002976003&bank=TPBank
   const bankName = 'TPBank';
   const accountNumber = '10002976003';
   const accountName = 'Hoang Van Nhat';
   const qrUrl = `https://qr.sepay.vn/img?acc=${accountNumber}&bank=${bankName}&amount=${amount}&des=${description}`;
 
+  if (paymentSuccess) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className='max-w-[500px] p-8 border-none rounded-2xl'>
+          <div className='flex flex-col items-center text-center'>
+            <div className='w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6'>
+              <CheckCircle className='w-12 h-12 text-green-600' />
+            </div>
+            <DialogTitle className='text-2xl font-bold text-slate-900 mb-2'>
+              Thanh toán thành công!
+            </DialogTitle>
+            <p className='text-slate-500 mb-6'>
+              Lịch hẹn của bạn đã được xác nhận. Chúng tôi sẽ gửi thông tin chi
+              tiết qua email.
+            </p>
+
+            <div className='w-full bg-slate-50 rounded-xl p-4 mb-6'>
+              <div className='flex justify-between text-sm mb-2'>
+                <span className='text-slate-500'>Mã thanh toán:</span>
+                <span className='font-bold text-slate-900'>
+                  {successData?.paymentCode}
+                </span>
+              </div>
+              <div className='flex justify-between text-sm mb-2'>
+                <span className='text-slate-500'>Số tiền:</span>
+                <span className='font-bold text-teal-600'>
+                  {formatCurrency(successData?.amount || amount)}
+                </span>
+              </div>
+              <div className='flex justify-between text-sm'>
+                <span className='text-slate-500'>Thời gian:</span>
+                <span className='font-medium text-slate-700'>
+                  {successData?.timestamp
+                    ? format(
+                        new Date(successData.timestamp),
+                        'HH:mm dd/MM/yyyy'
+                      )
+                    : '-'}
+                </span>
+              </div>
+            </div>
+
+            <Button
+              className='w-full bg-teal-600 hover:bg-teal-700 text-white h-12'
+              onClick={onComplete}
+            >
+              Xem lịch hẹn của tôi
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='max-w-[900px] p-0 overflow-hidden gap-0 border-none rounded-2xl'>
         <div className='grid grid-cols-1 md:grid-cols-2'>
-          {/* Left Column: Payment Details */}
           <div className='p-8 bg-white'>
             <DialogTitle className='text-2xl font-bold text-slate-900 mb-2'>
               Thanh toán đơn khám
@@ -125,6 +211,22 @@ export const PaymentQRModal = ({
                 </p>
               </div>
 
+              <div className='flex items-center gap-2 text-sm'>
+                {isConnected ? (
+                  <>
+                    <span className='w-2 h-2 bg-green-500 rounded-full animate-pulse' />
+                    <span className='text-green-600'>
+                      Đang theo dõi thanh toán...
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Loader2 className='w-4 h-4 animate-spin text-slate-400' />
+                    <span className='text-slate-500'>Đang kết nối...</span>
+                  </>
+                )}
+              </div>
+
               <Button
                 className='w-full bg-teal-600 hover:bg-teal-700 text-white h-12 text-base mt-4'
                 onClick={onComplete}
@@ -141,7 +243,6 @@ export const PaymentQRModal = ({
             </div>
           </div>
 
-          {/* Right Column: QR Code */}
           <div className='p-8 bg-teal-50/50 flex flex-col items-center justify-center text-center relative'>
             <div className='absolute top-6 left-0 w-full flex justify-center'>
               <div className='bg-purple-100 text-purple-700 px-4 py-1.5 rounded-full text-xs font-medium flex items-center gap-2'>
@@ -156,7 +257,6 @@ export const PaymentQRModal = ({
                 {bankName}
               </div>
               <div className='bg-white p-4 rounded-xl shadow-sm inline-block'>
-                {}
                 <Image
                   src={qrUrl}
                   alt='Payment QR Code'
