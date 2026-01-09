@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/table';
 import { DocumentType } from '@/const/enum';
 import { clientFetcher } from '@/lib/fetcher';
+import { downloadDocument, viewDocument } from '@/utils/Helpers';
 
 import { UploadMedicalDocumentModal } from './UploadMedicalDocumentModal';
 
@@ -267,8 +268,8 @@ export const DocumentsTab = ({
                         variant='ghost'
                         size='icon'
                         className='h-8 w-8 text-slate-500 hover:text-teal-600'
-                        onClick={() => window.open(doc.documentUrl, '_blank')}
                         title={t('view')}
+                        onClick={() => viewDocument(doc.id)}
                       >
                         <ExternalLink className='w-4 h-4' />
                       </Button>
@@ -276,28 +277,8 @@ export const DocumentsTab = ({
                         variant='ghost'
                         size='icon'
                         className='h-8 w-8 text-slate-500 hover:text-teal-600'
-                        onClick={async () => {
-                          try {
-                            const response = await fetch(doc.documentUrl);
-                            if (!response.ok) {
-                              throw new Error('Network response was not ok');
-                            }
-                            const blob = await response.blob();
-                            const url = window.URL.createObjectURL(blob);
-                            const link = document.createElement('a');
-                            link.href = url;
-                            link.download = doc.title; // Uses the title for filename
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            window.URL.revokeObjectURL(url);
-                          } catch (error) {
-                            console.error('Download failed', error);
-                            // Fallback to simple open if fetch fails
-                            window.open(doc.documentUrl, '_blank');
-                          }
-                        }}
                         title={t('download')}
+                        onClick={() => downloadDocument(doc.id)}
                       >
                         <Download className='w-4 h-4' />
                       </Button>
