@@ -754,239 +754,239 @@
     }
   },
   "Patient": {
-      "Dashboard": {
-        "loading": "データを読み込み中...",
-        "title": "ホーム",
-        "subtitle": "クイック予約、今後の診察の確認、健康管理。",
-        "searchDoctor": "医師を探す",
+    "Dashboard": {
+      "loading": "データを読み込み中...",
+      "title": "ホーム",
+      "subtitle": "クイック予約、今後の診察の確認、健康管理。",
+      "searchDoctor": "医師を探す",
+      "bookNow": "今すぐ予約",
+      "Promo": {
+        "title": "今月の総合健診キャンペーン",
+        "subtitle": "一般健康診断、心臓血管および糖尿病スクリーニングが最大20%オフ。11月30日まで適用。",
+        "news": "医療ニュース",
+        "promo": "パッケージ特典",
+        "screening": "定期検診",
+        "register": "健診を申し込む",
+        "viewMore": "ニュースをもっと見る"
+      },
+      "News": {
+        "title": "最新ニュース",
+        "new": "新規",
+        "news1": {
+          "title": "2025年度季節性インフルエンザワクチン接種スケジュール更新",
+          "subtitle": "待たずに受診できる心臓血管専門外来のご案内"
+        },
+        "viewMore": "すべてのニュースを見る"
+      },
+      "QuickActions": {
+        "title": "クイック操作",
+        "subtitle": "予約、医師検索、情報の管理。",
+        "bookingTitle": "診察予約",
+        "bookingDesc": "医師、診療科、時間帯を選択。",
+        "searchTitle": "医師を探す",
+        "searchDesc": "診療科、経験で絞り込み。",
+        "healthRecordTitle": "健康記録",
+        "healthRecordDesc": "受診履歴、処方箋の確認。"
+      },
+      "Upcoming": {
+        "title": "今後の診察予定",
+        "subtitle": "直近の予約を表示しています。",
+        "noAppointments": "今後の予約はありません",
+        "noAppointmentsDetail": "専門医の診察を受けるには、今すぐ予約してください",
         "bookNow": "今すぐ予約",
-        "Promo": {
-          "title": "今月の総合健診キャンペーン",
-          "subtitle": "一般健康診断、心臓血管および糖尿病スクリーニングが最大20%オフ。11月30日まで適用。",
-          "news": "医療ニュース",
-          "promo": "パッケージ特典",
-          "screening": "定期検診",
-          "register": "健診を申し込む",
-          "viewMore": "ニュースをもっと見る"
+        "visit": "診察",
+        "general": "総合",
+        "specialist": "専門外来",
+        "with": "氏",
+        "time": "日時",
+        "paymentCode": "支払いコード",
+        "consultationFee": "診察料",
+        "currency": "VND",
+        "viewDetail": "詳細を見る",
+        "viewAll": "すべての予約を見る",
+        "status": {
+          "pending": "承認待ち",
+          "confirmed": "確定済み",
+          "inProgress": "診察中",
+          "completed": "完了",
+          "cancelled": "キャンセル済み"
+        }
+      },
+      "HealthMetrics": {
+        "title": "健康指標",
+        "subtitle": "個人プロフィールの概要。",
+        "update": "更新",
+        "height": "身長",
+        "weight": "体重",
+        "bmi": "推定BMI",
+        "bloodType": "血液型",
+        "allergies": "アレルギー",
+        "insuranceNumber": "健康保険番号",
+        "notUpdated": "未更新",
+        "none": "記録なし",
+        "cm": "cm",
+        "kg": "kg"
+      },
+      "History": {
+        "title": "最近の受診履歴",
+        "subtitle": "最近の受診内容を確認します。",
+        "noHistory": "診療履歴はまだありません",
+        "noHistoryDetail": "診察完了後に履歴が表示されます",
+        "status": {
+          "completed": "受診済み",
+          "inProgress": "診察中"
         },
-        "News": {
-          "title": "最新ニュース",
-          "new": "新規",
-          "news1": {
-            "title": "2025年度季節性インフルエンザワクチン接種スケジュール更新",
-            "subtitle": "待たずに受診できる心臓血管専門外来のご案内"
-          },
-          "viewMore": "すべてのニュースを見る"
+        "visit": "診察",
+        "general": "総合",
+        "prescription": "処方箋",
+        "items": "項目",
+        "viewFullRecord": "すべての記録を見る"
+      },
+      "Documents": {
+        "title": "医療文書",
+        "subtitle": "処方箋、検査結果。",
+        "noDocs": "医療文書はまだありません",
+        "noDocsDetail": "診察完了後に文書が作成されます",
+        "items": "項目",
+        "manageDocs": "文書を管理する"
+      },
+      "Booking": {
+        "Steps": {
+          "selectService": "サービスを選択",
+          "selectDoctorTime": "医師と時間を選択",
+          "patientInfo": "患者情報",
+          "confirmPay": "確認と支払い"
         },
-        "QuickActions": {
-          "title": "クイック操作",
-          "subtitle": "予約、医師検索、情報の管理。",
-          "bookingTitle": "診察予約",
-          "bookingDesc": "医師、診療科、時間帯を選択。",
-          "searchTitle": "医師を探す",
-          "searchDesc": "診療科、経験で絞り込み。",
-          "healthRecordTitle": "健康記録",
-          "healthRecordDesc": "受診履歴、処方箋の確認。"
+        "Common": {
+          "back": "戻る",
+          "continue": "次へ",
+          "step": "ステップ",
+          "loading": "読み込み中...",
+          "required": "必須",
+          "change": "変更",
+          "notSelected": "未選択",
+          "years": "年",
+          "yearsExp": "経験{count}年"
         },
-        "Upcoming": {
-          "title": "今後の診察予定",
-          "subtitle": "直近の予約を表示しています。",
-          "noAppointments": "今後の予約はありません",
-          "noAppointmentsDetail": "専門医の診察を受けるには、今すぐ予約してください",
-          "bookNow": "今すぐ予約",
-          "visit": "診察",
-          "general": "総合",
-          "specialist": "専門外来",
-          "with": "氏",
-          "time": "日時",
-          "paymentCode": "支払いコード",
-          "consultationFee": "診察料",
-          "currency": "VND",
-          "viewDetail": "詳細を見る",
-          "viewAll": "すべての予約を見る",
-          "status": {
-            "pending": "承認待ち",
-            "confirmed": "確定済み",
-            "inProgress": "診察中",
-            "completed": "完了",
-            "cancelled": "キャンセル済み"
-          }
+        "EnterInfo": {
+          "consent": {
+            "title": "同意と情報の共有",
+            "subtitle": "正確な診断のために医師がより多くのデータを得られるようにします。",
+            "shareHistory": "本予約の担当医師に、私の病歴および過去の診療記録を共有することに同意します。",
+            "confirmInfo": "上記の情報が正確であることを確認し、その責任を負います。",
+            "tipTitle": "ヒント",
+            "tipContent": "情報が詳しいほど、医師の評価が容易になり、問診時間を短縮できます。"
+          },
+          "backToStep2": "戻る — ステップ 2",
+          "continueToStep4": "次へ — ステップ 4: 確認と支払い"
         },
-        "HealthMetrics": {
-          "title": "健康指標",
-          "subtitle": "個人プロフィールの概要。",
-          "update": "更新",
-          "height": "身長",
-          "weight": "体重",
-          "bmi": "推定BMI",
-          "bloodType": "血液型",
-          "allergies": "アレルギー",
-          "insuranceNumber": "健康保険番号",
-          "notUpdated": "未更新",
-          "none": "記録なし",
-          "cm": "cm",
-          "kg": "kg"
+        "PatientInfo": {
+          "title": "患者情報",
+          "subtitle": "病院がカルテを準備できるよう、受診する方を正しく選択してください。",
+          "subject": "受診対象",
+          "subjectSubtitle": "ご家族の分も予約できます",
+          "me": "本人",
+          "relative": "家族・親族",
+          "fullName": "氏名",
+          "gender": "性別",
+          "placeholderGender": "性別を選択",
+          "male": "男性",
+          "female": "女性",
+          "other": "その他",
+          "dob": "生年月日",
+          "phone": "電話番号",
+          "address": "住所"
         },
-        "History": {
-          "title": "最近の受診履歴",
-          "subtitle": "最近の受診内容を確認します。",
-          "noHistory": "診療履歴はまだありません",
-          "noHistoryDetail": "診察完了後に履歴が表示されます",
-          "status": {
-            "completed": "受診済み",
-            "inProgress": "診察中"
+        "ContactInsurance": {
+          "title": "連絡先と保険情報",
+          "subtitle": "確認コードの送信や領収書の発行に使用されます。",
+          "contactPhone": "連絡用電話番号",
+          "contactEmail": "連絡用メールアドレス",
+          "currentAddress": "現住所",
+          "addressSubtitle": "領収書発行・連絡用",
+          "placeholderAddress": "番地、通り、区町村、都道府県を入力してください...",
+          "healthInsurance": "健康保険",
+          "placeholderInsurance": "保険の種類を選択",
+          "insuranceType": {
+            "gov": "公的健康保険",
+            "private": "民間保険",
+            "none": "なし"
           },
-          "visit": "診察",
-          "general": "総合",
-          "prescription": "処方箋",
-          "items": "項目",
-          "viewFullRecord": "すべての記録を見る"
+          "insuranceCode": "保険証番号",
+          "insuranceCodeSubtitle": "健康保険を使用する場合",
+          "placeholderInsuranceCode": "保険証番号を入力してください...",
+          "emergencyContact": "緊急連絡先（任意）",
+          "placeholderEmergencyName": "連絡先氏名",
+          "emergencySubtitle": "緊急時の連絡先",
+          "placeholderEmergencyPhone": "電話番号",
+          "saveForNextTime": "この連絡先情報を次回の予約にも使用する。"
         },
-        "Documents": {
-          "title": "医療文書",
-          "subtitle": "処方箋、検査結果。",
-          "noDocs": "医療文書はまだありません",
-          "noDocsDetail": "診察完了後に文書が作成されます",
-          "items": "項目",
-          "manageDocs": "文書を管理する"
+        "SelectedSummary": {
+          "title": "選択した医師とスケジュール",
+          "subtitle": "ステップ1と2の情報。",
+          "room": "302号診察室",
+          "date": "受診日",
+          "timeSlot": "時間帯",
+          "type": "形式",
+          "directExam": "対面診療"
         },
-        "Booking": {
-          "Steps": {
-            "selectService": "サービスを選択",
-            "selectDoctorTime": "医師と時間を選択",
-            "patientInfo": "患者情報",
-            "confirmPay": "確認と支払い"
+        "SelectDoctor": {
+          "title": "症状と受診ニーズ",
+          "label": "症状を入力してください",
+          "placeholder": "例：3日前から激しい頭痛があり、めまいもします...",
+          "analyzing": "分析中...",
+          "findDoctor": "最適な医師を探す",
+          "analysisTitle": "医療分析",
+          "highestPossibility": "可能性が高い疾患",
+          "urgencyLevel": "緊急度",
+          "specialty": "診療科",
+          "fallback": "症状を入力して最適な医師の提案を受け取ります。"
+        },
+        "SelectDate": {
+          "title": "受診日を選択",
+          "availableFor": "{name} 氏の空き状況",
+          "selectTime": {
+            "title": "時間帯を選択",
+            "subtitle": "本日の空き時間",
+            "noSlots": "この日の予約枠はありません。",
+            "morning": "午前",
+            "afternoon": "午後",
+            "evening": "夜間"
           },
-          "Common": {
-            "back": "戻る",
-            "continue": "次へ",
-            "step": "ステップ",
-            "loading": "読み込み中...",
-            "required": "必須",
-            "change": "変更",
-            "notSelected": "未選択",
-            "years": "年",
-            "yearsExp": "経験{count}年"
-          },
-          "EnterInfo": {
-            "consent": {
-              "title": "同意と情報の共有",
-              "subtitle": "正確な診断のために医師がより多くのデータを得られるようにします。",
-              "shareHistory": "本予約の担当医師に、私の病歴および過去の診療記録を共有することに同意します。",
-              "confirmInfo": "上記の情報が正確であることを確認し、その責任を負います。",
-              "tipTitle": "ヒント",
-              "tipContent": "情報が詳しいほど、医師の評価が容易になり、問診時間を短縮できます。"
-            },
-            "backToStep2": "戻る — ステップ 2",
-            "continueToStep4": "次へ — ステップ 4: 確認と支払い"
-          },
-          "PatientInfo": {
-            "title": "患者情報",
-            "subtitle": "病院がカルテを準備できるよう、受診する方を正しく選択してください。",
-            "subject": "受診対象",
-            "subjectSubtitle": "ご家族の分も予約できます",
-            "me": "本人",
-            "relative": "家族・親族",
-            "fullName": "氏名",
-            "gender": "性別",
-            "placeholderGender": "性別を選択",
-            "male": "男性",
-            "female": "女性",
-            "other": "その他",
-            "dob": "生年月日",
-            "phone": "電話番号",
-            "address": "住所"
-          },
-          "ContactInsurance": {
-            "title": "連絡先と保険情報",
-            "subtitle": "確認コードの送信や領収書の発行に使用されます。",
-            "contactPhone": "連絡用電話番号",
-            "contactEmail": "連絡用メールアドレス",
-            "currentAddress": "現住所",
-            "addressSubtitle": "領収書発行・連絡用",
-            "placeholderAddress": "番地、通り、区町村、都道府県を入力してください...",
-            "healthInsurance": "健康保険",
-            "placeholderInsurance": "保険の種類を選択",
-            "insuranceType": {
-              "gov": "公的健康保険",
-              "private": "民間保険",
-              "none": "なし"
-            },
-            "insuranceCode": "保険証番号",
-            "insuranceCodeSubtitle": "健康保険を使用する場合",
-            "placeholderInsuranceCode": "保険証番号を入力してください...",
-            "emergencyContact": "緊急連絡先（任意）",
-            "placeholderEmergencyName": "連絡先氏名",
-            "emergencySubtitle": "緊急時の連絡先",
-            "placeholderEmergencyPhone": "電話番号",
-            "saveForNextTime": "この連絡先情報を次回の予約にも使用する。"
-          },
-          "SelectedSummary": {
-            "title": "選択した医師とスケジュール",
-            "subtitle": "ステップ1と2の情報。",
-            "room": "302号診察室",
+          "summary": {
+            "doctorTitle": "医師と施設",
+            "appointmentTitle": "予約概要",
+            "appointmentSubtitle": "ステップ3に進む前に再確認してください。",
+            "doctor": "医師",
+            "specialty": "診療科",
             "date": "受診日",
             "timeSlot": "時間帯",
             "type": "形式",
-            "directExam": "対面診療"
+            "inPerson": "対面診療",
+            "online": "オンライン診療"
           },
-          "SelectDoctor": {
-            "title": "症状と受診ニーズ",
-            "label": "症状を入力してください",
-            "placeholder": "例：3日前から激しい頭痛があり、めまいもします...",
-            "analyzing": "分析中...",
-            "findDoctor": "最適な医師を探す",
-            "analysisTitle": "医療分析",
-            "highestPossibility": "可能性が高い疾患",
-            "urgencyLevel": "緊急度",
-            "specialty": "診療科",
-            "fallback": "症状を入力して最適な医師の提案を受け取ります。"
-          },
-          "SelectDate": {
-            "title": "受診日を選択",
-            "availableFor": "{name} 氏の空き状況",
-            "selectTime": {
-              "title": "時間帯を選択",
-              "subtitle": "本日の空き時間",
-              "noSlots": "この日の予約枠はありません。",
-              "morning": "午前",
-              "afternoon": "午後",
-              "evening": "夜間"
-            },
-            "summary": {
-              "doctorTitle": "医師と施設",
-              "appointmentTitle": "予約概要",
-              "appointmentSubtitle": "ステップ3に進む前に再確認してください。",
-              "doctor": "医師",
-              "specialty": "診療科",
-              "date": "受診日",
-              "timeSlot": "時間帯",
-              "type": "形式",
-              "inPerson": "対面診療",
-              "online": "オンライン診療"
-            },
-            "notes": {
-              "title": "症状とメモ",
-              "subtitle": "医師が事前に準備できるようにします。",
-              "symptoms": "主な症状",
-              "symptomsPlaceholder": "例：軽い発熱、乾いた咳...",
-              "symptomsPlaceholderMain": "現在の症状を簡単に説明してください...",
-              "doctorNotes": "医師へのメモ",
-              "optional": "任意",
-              "doctorNotesPlaceholder": "既往歴、服用中の薬などの情報を追加..."
-            }
-          },
-          "Confirm": {
-            "backToStep3": "戻る — ステップ 3",
-            "confirmBtn": "確定して今すぐ支払う",
-            "success": "予約が完了しました！",
-            "processing": "処理中...",
-            "errors": {
-              "selectPayment": "支払い方法を選択してください",
-              "failed": "予約に失敗しました。もう一度お試しください。"
-            }
+          "notes": {
+            "title": "症状とメモ",
+            "subtitle": "医師が事前に準備できるようにします。",
+            "symptoms": "主な症状",
+            "symptomsPlaceholder": "例：軽い発熱、乾いた咳...",
+            "symptomsPlaceholderMain": "現在の症状を簡単に説明してください...",
+            "doctorNotes": "医師へのメモ",
+            "optional": "任意",
+            "doctorNotesPlaceholder": "既往歴、服用中の薬などの情報を追加..."
+          }
+        },
+        "Confirm": {
+          "backToStep3": "戻る — ステップ 3",
+          "confirmBtn": "確定して今すぐ支払う",
+          "success": "予約が完了しました！",
+          "processing": "処理中...",
+          "errors": {
+            "selectPayment": "支払い方法を選択してください",
+            "failed": "予約に失敗しました。もう一度お試しください。"
           }
         }
       }
     }
+  }
 }

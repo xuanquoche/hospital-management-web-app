@@ -754,243 +754,243 @@
     }
   },
   "Patient": {
-      "Dashboard": {
-        "loading": "Loading data...",
-        "title": "Home",
-        "subtitle": "Quick booking, view upcoming visits and track health.",
-        "searchDoctor": "Find Doctor",
+    "Dashboard": {
+      "loading": "Loading data...",
+      "title": "Home",
+      "subtitle": "Quick booking, view upcoming visits and track health.",
+      "searchDoctor": "Find Doctor",
+      "bookNow": "Book Now",
+      "Promo": {
+        "title": "General check-up offer this month",
+        "subtitle": "Get up to 20% off for general health, cardiology and diabetes screening. Applied until Nov 30.",
+        "news": "Medical News",
+        "promo": "Package Promo",
+        "screening": "Periodic Screening",
+        "register": "Register Now",
+        "viewMore": "View More News"
+      },
+      "News": {
+        "title": "Latest News",
+        "new": "New",
+        "news1": {
+          "title": "Update 2025 Seasonal Flu Vaccine Schedule",
+          "subtitle": "Guide to cardiology consultation without waiting"
+        },
+        "viewMore": "View All News"
+      },
+      "QuickActions": {
+        "title": "Quick Actions",
+        "subtitle": "Book, find doctors, manage info.",
+        "bookingTitle": "Book Appointment",
+        "bookingDesc": "Select doctor, specialty, time slot.",
+        "searchTitle": "Find Doctor",
+        "searchDesc": "Filter by specialty, experience.",
+        "healthRecordTitle": "Health Record",
+        "healthRecordDesc": "View visit history, prescriptions."
+      },
+      "Upcoming": {
+        "title": "Upcoming Appointment",
+        "subtitle": "Showing your nearest appointment.",
+        "noAppointments": "You have no upcoming appointments",
+        "noAppointmentsDetail": "Book an appointment now to get advice from specialists",
         "bookNow": "Book Now",
-        "Promo": {
-          "title": "General check-up offer this month",
-          "subtitle": "Get up to 20% off for general health, cardiology and diabetes screening. Applied until Nov 30.",
-          "news": "Medical News",
-          "promo": "Package Promo",
-          "screening": "Periodic Screening",
-          "register": "Register Now",
-          "viewMore": "View More News"
+        "visit": "Visit",
+        "general": "general",
+        "specialist": "specialist",
+        "with": "with",
+        "time": "Time",
+        "paymentCode": "Payment Code",
+        "consultationFee": "Consultation Fee",
+        "currency": "VND",
+        "viewDetail": "View Detail",
+        "viewAll": "View All Appointments",
+        "status": {
+          "pending": "Pending",
+          "confirmed": "Confirmed",
+          "inProgress": "In Progress",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        }
+      },
+      "HealthMetrics": {
+        "title": "Health Metrics",
+        "subtitle": "Overview of your personal profile.",
+        "update": "Update",
+        "height": "Height",
+        "weight": "Weight",
+        "bmi": "Estimated BMI",
+        "bloodType": "Blood Type",
+        "allergies": "Allergies",
+        "insuranceNumber": "Health Insurance No.",
+        "notUpdated": "Not updated",
+        "none": "None",
+        "cm": "cm",
+        "kg": "kg"
+      },
+      "History": {
+        "title": "Recent Visit History",
+        "subtitle": "Review your recent visits.",
+        "noHistory": "No medical history yet",
+        "noHistoryDetail": "Visit history will appear here after you complete a consultation",
+        "status": {
+          "completed": "Examined",
+          "inProgress": "In Progress"
         },
-        "News": {
-          "title": "Latest News",
-          "new": "New",
-          "news1": {
-            "title": "Update 2025 Seasonal Flu Vaccine Schedule",
-            "subtitle": "Guide to cardiology consultation without waiting"
-          },
-          "viewMore": "View All News"
+        "visit": "Visit",
+        "general": "General",
+        "prescription": "Prescription",
+        "items": "items",
+        "viewFullRecord": "View Full Record"
+      },
+      "Documents": {
+        "title": "Medical Documents",
+        "subtitle": "Prescriptions, exam results.",
+        "noDocs": "No medical documents yet",
+        "noDocsDetail": "Documents will be created after you complete a consultation",
+        "docType": {
+          "prescription": "E-Prescription",
+          "diagnosis": "Diagnostic Result"
         },
-        "QuickActions": {
-          "title": "Quick Actions",
-          "subtitle": "Book, find doctors, manage info.",
-          "bookingTitle": "Book Appointment",
-          "bookingDesc": "Select doctor, specialty, time slot.",
-          "searchTitle": "Find Doctor",
-          "searchDesc": "Filter by specialty, experience.",
-          "healthRecordTitle": "Health Record",
-          "healthRecordDesc": "View visit history, prescriptions."
+        "items": "items",
+        "manageDocs": "Manage Documents"
+      },
+      "Booking": {
+        "Steps": {
+          "selectService": "Select Service",
+          "selectDoctorTime": "Select Doctor & Time",
+          "patientInfo": "Patient Info",
+          "confirmPay": "Confirm & Pay"
         },
-        "Upcoming": {
-          "title": "Upcoming Appointment",
-          "subtitle": "Showing your nearest appointment.",
-          "noAppointments": "You have no upcoming appointments",
-          "noAppointmentsDetail": "Book an appointment now to get advice from specialists",
-          "bookNow": "Book Now",
-          "visit": "Visit",
-          "general": "general",
-          "specialist": "specialist",
-          "with": "with",
-          "time": "Time",
-          "paymentCode": "Payment Code",
-          "consultationFee": "Consultation Fee",
-          "currency": "VND",
-          "viewDetail": "View Detail",
-          "viewAll": "View All Appointments",
-          "status": {
-            "pending": "Pending",
-            "confirmed": "Confirmed",
-            "inProgress": "In Progress",
-            "completed": "Completed",
-            "cancelled": "Cancelled"
-          }
+        "Common": {
+          "back": "Back",
+          "continue": "Continue",
+          "step": "Step",
+          "loading": "Loading...",
+          "required": "Required",
+          "change": "Change",
+          "notSelected": "Not selected",
+          "years": "years",
+          "yearsExp": "{count} years experience"
         },
-        "HealthMetrics": {
-          "title": "Health Metrics",
-          "subtitle": "Overview of your personal profile.",
-          "update": "Update",
-          "height": "Height",
-          "weight": "Weight",
-          "bmi": "Estimated BMI",
-          "bloodType": "Blood Type",
-          "allergies": "Allergies",
-          "insuranceNumber": "Health Insurance No.",
-          "notUpdated": "Not updated",
-          "none": "None",
-          "cm": "cm",
-          "kg": "kg"
+        "EnterInfo": {
+          "consent": {
+            "title": "Consent & Share Information",
+            "subtitle": "Help doctor have more data for accurate diagnosis.",
+            "shareHistory": "I agree to share my medical history and previous exam records with the doctor in charge of this appointment.",
+            "confirmInfo": "I confirm that the information provided above is accurate and I am responsible for it.",
+            "tipTitle": "Tip",
+            "tipContent": "The more complete information you provide, the easier for the doctor to evaluate and shorten the consultation time."
+          },
+          "backToStep2": "Back — Step 2",
+          "continueToStep4": "Continue — Step 4: Confirm & Payment"
         },
-        "History": {
-          "title": "Recent Visit History",
-          "subtitle": "Review your recent visits.",
-          "noHistory": "No medical history yet",
-          "noHistoryDetail": "Visit history will appear here after you complete a consultation",
-          "status": {
-            "completed": "Examined",
-            "inProgress": "In Progress"
-          },
-          "visit": "Visit",
-          "general": "General",
-          "prescription": "Prescription",
-          "items": "items",
-          "viewFullRecord": "View Full Record"
+        "PatientInfo": {
+          "title": "Patient Information",
+          "subtitle": "Select the person who will be examined so the hospital can prepare the medical record.",
+          "subject": "Examination Subject",
+          "subjectSubtitle": "You can book for your relative",
+          "me": "Me",
+          "relative": "Relative",
+          "fullName": "Full Name",
+          "gender": "Gender",
+          "placeholderGender": "Select gender",
+          "male": "Male",
+          "female": "Female",
+          "other": "Other",
+          "dob": "Date of Birth",
+          "phone": "Phone Number",
+          "address": "Address"
         },
-        "Documents": {
-          "title": "Medical Documents",
-          "subtitle": "Prescriptions, exam results.",
-          "noDocs": "No medical documents yet",
-          "noDocsDetail": "Documents will be created after you complete a consultation",
-          "docType": {
-            "prescription": "E-Prescription",
-            "diagnosis": "Diagnostic Result"
+        "ContactInsurance": {
+          "title": "Contact & Insurance Information",
+          "subtitle": "Used for sending confirmation code and issuing invoices.",
+          "contactPhone": "Contact Phone Number",
+          "contactEmail": "Contact Email",
+          "currentAddress": "Current Address",
+          "addressSubtitle": "For invoicing / contact purposes",
+          "placeholderAddress": "Enter house number, street, ward/commune, district, city/province...",
+          "healthInsurance": "Health Insurance",
+          "placeholderInsurance": "Select insurance type",
+          "insuranceType": {
+            "gov": "Gov - State Health Insurance",
+            "private": "Private Insurance",
+            "none": "None"
           },
-          "items": "items",
-          "manageDocs": "Manage Documents"
+          "insuranceCode": "Insurance Card Number",
+          "insuranceCodeSubtitle": "If using health insurance",
+          "placeholderInsuranceCode": "Enter insurance card number...",
+          "emergencyContact": "Emergency Contact (Optional)",
+          "placeholderEmergencyName": "Contact name",
+          "emergencySubtitle": "Relative in case of emergency",
+          "placeholderEmergencyPhone": "Phone number",
+          "saveForNextTime": "Use this contact information for next bookings."
         },
-        "Booking": {
-          "Steps": {
-            "selectService": "Select Service",
-            "selectDoctorTime": "Select Doctor & Time",
-            "patientInfo": "Patient Info",
-            "confirmPay": "Confirm & Pay"
+        "SelectedSummary": {
+          "title": "Selected Doctor & Schedule",
+          "subtitle": "Information from Step 1 & 2.",
+          "room": "Clinic Room 302",
+          "date": "Exam Date",
+          "timeSlot": "Time Slot",
+          "type": "Exam Type",
+          "directExam": "Direct exam at facility"
+        },
+        "SelectDoctor": {
+          "title": "Symptoms & Needs",
+          "label": "Describe your symptoms",
+          "placeholder": "Example: I have had a severe headache for 3 days, accompanied by dizziness...",
+          "analyzing": "Analyzing...",
+          "findDoctor": "Find Suitable Doctor",
+          "analysisTitle": "Medical Analysis",
+          "highestPossibility": "Highest Possibility",
+          "urgencyLevel": "Urgency Level",
+          "specialty": "Specialty",
+          "fallback": "Enter symptoms to receive the best doctor suggestions."
+        },
+        "SelectDate": {
+          "title": "Select Exam Date",
+          "availableFor": "Available schedule of {name}",
+          "selectTime": {
+            "title": "Select Time Slot",
+            "subtitle": "Available slots in day",
+            "noSlots": "No available schedule for this day.",
+            "morning": "Morning",
+            "afternoon": "Afternoon",
+            "evening": "Evening"
           },
-          "Common": {
-            "back": "Back",
-            "continue": "Continue",
-            "step": "Step",
-            "loading": "Loading...",
-            "required": "Required",
-            "change": "Change",
-            "notSelected": "Not selected",
-            "years": "years",
-            "yearsExp": "{count} years experience"
-          },
-          "EnterInfo": {
-            "consent": {
-              "title": "Consent & Share Information",
-              "subtitle": "Help doctor have more data for accurate diagnosis.",
-              "shareHistory": "I agree to share my medical history and previous exam records with the doctor in charge of this appointment.",
-              "confirmInfo": "I confirm that the information provided above is accurate and I am responsible for it.",
-              "tipTitle": "Tip",
-              "tipContent": "The more complete information you provide, the easier for the doctor to evaluate and shorten the consultation time."
-            },
-            "backToStep2": "Back — Step 2",
-            "continueToStep4": "Continue — Step 4: Confirm & Payment"
-          },
-          "PatientInfo": {
-            "title": "Patient Information",
-            "subtitle": "Select the person who will be examined so the hospital can prepare the medical record.",
-            "subject": "Examination Subject",
-            "subjectSubtitle": "You can book for your relative",
-            "me": "Me",
-            "relative": "Relative",
-            "fullName": "Full Name",
-            "gender": "Gender",
-            "placeholderGender": "Select gender",
-            "male": "Male",
-            "female": "Female",
-            "other": "Other",
-            "dob": "Date of Birth",
-            "phone": "Phone Number",
-            "address": "Address"
-          },
-          "ContactInsurance": {
-            "title": "Contact & Insurance Information",
-            "subtitle": "Used for sending confirmation code and issuing invoices.",
-            "contactPhone": "Contact Phone Number",
-            "contactEmail": "Contact Email",
-            "currentAddress": "Current Address",
-            "addressSubtitle": "For invoicing / contact purposes",
-            "placeholderAddress": "Enter house number, street, ward/commune, district, city/province...",
-            "healthInsurance": "Health Insurance",
-            "placeholderInsurance": "Select insurance type",
-            "insuranceType": {
-              "gov": "Gov - State Health Insurance",
-              "private": "Private Insurance",
-              "none": "None"
-            },
-            "insuranceCode": "Insurance Card Number",
-            "insuranceCodeSubtitle": "If using health insurance",
-            "placeholderInsuranceCode": "Enter insurance card number...",
-            "emergencyContact": "Emergency Contact (Optional)",
-            "placeholderEmergencyName": "Contact name",
-            "emergencySubtitle": "Relative in case of emergency",
-            "placeholderEmergencyPhone": "Phone number",
-            "saveForNextTime": "Use this contact information for next bookings."
-          },
-          "SelectedSummary": {
-            "title": "Selected Doctor & Schedule",
-            "subtitle": "Information from Step 1 & 2.",
-            "room": "Clinic Room 302",
+          "summary": {
+            "doctorTitle": "Doctor & Facility",
+            "appointmentTitle": "Appointment Summary",
+            "appointmentSubtitle": "Double check before moving to Step 3.",
+            "doctor": "Doctor",
+            "specialty": "Specialty",
             "date": "Exam Date",
             "timeSlot": "Time Slot",
             "type": "Exam Type",
-            "directExam": "Direct exam at facility"
+            "inPerson": "In-person exam",
+            "online": "Online exam"
           },
-          "SelectDoctor": {
-            "title": "Symptoms & Needs",
-            "label": "Describe your symptoms",
-            "placeholder": "Example: I have had a severe headache for 3 days, accompanied by dizziness...",
-            "analyzing": "Analyzing...",
-            "findDoctor": "Find Suitable Doctor",
-            "analysisTitle": "Medical Analysis",
-            "highestPossibility": "Highest Possibility",
-            "urgencyLevel": "Urgency Level",
-            "specialty": "Specialty",
-            "fallback": "Enter symptoms to receive the best doctor suggestions."
-          },
-          "SelectDate": {
-            "title": "Select Exam Date",
-            "availableFor": "Available schedule of {name}",
-            "selectTime": {
-              "title": "Select Time Slot",
-              "subtitle": "Available slots in day",
-              "noSlots": "No available schedule for this day.",
-              "morning": "Morning",
-              "afternoon": "Afternoon",
-              "evening": "Evening"
-            },
-            "summary": {
-              "doctorTitle": "Doctor & Facility",
-              "appointmentTitle": "Appointment Summary",
-              "appointmentSubtitle": "Double check before moving to Step 3.",
-              "doctor": "Doctor",
-              "specialty": "Specialty",
-              "date": "Exam Date",
-              "timeSlot": "Time Slot",
-              "type": "Exam Type",
-              "inPerson": "In-person exam",
-              "online": "Online exam"
-            },
-            "notes": {
-              "title": "Symptoms & Notes",
-              "subtitle": "Help doctor prepare before the exam.",
-              "symptoms": "Primary Symptoms",
-              "symptomsPlaceholder": "Example: slight fever, dry cough...",
-              "symptomsPlaceholderMain": "Short description of your symptoms...",
-              "doctorNotes": "Notes for Doctor",
-              "optional": "Optional",
-              "doctorNotesPlaceholder": "Add info about medical history, medications..."
-            }
-          },
-          "Confirm": {
-            "backToStep3": "Back — Step 3",
-            "confirmBtn": "Confirm & Pay Now",
-            "success": "Booking successful!",
-            "processing": "Processing...",
-            "errors": {
-              "selectPayment": "Please select a payment method",
-              "failed": "Failed to create booking. Please try again."
-            }
+          "notes": {
+            "title": "Symptoms & Notes",
+            "subtitle": "Help doctor prepare before the exam.",
+            "symptoms": "Primary Symptoms",
+            "symptomsPlaceholder": "Example: slight fever, dry cough...",
+            "symptomsPlaceholderMain": "Short description of your symptoms...",
+            "doctorNotes": "Notes for Doctor",
+            "optional": "Optional",
+            "doctorNotesPlaceholder": "Add info about medical history, medications..."
+          }
+        },
+        "Confirm": {
+          "backToStep3": "Back — Step 3",
+          "confirmBtn": "Confirm & Pay Now",
+          "success": "Booking successful!",
+          "processing": "Processing...",
+          "errors": {
+            "selectPayment": "Please select a payment method",
+            "failed": "Failed to create booking. Please try again."
           }
         }
       }
     }
+  }
 }
