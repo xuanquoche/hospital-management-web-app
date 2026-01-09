@@ -36,6 +36,7 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
     notes,
     paymentMethod,
     selectedTime,
+    reset,
   } = useAppointmentStore();
   const [loading, setLoading] = useState(false);
   const [showQR, setShowQR] = useState(false);
@@ -93,8 +94,9 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
         setQrPaymentCode(actualData.payment?.paymentCode || newBookingId);
         setShowQR(true);
       } else {
+        reset();
         toast.success('Đặt lịch thành công!');
-        router.push(PRIVATE_ROUTES.PATIENT_DASHBOARD);
+        router.push(PRIVATE_ROUTES.PATIENT_HEALTH_RECORD);
       }
     } catch (error) {
       console.error('Booking error:', error);
@@ -106,8 +108,9 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
 
   const handlePaymentComplete = () => {
     setShowQR(false);
+    reset();
     toast.success('Đặt lịch thành công!');
-    router.push(PRIVATE_ROUTES.PATIENT_DASHBOARD);
+    router.push(PRIVATE_ROUTES.PATIENT_HEALTH_RECORD);
   };
 
   return (
