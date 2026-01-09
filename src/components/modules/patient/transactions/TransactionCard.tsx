@@ -29,15 +29,29 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
 
   const {
     paymentCode,
+    type,
+    amount,
     status,
     method,
     createdAt,
     appointment,
     dataHash,
     blockchainTxHash,
+    transactions = [],
   } = transaction;
 
   const { doctor } = appointment;
+
+  const getPaymentTypeLabel = (paymentType: string) => {
+    switch (paymentType) {
+      case 'CONSULTATION':
+        return 'Phí khám';
+      case 'MEDICINE':
+        return 'Tiền thuốc';
+      default:
+        return paymentType;
+    }
+  };
 
   const handleCopyHash = (hash: string, label: string) => {
     navigator.clipboard.writeText(hash);
@@ -89,6 +103,16 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
               <div className='flex items-center gap-2'>
                 <span className='font-bold text-slate-900'>{paymentCode}</span>
                 <StatusBadge status={status} className='text-[10px] h-5' />
+                <Badge
+                  variant='outline'
+                  className={`text-[10px] h-5 px-1.5 ${
+                    type === 'MEDICINE'
+                      ? 'border-amber-200 text-amber-600 bg-amber-50'
+                      : 'border-blue-200 text-blue-600 bg-blue-50'
+                  }`}
+                >
+                  {getPaymentTypeLabel(type)}
+                </Badge>
               </div>
               <p className='text-xs text-slate-500'>
                 {format(new Date(createdAt), 'dd MMMM, yyyy - HH:mm', {
@@ -101,11 +125,19 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
           <div className='flex items-center justify-between gap-6 sm:justify-end'>
             <div className='text-right'>
               <p className='text-lg font-bold text-slate-900'>
-                {formatCurrency(appointment.consultationFee)}
+                {formatCurrency(amount)}
               </p>
-              <p className='text-xs font-medium text-slate-500'>
-                {getPaymentMethodLabel(method)}
-              </p>
+              <div className='flex items-center gap-2 text-xs text-slate-500'>
+                <span>{getPaymentMethodLabel(method)}</span>
+                {transactions.length > 0 && (
+                  <Badge
+                    variant='outline'
+                    className='text-[10px] h-4 px-1 border-teal-200 text-teal-600'
+                  >
+                    {transactions.length} giao dịch
+                  </Badge>
+                )}
+              </div>
             </div>
             <Button
               variant='ghost'
@@ -125,6 +157,56 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
         {/* Expanded Details */}
         {isExpanded && (
           <div className='animate-in fade-in slide-in-from-top-1 duration-200 mt-5 pt-5 border-t border-slate-100'>
+            {/* Transactions Breakdown */}
+            {transactions.length > 0 && (
+              <div className='mb-6 space-y-3'>
+                <h4 className='text-xs font-semibold uppercase tracking-wider text-slate-500'>
+                  Chi tiết giao dịch ngân hàng
+                </h4>
+                <div className='space-y-2'>
+                  {transactions.map((tx, index) => (
+                    <div
+                      key={tx.id}
+                      className='flex items-center justify-between rounded-lg bg-slate-50 p-3'
+                    >
+                      <div className='flex items-center gap-3'>
+                        <div className='flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 text-teal-700 text-xs font-bold'>
+                          {index + 1}
+                        </div>
+                        <div>
+                          <p className='text-sm font-medium text-slate-900'>
+                            {tx.transactionContent || 'Chuyển khoản'}
+                          </p>
+                          <p className='text-xs text-slate-500'>
+                            {format(
+                              new Date(tx.transactionDate),
+                              'dd/MM/yyyy HH:mm',
+                              { locale: vi }
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <p className='font-bold text-teal-600'>
+                        +{formatCurrency(tx.amountIn)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Payment Summary */}
+                <div className='rounded-lg border border-slate-200 p-3'>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-sm text-slate-500'>
+                      {getPaymentTypeLabel(type)}:
+                    </span>
+                    <span className='text-lg font-bold text-teal-600'>
+                      {formatCurrency(amount)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className='grid gap-6 md:grid-cols-2'>
               {/* Doctor & Appointment Info */}
               <div className='space-y-4'>
@@ -133,18 +215,20 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
                 </h4>
                 <div className='flex items-start gap-4'>
                   <Avatar className='h-12 w-12 border border-slate-100'>
-                    <AvatarImage src={doctor.user.avatar || undefined} />
+                    <AvatarImage src={doctor?.user?.avatar ?? undefined} />
                     <AvatarFallback className='bg-teal-50 text-teal-700 font-bold'>
-                      {doctor.user.fullName.charAt(0)}
+                      {doctor?.user?.fullName?.charAt(0) ?? 'D'}
                     </AvatarFallback>
                   </Avatar>
                   <div>
                     <p className='font-semibold text-slate-900'>
-                      {doctor.professionalTitle} {doctor.user.fullName}
+                      {doctor?.professionalTitle} {doctor?.user?.fullName}
                     </p>
-                    <p className='text-sm text-slate-600'>
-                      {doctor.primarySpecialty.name}
-                    </p>
+                    {doctor?.primarySpecialty?.name && (
+                      <p className='text-sm text-slate-600'>
+                        {doctor.primarySpecialty.name}
+                      </p>
+                    )}
                     <div className='mt-2 flex items-center gap-2 text-xs text-slate-500'>
                       <span className='rounded-full bg-slate-100 px-2 py-1'>
                         {format(
@@ -153,11 +237,13 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
                           { locale: vi }
                         )}
                       </span>
-                      <span className='rounded-full bg-slate-100 px-2 py-1'>
-                        {appointment.examinationType === 'IN_PERSON'
-                          ? 'Khám tại viện'
-                          : 'Khám online'}
-                      </span>
+                      {appointment.examinationType && (
+                        <span className='rounded-full bg-slate-100 px-2 py-1'>
+                          {appointment.examinationType === 'IN_PERSON'
+                            ? 'Khám tại viện'
+                            : 'Khám online'}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
