@@ -44,6 +44,8 @@ export interface ApiAppointment {
   symptoms: string;
   notes: string;
   consultationFee: number;
+  medicineFee: number;
+  totalFee: number;
   patient: ApiAppointmentUser;
   doctor: ApiAppointmentDoctor;
   timeSlot: ApiAppointmentTimeSlot;
