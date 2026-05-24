@@ -45,7 +45,7 @@ export const StepConfirmation = ({ onBack }: StepConfirmationProps) => {
   const [qrPaymentCode, setQrPaymentCode] = useState<string>('');
 
   // Calculate total amount (local estimate)
-  const estimatedTotal = (selectedDoctor?.consultationFee || 0) + 20000;
+  const estimatedTotal = selectedDoctor?.consultationFee || 0;
 
   const handleConfirm = async () => {
     if (!paymentMethod) {

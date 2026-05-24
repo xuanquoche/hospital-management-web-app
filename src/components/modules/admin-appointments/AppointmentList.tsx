@@ -25,7 +25,7 @@ export async function AppointmentList({
   return (
     <div className='flex flex-col gap-6'>
       <AppointmentListHeader />
-      <Suspense fallback={<div>Loading filters...</div>}>
+      <Suspense fallback={<div>Loading filters</div>}>
         <AppointmentFilter />
       </Suspense>
       <AppointmentTable appointments={appointments} meta={meta} />

@@ -28,6 +28,7 @@ export interface Payment {
   blockchainTxHash: string | null;
   createdAt: string;
   updatedAt: string;
+  transactions: PaymentTransactionItem[];
   appointment: {
     id: string;
     appointmentDate: string;
