@@ -12,11 +12,10 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { clientFetcher } from '@/lib/fetcher';
-import { Payment } from '@/types/payment';
+import { AdminPaymentListResponse, Payment } from '@/types/payment';
 
 import { TransactionFilter } from './TransactionFilter';
 import { TransactionListHeader } from './TransactionListHeader';
-import { TransactionStats } from './TransactionStats';
 import { TransactionTable } from './TransactionTable';
 
 export function TransactionList() {
@@ -50,25 +49,13 @@ export function TransactionList() {
         if (filters.method) params.append('method', filters.method);
       }
 
-      const res = await clientFetcher.get<any>(
+      const res = await clientFetcher.get<AdminPaymentListResponse>(
         `/admin/payments?${params.toString()}`
       );
 
-      if (res) {
-        // Handle response structure based on user provided example
-        // { success: true, data: [...], meta: { ... } }
-        const dataList = Array.isArray(res.data) ? res.data : [];
-        const meta = res.meta || {};
-
-        setTransactions(dataList);
-
-        if (meta.totalPages) {
-          setTotalPages(meta.totalPages);
-        } else if (meta.totalItems) {
-          setTotalPages(Math.ceil(meta.totalItems / itemsPerPage));
-        } else {
-          setTotalPages(1);
-        }
+      if (res?.success) {
+        setTransactions(res.data || []);
+        setTotalPages(res.meta?.totalPages || 1);
       }
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
@@ -126,75 +113,65 @@ export function TransactionList() {
   return (
     <div className='flex flex-col gap-6'>
       <TransactionListHeader />
-      <div className='grid grid-cols-1 gap-6 lg:grid-cols-4'>
-        <div className='lg:col-span-3 space-y-6'>
-          <TransactionFilter onFilterChange={handleFilterChange} />
+      <TransactionFilter onFilterChange={handleFilterChange} />
+      <TransactionTable transactions={transactions} loading={loading} />
 
-          <TransactionTable transactions={transactions} loading={loading} />
+      {totalPages > 1 && (
+        <div className='py-4'>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href='#'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(currentPage - 1);
+                  }}
+                  aria-disabled={currentPage === 1}
+                  className={
+                    currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+                  }
+                />
+              </PaginationItem>
 
-          {totalPages > 1 && (
-            <div className='py-4'>
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
+              {getPageNumbers().map((pageNumber, index) => (
+                <PaginationItem key={index}>
+                  {pageNumber === 'ellipsis' ? (
+                    <PaginationEllipsis />
+                  ) : (
+                    <PaginationLink
                       href='#'
                       onClick={(e) => {
                         e.preventDefault();
-                        handlePageChange(currentPage - 1);
+                        handlePageChange(pageNumber as number);
                       }}
-                      aria-disabled={currentPage === 1}
-                      className={
-                        currentPage === 1
-                          ? 'pointer-events-none opacity-50'
-                          : ''
-                      }
-                    />
-                  </PaginationItem>
+                      isActive={pageNumber === currentPage}
+                    >
+                      {pageNumber}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
 
-                  {getPageNumbers().map((pageNumber, index) => (
-                    <PaginationItem key={index}>
-                      {pageNumber === 'ellipsis' ? (
-                        <PaginationEllipsis />
-                      ) : (
-                        <PaginationLink
-                          href='#'
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handlePageChange(pageNumber as number);
-                          }}
-                          isActive={pageNumber === currentPage}
-                        >
-                          {pageNumber}
-                        </PaginationLink>
-                      )}
-                    </PaginationItem>
-                  ))}
-
-                  <PaginationItem>
-                    <PaginationNext
-                      href='#'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handlePageChange(currentPage + 1);
-                      }}
-                      aria-disabled={currentPage === totalPages}
-                      className={
-                        currentPage === totalPages
-                          ? 'pointer-events-none opacity-50'
-                          : ''
-                      }
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
+              <PaginationItem>
+                <PaginationNext
+                  href='#'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(currentPage + 1);
+                  }}
+                  aria-disabled={currentPage === totalPages}
+                  className={
+                    currentPage === totalPages
+                      ? 'pointer-events-none opacity-50'
+                      : ''
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
-        <div>
-          <TransactionStats />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

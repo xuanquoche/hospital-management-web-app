@@ -215,18 +215,20 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
                 </h4>
                 <div className='flex items-start gap-4'>
                   <Avatar className='h-12 w-12 border border-slate-100'>
-                    <AvatarImage src={doctor.user.avatar || undefined} />
+                    <AvatarImage src={doctor?.user?.avatar ?? undefined} />
                     <AvatarFallback className='bg-teal-50 text-teal-700 font-bold'>
-                      {doctor.user.fullName.charAt(0)}
+                      {doctor?.user?.fullName?.charAt(0) ?? 'D'}
                     </AvatarFallback>
                   </Avatar>
                   <div>
                     <p className='font-semibold text-slate-900'>
-                      {doctor.professionalTitle} {doctor.user.fullName}
+                      {doctor?.professionalTitle} {doctor?.user?.fullName}
                     </p>
-                    <p className='text-sm text-slate-600'>
-                      {doctor.primarySpecialty.name}
-                    </p>
+                    {doctor?.primarySpecialty?.name && (
+                      <p className='text-sm text-slate-600'>
+                        {doctor.primarySpecialty.name}
+                      </p>
+                    )}
                     <div className='mt-2 flex items-center gap-2 text-xs text-slate-500'>
                       <span className='rounded-full bg-slate-100 px-2 py-1'>
                         {format(
@@ -235,11 +237,13 @@ export const TransactionCard = ({ transaction }: TransactionCardProps) => {
                           { locale: vi }
                         )}
                       </span>
-                      <span className='rounded-full bg-slate-100 px-2 py-1'>
-                        {appointment.examinationType === 'IN_PERSON'
-                          ? 'Khám tại viện'
-                          : 'Khám online'}
-                      </span>
+                      {appointment.examinationType && (
+                        <span className='rounded-full bg-slate-100 px-2 py-1'>
+                          {appointment.examinationType === 'IN_PERSON'
+                            ? 'Khám tại viện'
+                            : 'Khám online'}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

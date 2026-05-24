@@ -14,9 +14,20 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { Payment, PaymentStatus } from '@/types/payment';
+import { Payment, PaymentStatus, PaymentType } from '@/types/payment';
 
 import { PaymentDetailModal } from './PaymentDetailModal';
+
+const getPaymentTypeLabel = (type: PaymentType) => {
+  switch (type) {
+    case PaymentType.CONSULTATION:
+      return 'Phí khám';
+    case PaymentType.MEDICINE:
+      return 'Tiền thuốc';
+    default:
+      return type;
+  }
+};
 
 interface TransactionTableProps {
   transactions: Payment[];
@@ -63,6 +74,7 @@ export function TransactionTable({
           <TableHeader className='bg-emerald-50/50'>
             <TableRow>
               <TableHead>Payment Code</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead>Date & time</TableHead>
               <TableHead>Patient</TableHead>
               <TableHead>Doctor</TableHead>
@@ -78,6 +90,9 @@ export function TransactionTable({
                   <TableRow key={i}>
                     <TableCell>
                       <div className='h-4 w-24 rounded bg-slate-200 animate-pulse' />
+                    </TableCell>
+                    <TableCell>
+                      <div className='h-5 w-16 rounded-full bg-slate-200 animate-pulse' />
                     </TableCell>
                     <TableCell>
                       <div className='space-y-2'>
@@ -120,6 +135,20 @@ export function TransactionTable({
                       {transaction.paymentCode}
                     </TableCell>
                     <TableCell>
+                      <Badge
+                        variant='outline'
+                        className={cn(
+                          'text-xs font-normal',
+                          transaction.type === PaymentType.CONSULTATION &&
+                            'border-blue-200 bg-blue-50 text-blue-600',
+                          transaction.type === PaymentType.MEDICINE &&
+                            'border-amber-200 bg-amber-50 text-amber-600'
+                        )}
+                      >
+                        {getPaymentTypeLabel(transaction.type)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
                       <div className='flex flex-col'>
                         <span>
                           {format(
@@ -136,7 +165,10 @@ export function TransactionTable({
                       <div className='flex items-center gap-3'>
                         <Avatar className='size-9'>
                           <AvatarImage
-                            src={transaction.appointment.patient.user.avatar}
+                            src={
+                              transaction.appointment.patient.user.avatar ??
+                              undefined
+                            }
                             alt={transaction.appointment.patient.user.fullName}
                           />
                           <AvatarFallback>
@@ -163,7 +195,8 @@ export function TransactionTable({
                     <TableCell>
                       <span className='font-medium'>
                         {formatCurrency(
-                          transaction.appointment.consultationFee
+                          transaction.amount ||
+                            transaction.appointment.consultationFee
                         )}
                       </span>
                     </TableCell>
